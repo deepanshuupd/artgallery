@@ -1,0 +1,162 @@
+[
+  {
+    "id": "keychain-floral-resin-01",
+    "name": "Floral Resin Name Keychain",
+    "category": "Keychains",
+    "description": "A handcrafted resin keychain with pressed florals and personalized lettering for elegant everyday gifting.",
+    "story": "Created for people who love carrying a personal touch everywhere, this floral resin keychain layers preserved blooms with custom lettering to make an everyday object feel intimate and refined.",
+    "price": 349,
+    "image": "/images/products/keychains/floral-resin-name-keychain.jpg",
+    "featured": true,
+    "details": [
+      "Pressed floral resin finish",
+      "Custom name or initials available",
+      "Ideal for return gifts and personal keepsakes"
+    ],
+    "whatsappMessage": "Hi Sneha, I'm interested in the Floral Resin Name Keychain. Please share customization options."
+  },
+  {
+    "id": "keychain-couple-initials-02",
+    "name": "Couple Initials Charm Keychain",
+    "category": "Keychains",
+    "description": "A premium initials keychain set designed for couples, anniversaries, and thoughtful personal keepsakes.",
+    "story": "Designed as a sentimental pair, this keychain set brings together elegant initials, coordinated detailing, and the charm of handcrafted finishing for gifts that feel deeply personal.",
+    "price": 399,
+    "image": "/images/products/keychains/couple-initials-charm-keychain.jpg",
+    "featured": false,
+    "details": [
+      "Set of two coordinated charms",
+      "Personalized initials supported",
+      "Popular for anniversaries and couple gifting"
+    ],
+    "whatsappMessage": "Hi Sneha, I'd like to know more about the Couple Initials Charm Keychain."
+  },
+  {
+    "id": "frame-memory-collage-03",
+    "name": "Memory Collage Frame",
+    "category": "Frames",
+    "description": "A personalized photo collage frame crafted to preserve milestones, celebrations, and cherished memories.",
+    "story": "This frame is built to hold a full chapter of memories in one place, combining photographs, layout styling, and handcrafted finishing into a keepsake worthy of display.",
+    "price": 1299,
+    "image": "/images/products/customized-frames/memory-collage-frame.jpg",
+    "featured": true,
+    "details": [
+      "Custom collage layout",
+      "Designed for milestone memories",
+      "Suitable for gifting and home decor"
+    ],
+    "whatsappMessage": "Hi Sneha, I'm interested in the Memory Collage Frame. Can you share size and customization details?"
+  },
+  {
+    "id": "frame-baby-keepsake-04",
+    "name": "Baby Keepsake Name Frame",
+    "category": "Frames",
+    "description": "A soft-toned custom frame featuring name details and birth memories for newborn gifting and nursery decor.",
+    "story": "Gentle in tone and full of emotional detail, this keepsake frame is made to celebrate a baby's arrival with handcrafted presentation that families can treasure for years.",
+    "price": 1499,
+    "image": "/images/products/customized-frames/baby-keepsake-name-frame.jpg",
+    "featured": false,
+    "details": [
+      "Name and birth details can be customized",
+      "Soft nursery-friendly aesthetic",
+      "Meaningful newborn or naming ceremony gift"
+    ],
+    "whatsappMessage": "Hi Sneha, I want to order the Baby Keepsake Name Frame. Please guide me with the details needed."
+  },
+  {
+    "id": "magnet-polaroid-memory-05",
+    "name": "Polaroid Memory Magnet",
+    "category": "Fridge Magnets",
+    "description": "A handcrafted magnet inspired by polaroid styling, perfect for tiny moments that deserve a visible place at home.",
+    "story": "Made for everyday spaces that deserve a little sentiment, this magnet turns a favorite memory into a tiny display piece with handcrafted warmth and vintage charm.",
+    "price": 249,
+    "image": "/images/products/fridge-magnets/polaroid-memory-magnet.jpg",
+    "featured": true,
+    "details": [
+      "Polaroid-inspired handcrafted design",
+      "Great for personal photos and mini messages",
+      "Perfect for compact gifting"
+    ],
+    "whatsappMessage": "Hi Sneha, please share details for the Polaroid Memory Magnet."
+  },
+  {
+    "id": "magnet-festival-mini-06",
+    "name": "Festive Mini Magnet Set",
+    "category": "Fridge Magnets",
+    "description": "A themed handmade magnet set created for festive gifting, return favors, and decorative seasonal accents.",
+    "story": "Celebratory and collectible, this magnet set is styled to bring seasonal joy into homes with handcrafted textures, gifting appeal, and playful presentation.",
+    "price": 499,
+    "image": "/images/products/fridge-magnets/festive-mini-magnet-set.jpg",
+    "featured": false,
+    "details": [
+      "Festive themed handcrafted set",
+      "Suitable for return favors and bulk gifting",
+      "Decorative accent for home spaces"
+    ],
+    "whatsappMessage": "Hi Sneha, I'm interested in the Festive Mini Magnet Set. Is it available for bulk orders?"
+  },
+  {
+    "id": "gift-exploding-box-07",
+    "name": "Personalized Exploding Box",
+    "category": "Personalized Gifts",
+    "description": "A handcrafted layered gift box with custom photos, notes, and decorative details for emotional surprise gifting.",
+    "story": "Every layer of this exploding box is designed to reveal something meaningful, making it a dramatic and heartfelt format for photos, messages, and celebration memories.",
+    "price": 1899,
+    "image": "/images/products/personalized-gifts/personalized-exploding-box.jpg",
+    "featured": true,
+    "details": [
+      "Layered handmade reveal design",
+      "Supports photos, messages, and themes",
+      "Ideal for birthdays, proposals, and anniversaries"
+    ],
+    "whatsappMessage": "Hi Sneha, I would like more details on the Personalized Exploding Box."
+  },
+  {
+    "id": "gift-name-plaque-08",
+    "name": "Custom Name Display Plaque",
+    "category": "Personalized Gifts",
+    "description": "A bespoke tabletop name plaque with luxe handcrafted finishing for birthdays, desks, and home corners.",
+    "story": "Minimal yet expressive, this custom plaque is made for desks, gifting tables, and personal corners that deserve something handcrafted, elegant, and unmistakably personal.",
+    "price": 899,
+    "image": "/images/products/personalized-gifts/custom-name-display-plaque.jpg",
+    "featured": false,
+    "details": [
+      "Custom name-based tabletop display",
+      "Elegant handcrafted finish",
+      "Great for workspaces and room decor"
+    ],
+    "whatsappMessage": "Hi Sneha, please tell me more about the Custom Name Display Plaque."
+  },
+  {
+    "id": "hamper-birthday-blush-09",
+    "name": "Birthday Blush Curated Hamper",
+    "category": "Curated Hampers",
+    "description": "A premium birthday hamper styled with feminine tones, keepsakes, treats, and personalized finishing touches.",
+    "story": "This hamper is curated to feel festive, indulgent, and personal, layering keepsakes, sweet details, and a refined visual palette into one polished gifting experience.",
+    "price": 2499,
+    "image": "/images/hampers/birthday-blush-curated-hamper.jpg",
+    "featured": true,
+    "details": [
+      "Premium curated hamper styling",
+      "Can include personalized keepsakes",
+      "Perfect for elevated birthday gifting"
+    ],
+    "whatsappMessage": "Hi Sneha, I'm interested in the Birthday Blush Curated Hamper. Please share what's included."
+  },
+  {
+    "id": "hamper-corporate-signature-10",
+    "name": "Corporate Signature Hamper",
+    "category": "Curated Hampers",
+    "description": "An elevated gifting hamper curated for clients, team appreciation, and premium professional occasions.",
+    "story": "Created for polished professional gifting, this hamper balances premium presentation with thoughtful curation to leave a lasting impression on clients, teams, and collaborators.",
+    "price": 3299,
+    "image": "/images/hampers/corporate-signature-hamper.jpg",
+    "featured": false,
+    "details": [
+      "Designed for premium corporate gifting",
+      "Bulk customization options available",
+      "Suitable for clients, teams, and events"
+    ],
+    "whatsappMessage": "Hi Sneha, I want details for the Corporate Signature Hamper, including bulk customization options."
+  }
+]
