@@ -1,7 +1,12 @@
 import Link from "next/link";
+import { requireAdminUser } from "@/lib/admin";
 import { ProductForm } from "../../_components/product-form";
 
-export default function NewProductPage() {
+export const dynamic = "force-dynamic";
+
+export default async function NewProductPage() {
+  await requireAdminUser();
+
   return (
     <div>
       <div className="mb-6">

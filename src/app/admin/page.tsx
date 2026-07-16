@@ -1,10 +1,12 @@
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { requireAdminUser } from "@/lib/admin";
 
 export const dynamic = "force-dynamic";
 
 async function getStats() {
   try {
+    await requireAdminUser();
+    const { createClient } = await import("@/lib/supabase/server");
     const supabase = await createClient();
     const [{ count: total }, { count: featured }, { count: unavailable }] =
       await Promise.all([
@@ -27,6 +29,7 @@ async function getStats() {
 }
 
 export default async function AdminDashboard() {
+  await requireAdminUser();
   const stats = await getStats();
 
   return (

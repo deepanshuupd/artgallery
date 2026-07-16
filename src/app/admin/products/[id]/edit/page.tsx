@@ -1,17 +1,21 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+import { requireAdminUser } from "@/lib/admin";
 import { ProductForm } from "../../../_components/product-form";
 
 type EditProductPageProps = {
   params: Promise<{ id: string }>;
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function EditProductPage({
   params,
 }: EditProductPageProps) {
+  await requireAdminUser();
   const { id } = await params;
 
+  const { createClient } = await import("@/lib/supabase/server");
   const supabase = await createClient();
   const { data: product } = await supabase
     .from("products")

@@ -1,13 +1,15 @@
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { requireAdminUser } from "@/lib/admin";
 import { DeleteProductButton } from "./_components/delete-product-button";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminProductsPage() {
+  await requireAdminUser();
   let products: Array<Record<string, unknown>> = [];
 
   try {
+    const { createClient } = await import("@/lib/supabase/server");
     const supabase = await createClient();
     const { data } = await supabase
       .from("products")
