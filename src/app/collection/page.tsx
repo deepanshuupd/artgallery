@@ -1,10 +1,11 @@
-import productsData from "@/data/products/products.json";
 import { CollectionShowcase } from "@/components/products/collection-showcase";
-import type { Product } from "@/types/product";
+import { getProducts } from "@/lib/products";
 
-const products = productsData as Product[];
+export const dynamic = "force-dynamic";
 
-export default function CollectionPage() {
+export default async function CollectionPage() {
+  const products = await getProducts();
+
   return (
     <main className="relative overflow-hidden px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
       <div className="absolute inset-0 -z-10">

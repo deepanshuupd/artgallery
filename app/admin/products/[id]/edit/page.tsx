@@ -1,0 +1,1 @@
+export { default } from "@/app/admin/products/[id]/edit/page";
