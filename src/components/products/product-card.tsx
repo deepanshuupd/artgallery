@@ -6,6 +6,7 @@ import { useState } from "react";
 import { motion } from "motion/react";
 
 import type { Product } from "@/types/product";
+import { createWhatsAppLink } from "@/lib/whatsapp";
 
 type ProductCardProps = {
   product: Product;
@@ -16,10 +17,6 @@ const priceFormatter = new Intl.NumberFormat("en-IN", {
   currency: "INR",
   maximumFractionDigits: 0,
 });
-
-function buildWhatsAppLink(message: string) {
-  return `https://wa.me/?text=${encodeURIComponent(message)}`;
-}
 
 export function ProductCard({ product }: ProductCardProps) {
   const [imageError, setImageError] = useState(false);
@@ -107,7 +104,7 @@ export function ProductCard({ product }: ProductCardProps) {
             </Link>
             <Link
               className="inline-flex min-h-12 items-center justify-center rounded-full bg-stone-900 px-6 py-3 text-sm font-medium uppercase tracking-[0.18em] text-stone-50 shadow-[0_16px_40px_rgba(51,40,33,0.18)] transition-transform duration-300 hover:-translate-y-0.5 hover:bg-stone-800"
-              href={buildWhatsAppLink(product.whatsappMessage)}
+              href={createWhatsAppLink(product.whatsappMessage)}
               rel="noreferrer"
               target="_blank"
             >

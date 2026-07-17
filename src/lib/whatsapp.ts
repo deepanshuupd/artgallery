@@ -5,6 +5,17 @@
 
 import type { Product, ProductCategory } from "@/types/product";
 
+const DEFAULT_BUSINESS_NAME = "Sneha";
+
+function getWhatsAppBusinessNumber() {
+  const number = process.env.NEXT_PUBLIC_WHATSAPP_BUSINESS_NUMBER?.replace(/\D/g, "");
+  return number || "";
+}
+
+function getWhatsAppBusinessName() {
+  return process.env.NEXT_PUBLIC_WHATSAPP_BUSINESS_NAME?.trim() || DEFAULT_BUSINESS_NAME;
+}
+
 export interface OrderDetails {
   productName: string;
   category: ProductCategory;
@@ -19,8 +30,9 @@ export interface OrderDetails {
  * @returns Formatted WhatsApp message string
  */
 export function generateOrderMessage(details: OrderDetails): string {
+  const businessName = getWhatsAppBusinessName();
   const lines: string[] = [
-    "Hi Sneha! 👋",
+    `Hi ${businessName}! 👋`,
     "",
     "I'm interested in placing an order:",
     "",
@@ -59,7 +71,13 @@ export function generateOrderMessage(details: OrderDetails): string {
  * @returns WhatsApp link URL
  */
 export function createWhatsAppLink(message: string): string {
-  return `https://wa.me/?text=${encodeURIComponent(message)}`;
+  const businessNumber = getWhatsAppBusinessNumber();
+
+  if (!businessNumber) {
+    return `https://wa.me/?text=${encodeURIComponent(message)}`;
+  }
+
+  return `https://api.whatsapp.com/send?phone=${businessNumber}&text=${encodeURIComponent(message)}`;
 }
 
 /**
@@ -108,7 +126,7 @@ export function openWhatsAppOrder(
  * @returns WhatsApp link URL
  */
 export function generateWhatsAppInquiryLink(product: Product): string {
-  const message = `Hi Sneha! 👋\n\nI'm interested in learning more about the ${product.name} (${product.category}).\n\nPlease share:\n• Detailed product information\n• Customization options available\n• Pricing and delivery timeline\n\nThank you!`;
+  const message = `Hi ${getWhatsAppBusinessName()}! 👋\n\nI'm interested in learning more about the ${product.name} (${product.category}).\n\nPlease share:\n• Detailed product information\n• Customization options available\n• Pricing and delivery timeline\n\nThank you!`;
 
   return createWhatsAppLink(message);
 }
@@ -134,7 +152,7 @@ export interface BulkOrderItem extends OrderDetails {
 }
 
 export function generateBulkOrderMessage(items: BulkOrderItem[]): string {
-  let message = "Hi Sneha! 👋\n\nI'd like to place a bulk order:\n\n";
+  let message = `Hi ${getWhatsAppBusinessName()}! 👋\n\nI'd like to place a bulk order:\n\n`;
 
   let totalPrice = 0;
   items.forEach((item, index) => {
