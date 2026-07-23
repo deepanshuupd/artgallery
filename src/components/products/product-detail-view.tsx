@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "motion/react";
 
 import type { Product } from "@/types/product";
@@ -22,7 +22,23 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
   const [imageError, setImageError] = useState(false);
   const images = product.images.length > 0 ? product.images : [product.image];
   const [activeImageIndex, setActiveImageIndex] = useState(0);
-  const [imageSrc, setImageSrc] = useState(images[0] ?? product.image);
+  const [failedImageSrc, setFailedImageSrc] = useState<string | null>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  const activeImage = images[activeImageIndex] ?? images[0] ?? product.image;
+
+  function scrollToImage(index: number) {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+
+    const slide = carousel.children.item(index) as HTMLElement | null;
+    if (!slide) return;
+
+    carousel.scrollTo({
+      left: slide.offsetLeft,
+      behavior: "smooth",
+    });
+  }
 
   return (
     <main className="relative overflow-hidden px-4 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
@@ -66,68 +82,84 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
             transition={{ duration: 0.55, ease: "easeOut" }}
           >
             <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[var(--color-champagne)] to-transparent" />
-            <div className="relative h-[26rem] w-full bg-[linear-gradient(160deg,rgba(201,164,106,0.18),rgba(255,253,252,0.96),rgba(185,131,116,0.15))] sm:h-[34rem] lg:h-[42rem]">
-              {imageError ? (
-                <div className="flex h-full w-full flex-col justify-end p-8 sm:p-10">
-                  <p className="text-[0.72rem] uppercase tracking-[0.36em] text-stone-500">
-                    Art Gallery by Sneha
-                  </p>
-                  <p className="mt-4 max-w-lg font-serif text-4xl leading-tight text-stone-900 sm:text-5xl">
-                    {product.name}
-                  </p>
-                </div>
-              ) : (
-                <Image
-                  alt={product.name}
-                  className="object-cover"
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 58vw"
-                  src={imageSrc}
-                  onError={() => {
-                    if (imageSrc !== "/images/placeholders/product-placeholder.svg") {
-                      setImageSrc("/images/placeholders/product-placeholder.svg");
-                      return;
-                    }
-
-                    setImageError(true);
-                  }}
-                />
-              )}
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(51,40,33,0.02),rgba(51,40,33,0.18))]" />
-            </div>
-
-            {images.length > 1 && (
-              <div className="grid gap-3 border-t border-white/70 bg-white/60 p-4 sm:grid-cols-2 lg:grid-cols-5">
+            <div className="relative">
+              <div
+                ref={carouselRef}
+                className="no-scrollbar flex snap-x snap-mandatory overflow-x-auto scroll-smooth"
+                onScroll={(event) => {
+                  const container = event.currentTarget;
+                  const nextIndex = Math.round(container.scrollLeft / container.clientWidth);
+                  if (nextIndex !== activeImageIndex) {
+                    setActiveImageIndex(nextIndex);
+                    setImageError(false);
+                  }
+                }}
+              >
                 {images.map((image, index) => (
-                  <button
+                  <div
                     key={image}
-                    type="button"
-                    onClick={() => {
-                      setActiveImageIndex(index);
-                      setImageSrc(image);
-                      setImageError(false);
-                    }}
-                    className={[
-                      "relative overflow-hidden rounded-xl border transition",
-                      activeImageIndex === index
-                        ? "border-stone-900 ring-2 ring-stone-900/15"
-                        : "border-stone-200 hover:border-stone-400",
-                    ].join(" ")}
+                    className="relative h-[24rem] min-w-full snap-center bg-[linear-gradient(160deg,rgba(201,164,106,0.18),rgba(255,253,252,0.96),rgba(185,131,116,0.15))] sm:h-[34rem] lg:h-[42rem]"
                   >
-                    <div className="relative aspect-square w-full">
+                      {index === activeImageIndex && (imageError || failedImageSrc === activeImage) ? (
+                      <div className="flex h-full w-full flex-col justify-end p-8 sm:p-10">
+                        <p className="text-[0.72rem] uppercase tracking-[0.36em] text-stone-500">
+                          Art Gallery by Sneha
+                        </p>
+                        <p className="mt-4 max-w-lg font-serif text-4xl leading-tight text-stone-900 sm:text-5xl">
+                          {product.name}
+                        </p>
+                      </div>
+                    ) : (
                       <Image
                         alt={`${product.name} ${index + 1}`}
                         className="object-cover"
                         fill
-                        sizes="(max-width: 1024px) 25vw, 12vw"
-                        src={image}
+                        priority={index === 0}
+                        sizes="(max-width: 1024px) 100vw, 58vw"
+                          src={image}
+                        onError={() => {
+                          if (index === activeImageIndex) {
+                              setFailedImageSrc(image);
+                            setImageError(true);
+                          }
+                        }}
                       />
-                    </div>
-                  </button>
+                    )}
+                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(51,40,33,0.02),rgba(51,40,33,0.18))]" />
+                  </div>
                 ))}
               </div>
-            )}
+
+              {images.length > 1 && (
+                <>
+                  <div className="pointer-events-none absolute bottom-4 left-1/2 z-10 -translate-x-1/2 rounded-full bg-white/75 px-3 py-1.5 text-[0.68rem] uppercase tracking-[0.24em] text-stone-700 backdrop-blur">
+                    Swipe to view more
+                  </div>
+
+                  <div className="absolute bottom-4 right-4 z-10 flex gap-2">
+                    {images.map((image, index) => (
+                      <button
+                        key={`${image}-${index}`}
+                        type="button"
+                        onClick={() => {
+                          setActiveImageIndex(index);
+                          setFailedImageSrc(null);
+                          setImageError(false);
+                          scrollToImage(index);
+                        }}
+                        className={[
+                          "h-2.5 rounded-full transition-all",
+                          activeImageIndex === index
+                            ? "w-8 bg-stone-900"
+                            : "w-2.5 bg-white/90",
+                        ].join(" ")}
+                        aria-label={`View image ${index + 1}`}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
           </motion.div>
 
           <motion.div
