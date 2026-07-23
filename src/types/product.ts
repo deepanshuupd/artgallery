@@ -13,6 +13,7 @@ export interface Product {
   story: string;
   price: number;
   image: string;
+  images: string[];
   featured: boolean;
   details: string[];
   whatsappMessage: string;

@@ -6,6 +6,12 @@ const supabaseConfigured =
 
 // Map a Supabase DB row to the Product interface used by components
 function mapRow(row: Record<string, unknown>): Product {
+  const imageUrls = Array.isArray(row.image_urls)
+    ? (row.image_urls as string[])
+    : row.image_url
+      ? [row.image_url as string]
+      : [];
+
   return {
     id: row.id as string,
     name: row.name as string,
@@ -13,7 +19,8 @@ function mapRow(row: Record<string, unknown>): Product {
     description: row.description as string,
     story: (row.story as string) ?? "",
     price: row.price as number,
-    image: (row.image_url as string) ?? "",
+    image: imageUrls[0] ?? (row.image_url as string) ?? "",
+    images: imageUrls,
     featured: (row.is_featured as boolean) ?? false,
     details: (row.details as string[]) ?? [],
     whatsappMessage: (row.whatsapp_message as string) ?? "",

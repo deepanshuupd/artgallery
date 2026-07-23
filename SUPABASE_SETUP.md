@@ -16,6 +16,7 @@ create table public.products (
   story text,
   whatsapp_message text,
   image_url text,
+  image_urls text[] default '{}',
   is_featured boolean default false,
   is_available boolean default true,
   details text[] default '{}',
@@ -78,6 +79,15 @@ Paste them into `.env.local`
 You can either:
 - Add products manually via the admin panel at /admin/products
 - Or use Supabase Table Editor to copy in the existing products.json data
+
+## 7. Update existing products for galleries
+
+If you already have the table created, add the new column instead of recreating the table:
+
+```sql
+alter table public.products
+add column if not exists image_urls text[] default '{}';
+```
 
 
 

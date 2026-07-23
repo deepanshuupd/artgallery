@@ -20,7 +20,9 @@ const priceFormatter = new Intl.NumberFormat("en-IN", {
 
 export function ProductDetailView({ product }: ProductDetailViewProps) {
   const [imageError, setImageError] = useState(false);
-  const [imageSrc, setImageSrc] = useState(product.image);
+  const images = product.images.length > 0 ? product.images : [product.image];
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [imageSrc, setImageSrc] = useState(images[0] ?? product.image);
 
   return (
     <main className="relative overflow-hidden px-4 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
@@ -94,6 +96,38 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
               )}
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(51,40,33,0.02),rgba(51,40,33,0.18))]" />
             </div>
+
+            {images.length > 1 && (
+              <div className="grid gap-3 border-t border-white/70 bg-white/60 p-4 sm:grid-cols-2 lg:grid-cols-5">
+                {images.map((image, index) => (
+                  <button
+                    key={image}
+                    type="button"
+                    onClick={() => {
+                      setActiveImageIndex(index);
+                      setImageSrc(image);
+                      setImageError(false);
+                    }}
+                    className={[
+                      "relative overflow-hidden rounded-xl border transition",
+                      activeImageIndex === index
+                        ? "border-stone-900 ring-2 ring-stone-900/15"
+                        : "border-stone-200 hover:border-stone-400",
+                    ].join(" ")}
+                  >
+                    <div className="relative aspect-square w-full">
+                      <Image
+                        alt={`${product.name} ${index + 1}`}
+                        className="object-cover"
+                        fill
+                        sizes="(max-width: 1024px) 25vw, 12vw"
+                        src={image}
+                      />
+                    </div>
+                  </button>
+                ))}
+              </div>
+            )}
           </motion.div>
 
           <motion.div

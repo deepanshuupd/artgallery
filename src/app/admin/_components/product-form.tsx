@@ -13,6 +13,8 @@ const CATEGORIES: ProductCategory[] = [
   "Curated Hampers",
 ];
 
+const MAX_IMAGES = 5;
+
 interface FormValues {
   name: string;
   category: ProductCategory;
@@ -23,6 +25,7 @@ interface FormValues {
   is_featured: boolean;
   is_available: boolean;
   image_url: string;
+  image_urls: string[];
   details: string[];
 }
 
@@ -36,6 +39,9 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
   const router = useRouter();
   const fileRef = useRef<HTMLInputElement>(null);
 
+  const initialImages =
+    initial?.image_urls ?? (initial?.image_url ? [initial.image_url] : []);
+
   const [values, setValues] = useState<FormValues>({
     name: initial?.name ?? "",
     category: initial?.category ?? "Keychains",
@@ -45,17 +51,23 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
     whatsapp_message: initial?.whatsapp_message ?? "",
     is_featured: initial?.is_featured ?? false,
     is_available: initial?.is_available ?? true,
-    image_url: initial?.image_url ?? "",
+    image_url: initialImages[0] ?? "",
+    image_urls: initialImages,
     details: initial?.details ?? [""],
   });
 
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
-  const [imagePreview, setImagePreview] = useState(initial?.image_url ?? "");
 
   function set<K extends keyof FormValues>(key: K, value: FormValues[K]) {
     setValues((prev) => ({ ...prev, [key]: value }));
+  }
+
+  function syncImages(images: string[]) {
+    const nextImages = images.slice(0, MAX_IMAGES);
+    set("image_urls", nextImages);
+    set("image_url", nextImages[0] ?? "");
   }
 
   function setDetail(index: number, value: string) {
@@ -71,38 +83,56 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
   function removeDetail(index: number) {
     set(
       "details",
-      values.details.filter((_, i) => i !== index),
+      values.details.filter((_, currentIndex) => currentIndex !== index),
     );
   }
 
+  function removeImage(index: number) {
+    syncImages(values.image_urls.filter((_, currentIndex) => currentIndex !== index));
+  }
+
   async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
+    const files = Array.from(e.target.files ?? []);
+    if (files.length === 0) return;
 
     setUploading(true);
     setError("");
 
     const supabase = createClient();
-    const ext = file.name.split(".").pop();
-    const filename = `${Date.now()}.${ext}`;
+    const remainingSlots = MAX_IMAGES - values.image_urls.length;
+    const filesToUpload = files.slice(0, Math.max(remainingSlots, 0));
 
-    const { error: uploadError } = await supabase.storage
-      .from("product-images")
-      .upload(filename, file, { upsert: true });
-
-    if (uploadError) {
-      setError("Image upload failed: " + uploadError.message);
+    if (filesToUpload.length === 0) {
+      setError(`You can upload up to ${MAX_IMAGES} images.`);
       setUploading(false);
+      if (fileRef.current) fileRef.current.value = "";
       return;
     }
 
-    const { data } = supabase.storage
-      .from("product-images")
-      .getPublicUrl(filename);
+    const uploadedUrls: string[] = [];
 
-    set("image_url", data.publicUrl);
-    setImagePreview(data.publicUrl);
+    for (const file of filesToUpload) {
+      const ext = file.name.split(".").pop();
+      const filename = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from("product-images")
+        .upload(filename, file, { upsert: true });
+
+      if (uploadError) {
+        setError("Image upload failed: " + uploadError.message);
+        setUploading(false);
+        if (fileRef.current) fileRef.current.value = "";
+        return;
+      }
+
+      const { data } = supabase.storage.from("product-images").getPublicUrl(filename);
+      uploadedUrls.push(data.publicUrl);
+    }
+
+    syncImages([...values.image_urls, ...uploadedUrls]);
     setUploading(false);
+    if (fileRef.current) fileRef.current.value = "";
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -120,6 +150,7 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
       is_featured: values.is_featured,
       is_available: values.is_available,
       image_url: values.image_url,
+      image_urls: values.image_urls,
       details: values.details.filter(Boolean),
     };
 
@@ -156,45 +187,72 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
         </div>
       )}
 
-      {/* Image */}
       <div>
         <label className="mb-1 block text-sm font-medium text-stone-700">
-          Product Image
+          Product Images
         </label>
-        <div className="flex items-start gap-4">
-          {imagePreview && (
-            <img
-              src={imagePreview}
-              alt="preview"
-              className="h-24 w-24 rounded-md object-cover"
-            />
-          )}
-          <div className="flex-1">
-            <input
-              ref={fileRef}
-              type="file"
-              accept="image/*"
-              onChange={handleImageUpload}
-              className="hidden"
-            />
+        <div className="space-y-4">
+          <input
+            ref={fileRef}
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={handleImageUpload}
+            className="hidden"
+          />
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
             <button
               type="button"
               onClick={() => fileRef.current?.click()}
-              disabled={uploading}
+              disabled={uploading || values.image_urls.length >= MAX_IMAGES}
               className="rounded-md border border-stone-300 bg-white px-4 py-2 text-sm text-stone-700 hover:bg-stone-50 disabled:opacity-50"
             >
-              {uploading ? "Uploading…" : "Choose Image"}
+              {uploading
+                ? "Uploading…"
+                : `Choose Images (${values.image_urls.length}/${MAX_IMAGES})`}
             </button>
-            {values.image_url && (
-              <p className="mt-1 truncate text-xs text-stone-400">
-                {values.image_url}
-              </p>
-            )}
+            <p className="text-xs text-stone-500">
+              Upload up to {MAX_IMAGES} photos for one product.
+            </p>
           </div>
+
+          {values.image_urls.length > 0 && (
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+              {values.image_urls.map((url, index) => (
+                <div
+                  key={url}
+                  className="relative overflow-hidden rounded-md border border-stone-200 bg-stone-50"
+                >
+                  <img
+                    src={url}
+                    alt={`Product ${index + 1}`}
+                    className="h-24 w-full object-cover"
+                  />
+                  {index === 0 && (
+                    <span className="absolute left-2 top-2 rounded-full bg-stone-900 px-2 py-0.5 text-[10px] uppercase tracking-[0.18em] text-white">
+                      Main
+                    </span>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => removeImage(index)}
+                    className="absolute right-2 top-2 rounded-full bg-white/90 px-2 py-1 text-[10px] font-medium text-stone-700 shadow"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {values.image_url && (
+            <p className="truncate text-xs text-stone-400">
+              Primary image: {values.image_url}
+            </p>
+          )}
         </div>
       </div>
 
-      {/* Name + Category */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
           <label className="mb-1 block text-sm font-medium text-stone-700">
@@ -225,7 +283,6 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
         </div>
       </div>
 
-      {/* Price */}
       <div className="max-w-xs">
         <label className="mb-1 block text-sm font-medium text-stone-700">
           Price (₹) *
@@ -241,7 +298,6 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
         />
       </div>
 
-      {/* Description */}
       <div>
         <label className="mb-1 block text-sm font-medium text-stone-700">
           Description *
@@ -255,7 +311,6 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
         />
       </div>
 
-      {/* Story */}
       <div>
         <label className="mb-1 block text-sm font-medium text-stone-700">
           Product Story
@@ -268,7 +323,6 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
         />
       </div>
 
-      {/* WhatsApp message */}
       <div>
         <label className="mb-1 block text-sm font-medium text-stone-700">
           WhatsApp Order Message
@@ -282,7 +336,6 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
         />
       </div>
 
-      {/* Details bullets */}
       <div>
         <label className="mb-1 block text-sm font-medium text-stone-700">
           Product Details (bullet points)
@@ -317,7 +370,6 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
         </div>
       </div>
 
-      {/* Flags */}
       <div className="flex gap-6">
         <label className="flex cursor-pointer items-center gap-2 text-sm text-stone-700">
           <input
@@ -339,7 +391,6 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
         </label>
       </div>
 
-      {/* Submit */}
       <div className="flex gap-3 pt-2">
         <button
           type="submit"
