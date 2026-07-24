@@ -132,6 +132,45 @@ export function generateWhatsAppInquiryLink(product: Product): string {
 }
 
 /**
+ * Creates a WhatsApp link for a general inquiry (no specific product)
+ * Used by the contact page so it shares the same business number/config
+ * @returns WhatsApp link URL
+ */
+export function generateGeneralInquiryLink(): string {
+  const message = `Hi ${getWhatsAppBusinessName()}! 👋\n\nI'd love to know more about your handmade gifts and curated hampers.\n\nThank you!`;
+
+  return createWhatsAppLink(message);
+}
+
+/**
+ * Details captured by the website contact form
+ */
+export interface ContactFormDetails {
+  name: string;
+  email: string;
+  message: string;
+}
+
+/**
+ * Creates a WhatsApp link carrying a website contact-form submission
+ * @param details - Name, email, and message from the contact form
+ * @returns WhatsApp link URL
+ */
+export function generateContactFormLink(details: ContactFormDetails): string {
+  const lines = [
+    `Hi ${getWhatsAppBusinessName()}! 👋`,
+    "",
+    `I'm ${details.name}, reaching out through your website:`,
+    "",
+    details.message,
+    "",
+    `You can also reach me by email at ${details.email}.`,
+  ];
+
+  return createWhatsAppLink(lines.join("\n"));
+}
+
+/**
  * Validates WhatsApp message length (WhatsApp has character limits)
  * @param message - Message to validate
  * @returns Boolean indicating if message is within acceptable length

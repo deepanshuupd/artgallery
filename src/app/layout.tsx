@@ -28,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html data-scroll-behavior="smooth" lang="en">
       <body
         className={`${cormorantGaramond.variable} ${manrope.variable} min-h-screen bg-[var(--color-ivory)] text-[var(--color-espresso)] antialiased`}
       >
