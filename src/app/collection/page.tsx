@@ -3,8 +3,17 @@ import { getProducts } from "@/lib/products";
 
 export const dynamic = "force-dynamic";
 
-export default async function CollectionPage() {
-  const products = await getProducts();
+type CollectionPageProps = {
+  searchParams: Promise<{ category?: string }>;
+};
+
+export default async function CollectionPage({
+  searchParams,
+}: CollectionPageProps) {
+  const [products, { category }] = await Promise.all([
+    getProducts(),
+    searchParams,
+  ]);
 
   return (
     <main className="relative overflow-hidden px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
@@ -29,7 +38,7 @@ export default async function CollectionPage() {
           </p>
         </section>
 
-        <CollectionShowcase products={products} />
+        <CollectionShowcase initialCategory={category} products={products} />
       </div>
     </main>
   );

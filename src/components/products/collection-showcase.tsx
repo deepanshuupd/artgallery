@@ -8,6 +8,7 @@ import type { Product, ProductCategory } from "@/types/product";
 
 type CollectionShowcaseProps = {
   products: Product[];
+  initialCategory?: string;
 };
 
 const filters: Array<{ label: string; value: ProductCategory | "All" }> = [
@@ -19,8 +20,19 @@ const filters: Array<{ label: string; value: ProductCategory | "All" }> = [
   { label: "Curated Hampers", value: "Curated Hampers" },
 ];
 
-export function CollectionShowcase({ products }: CollectionShowcaseProps) {
-  const [activeFilter, setActiveFilter] = useState<ProductCategory | "All">("All");
+function resolveInitialFilter(initialCategory?: string): ProductCategory | "All" {
+  return (
+    filters.find((filter) => filter.value === initialCategory)?.value ?? "All"
+  );
+}
+
+export function CollectionShowcase({
+  products,
+  initialCategory,
+}: CollectionShowcaseProps) {
+  const [activeFilter, setActiveFilter] = useState<ProductCategory | "All">(() =>
+    resolveInitialFilter(initialCategory)
+  );
   const [searchQuery, setSearchQuery] = useState("");
   const deferredSearchQuery = useDeferredValue(searchQuery);
   const normalizedQuery = deferredSearchQuery.trim().toLowerCase();

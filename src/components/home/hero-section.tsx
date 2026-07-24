@@ -1,6 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { motion } from "motion/react";
 
 const fadeInUp = {
@@ -8,7 +10,116 @@ const fadeInUp = {
   animate: { opacity: 1, y: 0 },
 };
 
-export function HeroSection() {
+export type HeroHighlight = {
+  eyebrow: string;
+  title: string;
+  description?: string;
+  href: string;
+  image?: string;
+  fallbackGradient: string;
+};
+
+type HeroSectionProps = {
+  highlights: HeroHighlight[];
+};
+
+function ArrowIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      className="h-3.5 w-3.5"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.8"
+      viewBox="0 0 24 24"
+    >
+      <path d="M5 12h14" />
+      <path d="M13 5l7 7-7 7" />
+    </svg>
+  );
+}
+
+function HighlightCard({
+  className = "",
+  tile,
+}: {
+  className?: string;
+  tile: HeroHighlight;
+}) {
+  const [imageFailed, setImageFailed] = useState(false);
+  const hasImage = Boolean(tile.image) && !imageFailed;
+
+  return (
+    <motion.div
+      className={`h-full ${className}`}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+      whileHover={{ y: -6 }}
+    >
+      <Link
+        className={`group relative flex h-full min-h-[11rem] flex-col justify-end overflow-hidden rounded-[1.5rem] p-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900/40 ${tile.fallbackGradient}`}
+        href={tile.href}
+      >
+        {hasImage ? (
+          <>
+            <Image
+              alt={tile.title}
+              className="object-cover transition-transform duration-500 group-hover:scale-110"
+              fill
+              onError={() => setImageFailed(true)}
+              sizes="(max-width: 640px) 100vw, 220px"
+              src={tile.image!}
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-[linear-gradient(180deg,rgba(51,40,33,0.08),rgba(51,40,33,0.72))]"
+            />
+          </>
+        ) : null}
+
+        <div className="relative">
+          <p
+            className={`text-[0.68rem] uppercase tracking-[0.3em] ${
+              hasImage ? "text-white/80" : "text-stone-500"
+            }`}
+          >
+            {tile.eyebrow}
+          </p>
+          <p
+            className={`mt-2 font-serif leading-tight ${
+              tile.description ? "text-3xl" : "text-2xl"
+            } ${hasImage ? "text-white" : "text-stone-900"}`}
+          >
+            {tile.title}
+          </p>
+          {tile.description ? (
+            <p
+              className={`mt-3 max-w-sm text-sm leading-7 ${
+                hasImage ? "text-white/85" : "text-stone-600"
+              }`}
+            >
+              {tile.description}
+            </p>
+          ) : null}
+
+          <span
+            className={`mt-4 inline-flex items-center gap-1.5 text-[0.65rem] font-medium uppercase tracking-[0.2em] transition-transform duration-300 group-hover:translate-x-1 ${
+              hasImage ? "text-[var(--color-champagne)]" : "text-stone-700"
+            }`}
+          >
+            Explore
+            <ArrowIcon />
+          </span>
+        </div>
+      </Link>
+    </motion.div>
+  );
+}
+
+export function HeroSection({ highlights }: HeroSectionProps) {
+  const [keychain, frame, hamper] = highlights;
+
   return (
     <section className="relative overflow-hidden">
       <div className="absolute inset-0 -z-10">
@@ -86,36 +197,11 @@ export function HeroSection() {
               <div className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-[var(--color-champagne)] to-transparent" />
 
               <div className="grid gap-4 sm:grid-cols-2">
-                <div className="rounded-[1.5rem] bg-[linear-gradient(180deg,rgba(201,164,106,0.24),rgba(255,253,252,0.88))] p-5">
-                  <p className="text-[0.68rem] uppercase tracking-[0.3em] text-stone-500">
-                    Signature
-                  </p>
-                  <p className="mt-12 font-serif text-2xl leading-tight text-stone-900">
-                    Handmade Keychains
-                  </p>
-                </div>
-
-                <div className="rounded-[1.5rem] bg-[linear-gradient(180deg,rgba(185,131,116,0.2),rgba(255,253,252,0.94))] p-5">
-                  <p className="text-[0.68rem] uppercase tracking-[0.3em] text-stone-500">
-                    Bespoke
-                  </p>
-                  <p className="mt-12 font-serif text-2xl leading-tight text-stone-900">
-                    Customized Frames
-                  </p>
-                </div>
-
-                <div className="rounded-[1.5rem] bg-[linear-gradient(180deg,rgba(122,130,114,0.18),rgba(255,253,252,0.94))] p-5 sm:col-span-2">
-                  <p className="text-[0.68rem] uppercase tracking-[0.3em] text-stone-500">
-                    Premium gifting
-                  </p>
-                  <p className="mt-10 font-serif text-3xl leading-tight text-stone-900">
-                    Sneha Curated Hampers
-                  </p>
-                  <p className="mt-3 max-w-sm text-sm leading-7 text-stone-600">
-                    Thoughtfully styled gift boxes for celebrations, milestones,
-                    and elegant personal gestures.
-                  </p>
-                </div>
+                {keychain ? <HighlightCard tile={keychain} /> : null}
+                {frame ? <HighlightCard tile={frame} /> : null}
+                {hamper ? (
+                  <HighlightCard className="sm:col-span-2" tile={hamper} />
+                ) : null}
               </div>
             </div>
           </motion.div>
