@@ -6,6 +6,7 @@ import { useRef, useState } from "react";
 import { motion } from "motion/react";
 
 import type { Product } from "@/types/product";
+import { getDiscount } from "@/lib/pricing";
 import { WhatsAppOrderButton } from "./whatsapp-order-button";
 
 type ProductDetailViewProps = {
@@ -20,7 +21,8 @@ const priceFormatter = new Intl.NumberFormat("en-IN", {
 
 export function ProductDetailView({ product }: ProductDetailViewProps) {
   const [imageError, setImageError] = useState(false);
-  const images = product.images.length > 0 ? product.images : [product.image];
+  const images = product.images?.length ? product.images : [product.image];
+  const discount = getDiscount(product.price, product.originalPrice);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [failedImageSrc, setFailedImageSrc] = useState<string | null>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -186,9 +188,21 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
               {product.name}
             </h1>
 
-            <p className="mt-4 text-2xl font-medium text-[var(--color-rose-clay)]">
-              {priceFormatter.format(product.price)}
-            </p>
+            <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1.5">
+              <p className="text-2xl font-medium text-[var(--color-rose-clay)]">
+                {priceFormatter.format(product.price)}
+              </p>
+              {discount ? (
+                <>
+                  <span className="text-lg text-stone-400 line-through">
+                    {priceFormatter.format(discount.originalPrice)}
+                  </span>
+                  <span className="rounded-full bg-[rgba(201,164,106,0.2)] px-3 py-1 text-[0.68rem] font-medium uppercase tracking-[0.16em] text-stone-800">
+                    {discount.percent}% off
+                  </span>
+                </>
+              ) : null}
+            </div>
 
             <p className="mt-6 text-base leading-8 text-stone-700">
               {product.description}

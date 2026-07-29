@@ -12,6 +12,7 @@ export interface Product {
   description: string;
   story: string;
   price: number;
+  originalPrice?: number;
   image: string;
   images: string[];
   featured: boolean;

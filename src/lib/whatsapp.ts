@@ -4,6 +4,7 @@
  */
 
 import type { Product, ProductCategory } from "@/types/product";
+import { getDiscount } from "@/lib/pricing";
 
 const DEFAULT_BUSINESS_NAME = "Sneha";
 
@@ -21,6 +22,7 @@ export interface OrderDetails {
   category: ProductCategory;
   customizationInterest?: string;
   price?: number;
+  originalPrice?: number;
   quantity?: number;
 }
 
@@ -41,7 +43,14 @@ export function generateOrderMessage(details: OrderDetails): string {
   ];
 
   if (details.price) {
-    lines.push(`💰 Price: ₹${details.price}`);
+    const discount = getDiscount(details.price, details.originalPrice);
+    if (discount) {
+      lines.push(
+        `💰 Price: ₹${details.price} (was ₹${discount.originalPrice}, ${discount.percent}% off)`
+      );
+    } else {
+      lines.push(`💰 Price: ₹${details.price}`);
+    }
   }
 
   if (details.quantity && details.quantity > 1) {
@@ -96,6 +105,7 @@ export function generateWhatsAppOrderLink(
     productName: product.name,
     category: product.category,
     price: product.price,
+    originalPrice: product.originalPrice,
     customizationInterest,
     quantity,
   };

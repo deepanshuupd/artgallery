@@ -48,6 +48,10 @@ export default async function EditProductPage({
             name: product.name,
             category: product.category,
             price: String(product.price),
+            original_price:
+              product.original_price != null
+                ? String(product.original_price)
+                : "",
             description: product.description,
             story: product.story,
             whatsapp_message: product.whatsapp_message,

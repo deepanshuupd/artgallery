@@ -12,6 +12,7 @@ create table public.products (
   name text not null,
   category text not null,
   price numeric not null,
+  original_price numeric,
   description text not null,
   story text,
   whatsapp_message text,
@@ -87,6 +88,17 @@ If you already have the table created, add the new column instead of recreating 
 ```sql
 alter table public.products
 add column if not exists image_urls text[] default '{}';
+```
+
+## 8. Enable discount pricing (original price / MRP)
+
+To show a struck-through original price and a "% off" badge, add an `original_price`
+column. Leave it null for products that aren't on sale; set it above `price` for a
+discounted product.
+
+```sql
+alter table public.products
+add column if not exists original_price numeric;
 ```
 
 

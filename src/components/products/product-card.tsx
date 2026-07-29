@@ -7,6 +7,7 @@ import { motion } from "motion/react";
 
 import type { Product } from "@/types/product";
 import { createWhatsAppLink } from "@/lib/whatsapp";
+import { getDiscount } from "@/lib/pricing";
 
 type ProductCardProps = {
   product: Product;
@@ -22,6 +23,7 @@ export function ProductCard({ product }: ProductCardProps) {
   const [imageError, setImageError] = useState(false);
   const [imageSrc, setImageSrc] = useState(product.image);
   const detailsHref = `/collection/${product.id}`;
+  const discount = getDiscount(product.price, product.originalPrice);
 
   return (
     <motion.article
@@ -87,9 +89,21 @@ export function ProductCard({ product }: ProductCardProps) {
             ) : null}
           </div>
 
-          <p className="mt-4 text-lg font-medium text-[var(--color-rose-clay)]">
-            {priceFormatter.format(product.price)}
-          </p>
+          <div className="mt-4 flex flex-wrap items-center gap-x-2.5 gap-y-1">
+            <p className="text-lg font-medium text-[var(--color-rose-clay)]">
+              {priceFormatter.format(product.price)}
+            </p>
+            {discount ? (
+              <>
+                <span className="text-sm text-stone-400 line-through">
+                  {priceFormatter.format(discount.originalPrice)}
+                </span>
+                <span className="rounded-full bg-[rgba(201,164,106,0.18)] px-2.5 py-0.5 text-[0.62rem] font-medium uppercase tracking-[0.14em] text-stone-800">
+                  {discount.percent}% off
+                </span>
+              </>
+            ) : null}
+          </div>
 
           <p className="mt-4 flex-1 text-sm leading-7 text-stone-600">
             {product.description}

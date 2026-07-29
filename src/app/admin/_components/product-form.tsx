@@ -19,6 +19,7 @@ interface FormValues {
   name: string;
   category: ProductCategory;
   price: string;
+  original_price: string;
   description: string;
   story: string;
   whatsapp_message: string;
@@ -46,6 +47,7 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
     name: initial?.name ?? "",
     category: initial?.category ?? "Keychains",
     price: initial?.price ?? "",
+    original_price: initial?.original_price ?? "",
     description: initial?.description ?? "",
     story: initial?.story ?? "",
     whatsapp_message: initial?.whatsapp_message ?? "",
@@ -144,6 +146,9 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
       name: values.name,
       category: values.category,
       price: parseFloat(values.price),
+      original_price: values.original_price
+        ? parseFloat(values.original_price)
+        : null,
       description: values.description,
       story: values.story,
       whatsapp_message: values.whatsapp_message,
@@ -283,19 +288,39 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
         </div>
       </div>
 
-      <div className="max-w-xs">
-        <label className="mb-1 block text-sm font-medium text-stone-700">
-          Price (₹) *
-        </label>
-        <input
-          required
-          type="number"
-          min="0"
-          step="1"
-          value={values.price}
-          onChange={(e) => set("price", e.target.value)}
-          className="w-full rounded-md border border-stone-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-400"
-        />
+      <div className="grid max-w-md gap-4 sm:grid-cols-2">
+        <div>
+          <label className="mb-1 block text-sm font-medium text-stone-700">
+            Price (₹) *
+          </label>
+          <input
+            required
+            type="number"
+            min="0"
+            step="1"
+            value={values.price}
+            onChange={(e) => set("price", e.target.value)}
+            className="w-full rounded-md border border-stone-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-400"
+          />
+        </div>
+
+        <div>
+          <label className="mb-1 block text-sm font-medium text-stone-700">
+            Original price (MRP)
+          </label>
+          <input
+            type="number"
+            min="0"
+            step="1"
+            value={values.original_price}
+            onChange={(e) => set("original_price", e.target.value)}
+            className="w-full rounded-md border border-stone-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-400"
+          />
+          <p className="mt-1 text-xs text-stone-500">
+            Leave blank if the product isn&apos;t on sale. Must be higher than the
+            price to show a discount.
+          </p>
+        </div>
       </div>
 
       <div>

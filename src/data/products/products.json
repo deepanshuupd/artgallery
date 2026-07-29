@@ -6,6 +6,7 @@
     "description": "A handcrafted resin keychain with pressed florals and personalized lettering for elegant everyday gifting.",
     "story": "Created for people who love carrying a personal touch everywhere, this floral resin keychain layers preserved blooms with custom lettering to make an everyday object feel intimate and refined.",
     "price": 349,
+    "originalPrice": 499,
     "image": "/images/products/keychains/floral-resin-name-keychain.jpg",
     "featured": true,
     "details": [
@@ -38,6 +39,7 @@
     "description": "A personalized photo collage frame crafted to preserve milestones, celebrations, and cherished memories.",
     "story": "This frame is built to hold a full chapter of memories in one place, combining photographs, layout styling, and handcrafted finishing into a keepsake worthy of display.",
     "price": 1299,
+    "originalPrice": 1699,
     "image": "/images/products/customized-frames/memory-collage-frame.jpg",
     "featured": true,
     "details": [
@@ -134,6 +136,7 @@
     "description": "A premium birthday hamper styled with feminine tones, keepsakes, treats, and personalized finishing touches.",
     "story": "This hamper is curated to feel festive, indulgent, and personal, layering keepsakes, sweet details, and a refined visual palette into one polished gifting experience.",
     "price": 2499,
+    "originalPrice": 2999,
     "image": "/images/hampers/birthday-blush-curated-hamper.jpg",
     "featured": true,
     "details": [

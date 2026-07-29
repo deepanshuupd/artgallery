@@ -32,6 +32,7 @@ export function WhatsAppOrderButton({
     productName: product.name,
     category: product.category,
     price: product.price,
+    originalPrice: product.originalPrice,
     customizationInterest: customization || undefined,
     quantity,
   });

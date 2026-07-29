@@ -19,6 +19,8 @@ function mapRow(row: Record<string, unknown>): Product {
     description: row.description as string,
     story: (row.story as string) ?? "",
     price: row.price as number,
+    originalPrice:
+      row.original_price != null ? Number(row.original_price) : undefined,
     image: imageUrls[0] ?? (row.image_url as string) ?? "",
     images: imageUrls,
     featured: (row.is_featured as boolean) ?? false,
