@@ -1,11 +1,26 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { motion } from "motion/react";
 
 import { ArrowRightIcon } from "@/components/icons";
+import type { ProductCategory } from "@/types/product";
 
-const collections = [
+type FeaturedCollectionsProps = {
+  /** Real product image per category, sourced from the catalog. */
+  images: Partial<Record<ProductCategory, string>>;
+};
+
+type CategoryMeta = {
+  name: ProductCategory;
+  label: string;
+  description: string;
+  accent: string;
+};
+
+const collections: CategoryMeta[] = [
   {
     name: "Keychains",
     label: "Signature details",
@@ -36,10 +51,114 @@ const collections = [
   },
 ];
 
-export function FeaturedCollections() {
+function CollectionCard({
+  collection,
+  image,
+  index,
+}: {
+  collection: CategoryMeta;
+  image?: string;
+  index: number;
+}) {
+  const [imageFailed, setImageFailed] = useState(false);
+  const hasImage = Boolean(image) && !imageFailed;
+  const href = `/collection?category=${encodeURIComponent(collection.name)}`;
+
+  return (
+    <motion.div
+      className="group h-full"
+      initial={{ opacity: 0, y: 24 }}
+      transition={{ duration: 0.6, delay: index * 0.08, ease: "easeOut" }}
+      viewport={{ once: true, amount: 0.3 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      whileHover={{ y: -8 }}
+    >
+      <Link
+        className="relative flex h-full min-h-[22rem] flex-col justify-end overflow-hidden rounded-[2rem] border border-white/60 bg-[rgba(255,253,252,0.82)] shadow-[0_18px_60px_rgba(51,40,33,0.08)] backdrop-blur transition-shadow duration-300 hover:shadow-[0_28px_80px_rgba(51,40,33,0.14)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900/40"
+        href={href}
+      >
+        {hasImage ? (
+          <>
+            <Image
+              alt={collection.name}
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              fill
+              onError={() => setImageFailed(true)}
+              sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 25vw"
+              src={image!}
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-[linear-gradient(180deg,rgba(51,40,33,0.05),rgba(51,40,33,0.35)_45%,rgba(51,40,33,0.82))]"
+            />
+          </>
+        ) : (
+          <>
+            <div
+              aria-hidden="true"
+              className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-[var(--color-champagne)] to-transparent"
+            />
+            <div
+              aria-hidden="true"
+              className="absolute -right-12 top-10 h-28 w-28 rounded-full blur-2xl transition-transform duration-500 group-hover:scale-110"
+              style={{ backgroundColor: collection.accent }}
+            />
+          </>
+        )}
+
+        <div className="relative flex flex-col p-6">
+          <p
+            className={`text-[0.68rem] uppercase tracking-[0.32em] ${
+              hasImage ? "text-white/80" : "text-stone-500"
+            }`}
+          >
+            {collection.label}
+          </p>
+
+          <h3
+            className={`mt-4 text-3xl leading-tight ${
+              hasImage ? "text-white" : "text-stone-900"
+            }`}
+          >
+            {collection.name}
+          </h3>
+
+          <p
+            className={`mt-4 text-sm leading-7 ${
+              hasImage ? "text-white/85" : "text-stone-600"
+            }`}
+          >
+            {collection.description}
+          </p>
+
+          <div
+            className={`mt-6 flex items-center justify-between border-t pt-4 text-sm uppercase tracking-[0.18em] ${
+              hasImage
+                ? "border-white/25 text-white"
+                : "border-stone-200/70 text-stone-800"
+            }`}
+          >
+            <span>Explore</span>
+            <span
+              className={`inline-flex h-10 w-10 items-center justify-center rounded-full border transition-transform duration-300 group-hover:translate-x-1 ${
+                hasImage
+                  ? "border-white/40 bg-white/10"
+                  : "border-stone-300/80 bg-white/80"
+              }`}
+            >
+              <ArrowRightIcon className="h-4 w-4" />
+            </span>
+          </div>
+        </div>
+      </Link>
+    </motion.div>
+  );
+}
+
+export function FeaturedCollections({ images }: FeaturedCollectionsProps) {
   return (
     <section className="relative px-4 py-18 sm:px-6 sm:py-24 lg:px-8 lg:py-28">
-      <div className="absolute inset-0 -z-10">
+      <div aria-hidden="true" className="absolute inset-0 -z-10">
         <div className="absolute inset-x-0 top-16 h-40 bg-[radial-gradient(circle_at_center,rgba(201,164,106,0.12),transparent_68%)]" />
       </div>
 
@@ -68,55 +187,12 @@ export function FeaturedCollections() {
 
         <div className="mt-12 grid gap-5 sm:mt-14 sm:grid-cols-2 xl:grid-cols-4">
           {collections.map((collection, index) => (
-            <motion.div
+            <CollectionCard
               key={collection.name}
-              className="group h-full"
-              initial={{ opacity: 0, y: 24 }}
-              transition={{
-                duration: 0.6,
-                delay: index * 0.08,
-                ease: "easeOut",
-              }}
-              viewport={{ once: true, amount: 0.3 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              whileHover={{ y: -8 }}
-            >
-              <Link
-                className="relative flex h-full min-h-[20rem] flex-col overflow-hidden rounded-[2rem] border border-white/60 bg-[rgba(255,253,252,0.82)] p-6 shadow-[0_18px_60px_rgba(51,40,33,0.08)] backdrop-blur transition-shadow duration-300 hover:shadow-[0_28px_80px_rgba(51,40,33,0.14)]"
-                href="/collection"
-              >
-                <div
-                  className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-[var(--color-champagne)] to-transparent"
-                  aria-hidden="true"
-                />
-                <div
-                  className="absolute -right-12 top-10 h-28 w-28 rounded-full blur-2xl transition-transform duration-500 group-hover:scale-110"
-                  style={{ backgroundColor: collection.accent }}
-                  aria-hidden="true"
-                />
-
-                <div className="relative flex h-full flex-col">
-                  <p className="text-[0.68rem] uppercase tracking-[0.32em] text-stone-500">
-                    {collection.label}
-                  </p>
-
-                  <h3 className="mt-5 text-3xl leading-tight text-stone-900">
-                    {collection.name}
-                  </h3>
-
-                  <p className="mt-5 flex-1 text-sm leading-7 text-stone-600">
-                    {collection.description}
-                  </p>
-
-                  <div className="mt-8 flex items-center justify-between border-t border-stone-200/70 pt-4 text-sm uppercase tracking-[0.18em] text-stone-800">
-                    <span>Explore</span>
-                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-stone-300/80 bg-white/80 transition-transform duration-300 group-hover:translate-x-1">
-                      <ArrowRightIcon className="h-4 w-4" />
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            </motion.div>
+              collection={collection}
+              image={images[collection.name]}
+              index={index}
+            />
           ))}
         </div>
       </div>
