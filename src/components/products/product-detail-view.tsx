@@ -6,18 +6,13 @@ import { useRef, useState } from "react";
 import { motion } from "motion/react";
 
 import type { Product } from "@/types/product";
-import { getDiscount } from "@/lib/pricing";
+import { ArrowLeftIcon } from "@/components/icons";
+import { formatPrice, getDiscount } from "@/lib/pricing";
 import { WhatsAppOrderButton } from "./whatsapp-order-button";
 
 type ProductDetailViewProps = {
   product: Product;
 };
-
-const priceFormatter = new Intl.NumberFormat("en-IN", {
-  style: "currency",
-  currency: "INR",
-  maximumFractionDigits: 0,
-});
 
 export function ProductDetailView({ product }: ProductDetailViewProps) {
   const [imageError, setImageError] = useState(false);
@@ -59,19 +54,7 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
             className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.18em] text-stone-600 transition-colors hover:text-stone-900"
             href="/collection"
           >
-            <svg
-              aria-hidden="true"
-              className="h-4 w-4"
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="1.8"
-              viewBox="0 0 24 24"
-            >
-              <path d="M19 12H5" />
-              <path d="m12 19-7-7 7-7" />
-            </svg>
+            <ArrowLeftIcon className="h-4 w-4" />
             Back to Collection
           </Link>
         </motion.div>
@@ -190,12 +173,12 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
 
             <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1.5">
               <p className="text-2xl font-medium text-[var(--color-rose-clay)]">
-                {priceFormatter.format(product.price)}
+                {formatPrice(product.price)}
               </p>
               {discount ? (
                 <>
                   <span className="text-lg text-stone-400 line-through">
-                    {priceFormatter.format(discount.originalPrice)}
+                    {formatPrice(discount.originalPrice)}
                   </span>
                   <span className="rounded-full bg-[rgba(201,164,106,0.2)] px-3 py-1 text-[0.68rem] font-medium uppercase tracking-[0.16em] text-stone-800">
                     {discount.percent}% off
@@ -222,15 +205,16 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
               </ul>
             </div>
 
-            <Link
-              className="mt-8 inline-flex min-h-12 items-center justify-center rounded-full bg-stone-900 px-6 py-3 text-sm font-medium uppercase tracking-[0.18em] text-stone-50 shadow-[0_18px_44px_rgba(51,40,33,0.18)] transition-transform duration-300 hover:-translate-y-0.5 hover:bg-stone-800 sm:w-auto"
-              href="/collection"
-              rel="noreferrer"
-            >
-              ← Back to Collection
-            </Link>
-
-            <WhatsAppOrderButton className="mt-8 ml-3 align-bottom" product={product} />
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <WhatsAppOrderButton product={product} />
+              <Link
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-stone-200/80 bg-white/80 px-6 py-3 text-sm font-medium uppercase tracking-[0.18em] text-stone-900 transition-transform duration-300 hover:-translate-y-0.5 hover:bg-white"
+                href="/collection"
+              >
+                <ArrowLeftIcon className="h-4 w-4" />
+                Back to Collection
+              </Link>
+            </div>
           </motion.div>
         </section>
 

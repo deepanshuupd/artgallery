@@ -4,10 +4,15 @@
   --color-ivory: #f7f1ea;
   --color-porcelain: #fffdfc;
   --color-champagne: #c9a46a;
+  --color-champagne-dark: #d6b27a;
   --color-rose-clay: #b98374;
   --color-sage-ash: #7a8272;
   --color-espresso: #332821;
   --color-charcoal-linen: #4b433d;
+  --color-whatsapp: #25d366;
+  --color-whatsapp-dark: #20ba5a;
+  --color-error: #b3423a;
+  --color-error-dark: #8c3630;
 }
 
 html {

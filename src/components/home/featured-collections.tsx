@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { motion } from "motion/react";
 
+import { ArrowRightIcon } from "@/components/icons";
+
 const collections = [
   {
     name: "Keychains",
@@ -109,19 +111,7 @@ export function FeaturedCollections() {
                   <div className="mt-8 flex items-center justify-between border-t border-stone-200/70 pt-4 text-sm uppercase tracking-[0.18em] text-stone-800">
                     <span>Explore</span>
                     <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-stone-300/80 bg-white/80 transition-transform duration-300 group-hover:translate-x-1">
-                      <svg
-                        aria-hidden="true"
-                        className="h-4 w-4"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.8"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M5 12h14" />
-                        <path d="M13 5l7 7-7 7" />
-                      </svg>
+                      <ArrowRightIcon className="h-4 w-4" />
                     </span>
                   </div>
                 </div>

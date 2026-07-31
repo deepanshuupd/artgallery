@@ -5,7 +5,7 @@ import { AboutHero } from "@/components/about/about-hero";
 import { AboutValues } from "@/components/about/about-values";
 
 export const metadata: Metadata = {
-  title: "About | Art Gallery by Sneha",
+  title: "About",
   description:
     "The story behind Art Gallery by Sneha — a handmade gifting studio in Pithoragarh, Uttarakhand, crafting personalized keychains, customized frames, fridge magnets, and Sneha Curated Hampers.",
 };

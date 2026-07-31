@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
 import { CustomHamperCta } from "@/components/products/custom-hamper-cta";
-import { HamperShowcase } from "@/components/products/hamper-showcase";
+import { ProductShowcase } from "@/components/products/product-showcase";
 import { getProducts } from "@/lib/products";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Curated Hampers | Art Gallery by Sneha",
+  title: "Curated Hampers",
   description:
     "Explore Sneha Curated Hampers — styled gift boxes for birthdays, anniversaries, weddings, and corporate gifting, or request a fully custom hamper of your own.",
 };
@@ -47,7 +47,12 @@ export default async function CuratedHampersPage() {
 
       <section className="relative px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
-          <HamperShowcase hampers={hampers} />
+          <ProductShowcase
+            eyebrow="Browse the edit"
+            products={hampers}
+            searchPlaceholder="Search by occasion or style"
+            title="Hampers ready to gift"
+          />
         </div>
       </section>
 

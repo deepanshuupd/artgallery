@@ -1,7 +1,15 @@
-import { CollectionShowcase } from "@/components/products/collection-showcase";
+import type { Metadata } from "next";
+
+import { ProductShowcase } from "@/components/products/product-showcase";
 import { getProducts } from "@/lib/products";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Collection",
+  description:
+    "Browse the full collection of handmade keychains, customized frames, fridge magnets, and personalized gifts from Art Gallery by Sneha.",
+};
 
 type CollectionPageProps = {
   searchParams: Promise<{ category?: string }>;
@@ -38,7 +46,13 @@ export default async function CollectionPage({
           </p>
         </section>
 
-        <CollectionShowcase initialCategory={category} products={products} />
+        <ProductShowcase
+          eyebrow="Browse the collection"
+          initialCategory={category}
+          products={products}
+          showCategoryFilter
+          title="Find a piece that feels made for your moment."
+        />
       </div>
     </main>
   );

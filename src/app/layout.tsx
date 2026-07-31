@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 import { SiteHeader } from "@/components/layout/site-header";
+import { getSiteUrl } from "@/lib/site";
 
 const cormorantGaramond = Cormorant_Garamond({
   subsets: ["latin"],
@@ -18,9 +19,31 @@ const manrope = Manrope({
   weight: ["400", "500", "600", "700"],
 });
 
+const siteUrl = getSiteUrl();
+
+const siteDescription =
+  "Luxury handmade gifting by Sneha — personalized keychains, customized frames, fridge magnets, and curated hampers, handcrafted in Pithoragarh, Uttarakhand.";
+
 export const metadata: Metadata = {
-  title: "Art Gallery by Sneha",
-  description: "Luxury handmade gifting and curated hampers by Sneha.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Art Gallery by Sneha — Handmade Gifting & Curated Hampers",
+    template: "%s · Art Gallery by Sneha",
+  },
+  description: siteDescription,
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    siteName: "Art Gallery by Sneha",
+    title: "Art Gallery by Sneha — Handmade Gifting & Curated Hampers",
+    description: siteDescription,
+    url: siteUrl,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Art Gallery by Sneha",
+    description: siteDescription,
+  },
 };
 
 export default function RootLayout({

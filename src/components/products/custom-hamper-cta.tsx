@@ -3,40 +3,7 @@
 import Link from "next/link";
 import { motion } from "motion/react";
 
-function SparkleIcon() {
-  return (
-    <svg
-      aria-hidden="true"
-      className="h-6 w-6"
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="1.6"
-      viewBox="0 0 24 24"
-    >
-      <path d="M12 3l1.9 5.8a2 2 0 001.3 1.3L21 12l-5.8 1.9a2 2 0 00-1.3 1.3L12 21l-1.9-5.8a2 2 0 00-1.3-1.3L3 12l5.8-1.9a2 2 0 001.3-1.3L12 3z" />
-    </svg>
-  );
-}
-
-function ArrowIcon() {
-  return (
-    <svg
-      aria-hidden="true"
-      className="h-4 w-4"
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="1.8"
-      viewBox="0 0 24 24"
-    >
-      <path d="M7 17L17 7" />
-      <path d="M8 7h9v9" />
-    </svg>
-  );
-}
+import { ArrowUpRightIcon, SparkleIcon } from "@/components/icons";
 
 export function CustomHamperCta() {
   return (
@@ -60,7 +27,7 @@ export function CustomHamperCta() {
             className="relative inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-[rgba(201,164,106,0.16)] text-[var(--color-champagne)]"
             transition={{ duration: 6, ease: "easeInOut", repeat: Number.POSITIVE_INFINITY }}
           >
-            <SparkleIcon />
+            <SparkleIcon className="h-6 w-6" />
           </motion.span>
 
           <p className="relative mt-6 text-[0.72rem] uppercase tracking-[0.38em] text-stone-300">
@@ -81,12 +48,12 @@ export function CustomHamperCta() {
 
           <div className="relative mt-9 flex justify-center">
             <Link
-              className="group inline-flex min-h-12 items-center justify-center gap-2.5 rounded-full bg-[var(--color-champagne)] px-8 py-3.5 text-sm font-medium uppercase tracking-[0.18em] text-stone-950 shadow-[0_18px_48px_rgba(201,164,106,0.2)] transition-transform duration-300 hover:-translate-y-0.5 hover:bg-[#d6b27a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-champagne)] focus-visible:ring-offset-2 focus-visible:ring-offset-stone-900"
+              className="group inline-flex min-h-12 items-center justify-center gap-2.5 rounded-full bg-[var(--color-champagne)] px-8 py-3.5 text-sm font-medium uppercase tracking-[0.18em] text-stone-950 shadow-[0_18px_48px_rgba(201,164,106,0.2)] transition-transform duration-300 hover:-translate-y-0.5 hover:bg-[var(--color-champagne-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-champagne)] focus-visible:ring-offset-2 focus-visible:ring-offset-stone-900"
               href="/contact"
             >
               Design my custom hamper
               <span className="transition-transform duration-300 group-hover:translate-x-1">
-                <ArrowIcon />
+                <ArrowUpRightIcon className="h-4 w-4" />
               </span>
             </Link>
           </div>

@@ -7,17 +7,11 @@ import { motion } from "motion/react";
 
 import type { Product } from "@/types/product";
 import { createWhatsAppLink } from "@/lib/whatsapp";
-import { getDiscount } from "@/lib/pricing";
+import { formatPrice, getDiscount } from "@/lib/pricing";
 
 type ProductCardProps = {
   product: Product;
 };
-
-const priceFormatter = new Intl.NumberFormat("en-IN", {
-  style: "currency",
-  currency: "INR",
-  maximumFractionDigits: 0,
-});
 
 export function ProductCard({ product }: ProductCardProps) {
   const [imageError, setImageError] = useState(false);
@@ -91,12 +85,12 @@ export function ProductCard({ product }: ProductCardProps) {
 
           <div className="mt-4 flex flex-wrap items-center gap-x-2.5 gap-y-1">
             <p className="text-lg font-medium text-[var(--color-rose-clay)]">
-              {priceFormatter.format(product.price)}
+              {formatPrice(product.price)}
             </p>
             {discount ? (
               <>
                 <span className="text-sm text-stone-400 line-through">
-                  {priceFormatter.format(discount.originalPrice)}
+                  {formatPrice(discount.originalPrice)}
                 </span>
                 <span className="rounded-full bg-[rgba(201,164,106,0.18)] px-2.5 py-0.5 text-[0.62rem] font-medium uppercase tracking-[0.14em] text-stone-800">
                   {discount.percent}% off

@@ -98,7 +98,7 @@ export function CuratedHampersSection() {
               whileInView={{ opacity: 1, y: 0 }}
             >
               <Link
-                className="inline-flex min-h-12 items-center justify-center rounded-full bg-[var(--color-champagne)] px-7 py-3 text-sm font-medium uppercase tracking-[0.18em] text-stone-950 shadow-[0_18px_48px_rgba(201,164,106,0.2)] transition-transform duration-300 hover:-translate-y-0.5 hover:bg-[#d6b27a]"
+                className="inline-flex min-h-12 items-center justify-center rounded-full bg-[var(--color-champagne)] px-7 py-3 text-sm font-medium uppercase tracking-[0.18em] text-stone-950 shadow-[0_18px_48px_rgba(201,164,106,0.2)] transition-transform duration-300 hover:-translate-y-0.5 hover:bg-[var(--color-champagne-dark)]"
                 href="/curated-hampers"
               >
                 Explore Curated Hampers

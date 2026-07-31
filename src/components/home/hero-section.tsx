@@ -5,10 +5,8 @@ import Link from "next/link";
 import { useState } from "react";
 import { motion } from "motion/react";
 
-const fadeInUp = {
-  initial: { opacity: 0, y: 24 },
-  animate: { opacity: 1, y: 0 },
-};
+import { ArrowRightIcon } from "@/components/icons";
+import { fadeInUpMount } from "@/lib/motion";
 
 export type HeroHighlight = {
   eyebrow: string;
@@ -22,24 +20,6 @@ export type HeroHighlight = {
 type HeroSectionProps = {
   highlights: HeroHighlight[];
 };
-
-function ArrowIcon() {
-  return (
-    <svg
-      aria-hidden="true"
-      className="h-3.5 w-3.5"
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="1.8"
-      viewBox="0 0 24 24"
-    >
-      <path d="M5 12h14" />
-      <path d="M13 5l7 7-7 7" />
-    </svg>
-  );
-}
 
 function HighlightCard({
   className = "",
@@ -109,7 +89,7 @@ function HighlightCard({
             }`}
           >
             Explore
-            <ArrowIcon />
+            <ArrowRightIcon className="h-3.5 w-3.5" />
           </span>
         </div>
       </Link>
@@ -140,7 +120,7 @@ export function HeroSection({ highlights }: HeroSectionProps) {
         <div className="grid w-full items-center gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(320px,0.9fr)] lg:gap-16">
           <div className="max-w-3xl">
             <motion.p
-              {...fadeInUp}
+              {...fadeInUpMount}
               className="mb-5 text-[0.72rem] uppercase tracking-[0.38em] text-stone-500 sm:text-xs"
               transition={{ duration: 0.6, ease: "easeOut" }}
             >
@@ -148,7 +128,7 @@ export function HeroSection({ highlights }: HeroSectionProps) {
             </motion.p>
 
             <motion.h1
-              {...fadeInUp}
+              {...fadeInUpMount}
               className="text-4xl leading-[1.05] text-stone-900 sm:text-5xl lg:text-7xl"
               transition={{ duration: 0.7, delay: 0.08, ease: "easeOut" }}
             >
@@ -159,7 +139,7 @@ export function HeroSection({ highlights }: HeroSectionProps) {
             </motion.h1>
 
             <motion.p
-              {...fadeInUp}
+              {...fadeInUpMount}
               className="mt-6 max-w-2xl text-base leading-8 text-stone-700 sm:mt-8 sm:text-lg"
               transition={{ duration: 0.7, delay: 0.16, ease: "easeOut" }}
             >
@@ -169,7 +149,7 @@ export function HeroSection({ highlights }: HeroSectionProps) {
             </motion.p>
 
             <motion.div
-              {...fadeInUp}
+              {...fadeInUpMount}
               className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row"
               transition={{ duration: 0.7, delay: 0.24, ease: "easeOut" }}
             >

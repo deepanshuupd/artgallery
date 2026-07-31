@@ -2,18 +2,14 @@
 
 import { motion } from "motion/react";
 
+import { fadeInUp } from "@/lib/motion";
+
 const highlights = [
   "Handmade in small batches",
   "Personalized to your story",
   "Wrapped with intention",
   "From the Kumaon hills",
 ];
-
-const fadeInUp = {
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, amount: 0.25 },
-};
 
 export function AboutHero() {
   return (

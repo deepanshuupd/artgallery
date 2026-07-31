@@ -131,17 +131,6 @@ export function openWhatsAppOrder(
 }
 
 /**
- * Creates a WhatsApp link for inquiry (without specific customization)
- * @param product - Product to inquire about
- * @returns WhatsApp link URL
- */
-export function generateWhatsAppInquiryLink(product: Product): string {
-  const message = `Hi ${getWhatsAppBusinessName()}! 👋\n\nI'm interested in learning more about the ${product.name} (${product.category}).\n\nPlease share:\n• Detailed product information\n• Customization options available\n• Pricing and delivery timeline\n\nThank you!`;
-
-  return createWhatsAppLink(message);
-}
-
-/**
  * Creates a WhatsApp link for a general inquiry (no specific product)
  * Used by the contact page so it shares the same business number/config
  * @returns WhatsApp link URL
@@ -178,53 +167,4 @@ export function generateContactFormLink(details: ContactFormDetails): string {
   ];
 
   return createWhatsAppLink(lines.join("\n"));
-}
-
-/**
- * Validates WhatsApp message length (WhatsApp has character limits)
- * @param message - Message to validate
- * @returns Boolean indicating if message is within acceptable length
- */
-export function isValidWhatsAppMessage(message: string): boolean {
-  // WhatsApp messages can be quite long, but we'll use a reasonable limit
-  const MAX_LENGTH = 4096;
-  return message.length <= MAX_LENGTH;
-}
-
-/**
- * Generates a bulk order message for multiple products
- * @param products - Array of products with order details
- * @returns Formatted bulk order message
- */
-export interface BulkOrderItem extends OrderDetails {
-  quantity: number;
-}
-
-export function generateBulkOrderMessage(items: BulkOrderItem[]): string {
-  let message = `Hi ${getWhatsAppBusinessName()}! 👋\n\nI'd like to place a bulk order:\n\n`;
-
-  let totalPrice = 0;
-  items.forEach((item, index) => {
-    message += `${index + 1}. ${item.productName} (${item.category})\n`;
-    if (item.quantity && item.quantity > 1) {
-      message += `   Quantity: ${item.quantity}\n`;
-    }
-    if (item.price) {
-      const itemTotal = item.price * (item.quantity || 1);
-      message += `   Price: ₹${itemTotal}\n`;
-      totalPrice += itemTotal;
-    }
-    if (item.customizationInterest) {
-      message += `   Customization: ${item.customizationInterest}\n`;
-    }
-    message += "\n";
-  });
-
-  if (totalPrice > 0) {
-    message += `Total Estimated: ₹${totalPrice}\n\n`;
-  }
-
-  message += "Please confirm availability and provide exact pricing.\n\nThank you!";
-
-  return message;
 }

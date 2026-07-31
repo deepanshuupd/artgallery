@@ -19,11 +19,11 @@ export async function generateMetadata({
   const product = await getProductById(id);
 
   if (!product) {
-    return { title: "Product Not Found | Art Gallery by Sneha" };
+    return { title: "Product not found" };
   }
 
   return {
-    title: `${product.name} | Art Gallery by Sneha`,
+    title: product.name,
     description: product.description,
   };
 }

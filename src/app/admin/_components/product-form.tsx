@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { useId, useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import type { ProductCategory } from "@/types/product";
 
@@ -39,6 +39,8 @@ interface ProductFormProps {
 export function ProductForm({ mode, productId, initial }: ProductFormProps) {
   const router = useRouter();
   const fileRef = useRef<HTMLInputElement>(null);
+  const fieldId = useId();
+  const id = (name: string) => `${fieldId}-${name}`;
 
   const initialImages =
     initial?.image_urls ?? (initial?.image_url ? [initial.image_url] : []);
@@ -193,9 +195,9 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
       )}
 
       <div>
-        <label className="mb-1 block text-sm font-medium text-stone-700">
+        <p className="mb-1 block text-sm font-medium text-stone-700">
           Product Images
-        </label>
+        </p>
         <div className="space-y-4">
           <input
             ref={fileRef}
@@ -260,10 +262,14 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
-          <label className="mb-1 block text-sm font-medium text-stone-700">
+          <label
+            className="mb-1 block text-sm font-medium text-stone-700"
+            htmlFor={id("name")}
+          >
             Name *
           </label>
           <input
+            id={id("name")}
             required
             value={values.name}
             onChange={(e) => set("name", e.target.value)}
@@ -271,10 +277,14 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
           />
         </div>
         <div>
-          <label className="mb-1 block text-sm font-medium text-stone-700">
+          <label
+            className="mb-1 block text-sm font-medium text-stone-700"
+            htmlFor={id("category")}
+          >
             Category *
           </label>
           <select
+            id={id("category")}
             value={values.category}
             onChange={(e) => set("category", e.target.value as ProductCategory)}
             className="w-full rounded-md border border-stone-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-400"
@@ -290,10 +300,14 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
 
       <div className="grid max-w-md gap-4 sm:grid-cols-2">
         <div>
-          <label className="mb-1 block text-sm font-medium text-stone-700">
+          <label
+            className="mb-1 block text-sm font-medium text-stone-700"
+            htmlFor={id("price")}
+          >
             Price (₹) *
           </label>
           <input
+            id={id("price")}
             required
             type="number"
             min="0"
@@ -305,10 +319,14 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
         </div>
 
         <div>
-          <label className="mb-1 block text-sm font-medium text-stone-700">
+          <label
+            className="mb-1 block text-sm font-medium text-stone-700"
+            htmlFor={id("original_price")}
+          >
             Original price (MRP)
           </label>
           <input
+            id={id("original_price")}
             type="number"
             min="0"
             step="1"
@@ -324,10 +342,14 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
       </div>
 
       <div>
-        <label className="mb-1 block text-sm font-medium text-stone-700">
+        <label
+          className="mb-1 block text-sm font-medium text-stone-700"
+          htmlFor={id("description")}
+        >
           Description *
         </label>
         <textarea
+          id={id("description")}
           required
           rows={3}
           value={values.description}
@@ -337,10 +359,14 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
       </div>
 
       <div>
-        <label className="mb-1 block text-sm font-medium text-stone-700">
+        <label
+          className="mb-1 block text-sm font-medium text-stone-700"
+          htmlFor={id("story")}
+        >
           Product Story
         </label>
         <textarea
+          id={id("story")}
           rows={3}
           value={values.story}
           onChange={(e) => set("story", e.target.value)}
@@ -349,10 +375,14 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
       </div>
 
       <div>
-        <label className="mb-1 block text-sm font-medium text-stone-700">
+        <label
+          className="mb-1 block text-sm font-medium text-stone-700"
+          htmlFor={id("whatsapp_message")}
+        >
           WhatsApp Order Message
         </label>
         <textarea
+          id={id("whatsapp_message")}
           rows={3}
           value={values.whatsapp_message}
           onChange={(e) => set("whatsapp_message", e.target.value)}
@@ -362,13 +392,14 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
       </div>
 
       <div>
-        <label className="mb-1 block text-sm font-medium text-stone-700">
+        <p className="mb-1 block text-sm font-medium text-stone-700">
           Product Details (bullet points)
-        </label>
+        </p>
         <div className="space-y-2">
           {values.details.map((detail, i) => (
             <div key={i} className="flex gap-2">
               <input
+                aria-label={`Product detail ${i + 1}`}
                 value={detail}
                 onChange={(e) => setDetail(i, e.target.value)}
                 placeholder={`Detail ${i + 1}`}
@@ -377,10 +408,23 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
               {values.details.length > 1 && (
                 <button
                   type="button"
+                  aria-label={`Remove detail ${i + 1}`}
                   onClick={() => removeDetail(i)}
-                  className="text-stone-400 hover:text-red-500"
+                  className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-stone-400 hover:text-red-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400"
                 >
-                  ✕
+                  <svg
+                    aria-hidden="true"
+                    className="h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.8"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M6 6l12 12" />
+                    <path d="M18 6L6 18" />
+                  </svg>
                 </button>
               )}
             </div>

@@ -4,44 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
+import { CloseIcon, MenuIcon } from "@/components/icons";
 import { navigationItems } from "@/lib/navigation";
-
-function MenuIcon() {
-  return (
-    <svg
-      aria-hidden="true"
-      className="h-5 w-5"
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="1.8"
-      viewBox="0 0 24 24"
-    >
-      <path d="M4 7h16" />
-      <path d="M4 12h16" />
-      <path d="M4 17h16" />
-    </svg>
-  );
-}
-
-function CloseIcon() {
-  return (
-    <svg
-      aria-hidden="true"
-      className="h-5 w-5"
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="1.8"
-      viewBox="0 0 24 24"
-    >
-      <path d="M6 6l12 12" />
-      <path d="M18 6L6 18" />
-    </svg>
-  );
-}
 
 function isActivePath(currentPath: string, href: string) {
   if (href === "/") {
@@ -110,6 +74,7 @@ export function SiteHeader() {
           isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0",
         ].join(" ")}
         id="mobile-navigation"
+        inert={!isOpen}
       >
         <nav
           aria-label="Mobile navigation"

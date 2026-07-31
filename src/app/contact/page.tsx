@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { ContactSection } from "@/components/contact/contact-section";
 
 export const metadata: Metadata = {
-  title: "Contact | Art Gallery by Sneha",
+  title: "Contact",
   description:
     "Get in touch with Art Gallery by Sneha for handmade gifts, customized frames, and curated hampers. Reach us on WhatsApp, Instagram, or from our studio in Pithoragarh, Uttarakhand.",
 };

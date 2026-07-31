@@ -6,6 +6,17 @@
  * is only meaningful when the MRP is strictly greater than the selling price.
  */
 
+const priceFormatter = new Intl.NumberFormat("en-IN", {
+  style: "currency",
+  currency: "INR",
+  maximumFractionDigits: 0,
+});
+
+/** Formats a rupee amount as e.g. "₹1,299" (no decimals, en-IN grouping). */
+export function formatPrice(amount: number): string {
+  return priceFormatter.format(amount);
+}
+
 export interface Discount {
   /** Rounded whole-number percentage off, always > 0. */
   percent: number;
