@@ -1,13 +1,10 @@
 /**
  * Canonical public site URL, used for metadata, robots, and sitemap.
- * Set NEXT_PUBLIC_SITE_URL in production; falls back to the Vercel URL,
- * then localhost for development.
+ * Keep this independent of the request host and Vercel deployment URLs.
+ * The apex domain redirects to www, so all indexable URLs must use www.
+ * Preview deployments and local development should also describe the public
+ * canonical site rather than advertise temporary hosts to search engines.
  */
 export function getSiteUrl(): string {
-  return (
-    process.env.NEXT_PUBLIC_SITE_URL ??
-    (process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : "http://localhost:3000")
-  );
+  return "https://www.kumaonrang.com";
 }

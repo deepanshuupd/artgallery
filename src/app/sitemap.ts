@@ -34,5 +34,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // If products can't be loaded, still return the static routes.
   }
 
-  return [...staticEntries, ...productEntries];
+  // Multiple catalogue records may currently share a public product slug.
+  // List each public URL once without changing existing product routes.
+  return Array.from(
+    new Map(
+      [...staticEntries, ...productEntries].map((entry) => [entry.url, entry]),
+    ).values(),
+  );
 }
