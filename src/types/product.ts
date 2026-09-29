@@ -7,6 +7,8 @@ export type ProductCategory =
 
 export interface Product {
   id: string;
+  /** Optional editorial slug. Falls back to a URL-safe version of the name. */
+  slug?: string;
   name: string;
   category: ProductCategory;
   description: string;

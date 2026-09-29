@@ -10,22 +10,27 @@ const supabaseConfigured =
 // fields like `images`. Normalize it so consumers always receive a well-formed
 // Product — in particular a non-undefined `images` array.
 function normalizeProduct(raw: Partial<Product> & { image?: string }): Product {
+  const image = typeof raw.image === "string" ? raw.image.trim() : "";
   const images =
-    raw.images && raw.images.length > 0
-      ? raw.images
-      : raw.image
-        ? [raw.image]
+    Array.isArray(raw.images)
+      ? raw.images.filter(
+          (candidate): candidate is string =>
+            typeof candidate === "string" && candidate.trim().length > 0,
+        )
+      : image
+        ? [image]
         : [];
 
   return {
     id: raw.id ?? "",
+    slug: raw.slug,
     name: raw.name ?? "",
     category: raw.category as Product["category"],
     description: raw.description ?? "",
     story: raw.story ?? "",
     price: raw.price ?? 0,
     originalPrice: raw.originalPrice,
-    image: raw.image ?? images[0] ?? "",
+    image: image || images[0] || "",
     images,
     featured: raw.featured ?? false,
     details: raw.details ?? [],
@@ -43,13 +48,21 @@ async function loadFallbackProducts(): Promise<Product[]> {
 // Map a Supabase DB row to the Product interface used by components
 function mapRow(row: Record<string, unknown>): Product {
   const imageUrls = Array.isArray(row.image_urls)
-    ? (row.image_urls as string[])
-    : row.image_url
-      ? [row.image_url as string]
+    ? row.image_urls.filter(
+        (image): image is string =>
+          typeof image === "string" && image.trim().length > 0,
+      )
+    : typeof row.image_url === "string" && row.image_url.trim()
+      ? [row.image_url.trim()]
       : [];
+
+  const imageUrl =
+    imageUrls[0] ??
+    (typeof row.image_url === "string" ? row.image_url.trim() : "");
 
   return {
     id: row.id as string,
+    slug: typeof row.slug === "string" ? row.slug : undefined,
     name: row.name as string,
     category: row.category as Product["category"],
     description: row.description as string,
@@ -57,7 +70,7 @@ function mapRow(row: Record<string, unknown>): Product {
     price: row.price as number,
     originalPrice:
       row.original_price != null ? Number(row.original_price) : undefined,
-    image: imageUrls[0] ?? (row.image_url as string) ?? "",
+    image: imageUrl,
     images: imageUrls,
     featured: (row.is_featured as boolean) ?? false,
     details: (row.details as string[]) ?? [],

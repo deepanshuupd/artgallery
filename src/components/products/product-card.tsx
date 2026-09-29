@@ -6,8 +6,11 @@ import { useState } from "react";
 import { motion } from "motion/react";
 
 import type { Product } from "@/types/product";
+import { getProductPath } from "@/lib/catalog";
 import { createWhatsAppLink } from "@/lib/whatsapp";
 import { formatPrice, getDiscount } from "@/lib/pricing";
+
+const productPlaceholder = "/images/placeholders/product-placeholder.svg";
 
 type ProductCardProps = {
   product: Product;
@@ -15,8 +18,12 @@ type ProductCardProps = {
 
 export function ProductCard({ product }: ProductCardProps) {
   const [imageError, setImageError] = useState(false);
-  const [imageSrc, setImageSrc] = useState(product.image);
-  const detailsHref = `/collection/${product.id}`;
+  const [imageSrc, setImageSrc] = useState(
+    typeof product.image === "string" && product.image.trim()
+      ? product.image
+      : productPlaceholder,
+  );
+  const detailsHref = getProductPath(product);
   const discount = getDiscount(product.price, product.originalPrice);
 
   return (
@@ -55,8 +62,8 @@ export function ProductCard({ product }: ProductCardProps) {
                 sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
                 src={imageSrc}
                 onError={() => {
-                  if (imageSrc !== "/images/placeholders/product-placeholder.svg") {
-                    setImageSrc("/images/placeholders/product-placeholder.svg");
+                  if (imageSrc !== productPlaceholder) {
+                    setImageSrc(productPlaceholder);
                     return;
                   }
 

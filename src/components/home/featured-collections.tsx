@@ -23,30 +23,30 @@ type CategoryMeta = {
 const collections: CategoryMeta[] = [
   {
     name: "Keychains",
-    label: "Signature details",
+    label: "Pahadi keepsakes",
     description:
-      "Delicate handcrafted keychains designed to carry names, memories, and little moments with grace.",
+      "Small handmade reminders of people, places, and hill-side memories worth carrying every day.",
     accent: "rgba(201,164,106,0.24)",
   },
   {
     name: "Frames",
-    label: "Bespoke keepsakes",
+    label: "Aipan & wall art",
     description:
-      "Customized frames that turn meaningful photographs, notes, and milestones into elegant display pieces.",
+      "Frames inspired by Kumaoni colour, Aipan detail, photographs, and the stories that belong on your wall.",
     accent: "rgba(185,131,116,0.22)",
   },
   {
     name: "Fridge Magnets",
-    label: "Small statement gifts",
+    label: "Pieces of home",
     description:
-      "Artful magnets that bring warmth and personality to everyday spaces with handcrafted charm.",
+      "Tiny handmade souvenirs with enough character to bring a little Uttarakhand into everyday spaces.",
     accent: "rgba(122,130,114,0.2)",
   },
   {
     name: "Personalized Gifts",
-    label: "Made around your story",
+    label: "Made for your people",
     description:
-      "Thoughtful gifting pieces tailored for birthdays, anniversaries, celebrations, and heartfelt surprises.",
+      "Personal gifts made around names, in-jokes, celebrations, and the people you want to make feel seen.",
     accent: "rgba(151,117,95,0.18)",
   },
 ];
@@ -171,17 +171,17 @@ export function FeaturedCollections({ images }: FeaturedCollectionsProps) {
           whileInView={{ opacity: 1, y: 0 }}
         >
           <p className="text-[0.72rem] uppercase tracking-[0.36em] text-stone-500 sm:text-xs">
-            Featured collections
+            Made in small stories
           </p>
           <h2 className="mt-4 text-3xl leading-tight text-stone-900 sm:text-4xl lg:text-5xl">
-            Crafted for the moments
+            Keepsakes with a
             <span className="block text-[var(--color-rose-clay)]">
-              you want to remember beautifully.
+              Kumaoni point of view.
             </span>
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-stone-700 sm:text-lg">
-            Explore our most-loved handmade categories, curated with the warmth
-            of gifting and the elegance of a boutique atelier.
+            Explore handmade gifts that carry familiar symbols, personal details,
+            and a little memory of the hills.
           </p>
         </motion.div>
 

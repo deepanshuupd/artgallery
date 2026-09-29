@@ -33,6 +33,9 @@ const FEATURED_CATEGORIES: ProductCategory[] = [
 
 export default async function HomePage() {
   const products = await getProducts();
+  const culturalFeaturedProduct =
+    products.find((product) => /aipan|pahadi|pichora|kumaon/i.test(product.name)) ??
+    products[0];
 
   const imageFor = (category: ProductCategory): string | undefined => {
     const preferred = PREFERRED_IMAGES[category];
@@ -60,7 +63,7 @@ export default async function HomePage() {
 
   return (
     <main>
-      <HeroSection />
+      <HeroSection featuredProduct={culturalFeaturedProduct} />
       <FeaturedCollections images={categoryImages} />
       <CuratedHampersSection />
     </main>
