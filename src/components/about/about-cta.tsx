@@ -8,16 +8,15 @@ export function AboutCta() {
     <section className="relative px-4 py-14 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
       <div className="mx-auto max-w-7xl">
         <motion.div
-          className="relative overflow-hidden rounded-[2.25rem] border border-[rgba(255,255,255,0.12)] bg-[linear-gradient(155deg,rgba(51,40,33,0.98),rgba(72,58,48,0.96))] px-6 py-14 text-center shadow-[0_30px_90px_rgba(0,0,0,0.22)] sm:px-10 sm:py-16 lg:py-20"
+          className="relative overflow-hidden rounded-[1.5rem] border border-[rgba(168,69,48,0.32)] bg-[var(--color-geru)] px-6 py-14 text-center shadow-[0_24px_60px_rgba(47,36,29,0.22)] sm:px-10 sm:py-16 lg:py-20"
           initial={{ opacity: 0, y: 24 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
           viewport={{ once: true, amount: 0.3 }}
           whileInView={{ opacity: 1, y: 0 }}
         >
           <div aria-hidden="true">
-            <div className="absolute left-1/2 top-0 h-56 w-56 -translate-x-1/2 rounded-full bg-[rgba(201,164,106,0.18)] blur-3xl" />
-            <div className="absolute -right-10 bottom-0 h-44 w-44 rounded-full bg-[rgba(185,131,116,0.14)] blur-3xl" />
-            <div className="absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(201,164,106,0.86)] to-transparent" />
+            <div className="aipan-motif absolute inset-0 opacity-30" />
+            <div className="absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(255,250,241,0.8)] to-transparent" />
           </div>
 
           <p className="relative text-[0.72rem] uppercase tracking-[0.38em] text-stone-300">
@@ -38,7 +37,7 @@ export function AboutCta() {
 
           <div className="relative mt-9 flex flex-col justify-center gap-3 sm:flex-row">
             <Link
-              className="inline-flex min-h-12 items-center justify-center rounded-full bg-[var(--color-champagne)] px-7 py-3 text-sm font-medium uppercase tracking-[0.18em] text-stone-950 shadow-[0_18px_48px_rgba(201,164,106,0.2)] transition-transform duration-300 hover:-translate-y-0.5 hover:bg-[var(--color-champagne-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-champagne)] focus-visible:ring-offset-2 focus-visible:ring-offset-stone-900"
+              className="inline-flex min-h-12 items-center justify-center rounded-full bg-[var(--color-biswar)] px-7 py-3 text-sm font-medium uppercase tracking-[0.18em] text-[var(--color-geru)] shadow-[0_18px_48px_rgba(47,36,29,0.2)] transition-transform duration-300 hover:-translate-y-0.5 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-biswar)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-geru)]"
               href="/contact"
             >
               Start a conversation

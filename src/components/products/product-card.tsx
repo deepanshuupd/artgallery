@@ -32,23 +32,23 @@ export function ProductCard({ product }: ProductCardProps) {
       transition={{ duration: 0.28, ease: "easeOut" }}
       whileHover={{ y: -8 }}
     >
-      <div className="relative flex h-full flex-col overflow-hidden rounded-[2rem] border border-white/70 bg-[rgba(255,253,252,0.88)] shadow-[0_20px_70px_rgba(51,40,33,0.08)] backdrop-blur transition-shadow duration-300 group-hover:shadow-[0_28px_90px_rgba(51,40,33,0.14)]">
-        <div className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-[var(--color-champagne)] to-transparent" />
+      <div className="relative flex h-full flex-col overflow-hidden rounded-[1.4rem] border border-[rgba(168,69,48,0.18)] bg-[var(--color-biswar)] shadow-[0_14px_36px_rgba(47,36,29,0.1)] transition-shadow duration-300 group-hover:shadow-[0_24px_56px_rgba(47,36,29,0.18)]">
+        <div className="aipan-motif absolute inset-x-0 top-0 h-14 opacity-35" />
 
         <Link className="relative block overflow-hidden" href={detailsHref}>
-          <div className="absolute left-5 top-5 z-10 inline-flex rounded-full border border-[rgba(255,255,255,0.65)] bg-[rgba(255,253,252,0.82)] px-3 py-1 text-[0.65rem] font-medium uppercase tracking-[0.22em] text-stone-800 shadow-sm backdrop-blur">
-            Handmade
+          <div className="absolute left-4 top-4 z-10 inline-flex rounded-full border border-[rgba(255,255,255,0.7)] bg-[rgba(255,250,241,0.9)] px-3 py-1 text-[0.62rem] font-medium uppercase tracking-[0.2em] text-[var(--color-geru)] shadow-sm">
+            Kumaon made
           </div>
 
-          <div className="absolute right-5 top-5 z-10 inline-flex rounded-full bg-stone-900/80 px-3 py-1 text-[0.62rem] uppercase tracking-[0.18em] text-stone-50">
+          <div className="absolute right-4 top-4 z-10 inline-flex rounded-full bg-[var(--color-geru)]/90 px-3 py-1 text-[0.62rem] uppercase tracking-[0.16em] text-[var(--color-biswar)]">
             {product.category}
           </div>
 
-          <div className="relative h-72 w-full bg-[linear-gradient(160deg,rgba(201,164,106,0.18),rgba(255,253,252,0.96),rgba(185,131,116,0.15))]">
+          <div className="relative h-72 w-full bg-[linear-gradient(160deg,rgba(168,69,48,0.2),rgba(255,250,241,0.96),rgba(80,99,79,0.15))]">
             {imageError ? (
               <div className="flex h-full w-full flex-col justify-end p-6">
                 <p className="text-[0.68rem] uppercase tracking-[0.3em] text-stone-500">
-                  Art Gallery by Sneha
+                  KumaonRang
                 </p>
                 <p className="mt-3 max-w-[14rem] font-serif text-3xl leading-tight text-stone-900">
                   {product.name}
@@ -76,7 +76,7 @@ export function ProductCard({ product }: ProductCardProps) {
           </div>
         </Link>
 
-        <div className="flex flex-1 flex-col p-6">
+        <div className="flex flex-1 flex-col p-5 sm:p-6">
           <div className="flex items-start justify-between gap-4">
             <Link href={detailsHref}>
               <h3 className="font-serif text-2xl leading-tight text-stone-900 transition-colors duration-300 hover:text-[var(--color-rose-clay)]">
@@ -91,7 +91,7 @@ export function ProductCard({ product }: ProductCardProps) {
           </div>
 
           <div className="mt-4 flex flex-wrap items-center gap-x-2.5 gap-y-1">
-            <p className="text-lg font-medium text-[var(--color-rose-clay)]">
+            <p className="text-lg font-medium text-[var(--color-geru)]">
               {formatPrice(product.price)}
             </p>
             {discount ? (
@@ -112,13 +112,13 @@ export function ProductCard({ product }: ProductCardProps) {
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link
-              className="inline-flex min-h-12 items-center justify-center rounded-full border border-stone-200/80 bg-white/80 px-6 py-3 text-sm font-medium uppercase tracking-[0.18em] text-stone-900 transition-transform duration-300 hover:-translate-y-0.5 hover:bg-white"
+              className="inline-flex min-h-12 items-center justify-center rounded-full border border-[rgba(168,69,48,0.24)] bg-[var(--color-porcelain)] px-6 py-3 text-sm font-medium uppercase tracking-[0.16em] text-[var(--color-geru)] transition-transform duration-300 hover:-translate-y-0.5 hover:bg-white"
               href={detailsHref}
             >
               View Details
             </Link>
             <Link
-              className="inline-flex min-h-12 items-center justify-center rounded-full bg-stone-900 px-6 py-3 text-sm font-medium uppercase tracking-[0.18em] text-stone-50 shadow-[0_16px_40px_rgba(51,40,33,0.18)] transition-transform duration-300 hover:-translate-y-0.5 hover:bg-stone-800"
+              className="inline-flex min-h-12 items-center justify-center rounded-full bg-[var(--color-geru)] px-6 py-3 text-sm font-medium uppercase tracking-[0.16em] text-[var(--color-biswar)] shadow-[0_16px_40px_rgba(168,69,48,0.2)] transition-transform duration-300 hover:-translate-y-0.5 hover:bg-[var(--color-champagne-dark)]"
               href={createWhatsAppLink(product.whatsappMessage)}
               rel="noreferrer"
               target="_blank"

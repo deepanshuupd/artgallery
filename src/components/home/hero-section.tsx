@@ -6,6 +6,7 @@ import { useState } from "react";
 import { motion } from "motion/react";
 
 import { getProductPath } from "@/lib/catalog";
+import { brand } from "@/lib/brand";
 import { fadeInUpMount } from "@/lib/motion";
 import type { Product } from "@/types/product";
 
@@ -20,8 +21,8 @@ export function HeroSection({ featuredProduct }: HeroSectionProps) {
   return (
     <section className="relative overflow-hidden px-4 pb-14 pt-8 sm:px-6 sm:pb-20 sm:pt-12 lg:px-8 lg:pb-24">
       <div aria-hidden="true" className="absolute inset-0 -z-10">
-        <div className="absolute inset-x-0 top-0 h-[34rem] bg-[linear-gradient(115deg,rgba(164,65,42,0.12),rgba(247,241,234,0.25)_52%,rgba(87,101,78,0.11))]" />
-        <div className="absolute inset-0 opacity-[0.045] [background-image:linear-gradient(45deg,transparent_47%,var(--color-espresso)_48%,var(--color-espresso)_52%,transparent_53%),linear-gradient(-45deg,transparent_47%,var(--color-espresso)_48%,var(--color-espresso)_52%,transparent_53%)] [background-size:28px_28px]" />
+        <div className="absolute inset-x-0 top-0 h-[34rem] bg-[linear-gradient(125deg,rgba(168,69,48,0.14),rgba(255,250,241,0.38)_50%,rgba(80,99,79,0.12))]" />
+        <div className="aipan-motif absolute inset-0 opacity-30" />
       </div>
 
       <div className="mx-auto grid min-h-[calc(100vh-156px)] max-w-7xl items-center gap-10 py-10 lg:grid-cols-[minmax(0,1fr)_minmax(360px,0.86fr)] lg:gap-16 lg:py-14">
@@ -31,7 +32,7 @@ export function HeroSection({ featuredProduct }: HeroSectionProps) {
             className="text-[0.72rem] uppercase tracking-[0.38em] text-stone-600 sm:text-xs"
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
-            Pithoragarh · Uttarakhand
+            KumaonRang · Pithoragarh, Uttarakhand
           </motion.p>
 
           <motion.h1
@@ -39,8 +40,8 @@ export function HeroSection({ featuredProduct }: HeroSectionProps) {
             className="mt-5 text-5xl leading-[0.98] text-stone-900 sm:text-6xl lg:text-7xl"
             transition={{ duration: 0.7, delay: 0.08, ease: "easeOut" }}
           >
-            A little piece of
-            <span className="block text-[var(--color-rose-clay)]">Kumaon, made to keep.</span>
+            The colours of Kumaon,
+            <span className="block text-[var(--color-rose-clay)]">made to come home with you.</span>
           </motion.h1>
 
           <motion.p
@@ -48,8 +49,8 @@ export function HeroSection({ featuredProduct }: HeroSectionProps) {
             className="mt-7 max-w-2xl text-base leading-8 text-stone-700 sm:text-lg"
             transition={{ duration: 0.7, delay: 0.16, ease: "easeOut" }}
           >
-            Aipan-inspired art, Pahadi keepsakes, and personal gifts handcrafted
-            for the people, places, and memories that feel like home.
+            {brand.story} Made for the people, places, and memories that feel
+            like home.
           </motion.p>
 
           <motion.div
@@ -89,9 +90,9 @@ export function HeroSection({ featuredProduct }: HeroSectionProps) {
                 src={featuredProduct!.image}
               />
             ) : (
-              <div className="flex h-full flex-col justify-end bg-[linear-gradient(145deg,#6e281e,#332821)] p-8 text-[var(--color-porcelain)] sm:p-10">
-                <p className="text-[0.68rem] uppercase tracking-[0.34em] text-[var(--color-champagne)]">Art Gallery by Sneha</p>
-                <p className="mt-4 max-w-sm text-4xl leading-tight">Made with a memory of the hills.</p>
+              <div className="flex h-full flex-col justify-end bg-[linear-gradient(145deg,#a84530,#2f241d)] p-8 text-[var(--color-porcelain)] sm:p-10">
+                <p className="text-[0.68rem] uppercase tracking-[0.34em] text-[var(--color-champagne)]">KumaonRang</p>
+                <p className="mt-4 max-w-sm text-4xl leading-tight">A keepsake with the colour of the hills.</p>
               </div>
             )}
             <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_42%,rgba(38,25,19,0.76))]" />

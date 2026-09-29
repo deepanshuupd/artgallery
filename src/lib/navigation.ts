@@ -5,8 +5,8 @@ export type NavigationItem = {
 
 export const navigationItems: NavigationItem[] = [
   { label: "Home", href: "/" },
-  { label: "Collection", href: "/collection" },
-  { label: "Curated Hampers", href: "/curated-hampers" },
-  { label: "About", href: "/about" },
+  { label: "Shop", href: "/collection" },
+  { label: "Hampers", href: "/curated-hampers" },
+  { label: "Our Story", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];

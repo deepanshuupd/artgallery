@@ -4,9 +4,10 @@
  */
 
 import type { Product, ProductCategory } from "@/types/product";
+import { brand } from "@/lib/brand";
 import { getDiscount } from "@/lib/pricing";
 
-const DEFAULT_BUSINESS_NAME = "Sneha";
+const DEFAULT_BUSINESS_NAME = brand.name;
 
 function getWhatsAppBusinessNumber() {
   const number = process.env.NEXT_PUBLIC_WHATSAPP_BUSINESS_NUMBER?.replace(/\D/g, "");

@@ -1,8 +1,23 @@
+import type { Metadata } from "next";
+
 import { CuratedHampersSection } from "@/components/home/curated-hampers-section";
 import { FeaturedCollections } from "@/components/home/featured-collections";
 import { HeroSection } from "@/components/home/hero-section";
 import { getProducts } from "@/lib/products";
 import type { Product, ProductCategory } from "@/types/product";
+
+export const metadata: Metadata = {
+  title: "Aipan Art, Pahadi Gifts & Uttarakhand Souvenirs",
+  description:
+    "Shop handmade Aipan art, Pahadi keychains, Kumaoni gifts, Uttarakhand souvenirs, and personalized keepsakes made in Pithoragarh.",
+  keywords: [
+    "Aipan art gifts online",
+    "handmade Uttarakhand souvenir",
+    "Pahadi keychain Uttarakhand",
+    "Kumaoni heritage gifts",
+    "gift from Uttarakhand",
+  ],
+};
 
 export const dynamic = "force-dynamic";
 

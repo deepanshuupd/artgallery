@@ -1,14 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --color-ivory: #f7f1ea;
-  --color-porcelain: #fffdfc;
-  --color-champagne: #c9a46a;
-  --color-champagne-dark: #d6b27a;
-  --color-rose-clay: #b98374;
-  --color-sage-ash: #7a8272;
-  --color-espresso: #332821;
-  --color-charcoal-linen: #4b433d;
+  /* KumaonRang's palette draws on geru earth, biswar rice paste, and hill pine. */
+  --color-ivory: #f5eddf;
+  --color-porcelain: #fffaf1;
+  --color-champagne: #d4864a;
+  --color-champagne-dark: #b95f33;
+  --color-rose-clay: #a84530;
+  --color-sage-ash: #50634f;
+  --color-espresso: #2f241d;
+  --color-charcoal-linen: #554238;
+  --color-geru: #a84530;
+  --color-biswar: #fffaf1;
+  --color-pine: #50634f;
+  --color-rhododendron: #c45c42;
   --color-whatsapp: #25d366;
   --color-whatsapp-dark: #20ba5a;
   --color-error: #b3423a;
@@ -22,8 +27,10 @@ html {
 body {
   font-family: var(--font-body), sans-serif;
   background:
-    radial-gradient(circle at top, rgba(201, 164, 106, 0.14), transparent 34%),
-    linear-gradient(180deg, #fffdfc 0%, #f7f1ea 100%);
+    linear-gradient(90deg, rgba(168, 69, 48, 0.04) 1px, transparent 1px),
+    linear-gradient(rgba(168, 69, 48, 0.04) 1px, transparent 1px),
+    linear-gradient(180deg, #fffaf1 0%, #f5eddf 100%);
+  background-size: 28px 28px, 28px 28px, auto;
 }
 
 h1,
@@ -46,4 +53,44 @@ a {
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+.aipan-motif {
+  background-image:
+    linear-gradient(45deg, transparent 46%, rgba(168, 69, 48, 0.22) 47%, rgba(168, 69, 48, 0.22) 53%, transparent 54%),
+    linear-gradient(-45deg, transparent 46%, rgba(168, 69, 48, 0.22) 47%, rgba(168, 69, 48, 0.22) 53%, transparent 54%);
+  background-size: 22px 22px;
+}
+
+.brand-mark {
+  display: inline-flex;
+  align-items: baseline;
+  color: var(--color-espresso);
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.brand-mark--inverse {
+  color: var(--color-biswar);
+}
+
+.brand-mark--inverse .brand-mark__devanagari {
+  color: var(--color-champagne);
+}
+
+.brand-mark__latin {
+  font-family: var(--font-heading), serif;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.brand-mark__devanagari {
+  color: var(--color-geru);
+  font-family: var(--font-devanagari), serif;
+  font-size: 0.84em;
+  font-weight: 400;
+  letter-spacing: normal;
+  margin-left: 0.075em;
+  position: relative;
+  top: 0.035em;
 }

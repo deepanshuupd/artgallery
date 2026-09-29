@@ -14,10 +14,7 @@ const highlights = [
 export function AboutHero() {
   return (
     <section className="relative overflow-hidden px-4 py-14 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
-      <div aria-hidden="true" className="absolute inset-0 -z-10">
-        <div className="absolute left-1/2 top-0 h-80 w-80 -translate-x-1/2 rounded-full bg-[rgba(201,164,106,0.14)] blur-3xl sm:h-[26rem] sm:w-[26rem]" />
-        <div className="absolute -right-24 top-1/2 h-64 w-64 rounded-full bg-[rgba(185,131,116,0.1)] blur-3xl" />
-      </div>
+      <div aria-hidden="true" className="aipan-motif absolute inset-0 -z-10 opacity-20" />
 
       <div className="mx-auto max-w-7xl">
         <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(320px,0.9fr)] lg:gap-16">
@@ -46,8 +43,8 @@ export function AboutHero() {
               className="mt-6 max-w-2xl text-base leading-8 text-stone-700 sm:text-lg"
               transition={{ duration: 0.7, delay: 0.16, ease: "easeOut" }}
             >
-              Art Gallery by Sneha is a small gifting studio in Pithoragarh,
-              Uttarakhand, where keychains, frames, magnets, and hampers are
+              KumaonRang is a small gifting studio in Pithoragarh, Uttarakhand,
+              where Aipan-inspired art, Pahadi keepsakes, and personal gifts are
               made one at a time — for one person at a time.
             </motion.p>
 
@@ -58,15 +55,14 @@ export function AboutHero() {
             >
               <p>
                 What began as an afternoon habit of painting small keepsakes has
-                grown into a boutique practice: hand-finished keychains,
-                customized photo frames, fridge magnets with real personality,
-                and gifts built around names, dates, and inside jokes.
+                grown into a practice rooted in colour, memory, and small
+                details: hand-finished keychains, frames, magnets, and gifts
+                built around names, dates, and inside jokes.
               </p>
               <p>
-                Sneha Curated Hampers is the studio&apos;s dressier side —
-                layered gift boxes styled for birthdays, weddings, festivals,
-                and corporate gestures, with the same handmade warmth
-                underneath the ribbon.
+                KumaonRang hampers bring the same thoughtfulness to birthdays,
+                weddings, festivals, and celebrations — layered with useful
+                keepsakes and the warmth of something made by hand.
               </p>
               <p>
                 Every order starts as a conversation on WhatsApp. Tell us who
@@ -82,11 +78,8 @@ export function AboutHero() {
             className="relative mx-auto w-full max-w-md"
             transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
           >
-            <div className="relative overflow-hidden rounded-[2rem] border border-white/60 bg-[linear-gradient(160deg,rgba(255,253,252,0.94),rgba(247,241,234,0.86))] p-7 shadow-[0_24px_80px_rgba(51,40,33,0.12)] backdrop-blur sm:p-8">
-              <div
-                aria-hidden="true"
-                className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-[var(--color-champagne)] to-transparent"
-              />
+            <div className="relative overflow-hidden rounded-[1.5rem] border border-[rgba(168,69,48,0.2)] bg-[var(--color-biswar)] p-7 shadow-[0_18px_48px_rgba(47,36,29,0.12)] sm:p-8">
+              <div aria-hidden="true" className="aipan-motif absolute inset-x-0 top-0 h-16 opacity-30" />
 
               <p
                 aria-hidden="true"
@@ -96,11 +89,10 @@ export function AboutHero() {
               </p>
               <blockquote className="-mt-4">
                 <p className="font-serif text-2xl leading-snug text-stone-900 sm:text-[1.7rem]">
-                  A gift should feel like it was always meant for the person
-                  holding it.
+                  The best gifts carry a person, a place, or a memory home.
                 </p>
                 <footer className="mt-4 text-[0.68rem] uppercase tracking-[0.3em] text-stone-500">
-                  Sneha — Founder &amp; Maker
+                  KumaonRang — Pithoragarh
                 </footer>
               </blockquote>
 

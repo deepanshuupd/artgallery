@@ -5,7 +5,9 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 import { CloseIcon, MenuIcon } from "@/components/icons";
+import { brand } from "@/lib/brand";
 import { navigationItems } from "@/lib/navigation";
+import { BrandMark } from "@/components/layout/brand-mark";
 
 function isActivePath(currentPath: string, href: string) {
   if (href === "/") {
@@ -20,18 +22,17 @@ export function SiteHeader() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-stone-200/80 bg-[rgba(247,241,234,0.88)] backdrop-blur-xl">
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-50 border-b border-[rgba(168,69,48,0.16)] bg-[rgba(255,250,241,0.92)] backdrop-blur-xl">
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4 lg:px-8">
         <Link
-          className="group shrink-0 text-stone-900 transition-colors duration-300 hover:text-stone-700"
+          aria-label={brand.name}
+          className="group flex shrink-0 flex-col items-center text-stone-900 transition-colors duration-300 hover:text-stone-700"
           href="/"
           onClick={() => setIsOpen(false)}
         >
-          <span className="block font-serif text-[1.35rem] font-semibold tracking-[0.08em] sm:text-2xl">
-            Art Gallery
-          </span>
-          <span className="block text-[0.65rem] uppercase tracking-[0.34em] text-stone-500 sm:text-[0.68rem]">
-            by Sneha
+          <BrandMark className="text-[2rem] sm:text-[2.3rem]" />
+          <span className="block text-[0.5rem] uppercase tracking-[0.22em] text-stone-600 sm:text-[0.55rem]">
+            Art from the hills
           </span>
         </Link>
 
@@ -43,10 +44,10 @@ export function SiteHeader() {
               <Link
                 key={item.href}
                 className={[
-                  "rounded-full px-4 py-2 text-sm tracking-[0.16em] transition-all duration-300",
+                  "rounded-full px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] transition-all duration-300",
                   active
-                    ? "bg-stone-900 text-stone-50 shadow-[0_10px_30px_rgba(51,40,33,0.16)]"
-                    : "text-stone-700 hover:bg-white/70 hover:text-stone-950",
+                    ? "bg-[var(--color-geru)] text-[var(--color-biswar)] shadow-[0_10px_24px_rgba(168,69,48,0.2)]"
+                    : "text-stone-700 hover:bg-[rgba(168,69,48,0.08)] hover:text-[var(--color-geru)]",
                 ].join(" ")}
                 href={item.href}
               >
@@ -60,7 +61,7 @@ export function SiteHeader() {
           aria-controls="mobile-navigation"
           aria-expanded={isOpen}
           aria-label={isOpen ? "Close menu" : "Open menu"}
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-stone-300/80 bg-white/70 text-stone-900 shadow-sm transition hover:bg-white md:hidden"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(168,69,48,0.25)] bg-[var(--color-biswar)] text-[var(--color-geru)] shadow-sm transition hover:bg-white md:hidden"
           onClick={() => setIsOpen((open) => !open)}
           type="button"
         >
@@ -70,7 +71,7 @@ export function SiteHeader() {
 
       <div
         className={[
-          "overflow-hidden border-t border-stone-200/80 bg-[rgba(255,253,252,0.96)] transition-[max-height,opacity] duration-300 md:hidden",
+          "overflow-hidden border-t border-[rgba(168,69,48,0.16)] bg-[rgba(255,250,241,0.98)] transition-[max-height,opacity] duration-300 md:hidden",
           isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0",
         ].join(" ")}
         id="mobile-navigation"
@@ -87,10 +88,10 @@ export function SiteHeader() {
               <Link
                 key={item.href}
                 className={[
-                  "rounded-2xl px-4 py-3 text-sm tracking-[0.16em] transition-colors duration-300",
+                  "rounded-xl px-4 py-3 text-xs font-medium uppercase tracking-[0.16em] transition-colors duration-300",
                   active
-                    ? "bg-stone-900 text-stone-50"
-                    : "text-stone-700 hover:bg-stone-100 hover:text-stone-950",
+                    ? "bg-[var(--color-geru)] text-[var(--color-biswar)]"
+                    : "text-stone-700 hover:bg-[rgba(168,69,48,0.08)] hover:text-[var(--color-geru)]",
                 ].join(" ")}
                 href={item.href}
                 onClick={() => setIsOpen(false)}

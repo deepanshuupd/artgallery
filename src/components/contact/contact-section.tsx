@@ -16,13 +16,13 @@ import { generateGeneralInquiryLink } from "@/lib/whatsapp";
 const instagramProfiles = [
   {
     handle: "art_gallery_05s",
-    name: "Art Gallery by Sneha",
+    name: "KumaonRang",
     note: "Keychains, frames, magnets, and everyday handmade pieces.",
     href: "https://www.instagram.com/art_gallery_05s/",
   },
   {
     handle: "snehacuratedhampers",
-    name: "Sneha Curated Hampers",
+    name: "KumaonRang Hampers",
     note: "Styled gift boxes and seasonal hamper edits.",
     href: "https://www.instagram.com/snehacuratedhampers/",
   },
@@ -60,20 +60,14 @@ export function ContactSection() {
         <div className="flex flex-col gap-5">
           <motion.a
             {...fadeInUp}
-            className="group relative overflow-hidden rounded-[2rem] border border-[rgba(255,255,255,0.12)] bg-[linear-gradient(155deg,rgba(51,40,33,0.98),rgba(72,58,48,0.96))] p-6 shadow-[0_24px_70px_rgba(51,40,33,0.24)] transition-transform duration-300 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 focus-visible:ring-offset-2 sm:p-7"
+            className="group relative overflow-hidden rounded-[1.5rem] border border-[rgba(168,69,48,0.35)] bg-[var(--color-geru)] p-6 shadow-[0_22px_56px_rgba(47,36,29,0.22)] transition-transform duration-300 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-geru)] focus-visible:ring-offset-2 sm:p-7"
             href={whatsAppLink}
             rel="noopener noreferrer"
             target="_blank"
             transition={{ duration: 0.6, delay: 0.08, ease: "easeOut" }}
           >
-            <div
-              aria-hidden="true"
-              className="absolute -right-10 -top-10 h-36 w-36 rounded-full bg-[rgba(37,211,102,0.16)] blur-3xl transition-transform duration-500 group-hover:scale-125"
-            />
-            <div
-              aria-hidden="true"
-              className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(201,164,106,0.86)] to-transparent"
-            />
+            <div aria-hidden="true" className="aipan-motif absolute inset-0 opacity-25" />
+            <div aria-hidden="true" className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white/75 to-transparent" />
 
             <div className="relative flex items-start justify-between gap-4">
               <div>
@@ -102,7 +96,7 @@ export function ContactSection() {
               <motion.a
                 key={profile.handle}
                 {...fadeInUp}
-                className="group relative overflow-hidden rounded-[2rem] border border-white/60 bg-[rgba(255,253,252,0.82)] p-6 shadow-[0_18px_60px_rgba(51,40,33,0.08)] backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_80px_rgba(51,40,33,0.14)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900/40 focus-visible:ring-offset-2"
+                className="group relative overflow-hidden rounded-[1.35rem] border border-[rgba(168,69,48,0.18)] bg-[var(--color-biswar)] p-6 shadow-[0_14px_36px_rgba(47,36,29,0.1)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_52px_rgba(47,36,29,0.16)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-geru)]/40 focus-visible:ring-offset-2"
                 href={profile.href}
                 rel="noopener noreferrer"
                 target="_blank"
@@ -139,12 +133,12 @@ export function ContactSection() {
 
           <motion.div
             {...fadeInUp}
-            className="relative overflow-hidden rounded-[2rem] border border-white/60 bg-[rgba(255,253,252,0.82)] p-6 shadow-[0_18px_60px_rgba(51,40,33,0.08)] backdrop-blur sm:p-7"
+            className="relative overflow-hidden rounded-[1.35rem] border border-[rgba(168,69,48,0.18)] bg-[var(--color-biswar)] p-6 shadow-[0_14px_36px_rgba(47,36,29,0.1)] sm:p-7"
             transition={{ duration: 0.6, delay: 0.28, ease: "easeOut" }}
           >
             <div
               aria-hidden="true"
-              className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[var(--color-champagne)] to-transparent"
+              className="aipan-motif absolute inset-x-0 top-0 h-16 opacity-30"
             />
 
             <div className="flex items-start gap-4">

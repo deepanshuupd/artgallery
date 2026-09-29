@@ -29,16 +29,13 @@ const hamperCategories = [
 export function CuratedHampersSection() {
   return (
     <section className="relative px-4 py-18 sm:px-6 sm:py-24 lg:px-8 lg:py-32">
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-x-0 top-0 h-full bg-[linear-gradient(180deg,rgba(51,40,33,0.98),rgba(72,58,48,0.96))]" />
-        <div className="absolute left-1/2 top-16 h-72 w-72 -translate-x-1/2 rounded-full bg-[rgba(201,164,106,0.18)] blur-3xl" />
-        <div className="absolute right-0 top-24 h-56 w-56 rounded-full bg-[rgba(185,131,116,0.12)] blur-3xl" />
-      </div>
+      <div className="absolute inset-0 -z-10 bg-[var(--color-espresso)]" />
+      <div aria-hidden="true" className="aipan-motif absolute inset-0 -z-10 opacity-20" />
 
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-stretch">
           <motion.div
-            className="relative overflow-hidden rounded-[2.25rem] border border-[rgba(255,255,255,0.12)] bg-[linear-gradient(155deg,rgba(255,253,252,0.12),rgba(255,253,252,0.04))] p-7 shadow-[0_30px_90px_rgba(0,0,0,0.22)] backdrop-blur-sm sm:p-8 lg:p-10"
+            className="relative overflow-hidden rounded-[1.5rem] border border-[rgba(255,250,241,0.18)] bg-[rgba(255,250,241,0.06)] p-7 shadow-[0_24px_60px_rgba(0,0,0,0.2)] sm:p-8 lg:p-10"
             initial={{ opacity: 0, y: 24 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
             viewport={{ once: true, amount: 0.3 }}
@@ -47,27 +44,27 @@ export function CuratedHampersSection() {
             <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(201,164,106,0.86)] to-transparent" />
 
             <p className="text-[0.72rem] uppercase tracking-[0.38em] text-stone-300">
-              Sneha Curated Hampers
+              KumaonRang Hampers
             </p>
 
             <h2 className="mt-5 max-w-2xl text-3xl leading-[1.06] text-[var(--color-porcelain)] sm:text-4xl lg:text-5xl">
-              A more indulgent way
+              Gifts with a little more
               <span className="block text-[var(--color-champagne)]">
-                to gift with intention.
+                colour, care, and story.
               </span>
             </h2>
 
             <p className="mt-6 max-w-2xl text-base leading-8 text-stone-300 sm:text-lg">
-              Designed as an elevated sub-brand, our curated hampers blend
-              handcrafted warmth with an editorial sense of styling, detail, and
-              celebration.
+              Thoughtful gift boxes for celebrations that deserve more than a
+              last-minute present — with useful keepsakes, personal notes, and
+              handmade warmth from Kumaon.
             </p>
 
             <div className="mt-10 grid gap-4 sm:grid-cols-2">
               {hamperCategories.slice(0, 2).map((item, index) => (
                 <motion.div
                   key={item.name}
-                  className="rounded-[1.75rem] border border-[rgba(255,255,255,0.1)] bg-[rgba(255,253,252,0.06)] p-5"
+              className="rounded-xl border border-[rgba(255,250,241,0.14)] bg-[rgba(255,250,241,0.06)] p-5"
                   initial={{ opacity: 0, y: 20 }}
                   transition={{
                     duration: 0.55,
@@ -117,11 +114,11 @@ export function CuratedHampersSection() {
               {hamperCategories.slice(2, 4).map((item) => (
                 <motion.article
                   key={item.name}
-                  className="group relative overflow-hidden rounded-[2rem] border border-[rgba(255,255,255,0.1)] bg-[linear-gradient(170deg,rgba(255,253,252,0.12),rgba(255,253,252,0.04))] p-6 shadow-[0_20px_70px_rgba(0,0,0,0.16)]"
+                  className="group relative overflow-hidden rounded-[1.35rem] border border-[rgba(255,250,241,0.14)] bg-[rgba(255,250,241,0.07)] p-6 shadow-[0_18px_48px_rgba(0,0,0,0.16)]"
                   whileHover={{ y: -6 }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
                 >
-                  <div className="absolute -right-10 top-8 h-24 w-24 rounded-full bg-[rgba(201,164,106,0.16)] blur-2xl transition-transform duration-500 group-hover:scale-110" />
+                  <div className="aipan-motif absolute -right-5 top-5 h-28 w-28 opacity-30 transition-transform duration-500 group-hover:scale-110" />
                   <p className="relative text-[0.68rem] uppercase tracking-[0.3em] text-stone-300">
                     Curated series
                   </p>
@@ -136,7 +133,7 @@ export function CuratedHampersSection() {
             </div>
 
             <motion.article
-              className="relative overflow-hidden rounded-[2rem] border border-[rgba(255,255,255,0.1)] bg-[linear-gradient(140deg,rgba(201,164,106,0.2),rgba(255,253,252,0.08))] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.18)] sm:p-8"
+              className="relative overflow-hidden rounded-[1.35rem] border border-[rgba(255,250,241,0.14)] bg-[rgba(168,69,48,0.3)] p-6 shadow-[0_24px_56px_rgba(0,0,0,0.18)] sm:p-8"
               whileHover={{ y: -4 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
             >

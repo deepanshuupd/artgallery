@@ -8,7 +8,14 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Collection",
   description:
-    "Browse the full collection of handmade keychains, customized frames, fridge magnets, and personalized gifts from Art Gallery by Sneha.",
+    "Shop KumaonRang for Aipan-inspired art, Pahadi keychains, Uttarakhand souvenirs, personalized gifts, and handmade keepsakes from Kumaon.",
+  keywords: [
+    "handmade Aipan keychain",
+    "Aipan art frame",
+    "Uttarakhand fridge magnet",
+    "personalized Pahadi gifts",
+    "Kumaon souvenirs online",
+  ],
 };
 
 type CollectionPageProps = {
@@ -43,6 +50,12 @@ export default async function CollectionPage({
           <p className="mt-5 max-w-2xl text-base leading-8 text-stone-700 sm:text-lg">
             Explore our collection of personalized keepsakes, elegant decor, and
             gifting pieces designed to feel intimate, thoughtful, and premium.
+          </p>
+          <p className="mt-5 max-w-3xl text-sm leading-7 text-stone-600 sm:text-base">
+            Find handmade Aipan keychains, Kumaoni wall art, Pahadi gifts,
+            Uttarakhand souvenir magnets, and small personalized gifts made in
+            Pithoragarh for everyday keepsakes, celebrations, and thoughtful
+            return gifts.
           </p>
         </section>
 

@@ -194,7 +194,7 @@ export function ProductShowcase({
           <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-stone-600 sm:text-base">
             {catalogEmpty
               ? "We couldn't load products just now — please check back in a moment, or reach us on WhatsApp and we'll help directly."
-              : "Adjust the filter or search term to discover more handmade pieces from Art Gallery by Sneha."}
+              : "Adjust the filter or search term to discover more handmade pieces from KumaonRang."}
           </p>
         </motion.div>
       ) : null}

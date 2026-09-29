@@ -5,7 +5,13 @@ import { ContactSection } from "@/components/contact/contact-section";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Get in touch with Art Gallery by Sneha for handmade gifts, customized frames, and curated hampers. Reach us on WhatsApp, Instagram, or from our studio in Pithoragarh, Uttarakhand.",
+    "Contact KumaonRang for Aipan-inspired gifts, Pahadi keychains, personalized keepsakes, and Kumaon hampers from Pithoragarh, Uttarakhand.",
+  keywords: [
+    "order handmade gifts from Uttarakhand",
+    "custom Aipan gifts",
+    "Pithoragarh handmade gifts",
+    "Uttarakhand wedding return gifts",
+  ],
 };
 
 export default function ContactPage() {

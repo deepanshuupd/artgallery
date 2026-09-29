@@ -36,7 +36,7 @@ export default function AdminLoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-stone-50">
       <div className="w-full max-w-sm rounded-xl border border-stone-200 bg-white p-8 shadow-sm">
         <h1 className="mb-1 font-serif text-2xl text-stone-900">Admin Login</h1>
-        <p className="mb-6 text-sm text-stone-500">Art Gallery by Sneha</p>
+        <p className="mb-6 text-sm text-stone-500">KumaonRang</p>
 
         <form onSubmit={handleLogin} className="space-y-4">
           {error && (

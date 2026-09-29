@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useId, useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
@@ -230,10 +231,12 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
                   key={url}
                   className="relative overflow-hidden rounded-md border border-stone-200 bg-stone-50"
                 >
-                  <img
+                  <Image
                     src={url}
                     alt={`Product ${index + 1}`}
                     className="h-24 w-full object-cover"
+                    height={96}
+                    width={160}
                   />
                   {index === 0 && (
                     <span className="absolute left-2 top-2 rounded-full bg-stone-900 px-2 py-0.5 text-[10px] uppercase tracking-[0.18em] text-white">

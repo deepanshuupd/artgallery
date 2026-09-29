@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { requireAdminUser } from "@/lib/admin";
 import { DeleteProductButton } from "./_components/delete-product-button";
@@ -55,10 +56,12 @@ export default async function AdminProductsPage() {
               >
                 <div className="flex items-start gap-3">
                   {p.image_url ? (
-                    <img
+                    <Image
                       src={p.image_url as string}
                       alt=""
                       className="h-16 w-16 shrink-0 rounded-lg object-cover"
+                      height={64}
+                      width={64}
                     />
                   ) : (
                     <div className="h-16 w-16 shrink-0 rounded-lg bg-stone-100" />
@@ -140,10 +143,12 @@ export default async function AdminProductsPage() {
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-3">
                       {p.image_url ? (
-                        <img
+                        <Image
                           src={p.image_url as string}
                           alt=""
                           className="h-10 w-10 rounded-md object-cover"
+                          height={40}
+                          width={40}
                         />
                       ) : (
                         <div className="h-10 w-10 rounded-md bg-stone-100" />

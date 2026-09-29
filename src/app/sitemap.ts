@@ -7,7 +7,15 @@ import { getSiteUrl } from "@/lib/site";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = getSiteUrl();
 
-  const staticRoutes = ["", "/collection", "/curated-hampers", "/about", "/contact"];
+  const staticRoutes = [
+    "",
+    "/collection",
+    "/curated-hampers",
+    "/uttarakhand-gifts",
+    "/pithoragarh-aipan-art",
+    "/about",
+    "/contact",
+  ];
   const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
     url: `${siteUrl}${route}`,
     changeFrequency: "weekly",

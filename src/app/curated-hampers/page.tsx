@@ -9,7 +9,13 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Curated Hampers",
   description:
-    "Explore Sneha Curated Hampers — styled gift boxes for birthdays, anniversaries, weddings, and corporate gifting, or request a fully custom hamper of your own.",
+    "Explore KumaonRang hampers — thoughtful gift boxes for birthdays, weddings, festivals, and meaningful celebrations, curated from the Kumaon hills.",
+  keywords: [
+    "traditional Uttarakhand gifts",
+    "personalized Uttarakhand gifts",
+    "Kumaoni gifts online",
+    "Pahadi handmade gifts",
+  ],
 };
 
 export default async function CuratedHampersPage() {
@@ -21,15 +27,12 @@ export default async function CuratedHampersPage() {
   return (
     <main className="relative overflow-hidden">
       <section className="relative px-4 py-14 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
-        <div aria-hidden="true" className="absolute inset-0 -z-10">
-          <div className="absolute inset-x-0 top-0 h-full bg-[linear-gradient(180deg,rgba(51,40,33,0.98),rgba(72,58,48,0.96))]" />
-          <div className="absolute left-1/2 top-16 h-72 w-72 -translate-x-1/2 rounded-full bg-[rgba(201,164,106,0.18)] blur-3xl" />
-          <div className="absolute right-0 top-24 h-56 w-56 rounded-full bg-[rgba(185,131,116,0.12)] blur-3xl" />
-        </div>
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[var(--color-espresso)]" />
+        <div aria-hidden="true" className="aipan-motif absolute inset-0 -z-10 opacity-20" />
 
         <div className="mx-auto max-w-7xl">
           <p className="text-[0.72rem] uppercase tracking-[0.38em] text-stone-300">
-            Sneha Curated Hampers
+            KumaonRang Hampers
           </p>
           <h1 className="mt-5 max-w-2xl font-serif text-4xl leading-[1.06] text-[var(--color-porcelain)] sm:text-5xl lg:text-6xl">
             A more indulgent way
@@ -38,9 +41,9 @@ export default async function CuratedHampersPage() {
             </span>
           </h1>
           <p className="mt-6 max-w-2xl text-base leading-8 text-stone-300 sm:text-lg">
-            Layered gift boxes styled for birthdays, anniversaries, weddings,
-            festivals, and corporate gestures — handcrafted warmth with an
-            editorial sense of detail.
+            Layered gift boxes for birthdays, anniversaries, weddings, and
+            festivals — built around thoughtful details, meaningful keepsakes,
+            and the colours of Kumaon.
           </p>
         </div>
       </section>

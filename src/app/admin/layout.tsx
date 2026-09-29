@@ -1,6 +1,6 @@
 import { AdminNav } from "./_components/admin-nav";
 
-export const metadata = { title: "Admin | Art Gallery by Sneha" };
+export const metadata = { title: "Admin | KumaonRang" };
 
 export default function AdminLayout({
   children,

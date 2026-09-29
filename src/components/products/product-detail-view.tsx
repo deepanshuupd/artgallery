@@ -40,7 +40,7 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
   return (
     <main className="relative overflow-hidden px-4 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-x-0 top-0 h-56 bg-[radial-gradient(circle_at_top,rgba(201,164,106,0.14),transparent_68%)]" />
+        <div className="aipan-motif absolute inset-x-0 top-0 h-56 opacity-25" />
       </div>
 
       <div className="mx-auto max-w-7xl">
@@ -51,7 +51,7 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
           transition={{ duration: 0.45, ease: "easeOut" }}
         >
           <Link
-            className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.18em] text-stone-600 transition-colors hover:text-stone-900"
+            className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.18em] text-stone-600 transition-colors hover:text-[var(--color-geru)]"
             href="/collection"
           >
             <ArrowLeftIcon className="h-4 w-4" />
@@ -62,11 +62,11 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
         <section className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(360px,0.95fr)] lg:items-start">
           <motion.div
             animate={{ opacity: 1, y: 0 }}
-            className="relative overflow-hidden rounded-[2.2rem] border border-white/70 bg-[rgba(255,253,252,0.86)] shadow-[0_24px_90px_rgba(51,40,33,0.1)]"
+            className="relative overflow-hidden rounded-[1.5rem] border border-[rgba(168,69,48,0.18)] bg-[var(--color-biswar)] shadow-[0_20px_60px_rgba(47,36,29,0.12)]"
             initial={{ opacity: 0, y: 24 }}
             transition={{ duration: 0.55, ease: "easeOut" }}
           >
-            <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[var(--color-champagne)] to-transparent" />
+            <div className="aipan-motif absolute inset-x-0 top-0 h-16 opacity-30" />
             <div className="relative">
               <div
                 ref={carouselRef}
@@ -88,7 +88,7 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
                       {index === activeImageIndex && (imageError || failedImageSrc === activeImage) ? (
                       <div className="flex h-full w-full flex-col justify-end p-8 sm:p-10">
                         <p className="text-[0.72rem] uppercase tracking-[0.36em] text-stone-500">
-                          Art Gallery by Sneha
+                          KumaonRang
                         </p>
                         <p className="mt-4 max-w-lg font-serif text-4xl leading-tight text-stone-900 sm:text-5xl">
                           {product.name}
@@ -149,15 +149,15 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
 
           <motion.div
             animate={{ opacity: 1, y: 0 }}
-            className="rounded-[2.2rem] border border-white/70 bg-[rgba(255,253,252,0.78)] p-6 shadow-[0_20px_80px_rgba(51,40,33,0.08)] backdrop-blur sm:p-8"
+            className="rounded-[1.5rem] border border-[rgba(168,69,48,0.18)] bg-[var(--color-biswar)] p-6 shadow-[0_16px_44px_rgba(47,36,29,0.1)] sm:p-8"
             initial={{ opacity: 0, y: 24 }}
             transition={{ duration: 0.55, delay: 0.08, ease: "easeOut" }}
           >
             <div className="flex flex-wrap items-center gap-3">
-              <span className="inline-flex rounded-full border border-stone-200/80 bg-white/80 px-4 py-2 text-[0.68rem] font-medium uppercase tracking-[0.22em] text-stone-800">
-                Handmade
+              <span className="inline-flex rounded-full border border-[rgba(168,69,48,0.22)] bg-[var(--color-porcelain)] px-4 py-2 text-[0.68rem] font-medium uppercase tracking-[0.22em] text-[var(--color-geru)]">
+                Kumaon made
               </span>
-              <span className="inline-flex rounded-full bg-stone-900 px-4 py-2 text-[0.68rem] uppercase tracking-[0.22em] text-stone-50">
+              <span className="inline-flex rounded-full bg-[var(--color-geru)] px-4 py-2 text-[0.68rem] uppercase tracking-[0.22em] text-[var(--color-biswar)]">
                 {product.category}
               </span>
               {product.featured ? (
@@ -172,7 +172,7 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
             </h1>
 
             <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1.5">
-              <p className="text-2xl font-medium text-[var(--color-rose-clay)]">
+              <p className="text-2xl font-medium text-[var(--color-geru)]">
                 {formatPrice(product.price)}
               </p>
               {discount ? (
@@ -191,7 +191,7 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
               {product.description}
             </p>
 
-            <div className="mt-8 grid gap-4 rounded-[1.6rem] border border-stone-200/70 bg-white/70 p-5">
+            <div className="mt-8 grid gap-4 rounded-xl border border-[rgba(168,69,48,0.16)] bg-[var(--color-porcelain)] p-5">
               <p className="text-[0.72rem] uppercase tracking-[0.34em] text-stone-500">
                 Product details
               </p>
@@ -208,7 +208,7 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <WhatsAppOrderButton product={product} />
               <Link
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-stone-200/80 bg-white/80 px-6 py-3 text-sm font-medium uppercase tracking-[0.18em] text-stone-900 transition-transform duration-300 hover:-translate-y-0.5 hover:bg-white"
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-[rgba(168,69,48,0.24)] bg-[var(--color-porcelain)] px-6 py-3 text-sm font-medium uppercase tracking-[0.16em] text-[var(--color-geru)] transition-transform duration-300 hover:-translate-y-0.5 hover:bg-white"
                 href="/collection"
               >
                 <ArrowLeftIcon className="h-4 w-4" />
@@ -220,7 +220,7 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
 
         <motion.section
           animate={{ opacity: 1, y: 0 }}
-          className="mt-10 rounded-[2.2rem] border border-white/70 bg-[rgba(255,253,252,0.78)] p-6 shadow-[0_20px_80px_rgba(51,40,33,0.08)] backdrop-blur sm:p-8 lg:mt-12"
+          className="mt-10 rounded-[1.5rem] border border-[rgba(168,69,48,0.18)] bg-[var(--color-biswar)] p-6 shadow-[0_16px_44px_rgba(47,36,29,0.1)] sm:p-8 lg:mt-12"
           initial={{ opacity: 0, y: 24 }}
           transition={{ duration: 0.55, delay: 0.14, ease: "easeOut" }}
         >

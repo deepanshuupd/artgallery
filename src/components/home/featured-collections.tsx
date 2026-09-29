@@ -74,7 +74,7 @@ function CollectionCard({
       whileHover={{ y: -8 }}
     >
       <Link
-        className="relative flex h-full min-h-[22rem] flex-col justify-end overflow-hidden rounded-[2rem] border border-white/60 bg-[rgba(255,253,252,0.82)] shadow-[0_18px_60px_rgba(51,40,33,0.08)] backdrop-blur transition-shadow duration-300 hover:shadow-[0_28px_80px_rgba(51,40,33,0.14)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900/40"
+        className="relative flex h-full min-h-[23rem] flex-col justify-end overflow-hidden rounded-[1.4rem] border border-[rgba(168,69,48,0.18)] bg-[var(--color-biswar)] shadow-[0_14px_34px_rgba(47,36,29,0.1)] transition-shadow duration-300 hover:shadow-[0_24px_52px_rgba(47,36,29,0.18)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-geru)]/40"
         href={href}
       >
         {hasImage ? (
@@ -96,7 +96,7 @@ function CollectionCard({
           <>
             <div
               aria-hidden="true"
-              className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-[var(--color-champagne)] to-transparent"
+              className="aipan-motif absolute inset-x-0 top-0 h-20 opacity-30"
             />
             <div
               aria-hidden="true"
@@ -106,10 +106,10 @@ function CollectionCard({
           </>
         )}
 
-        <div className="relative flex flex-col p-6">
+        <div className="relative flex flex-col p-6 sm:p-7">
           <p
             className={`text-[0.68rem] uppercase tracking-[0.32em] ${
-              hasImage ? "text-white/80" : "text-stone-500"
+              hasImage ? "text-white/80" : "text-[var(--color-geru)]"
             }`}
           >
             {collection.label}
@@ -117,7 +117,7 @@ function CollectionCard({
 
           <h3
             className={`mt-4 text-3xl leading-tight ${
-              hasImage ? "text-white" : "text-stone-900"
+              hasImage ? "text-white" : "text-[var(--color-espresso)]"
             }`}
           >
             {collection.name}
@@ -125,7 +125,7 @@ function CollectionCard({
 
           <p
             className={`mt-4 text-sm leading-7 ${
-              hasImage ? "text-white/85" : "text-stone-600"
+              hasImage ? "text-white/85" : "text-stone-700"
             }`}
           >
             {collection.description}
@@ -135,7 +135,7 @@ function CollectionCard({
             className={`mt-6 flex items-center justify-between border-t pt-4 text-sm uppercase tracking-[0.18em] ${
               hasImage
                 ? "border-white/25 text-white"
-                : "border-stone-200/70 text-stone-800"
+                : "border-[rgba(168,69,48,0.2)] text-[var(--color-geru)]"
             }`}
           >
             <span>Explore</span>
@@ -143,7 +143,7 @@ function CollectionCard({
               className={`inline-flex h-10 w-10 items-center justify-center rounded-full border transition-transform duration-300 group-hover:translate-x-1 ${
                 hasImage
                   ? "border-white/40 bg-white/10"
-                  : "border-stone-300/80 bg-white/80"
+                : "border-[rgba(168,69,48,0.28)] bg-[var(--color-porcelain)]"
               }`}
             >
               <ArrowRightIcon className="h-4 w-4" />
@@ -158,9 +158,7 @@ function CollectionCard({
 export function FeaturedCollections({ images }: FeaturedCollectionsProps) {
   return (
     <section className="relative px-4 py-18 sm:px-6 sm:py-24 lg:px-8 lg:py-28">
-      <div aria-hidden="true" className="absolute inset-0 -z-10">
-        <div className="absolute inset-x-0 top-16 h-40 bg-[radial-gradient(circle_at_center,rgba(201,164,106,0.12),transparent_68%)]" />
-      </div>
+      <div aria-hidden="true" className="aipan-motif absolute inset-x-0 top-16 -z-10 h-40 opacity-20" />
 
       <div className="mx-auto max-w-7xl">
         <motion.div
@@ -171,17 +169,17 @@ export function FeaturedCollections({ images }: FeaturedCollectionsProps) {
           whileInView={{ opacity: 1, y: 0 }}
         >
           <p className="text-[0.72rem] uppercase tracking-[0.36em] text-stone-500 sm:text-xs">
-            Made in small stories
+            Shop KumaonRang
           </p>
           <h2 className="mt-4 text-3xl leading-tight text-stone-900 sm:text-4xl lg:text-5xl">
-            Keepsakes with a
+            The little things that
             <span className="block text-[var(--color-rose-clay)]">
-              Kumaoni point of view.
+              bring the hills closer.
             </span>
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-stone-700 sm:text-lg">
-            Explore handmade gifts that carry familiar symbols, personal details,
-            and a little memory of the hills.
+            Aipan-inspired art, Pahadi keepsakes, and personal gifts rooted in
+            the colours and memories of Kumaon.
           </p>
         </motion.div>
 

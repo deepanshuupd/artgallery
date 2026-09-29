@@ -7,7 +7,13 @@ import { AboutValues } from "@/components/about/about-values";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "The story behind Art Gallery by Sneha — a handmade gifting studio in Pithoragarh, Uttarakhand, crafting personalized keychains, customized frames, fridge magnets, and Sneha Curated Hampers.",
+    "Meet KumaonRang, a Pithoragarh gifting studio crafting Aipan-inspired art, Pahadi keepsakes, personalized gifts, and Kumaon hampers.",
+  keywords: [
+    "Pithoragarh Aipan art",
+    "Uttarakhand folk art",
+    "Kumaoni handmade gifts",
+    "Pahadi heritage gifts",
+  ],
 };
 
 export default function AboutPage() {
