@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { productCardImage } from "@/lib/product-image";
 import Link from "next/link";
 import { useState } from "react";
 import { CraftOrnament } from "@/components/home/craft-ornament";
@@ -25,7 +26,7 @@ export function CuratedHampersSection({ product }: { product?: Product }) {
           {product?.image && !failed ? (
             <div className={atmosphere.giftProduct} data-home-reveal="gifting-product" onFocusCapture={event => { event.currentTarget.dataset.homeImmediate = "true"; }}>
             <Link prefetch={false} href={getProductPath(product)} className="heritage-gifting__photo">
-              <div className="heritage-gifting__image"><Image src={product.image} alt={product.name.trim()} fill quality={70} sizes="(max-width: 767px) 180px, 300px" className="object-contain" onError={() => setFailed(true)} /></div>
+              <div className="heritage-gifting__image"><Image src={productCardImage(product.image)} alt={product.name.trim()} fill quality={70} sizes="(max-width: 767px) 180px, 300px" className="object-contain" onError={() => setFailed(true)} /></div>
               <span>{product.name}</span>
             </Link>
             </div>

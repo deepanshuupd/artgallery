@@ -4,7 +4,8 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useId, useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { prepareProductImage } from "@/lib/product-image-upload";
+import { prepareProductImages } from "@/lib/product-image-upload";
+import { productCardImage } from "@/lib/product-image";
 import { refreshPublicCatalog } from "@/app/admin/actions";
 import type { ProductCategory } from "@/types/product";
 
@@ -120,13 +121,24 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
 
     try {
       for (const file of filesToUpload) {
-        const optimized = await prepareProductImage(file);
-        const filename = `optimized/uploads/${crypto.randomUUID()}.webp`;
-        const { error: uploadError } = await supabase.storage
-          .from("product-images")
-          .upload(filename, optimized, { contentType: "image/webp", cacheControl: "31536000", upsert: false });
-        if (uploadError) throw new Error("Image upload failed: " + uploadError.message);
-        const { data } = supabase.storage.from("product-images").getPublicUrl(filename);
+        const variants = await prepareProductImages(file);
+        const stem = `optimized/v2/${crypto.randomUUID()}`;
+        const paths = [`${stem}-card.webp`, `${stem}.webp`];
+        // Publish the detail URL only after both files exist.
+        const uploadedPaths: string[] = [];
+        try {
+          for (const [index, variant] of [variants.card, variants.detail].entries()) {
+            const { error: uploadError } = await supabase.storage
+              .from("product-images")
+              .upload(paths[index], variant, { contentType: "image/webp", cacheControl: "31536000", upsert: false });
+            if (uploadError) throw new Error("Image upload failed: " + uploadError.message);
+            uploadedPaths.push(paths[index]);
+          }
+        } catch (uploadError) {
+          if (uploadedPaths.length) await supabase.storage.from("product-images").remove(uploadedPaths);
+          throw uploadError;
+        }
+        const { data } = supabase.storage.from("product-images").getPublicUrl(paths[1]);
         uploadedUrls.push(data.publicUrl);
       }
     } catch (error) {
@@ -204,7 +216,7 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
           <input
             ref={fileRef}
             type="file"
-            accept="image/*"
+            accept="image/*,.heic,.heif,.hif"
             multiple
             onChange={handleImageUpload}
             className="hidden"
@@ -221,7 +233,7 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
                 : `Choose Images (${values.image_urls.length}/${MAX_IMAGES})`}
             </button>
             <p className="text-xs text-stone-500">
-              Upload up to {MAX_IMAGES} photos for one product.
+              Upload up to {MAX_IMAGES} photos. Photos are automatically compressed for the shop and product page.
             </p>
           </div>
 
@@ -233,7 +245,7 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
                   className="relative overflow-hidden rounded-md border border-stone-200 bg-stone-50"
                 >
                   <Image
-                    src={url}
+                    src={productCardImage(url)}
                     alt={`Product ${index + 1}`}
                     className="h-24 w-full object-cover"
                     height={96}

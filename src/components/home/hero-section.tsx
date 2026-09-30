@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { productCardImage } from "@/lib/product-image";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { CraftOrnament } from "@/components/home/craft-ornament";
@@ -36,7 +37,7 @@ export function HeroSection({ featuredProduct }: { featuredProduct?: Product }) 
           <Link prefetch={false} className="heritage-artwork" href={featuredProduct ? getProductPath(featuredProduct) : "/collection"}>
             <div className="heritage-artwork__photo">
               {featuredProduct?.image && !failed ? (
-                <Image src={featuredProduct.image} alt={featuredProduct.name.trim()} fill priority fetchPriority="high" quality={70} sizes="(max-width: 348px) calc(100vw - 102px), (max-width: 767px) 246px, (max-width: 1199px) 28vw, 316px" className="object-contain" onError={() => setFailed(true)} />
+                <Image src={productCardImage(featuredProduct.image)} alt={featuredProduct.name.trim()} fill priority fetchPriority="high" quality={70} sizes="(max-width: 348px) calc(100vw - 102px), (max-width: 767px) 246px, (max-width: 1199px) 28vw, 316px" className="object-contain" onError={() => setFailed(true)} />
               ) : <div className="heritage-artwork__fallback">Colour. Craft. Kumaon.</div>}
             </div>
             <div className="heritage-artwork__caption">

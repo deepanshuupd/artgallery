@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { productCardImage } from "@/lib/product-image";
 import Link from "next/link";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { CraftOrnament } from "./craft-ornament";
@@ -21,7 +22,7 @@ function JourneyCard({ collection, image, index }: { collection: typeof collecti
   return <Link prefetch={false} href={`/${getCategoryPath(collection.name)}`} data-journey-card className={styles.card}
     style={{ "--tilt": `${collection.tilt}deg`, "--depth": index === 1 ? 4 : 3 - index, "--mobile-scale": index === 1 ? 1.45 : 0.94, "--desktop-scale": index === 1 ? 1.16 : 0.88 } as CSSProperties}>
     <div className={styles.photo}>
-      {image && !failed ? <Image src={image} alt={collection.label} fill quality={70}
+      {image && !failed ? <Image src={productCardImage(image)} alt={collection.label} fill quality={70}
         sizes="(max-width: 767px) 65vw, (max-width: 1279px) 36vw, 420px"
         className={collection.name === "Fridge Magnets" ? styles.cover : styles.contain} onError={() => setFailed(true)} />
         : <span className={styles.fallback}>{collection.label}</span>}

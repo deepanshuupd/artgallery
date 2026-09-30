@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { productCardImage } from "@/lib/product-image";
 import Link from "next/link";
 import { useState } from "react";
 import type { Product } from "@/types/product";
@@ -14,7 +15,7 @@ export function ProductCard({ product, priority = false }: { product: Product; p
     <Link prefetch={false} href={getProductPath(product)} className="store-product__link">
       <div className="store-product__image">
         {product.image && !failed ? <Image
-          src={product.image} alt="" fill priority={priority}
+          src={productCardImage(product.image)} alt="" fill priority={priority}
           fetchPriority={priority ? "high" : undefined} quality={70}
           sizes="(max-width: 767px) calc((100vw - 56px) / 2), (max-width: 1199px) calc((100vw - 104px) / 2), 384px"
           className="object-contain" onError={() => setFailed(true)}
