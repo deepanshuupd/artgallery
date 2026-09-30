@@ -42,6 +42,7 @@ export function SiteHeader() {
 
             return (
               <Link
+                prefetch={false}
                 key={item.href}
                 className={[
                   "rounded-full px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] transition-all duration-300",
@@ -86,6 +87,7 @@ export function SiteHeader() {
 
             return (
               <Link
+                prefetch={false}
                 key={item.href}
                 className={[
                   "flex min-h-11 items-center rounded-xl px-4 py-2 text-xs font-medium uppercase tracking-[0.16em] transition-colors duration-300",

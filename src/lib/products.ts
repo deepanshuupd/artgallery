@@ -1,4 +1,6 @@
 import { cache } from "react";
+import { unstable_cache } from "next/cache";
+import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 
 import type { Product } from "@/types/product";
 
@@ -78,21 +80,27 @@ function mapRow(row: Record<string, unknown>): Product {
   };
 }
 
-export const getProducts = cache(async (): Promise<Product[]> => {
-  if (!supabaseConfigured) {
-    return loadFallbackProducts();
-  }
-
-  const { createClient } = await import("@/lib/supabase/server");
-  const supabase = await createClient();
+// Public catalog reads do not depend on the visitor's auth cookies. Cache them
+// across requests so the homepage can be served as complete, stable HTML.
+const getAvailableProducts = unstable_cache(async (): Promise<Product[]> => {
+  const supabase = createSupabaseClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    { auth: { persistSession: false, autoRefreshToken: false } },
+  );
   const { data, error } = await supabase
     .from("products")
     .select("*")
     .eq("is_available", true)
     .order("created_at", { ascending: false });
 
-  if (error || !data) return [];
+  if (error || !data) throw new Error("The product catalog could not be loaded.");
   return data.map(mapRow);
+}, ["public-product-catalog"], { revalidate: 60, tags: ["public-products"] });
+
+export const getProducts = cache(async (): Promise<Product[]> => {
+  if (!supabaseConfigured) return loadFallbackProducts();
+  return getAvailableProducts();
 });
 
 export const getProductById = cache(

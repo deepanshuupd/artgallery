@@ -10,7 +10,7 @@ export function SiteFooter() {
     <footer className="mt-6 border-t border-[rgba(168,69,48,0.2)] bg-[var(--color-espresso)] px-4 py-7 text-[var(--color-biswar)] sm:mt-16 sm:px-6 sm:py-16 lg:px-8">
       <div className="mx-auto grid max-w-7xl gap-5 sm:grid-cols-2 lg:grid-cols-[1.25fr_0.75fr_0.9fr] lg:gap-14">
         <div>
-          <Link aria-label={brand.name} className="inline-block text-4xl" href="/">
+          <Link prefetch={false} aria-label={brand.name} className="inline-block text-4xl" href="/">
             <BrandMark className="brand-mark--inverse text-4xl" />
           </Link>
           <p className="mt-4 max-w-sm text-sm leading-7 text-stone-300">
@@ -26,6 +26,7 @@ export function SiteFooter() {
           <nav className="mt-3 grid grid-cols-2 gap-x-3 gap-y-1" aria-label="Footer navigation">
             {navigationItems.map((item) => (
               <Link
+                prefetch={false}
                 key={item.href}
                 className="inline-flex min-h-11 items-center text-sm text-stone-200 transition hover:text-[var(--color-champagne)]"
                 href={item.href}
@@ -34,12 +35,14 @@ export function SiteFooter() {
               </Link>
             ))}
             <Link
+              prefetch={false}
               className="inline-flex min-h-11 items-center text-sm text-stone-200 transition hover:text-[var(--color-champagne)]"
               href="/uttarakhand-gifts"
             >
               Uttarakhand gifts
             </Link>
             <Link
+              prefetch={false}
               className="inline-flex min-h-11 items-center text-sm text-stone-200 transition hover:text-[var(--color-champagne)]"
               href="/pithoragarh-aipan-art"
             >

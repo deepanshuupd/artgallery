@@ -15,9 +15,9 @@ const collections: { name: ProductCategory; label: string; note: string; action:
 function CollectionCard({ collection, image }: { collection: typeof collections[number]; image?: string }) {
   const [failed, setFailed] = useState(false);
   return (
-    <Link href={`/collection?category=${encodeURIComponent(collection.name)}`} className="heritage-category">
+    <Link prefetch={false} href={`/collection?category=${encodeURIComponent(collection.name)}`} className="heritage-category">
       <div className={`heritage-category__photo${collection.name === "Fridge Magnets" ? " heritage-category__photo--magnets" : ""}`}>
-        {image && !failed ? <Image src={image} alt={collection.label} fill sizes="(max-width: 767px) 50vw, (max-width: 1023px) 45vw, 25vw" className={collection.name === "Fridge Magnets" ? "object-cover" : "object-contain"} onError={() => setFailed(true)} /> : <span className="heritage-category__fallback">{collection.label}</span>}
+        {image && !failed ? <Image src={image} alt={collection.label} fill quality={70} sizes="(max-width: 767px) calc((100vw - 56px) / 2), (max-width: 1023px) calc((100vw - 104px) / 2), (max-width: 1279px) calc((100vw - 152px) / 4), 282px" className={collection.name === "Fridge Magnets" ? "object-cover" : "object-contain"} onError={() => setFailed(true)} /> : <span className="heritage-category__fallback">{collection.label}</span>}
       </div>
       <div className="heritage-category__copy">
         <h3>{collection.label}</h3>
@@ -33,7 +33,7 @@ export function FeaturedCollections({ images }: { images: Partial<Record<Product
     <section className="heritage-section heritage-shell" aria-labelledby="collections-title">
       <div className="craft-section-heading">
         <div><p className="craft-eyebrow">Little things. Lasting connections.</p><h2 id="collections-title">Find your piece of <em>Kumaon.</em></h2></div>
-        <Link href="/collection" className="craft-text-link">Shop all pieces</Link>
+        <Link prefetch={false} href="/collection" className="craft-text-link">Shop all pieces</Link>
       </div>
       <div className="heritage-categories">{collections.map(collection => <CollectionCard key={collection.name} collection={collection} image={images[collection.name]} />)}</div>
     </section>

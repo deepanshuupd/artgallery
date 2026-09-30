@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   ],
 };
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 // A specific product to feature per category (falls back to the first product
 // in the category, then a known-good image). Categories without an entry just
@@ -31,12 +31,12 @@ const PREFERRED_IMAGES: Partial<
   Keychains: {
     name: "Pahadi Ladka Keychain",
     fallback:
-      "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/1784226676459.jpeg",
+      "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v1/d2582d2e4077096ce1d8d2790e1b9851412564587d27c47cf9d40aa3baf18062.webp",
   },
   Frames: {
     name: "Handmade Aipan wall decor with pichora background",
     fallback:
-      "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/1784829433073-qvqke5znec.jpeg",
+      "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v1/ea0983888853db1ff0a31cafa25ceb8c0f64ba5e054e1b72c27fe18f8a49fd0a.webp",
   },
 };
 

@@ -22,8 +22,8 @@ export function CuratedHampersSection({ product }: { product?: Product }) {
         <div className="heritage-gifting__visual">
           <CraftOrnament className="heritage-gifting__ornament" />
           {product?.image && !failed ? (
-            <Link href={getProductPath(product)} className="heritage-gifting__photo">
-              <div className="heritage-gifting__image"><Image src={product.image} alt={product.name} fill sizes="(max-width: 767px) 85vw, 40vw" className="object-contain" onError={() => setFailed(true)} /></div>
+            <Link prefetch={false} href={getProductPath(product)} className="heritage-gifting__photo">
+              <div className="heritage-gifting__image"><Image src={product.image} alt={product.name.trim()} fill quality={70} sizes="(max-width: 767px) 180px, 300px" className="object-contain" onError={() => setFailed(true)} /></div>
               <span>{product.name}</span>
             </Link>
           ) : <p className="heritage-gifting__fallback">For someone<br /><em>who feels like home.</em></p>}
@@ -33,7 +33,7 @@ export function CuratedHampersSection({ product }: { product?: Product }) {
           <h2>More than a gift.<br /><em>A little belonging.</em></h2>
           <p className="heritage-gifting__intro">Thoughtful hampers with keepsakes, personal touches and the warmth of Kumaon. Tell us who it is for. We’ll help you find the right fit.</p>
           <div className="heritage-occasions">{occasions.map(item => <details key={item.title}><summary>{item.title}<span aria-hidden="true">+</span></summary><p>{item.text}</p></details>)}</div>
-          <Link href="/curated-hampers" className="craft-button craft-button--light">Explore curated hampers</Link>
+          <Link prefetch={false} href="/curated-hampers" className="craft-button craft-button--light">Explore curated hampers</Link>
         </div>
       </div>
     </section>

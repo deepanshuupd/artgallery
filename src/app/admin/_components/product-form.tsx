@@ -4,6 +4,8 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useId, useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { prepareProductImage } from "@/lib/product-image-upload";
+import { refreshPublicCatalog } from "@/app/admin/actions";
 import type { ProductCategory } from "@/types/product";
 
 const CATEGORIES: ProductCategory[] = [
@@ -116,28 +118,24 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
 
     const uploadedUrls: string[] = [];
 
-    for (const file of filesToUpload) {
-      const ext = file.name.split(".").pop();
-      const filename = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
-
-      const { error: uploadError } = await supabase.storage
-        .from("product-images")
-        .upload(filename, file, { upsert: true });
-
-      if (uploadError) {
-        setError("Image upload failed: " + uploadError.message);
-        setUploading(false);
-        if (fileRef.current) fileRef.current.value = "";
-        return;
+    try {
+      for (const file of filesToUpload) {
+        const optimized = await prepareProductImage(file);
+        const filename = `optimized/uploads/${crypto.randomUUID()}.webp`;
+        const { error: uploadError } = await supabase.storage
+          .from("product-images")
+          .upload(filename, optimized, { contentType: "image/webp", cacheControl: "31536000", upsert: false });
+        if (uploadError) throw new Error("Image upload failed: " + uploadError.message);
+        const { data } = supabase.storage.from("product-images").getPublicUrl(filename);
+        uploadedUrls.push(data.publicUrl);
       }
-
-      const { data } = supabase.storage.from("product-images").getPublicUrl(filename);
-      uploadedUrls.push(data.publicUrl);
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "Image upload failed.");
+    } finally {
+      syncImages([...values.image_urls, ...uploadedUrls]);
+      setUploading(false);
+      if (fileRef.current) fileRef.current.value = "";
     }
-
-    syncImages([...values.image_urls, ...uploadedUrls]);
-    setUploading(false);
-    if (fileRef.current) fileRef.current.value = "";
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -183,6 +181,9 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
       }
     }
 
+    // The save has succeeded. A cache-refresh failure must not invite another
+    // submission (and a duplicate product); the cache also expires after 60s.
+    await refreshPublicCatalog().catch(() => {});
     router.push("/admin/products");
     router.refresh();
   }

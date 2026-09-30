@@ -10,7 +10,7 @@ export function HeritageStory() {
         <h2 id="heritage-title">A small business.<br /><em>A very personal piece of home.</em></h2>
         <p>Behind KumaonRang is <strong>Sneha</strong>, a woman from Pithoragarh growing a small business with the colours of her home at its heart. Aipan art, Pahadi keepsakes and thoughtful gifts bring that connection into things you can carry, live with and give.</p>
         <p>Choosing a piece here means more than finding a gift. You become part of a small business’s growing story — helping something rooted in Kumaon reach a little further, one keepsake at a time.</p>
-        <div className="craft-actions"><Link href="/about" className="craft-text-link">Meet Sneha & KumaonRang</Link><Link href="/pithoragarh-aipan-art" className="craft-text-link">Discover Aipan art</Link></div>
+        <div className="craft-actions"><Link prefetch={false} href="/about" className="craft-text-link">Meet Sneha & KumaonRang</Link><Link prefetch={false} href="/pithoragarh-aipan-art" className="craft-text-link">Discover Aipan art</Link></div>
       </div>
     </section>
   );

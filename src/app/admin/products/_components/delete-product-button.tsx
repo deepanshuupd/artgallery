@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { refreshPublicCatalog } from "@/app/admin/actions";
 
 export function DeleteProductButton({ id }: { id: string }) {
   const router = useRouter();
@@ -12,7 +13,12 @@ export function DeleteProductButton({ id }: { id: string }) {
   async function handleDelete() {
     setDeleting(true);
     const supabase = createClient();
-    await supabase.from("products").delete().eq("id", id);
+    const { error } = await supabase.from("products").delete().eq("id", id);
+    if (error) {
+      setDeleting(false);
+      return;
+    }
+    await refreshPublicCatalog().catch(() => {});
     router.refresh();
   }
 
