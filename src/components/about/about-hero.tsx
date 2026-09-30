@@ -24,7 +24,7 @@ export function AboutHero() {
               className="text-[0.72rem] uppercase tracking-[0.36em] text-stone-500 sm:text-xs"
               transition={{ duration: 0.6, ease: "easeOut" }}
             >
-              Meet the woman behind KumaonRang
+              Our story
             </motion.p>
 
             <motion.h1
@@ -32,9 +32,9 @@ export function AboutHero() {
               className="mt-4 font-serif text-3xl leading-[1.08] text-stone-900 sm:text-5xl lg:text-6xl"
               transition={{ duration: 0.7, delay: 0.08, ease: "easeOut" }}
             >
-              From Sneha’s home in the hills,
+              For the places and people
               <span className="block text-[var(--color-rose-clay)]">
-                to a little corner of yours.
+                that feel like home.
               </span>
             </motion.h1>
 

@@ -146,6 +146,7 @@ a {
 .heritage-category { display: flex; flex-direction: column; min-width: 0; }
 .heritage-category__photo { position: relative; aspect-ratio: 3/4; overflow: hidden; border-radius: 3px; }
 .heritage-category__photo img { object-position: center bottom; }
+.heritage-category__photo--magnets img { object-position: center; }
 .heritage-category__fallback { display: grid; place-items: center; height: 100%; padding: 12px; text-align: center; font: 22px var(--font-heading), serif; }
 .heritage-category__copy { display: flex; flex: 1; flex-direction: column; padding-top: 12px; }
 .heritage-category h3 { font-size: 21px; line-height: 1.12; }

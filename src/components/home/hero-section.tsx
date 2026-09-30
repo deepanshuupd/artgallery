@@ -21,7 +21,7 @@ export function HeroSection({ featuredProduct }: { featuredProduct?: Product }) 
           <p className="heritage-hero__description">Discover Aipan-inspired art, Pahadi keepsakes and personal gifts from Kumaon — for your home, and the people who feel like it.</p>
           <div className="craft-actions">
             <Link href="/collection" className="craft-button">Find your keepsake</Link>
-            <Link href="/about" className="craft-text-link">The story of KumaonRang</Link>
+            <Link href="/curated-hampers" className="craft-text-link">Explore gift hampers</Link>
           </div>
           <div className="heritage-hero__note"><span lang="hi">पहाड़ों से, प्यार के साथ</span><span>From the hills, with love.</span></div>
         </div>

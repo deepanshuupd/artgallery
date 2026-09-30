@@ -16,8 +16,8 @@ function CollectionCard({ collection, image }: { collection: typeof collections[
   const [failed, setFailed] = useState(false);
   return (
     <Link href={`/collection?category=${encodeURIComponent(collection.name)}`} className="heritage-category">
-      <div className="heritage-category__photo">
-        {image && !failed ? <Image src={image} alt={collection.label} fill sizes="(max-width: 767px) 50vw, (max-width: 1023px) 45vw, 25vw" className="object-contain" onError={() => setFailed(true)} /> : <span className="heritage-category__fallback">{collection.label}</span>}
+      <div className={`heritage-category__photo${collection.name === "Fridge Magnets" ? " heritage-category__photo--magnets" : ""}`}>
+        {image && !failed ? <Image src={image} alt={collection.label} fill sizes="(max-width: 767px) 50vw, (max-width: 1023px) 45vw, 25vw" className={collection.name === "Fridge Magnets" ? "object-cover" : "object-contain"} onError={() => setFailed(true)} /> : <span className="heritage-category__fallback">{collection.label}</span>}
       </div>
       <div className="heritage-category__copy">
         <h3>{collection.label}</h3>
