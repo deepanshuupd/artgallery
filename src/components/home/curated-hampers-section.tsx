@@ -6,6 +6,7 @@ import { useState } from "react";
 import { CraftOrnament } from "@/components/home/craft-ornament";
 import { getProductPath } from "@/lib/catalog";
 import type { Product } from "@/types/product";
+import atmosphere from "./home-atmosphere.module.css";
 
 const occasions = [
   { title: "Birthdays & anniversaries", text: "A personal note, a familiar memory, a keepsake picked just for them." },
@@ -17,18 +18,20 @@ const occasions = [
 export function CuratedHampersSection({ product }: { product?: Product }) {
   const [failed, setFailed] = useState(false);
   return (
-    <section className="heritage-gifting">
+    <section className={`heritage-gifting ${atmosphere.gifting}`}>
       <div className="heritage-shell heritage-gifting__grid">
         <div className="heritage-gifting__visual">
-          <CraftOrnament className="heritage-gifting__ornament" />
+          <div className="heritage-gifting__ornament" data-home-float aria-hidden="true"><CraftOrnament className={atmosphere.ornamentGraphic} /></div>
           {product?.image && !failed ? (
+            <div className={atmosphere.giftProduct} data-home-reveal="gifting-product" onFocusCapture={event => { event.currentTarget.dataset.homeImmediate = "true"; }}>
             <Link prefetch={false} href={getProductPath(product)} className="heritage-gifting__photo">
               <div className="heritage-gifting__image"><Image src={product.image} alt={product.name.trim()} fill quality={70} sizes="(max-width: 767px) 180px, 300px" className="object-contain" onError={() => setFailed(true)} /></div>
               <span>{product.name}</span>
             </Link>
+            </div>
           ) : <p className="heritage-gifting__fallback">For someone<br /><em>who feels like home.</em></p>}
         </div>
-        <div>
+        <div data-home-reveal="gifting-copy">
           <p className="craft-eyebrow">The joy of giving</p>
           <h2>More than a gift.<br /><em>A little belonging.</em></h2>
           <p className="heritage-gifting__intro">Thoughtful hampers with keepsakes, personal touches and the warmth of Kumaon. Tell us who it is for. We’ll help you find the right fit.</p>

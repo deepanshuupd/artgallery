@@ -2,19 +2,23 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { CraftOrnament } from "@/components/home/craft-ornament";
 import { getProductPath } from "@/lib/catalog";
 import { formatPrice } from "@/lib/pricing";
 import type { Product } from "@/types/product";
+import { useHomeAtmosphere } from "./use-home-atmosphere";
+import atmosphere from "./home-atmosphere.module.css";
 
 export function HeroSection({ featuredProduct }: { featuredProduct?: Product }) {
   const [failed, setFailed] = useState(false);
+  const heroRef = useRef<HTMLElement>(null);
+  useHomeAtmosphere(heroRef);
 
   return (
-    <section className="heritage-hero">
+    <section ref={heroRef} className={`heritage-hero ${atmosphere.hero}`}>
       <div className="heritage-shell heritage-hero__grid">
-        <div className="heritage-hero__copy">
+        <div className="heritage-hero__copy" data-home-reveal="hero-copy">
           <p className="craft-eyebrow"><span aria-hidden="true">✦</span> Pithoragarh, Uttarakhand</p>
           <h1>The hills have a way<br />{" "}of <em>staying with you.</em></h1>
           <p className="heritage-hero__intro">In the colours of Aipan. In a familiar Pahadi face. In the little things that make a place feel like home.</p>
@@ -27,11 +31,12 @@ export function HeroSection({ featuredProduct }: { featuredProduct?: Product }) 
         </div>
 
         <div className="heritage-hero__art">
-          <CraftOrnament className="heritage-hero__ornament" />
+          <div className="heritage-hero__ornament" data-home-float aria-hidden="true"><CraftOrnament className={atmosphere.ornamentGraphic} /></div>
+          <div className={atmosphere.heroProduct} data-home-reveal="hero-product" onFocusCapture={event => { event.currentTarget.dataset.homeImmediate = "true"; }}>
           <Link prefetch={false} className="heritage-artwork" href={featuredProduct ? getProductPath(featuredProduct) : "/collection"}>
             <div className="heritage-artwork__photo">
               {featuredProduct?.image && !failed ? (
-                <Image src={featuredProduct.image} alt={featuredProduct.name.trim()} fill priority fetchPriority="high" quality={70} sizes="(max-width: 440px) calc(100vw - 102px), (max-width: 767px) 330px, (max-width: 1199px) 28vw, 330px" className="object-cover" onError={() => setFailed(true)} />
+                <Image src={featuredProduct.image} alt={featuredProduct.name.trim()} fill priority fetchPriority="high" quality={70} sizes="(max-width: 348px) calc(100vw - 102px), (max-width: 767px) 246px, (max-width: 1199px) 28vw, 316px" className="object-contain" onError={() => setFailed(true)} />
               ) : <div className="heritage-artwork__fallback">Colour. Craft. Kumaon.</div>}
             </div>
             <div className="heritage-artwork__caption">
@@ -39,6 +44,7 @@ export function HeroSection({ featuredProduct }: { featuredProduct?: Product }) 
               <span className="heritage-artwork__price">{featuredProduct ? formatPrice(featuredProduct.price) : "Explore"}</span>
             </div>
           </Link>
+          </div>
           <span className="heritage-hero__signature" lang="hi">रंग जो घर ले आएँ।</span>
         </div>
       </div>
