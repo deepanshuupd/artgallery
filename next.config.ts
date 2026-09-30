@@ -9,6 +9,8 @@ const nextConfig: NextConfig = {
   // Keep descriptions and social metadata in <head>, including for audits.
   htmlLimitedBots: /.*/,
   images: {
+    // Serve source images directly to avoid Vercel Image Optimization usage.
+    unoptimized: true,
     formats: ["image/avif", "image/webp"],
     deviceSizes: [360, 480, 640, 750, 828, 1080, 1200, 1600, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 180, 240, 320],
