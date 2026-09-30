@@ -114,9 +114,13 @@ a {
 .store-breadcrumbs li > span[aria-current] { overflow-wrap: anywhere; }
 .store-breadcrumbs a { display: inline-flex; align-items: center; min-height: 44px; }
 .store-heading { max-width: 650px; padding-block: 14px 8px; }
+/* Reserve the same text space so collection filters stay under the user's thumb. */
+.store-heading > .craft-eyebrow { min-block-size: 3.2em; }
 .store-heading h1 { margin-top: 8px; font: 500 clamp(32px, 7.8vw, 48px)/1.08 var(--font-heading), serif; letter-spacing: -.02em; }
+.store-heading h1 { min-block-size: 2.16em; }
 .store-heading h1 em { color: var(--color-geru); }
 .store-heading > p:last-child { margin-top: 12px; max-width: 560px; font-size: 13px; line-height: 1.75; color: #67594e; }
+.store-heading > p:last-child { min-block-size: 7em; }
 .store-catalog { margin-top: 20px; }
 .store-toolbar { border-block: 1px solid #d9c4ad; padding-block: 12px; }
 .store-filters { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 12px; scrollbar-width: thin; scrollbar-color: #b9947f transparent; }
@@ -153,6 +157,10 @@ a {
 :where(a,button,select,textarea):focus-visible { outline: 2px solid var(--color-geru); outline-offset: 4px; }
 @media (hover: hover) { .store-product__link:hover img { transform: scale(1.025); } .store-product__link:hover h3 { color: var(--color-geru); } }
 @media (min-width: 400px) { .store-tools { grid-template-columns: minmax(0,1fr) 148px; } }
+@media (min-width: 400px) {
+  .store-heading > .craft-eyebrow { min-block-size: 1.6em; }
+  .store-heading > p:last-child { min-block-size: 5.25em; }
+}
 @media (min-width: 768px) {
   .store-page { padding-block: 20px 64px; }
   .store-heading { padding-block: 20px 16px; }

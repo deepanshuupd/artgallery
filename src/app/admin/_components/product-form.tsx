@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/client";
 import { prepareProductImages } from "@/lib/product-image-upload";
 import { productCardImage } from "@/lib/product-image";
 import { refreshPublicCatalog } from "@/app/admin/actions";
+import { ProductStory } from "@/components/products/product-story";
 import type { ProductCategory } from "@/types/product";
 
 const CATEGORIES: ProductCategory[] = [
@@ -372,6 +373,9 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
           onChange={(e) => set("description", e.target.value)}
           className="w-full rounded-md border border-stone-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-400"
         />
+        <p className="mt-1 text-xs leading-relaxed text-stone-500">
+          The first sentence introduces the piece near its price. The complete description appears in the About this piece accordion and is used for search metadata.
+        </p>
       </div>
 
       <div>
@@ -379,15 +383,24 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
           className="mb-1 block text-sm font-medium text-stone-700"
           htmlFor={id("story")}
         >
-          Product Story
+          Product story / closing note (optional)
         </label>
         <textarea
           id={id("story")}
+          aria-describedby={id("story-help")}
           rows={3}
           value={values.story}
           onChange={(e) => set("story", e.target.value)}
+          placeholder="What inspired this piece? Tell its story in your own words."
           className="w-full rounded-md border border-stone-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-400"
         />
+        <p id={id("story-help")} className="mt-1 text-xs leading-relaxed text-stone-500">
+          Saved separately for each product. Appears below the photographs and product details, replacing the fixed brand tagline. Leave blank to hide that section. This also applies to gift hampers.
+        </p>
+        {values.story.trim() && <div className="mt-4 rounded-xl border border-stone-200 bg-[#fffaf1] px-5 pb-6">
+          <p className="pt-4 text-xs font-medium text-stone-500">Storefront preview</p>
+          <ProductStory story={values.story} />
+        </div>}
       </div>
 
       <div>

@@ -4,9 +4,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-import { CloseIcon, MenuIcon } from "@/components/icons";
+import { CloseIcon, MenuIcon, SparkleIcon } from "@/components/icons";
 import { navigationItems } from "@/lib/navigation";
 import { BrandMark } from "@/components/layout/brand-mark";
+import styles from "./site-header.module.css";
+
+function HamperSparkles() {
+  return <span className={styles.sparkles} aria-hidden="true">
+    <SparkleIcon className={styles.starOne} />
+    <SparkleIcon className={styles.starTwo} />
+    <SparkleIcon className={styles.starThree} />
+  </span>;
+}
 
 function isActivePath(currentPath: string, href: string) {
   if (href === "/") {
@@ -44,13 +53,16 @@ export function SiteHeader() {
                 key={item.href}
                 className={[
                   "rounded-full px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] transition-all duration-300",
+                  item.href === "/curated-hampers" ? styles.hamperLink : "",
                   active
                     ? "bg-[var(--color-geru)] text-[var(--color-biswar)] shadow-[0_10px_24px_rgba(168,69,48,0.2)]"
                     : "text-stone-700 hover:bg-[rgba(168,69,48,0.08)] hover:text-[var(--color-geru)]",
                 ].join(" ")}
                 href={item.href}
+                aria-current={active ? "page" : undefined}
               >
-                {item.label}
+                {item.href === "/curated-hampers" && <HamperSparkles />}
+                <span className={styles.label}>{item.label}</span>
               </Link>
             );
           })}
@@ -89,14 +101,17 @@ export function SiteHeader() {
                 key={item.href}
                 className={[
                   "flex min-h-11 items-center rounded-xl px-4 py-2 text-xs font-medium uppercase tracking-[0.16em] transition-colors duration-300",
+                  item.href === "/curated-hampers" ? styles.hamperLink : "",
                   active
                     ? "bg-[var(--color-geru)] text-[var(--color-biswar)]"
                     : "text-stone-700 hover:bg-[rgba(168,69,48,0.08)] hover:text-[var(--color-geru)]",
                 ].join(" ")}
                 href={item.href}
+                aria-current={active ? "page" : undefined}
                 onClick={() => setIsOpen(false)}
               >
-                {item.label}
+                {item.href === "/curated-hampers" && <HamperSparkles />}
+                <span className={styles.label}>{item.label}</span>
               </Link>
             );
           })}

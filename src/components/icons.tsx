@@ -90,6 +90,16 @@ export function ClockIcon({ className = "h-4 w-4", ...props }: IconProps) {
   );
 }
 
+export function LockIcon({ className = "h-4 w-4", ...props }: IconProps) {
+  return (
+    <svg aria-hidden="true" className={className} {...strokeDefaults} {...props}>
+      <rect x="5" y="10" width="14" height="11" rx="3" />
+      <path d="M8 10V7a4 4 0 018 0v3" />
+      <path d="M12 14v3" />
+    </svg>
+  );
+}
+
 export function SendIcon({ className = "h-4 w-4", ...props }: IconProps) {
   return (
     <svg aria-hidden="true" className={className} {...strokeDefaults} {...props}>

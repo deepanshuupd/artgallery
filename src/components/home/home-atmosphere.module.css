@@ -55,8 +55,21 @@
   animation-play-state: running;
 }
 
-.story :global(.heritage-story__mark[data-home-entered="true"] > svg) {
+.story :global(.heritage-story__mark[data-home-entered="true"]) > .storyWheel {
   animation: craft-stamp 1100ms cubic-bezier(.22, 1, .36, 1) both;
+}
+.storyWheel { flex-shrink: 0; }
+.storyWheel > svg { display: block; }
+/* The existing homepage observer controls this single compositor-friendly
+   rotation. Pause in place outside the viewport; keep the labels stationary. */
+.storyWheel[data-home-visible] > svg {
+  transform-origin: center;
+  animation: story-wheel-turn 48s linear infinite;
+  animation-play-state: paused;
+}
+.storyWheel[data-home-visible="true"] > svg {
+  animation-play-state: running;
+  will-change: transform;
 }
 .story :global(.heritage-story__mark[data-home-entered="true"] > span),
 .story :global(.heritage-story__mark[data-home-entered="true"] > p),
@@ -82,10 +95,12 @@
 :global(main[data-home-paused="true"]) .gifting :global([data-home-visible]) {
   animation-play-state: paused;
 }
+:global(main[data-home-paused="true"]) .storyWheel > svg { animation-play-state: paused; }
 
 @keyframes heading-arrive { from { transform: translateY(10px); } to { transform: none; } }
 @keyframes story-arrive { from { opacity: .65; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 @keyframes craft-stamp { from { transform: rotate(-12deg) scale(.9); } to { transform: none; } }
+@keyframes story-wheel-turn { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 @keyframes product-from-right {
   0% { transform: translate3d(var(--entry-x), 24px, 0) rotate(calc(var(--frame-rest) + 8deg)) scale(.96); }
   60% { transform: translate3d(-8px, -12px, 0) rotate(calc(var(--frame-rest) - 1deg)) scale(1.01); }
@@ -114,6 +129,7 @@
   .hero :global([data-home-visible]), .story :global([data-home-entered]) *,
   .gifting :global([data-home-entered]) *, .gifting :global([data-home-entered]),
   .gifting :global([data-home-visible]) { animation: none !important; }
+  .storyWheel > svg { animation: none !important; transform: none !important; }
   .hero :global([data-home-reveal="hero-product"] > .heritage-artwork),
   .gifting :global([data-home-reveal="gifting-product"] > .heritage-gifting__photo) {
     transform: rotate(var(--frame-rest)) !important;

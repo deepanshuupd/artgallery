@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
-import { motion } from "motion/react";
 
 import { WhatsAppIcon } from "@/components/icons";
 import { formatPrice } from "@/lib/pricing";
 import type { Product } from "@/types/product";
 import { generateOrderMessage, openWhatsAppOrder } from "@/lib/whatsapp";
+import orderStyles from "./order-actions.module.css";
 
 type WhatsAppOrderButtonProps = {
   product: Product;
@@ -33,6 +33,8 @@ export function WhatsAppOrderButton({
     if (!isOpen) return;
 
     const previouslyFocused = document.activeElement as HTMLElement | null;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     quantityRef.current?.focus();
 
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -65,6 +67,7 @@ export function WhatsAppOrderButton({
     document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = previousOverflow;
       previouslyFocused?.focus?.();
     };
   }, [isOpen]);
@@ -89,11 +92,12 @@ export function WhatsAppOrderButton({
     <>
       <button
         ref={triggerRef}
-        className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-stone-900 px-6 py-3 text-sm font-medium uppercase tracking-[0.18em] text-stone-50 shadow-[0_18px_44px_rgba(51,40,33,0.18)] transition-transform duration-300 hover:-translate-y-0.5 hover:bg-stone-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 focus-visible:ring-offset-2 ${className}`}
+        className={`${orderStyles.whatsapp} ${className}`}
+        aria-haspopup="dialog"
         onClick={() => setIsOpen(true)}
         type="button"
       >
-        <WhatsAppIcon className="h-4 w-4" />
+        <WhatsAppIcon className="h-5 w-5" />
         Order via WhatsApp
       </button>
 
@@ -105,15 +109,12 @@ export function WhatsAppOrderButton({
             role="presentation"
           />
 
-          <motion.div
+          <div
             ref={dialogRef}
-            animate={{ opacity: 1, scale: 1 }}
             aria-labelledby={titleId}
             aria-modal="true"
-            className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2"
-            initial={{ opacity: 0, scale: 0.95 }}
+            className={`${orderStyles.dialog} fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2`}
             role="dialog"
-            transition={{ duration: 0.2 }}
           >
             <div className="max-h-[85vh] overflow-y-auto rounded-[1.6rem] border border-white/70 bg-[rgba(255,253,252,0.98)] p-6 shadow-[0_24px_90px_rgba(51,40,33,0.15)] backdrop-blur sm:p-8">
               <div className="flex items-start justify-between gap-4">
@@ -218,16 +219,16 @@ export function WhatsAppOrderButton({
                 </div>
               </div>
 
-              <div className="mt-6 flex gap-3">
+              <div className="mt-6 grid gap-3 sm:grid-cols-2">
                 <button
-                  className="flex-1 rounded-full border border-stone-200 bg-white px-4 py-2.5 text-sm font-medium uppercase tracking-[0.18em] text-stone-900 transition-colors hover:bg-stone-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900/40"
+                  className="min-h-12 rounded-xl border border-stone-200 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 transition-colors hover:bg-stone-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900/40"
                   onClick={close}
                   type="button"
                 >
                   Cancel
                 </button>
                 <button
-                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-[var(--color-whatsapp)] px-4 py-2.5 text-sm font-medium uppercase tracking-[0.18em] text-white shadow-lg transition-transform hover:-translate-y-0.5 hover:bg-[var(--color-whatsapp-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-whatsapp)] focus-visible:ring-offset-2"
+                  className={orderStyles.whatsapp}
                   onClick={handleOrder}
                   type="button"
                 >
@@ -236,7 +237,7 @@ export function WhatsAppOrderButton({
                 </button>
               </div>
             </div>
-          </motion.div>
+          </div>
         </>
       ) : null}
     </>

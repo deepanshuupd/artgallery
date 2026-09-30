@@ -5,7 +5,10 @@ import atmosphere from "./home-atmosphere.module.css";
 export function HeritageStory() {
   return (
     <section className={`heritage-story heritage-shell ${atmosphere.story}`} aria-labelledby="heritage-title">
-      <div className="heritage-story__mark" data-home-reveal="story-mark"><CraftOrnament /><span lang="hi">अपनी मिट्टी, अपने रंग</span><p>Our roots. Our colours.</p></div>
+      <div className="heritage-story__mark" data-home-reveal="story-mark">
+        <div className={atmosphere.storyWheel} data-home-float aria-hidden="true"><CraftOrnament /></div>
+        <span lang="hi">अपनी मिट्टी, अपने रंग</span><p>Our roots. Our colours.</p>
+      </div>
       <div className="heritage-story__copy" data-home-reveal="story-copy">
         <p className="craft-eyebrow">Meet Sneha · Pithoragarh, Uttarakhand</p>
         <h2 id="heritage-title">A small business.<br /><em>A very personal piece of home.</em></h2>

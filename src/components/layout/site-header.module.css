@@ -1,0 +1,24 @@
+.label { position: relative; z-index: 1; }
+
+.hamperLink {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #80542e;
+  background: #f4e7d1;
+  box-shadow: inset 0 0 0 1px #dec6a34d;
+}
+.hamperLink:hover { background: #efddbe; color: #704324; }
+.hamperLink[aria-current="page"] { background: var(--color-geru); color: var(--color-biswar); }
+.sparkles { position: absolute; inset: 0; pointer-events: none; color: #b3803e; }
+.sparkles svg { position: absolute; fill: currentColor; stroke-width: 1; }
+.starOne { width: 9px; height: 9px; top: 4px; left: 8px; opacity: .7; }
+.starTwo { width: 12px; height: 12px; right: 7px; bottom: 3px; opacity: .5; }
+.starThree { width: 5px; height: 5px; right: 23px; top: 4px; opacity: .45; }
+.hamperLink[aria-current="page"] .sparkles { color: #f5dfbb; }
+
+@media (max-width: 767px) {
+  .starOne { left: auto; right: 46px; top: 8px; width: 12px; height: 12px; }
+  .starTwo { right: 15px; bottom: 8px; width: 17px; height: 17px; }
+  .starThree { right: 24px; top: 6px; width: 7px; height: 7px; }
+}

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useDeferredValue, useId, useState } from "react";
+import { useDeferredValue, useEffect, useId, useRef, useState } from "react";
 import { SearchIcon } from "@/components/icons";
 import { ProductCard } from "@/components/products/product-card";
 import { collections } from "@/lib/collections";
@@ -16,21 +16,33 @@ type ProductShowcaseProps = {
 export function ProductShowcase({ products, eyebrow, title, showCategoryFilter = false, initialCategory, searchPlaceholder = "Search the collection" }: ProductShowcaseProps) {
   const searchId = useId();
   const sortId = useId();
+  const filtersRef = useRef<HTMLElement>(null);
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState("newest");
   const deferredQuery = useDeferredValue(query);
   const term = deferredQuery.trim().toLowerCase();
-  const validCategory = [...collections.map(item => item.category), "Curated Hampers"].includes(initialCategory ?? "");
+  const validCategory = collections.some(item => item.category === initialCategory);
   const activeCategory = validCategory ? initialCategory : undefined;
-  const filtered = products.filter(product => (!activeCategory || product.category === activeCategory) && (!term || `${product.name} ${product.category} ${product.description}`.toLowerCase().includes(term)));
+  const catalog = showCategoryFilter ? products.filter(product => product.category !== "Curated Hampers") : products;
+  const filtered = catalog.filter(product => (!activeCategory || product.category === activeCategory) && (!term || `${product.name} ${product.category} ${product.description}`.toLowerCase().includes(term)));
   const sorted = [...filtered].sort((a, b) => sort === "price-low" ? a.price - b.price : sort === "price-high" ? b.price - a.price : sort === "featured" ? Number(b.featured) - Number(a.featured) : 0);
+
+  useEffect(() => {
+    const filters = filtersRef.current;
+    const selected = filters?.querySelector<HTMLElement>('[aria-current="page"]');
+    if (!filters || !selected) return;
+    // Reveal the selected category horizontally without moving the page.
+    const bounds = filters.getBoundingClientRect();
+    const item = selected.getBoundingClientRect();
+    if (item.right > bounds.right) filters.scrollLeft += item.right - bounds.right;
+    else if (item.left < bounds.left) filters.scrollLeft -= bounds.left - item.left;
+  }, [activeCategory]);
 
   return <section className="store-catalog" aria-label={title}>
     <div className="store-toolbar">
-      {showCategoryFilter && <nav className="store-filters" aria-label="Shop categories">
-        <Link prefetch={false} href="/collection" aria-current={!activeCategory ? "page" : undefined}>All pieces</Link>
-        {collections.map(collection => <Link key={collection.slug} prefetch={false} href={`/${collection.slug}`} aria-current={activeCategory === collection.category ? "page" : undefined}>{collection.label}</Link>)}
-        <Link prefetch={false} href="/curated-hampers" aria-current={activeCategory === "Curated Hampers" ? "page" : undefined}>Gift hampers</Link>
+      {showCategoryFilter && <nav ref={filtersRef} className="store-filters" aria-label="Shop categories">
+        <Link prefetch={false} scroll={false} href="/collection" aria-current={!activeCategory ? "page" : undefined}>All pieces</Link>
+        {collections.map(collection => <Link key={collection.slug} prefetch={false} scroll={false} href={`/${collection.slug}`} aria-current={activeCategory === collection.category ? "page" : undefined}>{collection.label}</Link>)}
       </nav>}
       <div className="store-tools">
         <label className="store-search" htmlFor={searchId}>
@@ -46,8 +58,8 @@ export function ProductShowcase({ products, eyebrow, title, showCategoryFilter =
     <h2 className="sr-only">{title}</h2>
     <div className="store-product-grid" aria-busy={query !== deferredQuery}>{sorted.map((product, index) => <ProductCard key={product.id} product={product} priority={index === 0 && !term} />)}</div>
     {sorted.length === 0 && <div className="store-empty">
-      <h3>{products.length ? "Let’s find your kind of keepsake." : "Our collection will be back shortly."}</h3>
-      <p>{products.length ? "Try a different word, or ask Sneha for a little help choosing." : "We couldn’t load the pieces just now. You can still speak to us directly."}</p>
+      <h3>{catalog.length ? "Let’s find your kind of keepsake." : "Our collection will be back shortly."}</h3>
+      <p>{catalog.length ? "Try a different word, or ask Sneha for a little help choosing." : "We couldn’t load the pieces just now. You can still speak to us directly."}</p>
       <div className="craft-actions">{query && <button className="craft-button" type="button" onClick={() => setQuery("")}>Clear search</button>}<a className="craft-text-link" href={generateGeneralInquiryLink()} target="_blank" rel="noopener noreferrer">Ask Sneha on WhatsApp</a></div>
     </div>}
   </section>;
