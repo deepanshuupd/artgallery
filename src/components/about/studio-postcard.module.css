@@ -1,0 +1,88 @@
+.rail { position: fixed; right: -38px; top: calc(66px + env(safe-area-inset-top, 0px)); z-index: 40; }
+.peek { --peek-step: -10px; --peek-wide: -12px; --peek-small: -8px; position: relative; display: block; width: 84px; height: 52px; cursor: pointer; border: 0; padding: 0; background: transparent; color: var(--color-espresso); transform: rotate(12deg); transform-origin: 15% 70%; animation: paper-peek 8s ease-in-out infinite; -webkit-tap-highlight-color: transparent; }
+.miniEnvelope { position: relative; display: block; width: 84px; height: 46px; border: 1px solid #9d5945; border-bottom: 3px solid #9d5945; border-radius: 3px; background: #fff7eb; box-shadow: 3px 6px 14px rgba(71,43,23,.25), inset 0 0 0 3px #f2e3d9; transition: transform .25s ease; overflow: hidden; }
+.miniFold { position: absolute; inset: 0; background: linear-gradient(145deg, transparent 49%, #b88b77 49.5%, transparent 50.5%), linear-gradient(215deg, transparent 49%, #b88b77 49.5%, transparent 50.5%); opacity: .75; }
+.miniAddress { position: absolute; right: 10px; bottom: 8px; font-family: var(--font-serif); font-size: .6rem; line-height: 1.1; color: #755947; }
+.miniStamp { position: absolute; left: 8px; top: 5px; width: 26px; height: 30px; display: grid; place-items: center; border: 1px dashed #ffe6bc; background: #a84530; color: #fff0d6; transform: rotate(-5deg); }
+.miniStamp > svg { width: 22px; height: 22px; }
+.hint { display: none; }
+.peek:focus-visible { outline: 2px solid var(--color-geru); outline-offset: 6px; border-radius: 4px; animation-play-state: paused; }
+.rail[data-paused="true"] .peek, .rail[data-open="true"] .peek { animation-play-state: paused; }
+.rail[data-open="true"] { visibility: hidden; }
+@keyframes paper-peek {
+  0%, 35%, 100% { transform: translateX(0) rotate(12deg); }
+  6% { transform: translateX(var(--peek-step)) rotate(6deg); }
+  12% { transform: translateX(var(--peek-wide)) rotate(16deg); }
+  18% { transform: translateX(var(--peek-step)) rotate(8deg); }
+  24% { transform: translateX(var(--peek-wide)) rotate(15deg); }
+  30% { transform: translateX(var(--peek-small)) rotate(9deg); }
+}
+
+.dialog { position: fixed; inset: 0; width: min(460px, calc(100% - 24px)); max-width: none; max-height: calc(100svh - 24px); margin: auto; padding: 18px 12px 0; border: 0; background: transparent; color: var(--color-espresso); overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; }
+.dialog::backdrop { background: rgba(47,36,29,.52); }
+.stage { position: relative; isolation: isolate; padding-bottom: 80px; perspective: 1000px; }
+.letter { position: relative; z-index: 2; border: 1px solid #d7baa0; border-radius: 3px; background: #fffaf1; box-shadow: 0 9px 30px rgba(47,36,29,.15); }
+.close { position: absolute; right: 8px; top: 7px; z-index: 5; display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 50%; background: transparent; color: #755947; cursor: pointer; }
+.close > svg { width: 18px; height: 18px; }
+.close:focus-visible, .instagram:focus-visible { outline: 2px solid var(--color-geru); outline-offset: 2px; }
+.close:hover { background: #f5e9d6; }
+.cover { position: relative; padding: 29px 87px 23px 22px; border-bottom: 1px dashed #d7baa0; background: #faf2e4; }
+.address { display: block; font-size: .55rem; font-weight: 500; line-height: 1.6; letter-spacing: .09em; text-transform: uppercase; color: #755947; }
+.title { margin-top: 12px; font-family: var(--font-serif); font-size: 1.6rem; line-height: 1.12; font-weight: 500; }
+.stamp { position: absolute; right: 22px; top: 56px; display: grid; justify-items: center; width: 48px; padding: 4px; border: 1px dashed #ac644d; color: #a84530; transform: rotate(8deg); background: #f5e9d6; }
+.stamp > svg { width: 32px; height: 32px; }
+.stamp > span { margin-top: 2px; font-size: .4rem; letter-spacing: .15em; }
+.postmark { position: absolute; top: 99px; right: 53px; width: 43px; transform: rotate(-12deg); opacity: .35; pointer-events: none; }
+.postmark > span { display: block; height: 4px; margin-top: 3px; border-top: 1px solid #a84530; border-radius: 50%; }
+.messageBody { padding: 22px; }
+.salutation { font-family: var(--font-serif); font-size: 1.25rem; line-height: 1.3; }
+.message { margin-top: 12px; font-size: .8rem; line-height: 1.8; color: #6b5544; }
+.signoff { display: grid; gap: 4px; margin-top: 18px; }
+.signature { font-family: var(--font-serif); font-style: italic; font-size: 1.15rem; color: #a84530; }
+.origin { font-size: .6rem; color: #755947; }
+.instagram { display: flex; align-items: center; gap: 12px; min-height: 58px; margin-top: 20px; padding-top: 16px; border-top: 1px solid #dfcbbb; color: var(--color-espresso); font-size: .79rem; font-weight: 500; text-decoration: none; }
+.instagram > svg { width: 22px; height: 22px; flex-shrink: 0; stroke-width: 1.5; color: var(--color-geru); }
+.handle { display: block; margin-top: 3px; font-size: .65rem; font-weight: 400; color: #755947; }
+.linkArrow { margin-left: auto; padding: 8px; font-size: 1.2rem; color: #a84530; transition: transform .2s ease; }
+.envelopeBack { position: absolute; z-index: 0; bottom: 0; left: -3px; right: -3px; height: 200px; border: 1px solid #b9907b; border-radius: 4px; background: #eadbd0; }
+.flap { position: absolute; z-index: 4; bottom: 60px; left: -3px; right: -3px; height: 140px; background: #dac4b4; clip-path: polygon(0 0, 100% 0, 50% 100%); transform-origin: center top; transform: rotateX(180deg); }
+.envelopeFront { position: absolute; z-index: 3; bottom: 0; left: -3px; right: -3px; height: 100px; display: grid; align-items: end; justify-items: center; padding-bottom: 19px; border: 1px solid #b9907b; border-radius: 0 0 4px 4px; background: linear-gradient(150deg, transparent 48%, rgba(130,79,57,.1) 49%, transparent 50%), linear-gradient(210deg, transparent 48%, rgba(130,79,57,.1) 49%, transparent 50%), #f3e6dc; }
+.envelopeFront > span { font-size: .83rem; color: #8e4934; }
+.dialog[open] { animation: envelope-arrive .55s ease-out both; }
+.dialog[open]::backdrop { animation: backdrop-arrive .4s ease-out both; }
+.dialog[open] .flap { animation: unseal 1.1s cubic-bezier(.4,0,.2,1) both; }
+.dialog[open] .letter { animation: lift-letter 1.3s .7s cubic-bezier(.22,1,.36,1) both; }
+@keyframes unseal { 0% { transform: rotateX(0); z-index: 4; } 49% { z-index: 4; } 50%, 100% { transform: rotateX(180deg); z-index: 1; } }
+@keyframes lift-letter { from { transform: translateY(130px) rotate(-2deg) scale(.94); opacity: 0; } 35% { opacity: 1; } to { transform: none; opacity: 1; } }
+@keyframes envelope-arrive { from { transform: translateY(18px) scale(.96); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes backdrop-arrive { from { opacity: 0; } to { opacity: 1; } }
+
+@media (min-width: 640px) and (max-width: 1023px) { .rail { top: 114px; } }
+@media (min-width: 1024px) {
+  .page { padding-inline-start: 72px; }
+  /* Keep the peeking paper in the page gutter, clear of copy and shop links. */
+  .homePage :global(.heritage-shell) { width: min(100% - 160px, 1200px); }
+  .homePage :global(section[aria-labelledby="collections-title"]) > div { padding-inline: 80px; }
+  .rail { left: -44px; right: auto; top: 48%; transform: translateY(-50%); }
+  .peek, .miniEnvelope { width: 96px; }
+  .peek { --peek-step: 10px; --peek-wide: 12px; --peek-small: 8px; height: 76px; }
+  .miniEnvelope { height: 68px; }
+  .miniAddress { left: 10px; right: auto; bottom: 10px; }
+  .miniStamp { width: 32px; height: 38px; right: 8px; left: auto; top: 8px; }
+  .miniStamp > svg { width: 27px; height: 27px; }
+  .hint { position: absolute; display: block; top: 50%; left: calc(100% + 12px); width: max-content; max-width: 220px; padding: 8px 11px; background: #fffaf1; color: #755947; border: 1px solid #dfc9b3; border-radius: 4px; font-size: .65rem; opacity: 0; visibility: hidden; transform: translateY(-50%) rotate(-12deg); pointer-events: none; transition: opacity .2s ease; }
+  .peek:focus-visible .hint { visibility: visible; opacity: 1; }
+}
+@media (hover: hover) and (pointer: fine) {
+  .peek:hover { animation-play-state: paused; }
+  .peek:hover .miniEnvelope { transform: translateX(var(--peek-small)) rotate(-4deg); }
+  .peek:hover .hint { visibility: visible; opacity: 1; }
+  .instagram:hover { color: #a84530; }
+  .instagram:hover .linkArrow { transform: translate(2px,-2px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .peek, .dialog[open], .dialog[open]::backdrop, .dialog[open] .flap, .dialog[open] .letter { animation: none; }
+  .flap { z-index: 1; }
+  .miniEnvelope, .hint, .linkArrow { transition: none; }
+}
+@media print { .rail, .dialog { display: none; } }

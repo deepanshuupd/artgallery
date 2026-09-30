@@ -5,6 +5,7 @@ import { CuratedHampersSection } from "@/components/home/curated-hampers-section
 import { FeaturedCollections } from "@/components/home/featured-collections";
 import { HeroSection } from "@/components/home/hero-section";
 import { HeritageStory } from "@/components/home/heritage-story";
+import postcardStyles from "@/components/about/studio-postcard.module.css";
 import { getProducts } from "@/lib/products";
 import type { Product, ProductCategory } from "@/types/product";
 
@@ -78,7 +79,7 @@ export default async function HomePage() {
   }
 
   return (
-    <main>
+    <main className={postcardStyles.homePage}>
       <HeroSection featuredProduct={culturalFeaturedProduct} />
       <FeaturedCollections images={categoryImages} />
       <HeritageStory />

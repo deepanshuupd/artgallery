@@ -7,6 +7,7 @@ import { useState } from "react";
 import { CloseIcon, MenuIcon, SparkleIcon } from "@/components/icons";
 import { navigationItems } from "@/lib/navigation";
 import { BrandMark } from "@/components/layout/brand-mark";
+import { StudioPostcard } from "@/components/about/studio-postcard";
 import styles from "./site-header.module.css";
 
 function HamperSparkles() {
@@ -30,6 +31,7 @@ export function SiteHeader() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
+    <>
     <header className="sticky top-0 z-50 border-b border-[rgba(168,69,48,0.16)] bg-[rgba(255,250,241,0.92)] backdrop-blur-xl">
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-3 px-4 py-2 sm:px-6 sm:py-4 lg:px-8">
         <Link
@@ -118,5 +120,7 @@ export function SiteHeader() {
         </nav>
       </div>
     </header>
+    {(pathname === "/" || pathname === "/about") && !isOpen && <StudioPostcard key={pathname} />}
+    </>
   );
 }
