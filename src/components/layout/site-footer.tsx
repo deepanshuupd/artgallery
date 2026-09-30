@@ -7,8 +7,8 @@ import { generateGeneralInquiryLink } from "@/lib/whatsapp";
 
 export function SiteFooter() {
   return (
-    <footer className="mt-12 border-t border-[rgba(168,69,48,0.2)] bg-[var(--color-espresso)] px-4 py-12 text-[var(--color-biswar)] sm:mt-16 sm:px-6 sm:py-16 lg:px-8">
-      <div className="mx-auto grid max-w-7xl gap-10 sm:grid-cols-2 lg:grid-cols-[1.25fr_0.75fr_0.9fr] lg:gap-14">
+    <footer className="mt-6 border-t border-[rgba(168,69,48,0.2)] bg-[var(--color-espresso)] px-4 py-7 text-[var(--color-biswar)] sm:mt-16 sm:px-6 sm:py-16 lg:px-8">
+      <div className="mx-auto grid max-w-7xl gap-5 sm:grid-cols-2 lg:grid-cols-[1.25fr_0.75fr_0.9fr] lg:gap-14">
         <div>
           <Link aria-label={brand.name} className="inline-block text-4xl" href="/">
             <BrandMark className="brand-mark--inverse text-4xl" />
@@ -23,24 +23,24 @@ export function SiteFooter() {
           <p className="text-[0.66rem] font-medium uppercase tracking-[0.24em] text-[var(--color-champagne)]">
             Explore
           </p>
-          <nav className="mt-4 grid gap-3" aria-label="Footer navigation">
+          <nav className="mt-3 grid grid-cols-2 gap-x-3 gap-y-1" aria-label="Footer navigation">
             {navigationItems.map((item) => (
               <Link
                 key={item.href}
-                className="w-fit text-sm text-stone-200 transition hover:text-[var(--color-champagne)]"
+                className="inline-flex min-h-11 items-center text-sm text-stone-200 transition hover:text-[var(--color-champagne)]"
                 href={item.href}
               >
                 {item.label}
               </Link>
             ))}
             <Link
-              className="w-fit text-sm text-stone-200 transition hover:text-[var(--color-champagne)]"
+              className="inline-flex min-h-11 items-center text-sm text-stone-200 transition hover:text-[var(--color-champagne)]"
               href="/uttarakhand-gifts"
             >
               Uttarakhand gifts
             </Link>
             <Link
-              className="w-fit text-sm text-stone-200 transition hover:text-[var(--color-champagne)]"
+              className="inline-flex min-h-11 items-center text-sm text-stone-200 transition hover:text-[var(--color-champagne)]"
               href="/pithoragarh-aipan-art"
             >
               Aipan art guide
@@ -66,7 +66,7 @@ export function SiteFooter() {
           </a>
         </div>
       </div>
-      <div className="mx-auto mt-12 flex max-w-7xl flex-col gap-2 border-t border-white/10 pt-5 text-xs text-stone-400 sm:mt-14 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mx-auto mt-6 flex max-w-7xl flex-col gap-2 border-t border-white/10 pt-5 text-xs text-stone-400 sm:mt-14 sm:flex-row sm:items-center sm:justify-between">
         <p>© {new Date().getFullYear()} KumaonRang. Made in Kumaon.</p>
         <p>Colour · Craft · Keepsakes</p>
       </div>

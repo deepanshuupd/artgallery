@@ -5,10 +5,10 @@ import { motion } from "motion/react";
 
 export function AboutCta() {
   return (
-    <section className="relative px-4 py-14 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
+    <section className="relative px-4 py-7 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
       <div className="mx-auto max-w-7xl">
         <motion.div
-          className="relative overflow-hidden rounded-[1.5rem] border border-[rgba(168,69,48,0.32)] bg-[var(--color-geru)] px-6 py-14 text-center shadow-[0_24px_60px_rgba(47,36,29,0.22)] sm:px-10 sm:py-16 lg:py-20"
+          className="relative overflow-hidden rounded-[1.5rem] border border-[rgba(168,69,48,0.32)] bg-[var(--color-geru)] px-6 py-7 text-center shadow-[0_24px_60px_rgba(47,36,29,0.22)] sm:px-10 sm:py-16 lg:py-20"
           initial={{ opacity: 0, y: 24 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
           viewport={{ once: true, amount: 0.3 }}
@@ -23,16 +23,16 @@ export function AboutCta() {
             Start something personal
           </p>
 
-          <h2 className="relative mx-auto mt-5 max-w-2xl text-3xl leading-[1.1] text-[var(--color-porcelain)] sm:text-4xl lg:text-5xl">
+          <h2 className="relative mx-auto mt-5 max-w-2xl text-3xl leading-[1.1] text-[var(--color-porcelain)] sm:text-3xl lg:text-5xl">
             Let&apos;s make something
             <span className="block text-[var(--color-champagne)]">
               meant to be kept.
             </span>
           </h2>
 
-          <p className="relative mx-auto mt-5 max-w-xl text-base leading-8 text-stone-300">
+          <p className="relative mx-auto mt-5 max-w-xl text-sm leading-6 text-stone-300">
             A custom piece, a curated hamper, or just an idea you can&apos;t
-            quite describe yet — we&apos;d love to hear it.
+            quite describe yet — share it with Sneha and start a conversation.
           </p>
 
           <div className="relative mt-9 flex flex-col justify-center gap-3 sm:flex-row">

@@ -7,10 +7,10 @@ import { ArrowUpRightIcon, SparkleIcon } from "@/components/icons";
 
 export function CustomHamperCta() {
   return (
-    <section className="relative px-4 py-14 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
+    <section className="relative px-4 py-7 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
       <div className="mx-auto max-w-7xl">
         <motion.div
-          className="relative overflow-hidden rounded-[1.5rem] border border-[rgba(168,69,48,0.35)] bg-[var(--color-geru)] px-6 py-14 text-center shadow-[0_24px_60px_rgba(47,36,29,0.24)] sm:px-10 sm:py-16 lg:py-20"
+          className="relative overflow-hidden rounded-[1.5rem] border border-[rgba(168,69,48,0.35)] bg-[var(--color-geru)] px-6 py-7 text-center shadow-[0_24px_60px_rgba(47,36,29,0.24)] sm:px-10 sm:py-16 lg:py-20"
           initial={{ opacity: 0, y: 24 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
           viewport={{ once: true, amount: 0.3 }}
@@ -29,14 +29,14 @@ export function CustomHamperCta() {
             Not finding the one
           </p>
 
-          <h2 className="relative mx-auto mt-5 max-w-2xl text-3xl leading-[1.1] text-[var(--color-porcelain)] sm:text-4xl lg:text-5xl">
+          <h2 className="relative mx-auto mt-5 max-w-2xl text-3xl leading-[1.1] text-[var(--color-porcelain)] sm:text-3xl lg:text-5xl">
             Create your own
             <span className="block text-[var(--color-champagne)]">
               custom hamper.
             </span>
           </h2>
 
-          <p className="relative mx-auto mt-5 max-w-xl text-base leading-8 text-stone-300">
+          <p className="relative mx-auto mt-5 max-w-xl text-sm leading-6 text-stone-300">
             Tell us the occasion, the person, and your budget — we&apos;ll
             curate a one-of-a-kind hamper built entirely around your story.
           </p>

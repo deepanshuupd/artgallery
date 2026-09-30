@@ -8,6 +8,7 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { brand } from "@/lib/brand";
 import { getSiteUrl } from "@/lib/site";
+import { homeTitle, homeDescription } from "@/lib/seo";
 
 const cormorantGaramond = Cormorant_Garamond({
   subsets: ["latin"],
@@ -29,8 +30,7 @@ const tiroDevanagari = Tiro_Devanagari_Hindi({
 
 const siteUrl = getSiteUrl();
 
-const siteDescription =
-  "KumaonRang creates Aipan-inspired art, Pahadi keepsakes, personalized gifts, and curated hampers from Pithoragarh, Uttarakhand.";
+const siteDescription = homeDescription;
 
 const siteKeywords = [
   "Aipan art Uttarakhand",
@@ -45,7 +45,7 @@ const siteKeywords = [
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "KumaonRang — Aipan Art & Pahadi Keepsakes from Kumaon",
+    default: homeTitle,
     template: "%s · KumaonRang",
   },
   description: siteDescription,
@@ -55,13 +55,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     siteName: brand.name,
-    title: "KumaonRang — Aipan Art & Pahadi Keepsakes from Kumaon",
+    title: homeTitle,
     description: siteDescription,
     url: siteUrl,
   },
   twitter: {
     card: "summary_large_image",
-    title: brand.name,
+    title: homeTitle,
     description: siteDescription,
   },
 };

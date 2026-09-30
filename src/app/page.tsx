@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
+import { homeTitle, homeDescription } from "@/lib/seo";
 
 import { CuratedHampersSection } from "@/components/home/curated-hampers-section";
 import { FeaturedCollections } from "@/components/home/featured-collections";
 import { HeroSection } from "@/components/home/hero-section";
+import { HeritageStory } from "@/components/home/heritage-story";
 import { getProducts } from "@/lib/products";
 import type { Product, ProductCategory } from "@/types/product";
 
 export const metadata: Metadata = {
-  title: "Aipan Art, Pahadi Gifts & Uttarakhand Souvenirs",
-  description:
-    "Shop handmade Aipan art, Pahadi keychains, Kumaoni gifts, Uttarakhand souvenirs, and personalized keepsakes made in Pithoragarh.",
+  title: { absolute: homeTitle },
+  description: homeDescription,
   keywords: [
     "Aipan art gifts online",
     "handmade Uttarakhand souvenir",
@@ -80,7 +81,8 @@ export default async function HomePage() {
     <main>
       <HeroSection featuredProduct={culturalFeaturedProduct} />
       <FeaturedCollections images={categoryImages} />
-      <CuratedHampersSection />
+      <HeritageStory />
+      <CuratedHampersSection product={products.find((product) => product.category === "Curated Hampers" && product.image)} />
     </main>
   );
 }

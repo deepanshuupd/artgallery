@@ -31,7 +31,7 @@ export default async function CollectionPage({
   ]);
 
   return (
-    <main className="relative overflow-hidden px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+    <main className="relative overflow-hidden px-4 py-6 sm:px-6 lg:px-8 lg:py-20">
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-x-0 top-0 h-48 bg-[radial-gradient(circle_at_top,rgba(201,164,106,0.12),transparent_68%)]" />
       </div>
@@ -39,23 +39,14 @@ export default async function CollectionPage({
       <div className="mx-auto max-w-7xl">
         <section className="max-w-3xl">
           <p className="text-[0.72rem] uppercase tracking-[0.36em] text-stone-500 sm:text-xs">
-            Signature collection
+            Made for your everyday
           </p>
-          <h1 className="mt-4 font-serif text-4xl leading-tight text-stone-900 sm:text-5xl">
-            Handmade pieces
-            <span className="block text-[var(--color-rose-clay)]">
-              curated with warmth and detail.
-            </span>
+          <h1 className="mt-2 font-serif text-3xl leading-tight text-stone-900 sm:text-5xl">
+            Shop KumaonRang
           </h1>
-          <p className="mt-5 max-w-2xl text-base leading-8 text-stone-700 sm:text-lg">
-            Explore our collection of personalized keepsakes, elegant decor, and
-            gifting pieces designed to feel intimate, thoughtful, and premium.
-          </p>
-          <p className="mt-5 max-w-3xl text-sm leading-7 text-stone-600 sm:text-base">
-            Find handmade Aipan keychains, Kumaoni wall art, Pahadi gifts,
-            Uttarakhand souvenir magnets, and small personalized gifts made in
-            Pithoragarh for everyday keepsakes, celebrations, and thoughtful
-            return gifts.
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-stone-700 sm:text-lg">
+            Browse Aipan art, Pahadi keychains, souvenir magnets and personal gifts
+            from Pithoragarh.
           </p>
         </section>
 
@@ -64,7 +55,7 @@ export default async function CollectionPage({
           initialCategory={category}
           products={products}
           showCategoryFilter
-          title="Find a piece that feels made for your moment."
+          title="Shop by category"
         />
       </div>
     </main>

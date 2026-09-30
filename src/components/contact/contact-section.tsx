@@ -41,20 +41,20 @@ export function ContactSection() {
         <p className="text-[0.72rem] uppercase tracking-[0.36em] text-stone-500 sm:text-xs">
           Get in touch
         </p>
-        <h1 className="mt-4 font-serif text-4xl leading-[1.08] text-stone-900 sm:text-5xl lg:text-6xl">
+        <h1 className="mt-4 font-serif text-3xl leading-[1.08] text-stone-900 sm:text-5xl lg:text-6xl">
           Every great gift starts
           <span className="block text-[var(--color-rose-clay)]">
             with a conversation.
           </span>
         </h1>
-        <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-stone-700 sm:text-lg">
+        <p className="mx-auto mt-5 max-w-2xl text-sm leading-6 text-stone-700 sm:text-lg">
           Whether it&apos;s a custom frame, a hamper for a hundred guests, or an
           idea you can&apos;t quite put into words yet — we&apos;d love to hear
           it.
         </p>
       </motion.header>
 
-      <div className="mt-12 grid gap-6 sm:mt-16 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] lg:gap-8">
+      <div className="mt-6 grid gap-6 sm:mt-16 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] lg:gap-8">
         <ContactForm />
 
         <div className="flex flex-col gap-5">
@@ -77,7 +77,7 @@ export function ContactSection() {
                 <h2 className="mt-5 text-2xl leading-tight text-[var(--color-porcelain)] sm:text-3xl">
                   Chat on WhatsApp
                 </h2>
-                <p className="mt-2.5 max-w-sm text-sm leading-7 text-stone-300">
+                <p className="mt-2.5 max-w-sm text-sm leading-6 text-stone-300">
                   The fastest way to reach us — the same chat where every order,
                   customization, and hamper is planned.
                 </p>
@@ -164,7 +164,7 @@ export function ContactSection() {
 
       <motion.p
         {...fadeInUp}
-        className="mx-auto mt-10 flex max-w-2xl items-center justify-center gap-2.5 text-center text-sm leading-7 text-stone-600 sm:mt-12"
+        className="mx-auto mt-10 flex max-w-2xl items-center justify-center gap-2.5 text-center text-sm leading-6 text-stone-600 sm:mt-6"
         transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
       >
         <span aria-hidden="true" className="text-[var(--color-champagne)]">

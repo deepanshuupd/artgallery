@@ -5,9 +5,9 @@ import { AboutHero } from "@/components/about/about-hero";
 import { AboutValues } from "@/components/about/about-values";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "Meet Sneha | Our Story",
   description:
-    "Meet KumaonRang, a Pithoragarh gifting studio crafting Aipan-inspired art, Pahadi keepsakes, personalized gifts, and Kumaon hampers.",
+    "Meet Sneha, the woman behind KumaonRang in Pithoragarh, Uttarakhand. Discover a small business rooted in Aipan art, Pahadi keepsakes and personal gifts.",
   keywords: [
     "Pithoragarh Aipan art",
     "Uttarakhand folk art",

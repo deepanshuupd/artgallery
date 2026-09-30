@@ -23,14 +23,14 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-[rgba(168,69,48,0.16)] bg-[rgba(255,250,241,0.92)] backdrop-blur-xl">
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4 lg:px-8">
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-3 px-4 py-2 sm:px-6 sm:py-4 lg:px-8">
         <Link
           aria-label={brand.name}
           className="group flex shrink-0 flex-col items-center text-stone-900 transition-colors duration-300 hover:text-stone-700"
           href="/"
           onClick={() => setIsOpen(false)}
         >
-          <BrandMark className="text-[2rem] sm:text-[2.3rem]" />
+          <BrandMark className="text-[1.7rem] sm:text-[2.3rem]" />
           <span className="block text-[0.5rem] uppercase tracking-[0.22em] text-stone-600 sm:text-[0.55rem]">
             Art from the hills
           </span>
@@ -88,7 +88,7 @@ export function SiteHeader() {
               <Link
                 key={item.href}
                 className={[
-                  "rounded-xl px-4 py-3 text-xs font-medium uppercase tracking-[0.16em] transition-colors duration-300",
+                  "flex min-h-11 items-center rounded-xl px-4 py-2 text-xs font-medium uppercase tracking-[0.16em] transition-colors duration-300",
                   active
                     ? "bg-[var(--color-geru)] text-[var(--color-biswar)]"
                     : "text-stone-700 hover:bg-[rgba(168,69,48,0.08)] hover:text-[var(--color-geru)]",

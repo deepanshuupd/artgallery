@@ -38,7 +38,7 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
   }
 
   return (
-    <main className="relative overflow-hidden px-4 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
+    <main className="relative overflow-hidden px-4 py-5 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
       <div className="absolute inset-0 -z-10">
         <div className="aipan-motif absolute inset-x-0 top-0 h-56 opacity-25" />
       </div>
@@ -46,7 +46,7 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
       <div className="mx-auto max-w-7xl">
         <motion.div
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
+          className="mb-4"
           initial={{ opacity: 0, y: 12 }}
           transition={{ duration: 0.45, ease: "easeOut" }}
         >
@@ -59,7 +59,7 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
           </Link>
         </motion.div>
 
-        <section className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(360px,0.95fr)] lg:items-start">
+        <section className="grid gap-4 lg:grid-cols-[minmax(0,1.05fr)_minmax(360px,0.95fr)] lg:items-start">
           <motion.div
             animate={{ opacity: 1, y: 0 }}
             className="relative overflow-hidden rounded-[1.5rem] border border-[rgba(168,69,48,0.18)] bg-[var(--color-biswar)] shadow-[0_20px_60px_rgba(47,36,29,0.12)]"
@@ -83,7 +83,7 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
                 {images.map((image, index) => (
                   <div
                     key={image}
-                    className="relative h-[24rem] min-w-full snap-center bg-[linear-gradient(160deg,rgba(201,164,106,0.18),rgba(255,253,252,0.96),rgba(185,131,116,0.15))] sm:h-[34rem] lg:h-[42rem]"
+                    className="relative h-[18rem] min-w-full snap-center bg-[linear-gradient(160deg,rgba(201,164,106,0.18),rgba(255,253,252,0.96),rgba(185,131,116,0.15))] sm:h-[34rem] lg:h-[42rem]"
                   >
                       {index === activeImageIndex && (imageError || failedImageSrc === activeImage) ? (
                       <div className="flex h-full w-full flex-col justify-end p-8 sm:p-10">
@@ -97,7 +97,7 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
                     ) : (
                       <Image
                         alt={`${product.name} ${index + 1}`}
-                        className="object-cover"
+                        className="object-contain"
                         fill
                         priority={index === 0}
                         sizes="(max-width: 1024px) 100vw, 58vw"
@@ -149,7 +149,7 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
 
           <motion.div
             animate={{ opacity: 1, y: 0 }}
-            className="rounded-[1.5rem] border border-[rgba(168,69,48,0.18)] bg-[var(--color-biswar)] p-6 shadow-[0_16px_44px_rgba(47,36,29,0.1)] sm:p-8"
+            className="rounded-[1.5rem] border border-[rgba(168,69,48,0.18)] bg-[var(--color-biswar)] p-4 shadow-[0_16px_44px_rgba(47,36,29,0.1)] sm:p-8"
             initial={{ opacity: 0, y: 24 }}
             transition={{ duration: 0.55, delay: 0.08, ease: "easeOut" }}
           >
@@ -167,7 +167,7 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
               ) : null}
             </div>
 
-            <h1 className="mt-6 font-serif text-4xl leading-tight text-stone-900 sm:text-5xl">
+            <h1 className="mt-3 font-serif text-3xl leading-tight text-stone-900 sm:text-5xl">
               {product.name}
             </h1>
 
@@ -187,7 +187,11 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
               ) : null}
             </div>
 
-            <p className="mt-6 text-base leading-8 text-stone-700">
+            <div className="mt-4">
+              <WhatsAppOrderButton product={product} />
+            </div>
+
+            <p className="mt-4 text-sm leading-6 text-stone-700 sm:text-base">
               {product.description}
             </p>
 
@@ -206,7 +210,6 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
             </div>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              <WhatsAppOrderButton product={product} />
               <Link
                 className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-[rgba(168,69,48,0.24)] bg-[var(--color-porcelain)] px-6 py-3 text-sm font-medium uppercase tracking-[0.16em] text-[var(--color-geru)] transition-transform duration-300 hover:-translate-y-0.5 hover:bg-white"
                 href="/collection"
@@ -220,7 +223,7 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
 
         <motion.section
           animate={{ opacity: 1, y: 0 }}
-          className="mt-10 rounded-[1.5rem] border border-[rgba(168,69,48,0.18)] bg-[var(--color-biswar)] p-6 shadow-[0_16px_44px_rgba(47,36,29,0.1)] sm:p-8 lg:mt-12"
+          className="mt-10 rounded-[1.5rem] border border-[rgba(168,69,48,0.18)] bg-[var(--color-biswar)] p-4 shadow-[0_16px_44px_rgba(47,36,29,0.1)] sm:p-8 lg:mt-12"
           initial={{ opacity: 0, y: 24 }}
           transition={{ duration: 0.55, delay: 0.14, ease: "easeOut" }}
         >

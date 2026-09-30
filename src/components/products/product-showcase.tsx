@@ -71,10 +71,10 @@ export function ProductShowcase({
   const searchBox = (
     <label className="block">
       <span className="sr-only">Search products</span>
-      <div className="flex min-h-14 items-center rounded-full border border-stone-200/80 bg-white/80 px-5 shadow-sm transition focus-within:border-stone-300 focus-within:bg-white">
+      <div className="flex min-h-12 items-center rounded-full border border-stone-200/80 bg-white/80 px-5 shadow-sm transition focus-within:border-stone-300 focus-within:bg-white">
         <SearchIcon className="h-4 w-4 shrink-0 text-stone-500" />
         <input
-          className="w-full bg-transparent px-3 text-sm text-stone-900 outline-none placeholder:text-stone-500"
+          className="w-full bg-transparent px-3 text-base text-stone-900 outline-none placeholder:text-stone-500"
           onChange={(event) => setSearchQuery(event.target.value)}
           placeholder={searchPlaceholder}
           type="search"
@@ -85,9 +85,9 @@ export function ProductShowcase({
   );
 
   return (
-    <div className="mt-12 sm:mt-14">
+    <div className="mt-5 sm:mt-8">
       <motion.section
-        className="overflow-hidden rounded-[2rem] border border-white/70 bg-[rgba(255,253,252,0.72)] p-5 shadow-[0_20px_70px_rgba(51,40,33,0.08)] backdrop-blur sm:p-6 lg:p-8"
+        className="overflow-hidden rounded-xl border border-white/70 bg-[rgba(255,253,252,0.72)] p-3 shadow-[0_20px_70px_rgba(51,40,33,0.08)] backdrop-blur sm:p-6 lg:p-8"
         initial={{ opacity: 0, y: 18 }}
         transition={{ duration: 0.55, ease: "easeOut" }}
         viewport={{ once: true, amount: 0.25 }}
@@ -95,12 +95,12 @@ export function ProductShowcase({
       >
         {showCategoryFilter ? (
           <>
-            <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+            <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
               <div>
-                <p className="text-[0.72rem] uppercase tracking-[0.34em] text-stone-500">
+                <p className="hidden text-[0.72rem] uppercase tracking-[0.34em] text-stone-500 sm:block">
                   {eyebrow}
                 </p>
-                <h2 className="mt-3 font-serif text-3xl leading-tight text-stone-900 sm:text-4xl">
+                <h2 className="sr-only sm:not-sr-only sm:mt-2 sm:font-serif sm:text-3xl sm:leading-tight sm:text-stone-900">
                   {title}
                 </h2>
               </div>
@@ -112,8 +112,8 @@ export function ProductShowcase({
               </div>
             </div>
 
-            <div className="mt-8 grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,340px)] lg:items-start">
-              <div className="flex flex-wrap gap-3">
+            <div className="mt-4 grid gap-3 lg:grid-cols-[minmax(0,1fr)_minmax(0,340px)] lg:items-start">
+              <div className="flex gap-2 overflow-x-auto pb-2 lg:flex-wrap">
                 {filters.map((filter) => {
                   const isActive = activeFilter === filter.value;
 
@@ -122,7 +122,7 @@ export function ProductShowcase({
                       key={filter.value}
                       aria-pressed={isActive}
                       className={[
-                        "rounded-full px-5 py-3 text-sm uppercase tracking-[0.18em] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900/40",
+                        "min-h-11 shrink-0 rounded-lg px-3 py-2 text-sm transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900/40",
                         isActive
                           ? "bg-stone-900 text-stone-50 shadow-[0_14px_36px_rgba(51,40,33,0.16)]"
                           : "border border-stone-200/80 bg-white/75 text-stone-700 hover:border-stone-300 hover:bg-white hover:text-stone-950",
@@ -140,12 +140,12 @@ export function ProductShowcase({
             </div>
           </>
         ) : (
-          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,340px)] lg:items-center">
+          <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_minmax(0,340px)] lg:items-center">
             <div>
-              <p className="text-[0.72rem] uppercase tracking-[0.34em] text-stone-500">
+              <p className="hidden text-[0.72rem] uppercase tracking-[0.34em] text-stone-500 sm:block">
                 {eyebrow}
               </p>
-              <h2 className="mt-3 font-serif text-3xl leading-tight text-stone-900 sm:text-4xl">
+              <h2 className="sr-only sm:not-sr-only sm:mt-2 sm:font-serif sm:text-3xl sm:leading-tight sm:text-stone-900">
                 {title}
               </h2>
             </div>
@@ -158,7 +158,7 @@ export function ProductShowcase({
         <motion.section
           key={`${activeFilter}-${normalizedQuery || "all"}`}
           animate={{ opacity: 1, y: 0 }}
-          className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3"
+          className="mt-4 grid grid-cols-2 gap-3 sm:gap-5 xl:grid-cols-3"
           exit={{ opacity: 0, y: 10 }}
           initial={{ opacity: 0, y: 16 }}
           transition={{ duration: 0.35, ease: "easeOut" }}
@@ -168,7 +168,7 @@ export function ProductShowcase({
               key={product.id}
               animate={{ opacity: 1, y: 0 }}
               initial={{ opacity: 0, y: 18 }}
-              transition={{ duration: 0.35, delay: index * 0.04, ease: "easeOut" }}
+              transition={{ duration: 0.35, delay: Math.min(index * 0.02, 0.15), ease: "easeOut" }}
             >
               <ProductCard product={product} />
             </motion.div>
@@ -179,11 +179,11 @@ export function ProductShowcase({
       {filteredProducts.length === 0 ? (
         <motion.div
           animate={{ opacity: 1, y: 0 }}
-          className="mt-8 rounded-[2rem] border border-dashed border-stone-300/80 bg-[rgba(255,253,252,0.78)] px-6 py-14 text-center shadow-sm"
+          className="mt-8 rounded-xl border border-dashed border-stone-300/80 bg-[rgba(255,253,252,0.78)] px-6 py-14 text-center shadow-sm"
           initial={{ opacity: 0, y: 16 }}
           transition={{ duration: 0.35, ease: "easeOut" }}
         >
-          <p className="text-[0.72rem] uppercase tracking-[0.34em] text-stone-500">
+          <p className="hidden text-[0.72rem] uppercase tracking-[0.34em] text-stone-500 sm:block">
             {catalogEmpty ? "Nothing to show yet" : "No matches found"}
           </p>
           <h3 className="mt-4 font-serif text-3xl text-stone-900">

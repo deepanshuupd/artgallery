@@ -5,15 +5,15 @@ import { motion } from "motion/react";
 import { fadeInUp } from "@/lib/motion";
 
 const highlights = [
-  "Handmade in small batches",
-  "Personalized to your story",
-  "Wrapped with intention",
-  "From the Kumaon hills",
+  "Run by Sneha",
+  "Based in Pithoragarh",
+  "Rooted in Kumaon",
+  "A growing small business",
 ];
 
 export function AboutHero() {
   return (
-    <section className="relative overflow-hidden px-4 py-14 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
+    <section className="relative overflow-hidden px-4 py-7 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
       <div aria-hidden="true" className="aipan-motif absolute inset-0 -z-10 opacity-20" />
 
       <div className="mx-auto max-w-7xl">
@@ -24,51 +24,54 @@ export function AboutHero() {
               className="text-[0.72rem] uppercase tracking-[0.36em] text-stone-500 sm:text-xs"
               transition={{ duration: 0.6, ease: "easeOut" }}
             >
-              Our story
+              Meet the woman behind KumaonRang
             </motion.p>
 
             <motion.h1
               {...fadeInUp}
-              className="mt-4 font-serif text-4xl leading-[1.08] text-stone-900 sm:text-5xl lg:text-6xl"
+              className="mt-4 font-serif text-3xl leading-[1.08] text-stone-900 sm:text-5xl lg:text-6xl"
               transition={{ duration: 0.7, delay: 0.08, ease: "easeOut" }}
             >
-              Made by hand,
+              From Sneha’s home in the hills,
               <span className="block text-[var(--color-rose-clay)]">
-                made to mean something.
+                to a little corner of yours.
               </span>
             </motion.h1>
 
             <motion.p
               {...fadeInUp}
-              className="mt-6 max-w-2xl text-base leading-8 text-stone-700 sm:text-lg"
+              className="mt-6 max-w-2xl text-sm leading-6 text-stone-700 sm:text-lg"
               transition={{ duration: 0.7, delay: 0.16, ease: "easeOut" }}
             >
-              KumaonRang is a small gifting studio in Pithoragarh, Uttarakhand,
-              where Aipan-inspired art, Pahadi keepsakes, and personal gifts are
-              made one at a time — for one person at a time.
+              KumaonRang is run by Sneha, a woman from Pithoragarh, Uttarakhand,
+              building a small business around a connection that is deeply
+              personal: the place she calls home.
             </motion.p>
 
             <motion.div
               {...fadeInUp}
-              className="mt-8 space-y-5 text-sm leading-7 text-stone-600 sm:text-base sm:leading-8"
+              className="mt-8 space-y-5 text-sm leading-6 text-stone-600 sm:text-base sm:leading-8"
               transition={{ duration: 0.7, delay: 0.24, ease: "easeOut" }}
             >
               <p>
-                What began as an afternoon habit of painting small keepsakes has
-                grown into a practice rooted in colour, memory, and small
-                details: hand-finished keychains, frames, magnets, and gifts
-                built around names, dates, and inside jokes.
+                The red and white of Aipan. A familiar Pahadi face. A gift that
+                reminds someone of their people. These are the connections at
+                the heart of KumaonRang — bringing a sense of belonging into
+                everyday things, whether you live in the hills or miss them
+                from far away.
               </p>
               <p>
-                KumaonRang hampers bring the same thoughtfulness to birthdays,
-                weddings, festivals, and celebrations — layered with useful
-                keepsakes and the warmth of something made by hand.
+                Growing a small business is about more than reaching more
+                people. It is about giving them a reason to care. Here, that
+                reason is a personal connection: to a place, to a memory, or to
+                the person you are choosing a gift for. From a small keychain
+                to a celebration hamper, there is room for all of those stories.
               </p>
               <p>
-                Every order starts as a conversation on WhatsApp. Tell us who
-                it&apos;s for and the moment you&apos;re marking, and we
-                sketch, craft, wrap, and send it off from the Kumaon hills to
-                your doorstep.
+                When you choose KumaonRang, share it with a friend, or come
+                back for another gift, you help Sneha’s business take its next
+                step. That is how this story grows — through real people
+                finding something here that feels like their own.
               </p>
             </motion.div>
           </div>
@@ -81,20 +84,15 @@ export function AboutHero() {
             <div className="relative overflow-hidden rounded-[1.5rem] border border-[rgba(168,69,48,0.2)] bg-[var(--color-biswar)] p-7 shadow-[0_18px_48px_rgba(47,36,29,0.12)] sm:p-8">
               <div aria-hidden="true" className="aipan-motif absolute inset-x-0 top-0 h-16 opacity-30" />
 
-              <p
-                aria-hidden="true"
-                className="font-serif text-6xl leading-none text-[var(--color-champagne)]"
-              >
-                &ldquo;
+              <p className="relative font-serif text-4xl leading-tight text-[var(--color-geru)]">Kumaon + रंग</p>
+              <p className="relative mt-4 text-sm leading-7 text-stone-700">
+                A place, and its colours. Our name holds both — the Kumaon hills
+                Sneha comes from, and the colour she is sharing through this
+                small business.
               </p>
-              <blockquote className="-mt-4">
-                <p className="font-serif text-2xl leading-snug text-stone-900 sm:text-[1.7rem]">
-                  The best gifts carry a person, a place, or a memory home.
-                </p>
-                <footer className="mt-4 text-[0.68rem] uppercase tracking-[0.3em] text-stone-500">
-                  KumaonRang — Pithoragarh
-                </footer>
-              </blockquote>
+              <p className="mt-5 font-serif text-xl text-stone-900">
+                Small beginnings. A connection worth growing.
+              </p>
 
               <ul className="mt-8 grid grid-cols-1 gap-3 min-[420px]:grid-cols-2">
                 {highlights.map((highlight, index) => (

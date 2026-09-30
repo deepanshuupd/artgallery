@@ -11,30 +11,30 @@ import {
 
 const values = [
   {
-    title: "Craft before quantity",
+    title: "Rooted in Kumaon",
     description:
-      "Every piece is cut, painted, and finished by hand. We'd rather make fewer things beautifully than many things quickly.",
+      "Aipan-inspired patterns, Pahadi keepsakes and the colours of the hills keep a connection to home at the centre of the collection.",
     icon: PaletteIcon,
     accent: "rgba(201,164,106,0.24)",
   },
   {
-    title: "Personal by default",
+    title: "Room for your story",
     description:
-      "Names, dates, photographs, little details. Customization isn't an add-on here — it's where every piece begins.",
+      "A name, a photograph, a shared memory. Talk to Sneha about the personal touches available for the gift you have in mind.",
     icon: HeartIcon,
     accent: "rgba(185,131,116,0.22)",
   },
   {
     title: "Gifting as an experience",
     description:
-      "From the first WhatsApp message to the final ribbon, ordering should feel as considered as the gift itself.",
+      "Choosing a gift starts with the person it is for. Share the occasion and your ideas, and explore something that feels right for them.",
     icon: GiftIcon,
     accent: "rgba(122,130,114,0.2)",
   },
   {
-    title: "Details you can feel",
+    title: "A small business, growing",
     description:
-      "Considered materials, careful packaging, and finishing touches that survive the unboxing and stay on shelves for years.",
+      "Every purchase, recommendation and return visit helps Sneha grow KumaonRang while keeping its connection to Pithoragarh close.",
     icon: SparkleIcon,
     accent: "rgba(151,117,95,0.18)",
   },
@@ -49,21 +49,21 @@ const processSteps = [
   },
   {
     step: "02",
-    title: "We craft it by hand",
+    title: "Make it personal",
     description:
-      "We sketch, personalize, and hand-finish your piece with the details that make it yours.",
+      "Discuss the available designs, personalisation, price and timing with Sneha before confirming your order.",
   },
   {
     step: "03",
-    title: "Wrapped & delivered",
+    title: "Plan the delivery",
     description:
-      "Your gift is packed with care and sent from our studio, ready to be given.",
+      "Confirm the delivery details and any occasion date when ordering, so you know what to expect.",
   },
 ];
 
 export function AboutValues() {
   return (
-    <section className="relative px-4 py-14 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
+    <section className="relative px-4 py-7 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
       <div aria-hidden="true" className="absolute inset-0 -z-10">
         <div className="absolute inset-x-0 top-10 h-40 bg-[radial-gradient(circle_at_center,rgba(201,164,106,0.12),transparent_68%)]" />
       </div>
@@ -79,22 +79,22 @@ export function AboutValues() {
           <p className="text-[0.72rem] uppercase tracking-[0.36em] text-stone-500 sm:text-xs">
             What we stand by
           </p>
-          <h2 className="mt-4 text-3xl leading-tight text-stone-900 sm:text-4xl lg:text-5xl">
-            Four things every piece
+          <h2 className="mt-4 text-3xl leading-tight text-stone-900 sm:text-3xl lg:text-5xl">
+            What keeps this small business
             <span className="block text-[var(--color-rose-clay)]">
-              leaves the studio with.
+              close to its roots.
             </span>
           </h2>
         </motion.div>
 
-        <div className="mt-12 grid gap-5 sm:mt-14 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-6 grid gap-5 sm:mt-14 sm:grid-cols-2 xl:grid-cols-4">
           {values.map((value, index) => {
             const Icon = value.icon;
 
             return (
               <motion.article
                 key={value.title}
-                className="group relative flex h-full flex-col overflow-hidden rounded-[2rem] border border-white/60 bg-[rgba(255,253,252,0.82)] p-6 shadow-[0_18px_60px_rgba(51,40,33,0.08)] backdrop-blur transition-shadow duration-300 hover:shadow-[0_28px_80px_rgba(51,40,33,0.14)]"
+                className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-white/60 bg-[rgba(255,253,252,0.82)] p-6 shadow-[0_18px_60px_rgba(51,40,33,0.08)] backdrop-blur transition-shadow duration-300 hover:shadow-[0_28px_80px_rgba(51,40,33,0.14)]"
                 initial={{ opacity: 0, y: 24 }}
                 transition={{ duration: 0.6, delay: index * 0.08, ease: "easeOut" }}
                 viewport={{ once: true, amount: 0.3 }}
@@ -116,11 +116,11 @@ export function AboutValues() {
                     <Icon />
                   </span>
 
-                  <h3 className="mt-6 text-2xl leading-tight text-stone-900">
+                  <h3 className="mt-3 text-xl leading-tight text-stone-900">
                     {value.title}
                   </h3>
 
-                  <p className="mt-4 flex-1 text-sm leading-7 text-stone-600">
+                  <p className="mt-4 flex-1 text-sm leading-6 text-stone-600">
                     {value.description}
                   </p>
                 </div>
@@ -129,7 +129,7 @@ export function AboutValues() {
           })}
         </div>
 
-        <div className="mt-20 sm:mt-24">
+        <div className="mt-8 sm:mt-24">
           <motion.div
             className="mx-auto max-w-3xl text-center"
             initial={{ opacity: 0, y: 18 }}
@@ -140,16 +140,16 @@ export function AboutValues() {
             <p className="text-[0.72rem] uppercase tracking-[0.36em] text-stone-500 sm:text-xs">
               How it works
             </p>
-            <h2 className="mt-4 text-3xl leading-tight text-stone-900 sm:text-4xl">
+            <h2 className="mt-4 text-3xl leading-tight text-stone-900 sm:text-3xl">
               From your idea to their hands.
             </h2>
           </motion.div>
 
-          <ol className="mt-12 grid gap-5 sm:grid-cols-3">
+          <ol className="mt-6 grid gap-5 sm:grid-cols-3">
             {processSteps.map((item, index) => (
               <motion.li
                 key={item.step}
-                className="relative rounded-[2rem] border border-stone-200/70 bg-white/60 p-6 backdrop-blur sm:p-7"
+                className="relative rounded-xl border border-stone-200/70 bg-white/60 p-6 backdrop-blur sm:p-7"
                 initial={{ opacity: 0, y: 24 }}
                 transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
                 viewport={{ once: true, amount: 0.3 }}
@@ -164,7 +164,7 @@ export function AboutValues() {
                 <h3 className="mt-4 text-xl leading-tight text-stone-900 sm:text-2xl">
                   {item.title}
                 </h3>
-                <p className="mt-3 text-sm leading-7 text-stone-600">
+                <p className="mt-3 text-sm leading-6 text-stone-600">
                   {item.description}
                 </p>
               </motion.li>
