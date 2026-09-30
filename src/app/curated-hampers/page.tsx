@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 
 import { CustomHamperCta } from "@/components/products/custom-hamper-cta";
 import { ProductShowcase } from "@/components/products/product-showcase";
@@ -7,9 +8,7 @@ import { getProducts } from "@/lib/products";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Curated Hampers",
-  description:
-    "Explore KumaonRang hampers — thoughtful gift boxes for birthdays, weddings, festivals, and meaningful celebrations, curated from the Kumaon hills.",
+  ...pageMetadata({ title: "Gift Hampers for Birthdays, Weddings & Festivals", path: "/curated-hampers", description: "Explore KumaonRang hampers — thoughtful gift boxes for birthdays, weddings, festivals, and meaningful celebrations, curated from the Kumaon hills." }),
   keywords: [
     "traditional Uttarakhand gifts",
     "personalized Uttarakhand gifts",
@@ -35,7 +34,7 @@ export default async function CuratedHampersPage() {
             KumaonRang Hampers
           </p>
           <h1 className="mt-3 max-w-2xl font-serif text-3xl leading-[1.06] text-[var(--color-porcelain)] sm:text-5xl lg:text-6xl">
-            A more indulgent way
+            A more indulgent way{" "}
             <span className="block text-[var(--color-champagne)]">
               to gift with intention.
             </span>

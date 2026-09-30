@@ -4,13 +4,14 @@ import { BrandMark } from "@/components/layout/brand-mark";
 import { brand } from "@/lib/brand";
 import { navigationItems } from "@/lib/navigation";
 import { generateGeneralInquiryLink } from "@/lib/whatsapp";
+import { collections } from "@/lib/collections";
 
 export function SiteFooter() {
   return (
     <footer className="mt-6 border-t border-[rgba(168,69,48,0.2)] bg-[var(--color-espresso)] px-4 py-7 text-[var(--color-biswar)] sm:mt-16 sm:px-6 sm:py-16 lg:px-8">
       <div className="mx-auto grid max-w-7xl gap-5 sm:grid-cols-2 lg:grid-cols-[1.25fr_0.75fr_0.9fr] lg:gap-14">
         <div>
-          <Link prefetch={false} aria-label={brand.name} className="inline-block text-4xl" href="/">
+          <Link prefetch={false} className="inline-block text-4xl" href="/">
             <BrandMark className="brand-mark--inverse text-4xl" />
           </Link>
           <p className="mt-4 max-w-sm text-sm leading-7 text-stone-300">
@@ -48,6 +49,9 @@ export function SiteFooter() {
             >
               Aipan art guide
             </Link>
+          </nav>
+          <nav className="mt-4 grid grid-cols-2 gap-x-3 gap-y-1 border-t border-white/10 pt-3" aria-label="Shop collections">
+            {collections.map(collection => <Link key={collection.slug} prefetch={false} href={`/${collection.slug}`} className="inline-flex min-h-11 items-center text-xs text-stone-200 hover:text-[var(--color-champagne)]">{collection.label}</Link>)}
           </nav>
         </div>
 

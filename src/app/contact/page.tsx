@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 
 import { ContactSection } from "@/components/contact/contact-section";
 
 export const metadata: Metadata = {
-  title: "Contact",
-  description:
-    "Contact KumaonRang for Aipan-inspired gifts, Pahadi keychains, personalized keepsakes, and Kumaon hampers from Pithoragarh, Uttarakhand.",
+  ...pageMetadata({ title: "Contact Sneha | Custom Gifts & Orders", path: "/contact", description: "Contact KumaonRang for Aipan-inspired gifts, Pahadi keychains, personalized keepsakes, and Kumaon hampers from Pithoragarh, Uttarakhand." }),
   keywords: [
     "order handmade gifts from Uttarakhand",
     "custom Aipan gifts",

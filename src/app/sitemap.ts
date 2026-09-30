@@ -3,6 +3,7 @@ import type { MetadataRoute } from "next";
 import { getProducts } from "@/lib/products";
 import { getProductPath } from "@/lib/catalog";
 import { getSiteUrl } from "@/lib/site";
+import { collections } from "@/lib/collections";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = getSiteUrl();
@@ -25,6 +26,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let productEntries: MetadataRoute.Sitemap = [];
   try {
     const products = await getProducts();
+    staticEntries.push(...collections
+      .filter(collection => products.some(product => product.category === collection.category))
+      .map(collection => ({ url: `${siteUrl}/${collection.slug}`, changeFrequency: "weekly" as const, priority: 0.8 })));
     productEntries = products.map((product) => ({
       url: `${siteUrl}${getProductPath(product)}`,
       changeFrequency: "weekly",

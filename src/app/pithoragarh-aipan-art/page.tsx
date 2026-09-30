@@ -2,14 +2,12 @@ import type { Metadata } from "next";
 
 import { ProductShowcase } from "@/components/products/product-showcase";
 import { getProducts } from "@/lib/products";
-import { getSiteUrl } from "@/lib/site";
+import { pageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Pithoragarh Aipan Art & Kumaoni Wall Decor",
-  description:
-    "Explore Pithoragarh Aipan art, handmade Aipan frames, Kumaoni wall art, Pichora-inspired decor, and Pahadi heritage gifts by KumaonRang.",
+  ...pageMetadata({ title: "Aipan Art from Pithoragarh | Kumaoni Wall Decor", path: "/pithoragarh-aipan-art", description: "Explore Pithoragarh Aipan art, handmade Aipan frames, Kumaoni wall art, Pichora-inspired decor, and Pahadi heritage gifts by KumaonRang." }),
   keywords: [
     "Pithoragarh Aipan art",
     "Aipan art Pithoragarh",
@@ -19,7 +17,6 @@ export const metadata: Metadata = {
     "Kumaoni wall art",
     "Pahadi heritage wall decor",
   ],
-  alternates: { canonical: `${getSiteUrl()}/pithoragarh-aipan-art` },
 };
 
 export default async function PithoragarhAipanArtPage() {
@@ -41,7 +38,7 @@ export default async function PithoragarhAipanArtPage() {
             A folk-art story from Kumaon
           </p>
           <h1 className="mt-4 font-serif text-4xl leading-tight text-stone-900 sm:text-5xl lg:text-6xl">
-            Pithoragarh Aipan art for
+            Pithoragarh Aipan art for{" "}
             <span className="block text-[var(--color-rose-clay)]">
               modern keepsakes and walls.
             </span>

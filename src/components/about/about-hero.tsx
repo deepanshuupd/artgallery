@@ -32,7 +32,7 @@ export function AboutHero() {
               className="mt-4 font-serif text-3xl leading-[1.08] text-stone-900 sm:text-5xl lg:text-6xl"
               transition={{ duration: 0.7, delay: 0.08, ease: "easeOut" }}
             >
-              For the places and people
+              For the places and people{" "}
               <span className="block text-[var(--color-rose-clay)]">
                 that feel like home.
               </span>

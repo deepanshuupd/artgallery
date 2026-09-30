@@ -2,14 +2,12 @@ import type { Metadata } from "next";
 
 import { ProductShowcase } from "@/components/products/product-showcase";
 import { getProducts } from "@/lib/products";
-import { getSiteUrl } from "@/lib/site";
+import { pageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Uttarakhand Gifts, Kumaoni Gifts & Pahadi Souvenirs",
-  description:
-    "Shop handmade Uttarakhand souvenirs, Kumaoni heritage gifts, personalized Pahadi gifts, Aipan art gifts, and thoughtful keepsakes from Pithoragarh.",
+  ...pageMetadata({ title: "Uttarakhand Gifts & Pahadi Souvenirs", path: "/uttarakhand-gifts", description: "Shop handmade Uttarakhand souvenirs, Kumaoni heritage gifts, personalized Pahadi gifts, Aipan art gifts, and thoughtful keepsakes from Pithoragarh." }),
   keywords: [
     "Uttarakhand souvenirs online",
     "Kumaoni heritage gifts",
@@ -19,7 +17,6 @@ export const metadata: Metadata = {
     "traditional Uttarakhand gifts",
     "gift from Uttarakhand",
   ],
-  alternates: { canonical: `${getSiteUrl()}/uttarakhand-gifts` },
 };
 
 export default async function UttarakhandGiftsPage() {
@@ -38,7 +35,7 @@ export default async function UttarakhandGiftsPage() {
             Gifts from the Kumaon hills
           </p>
           <h1 className="mt-4 font-serif text-4xl leading-tight text-stone-900 sm:text-5xl lg:text-6xl">
-            Uttarakhand gifts with a
+            Uttarakhand gifts with a{" "}
             <span className="block text-[var(--color-rose-clay)]">
               Pahadi point of view.
             </span>

@@ -8,8 +8,8 @@ type BrandMarkProps = {
 export function BrandMark({ className = "" }: BrandMarkProps) {
   return (
     <span aria-label={brand.name} className={`brand-mark ${className}`} role="img">
-      <span className="brand-mark__latin">Kumaon</span>
-      <span className="brand-mark__devanagari" lang="hi">
+      <span aria-hidden="true" className="brand-mark__latin">Kumaon</span>
+      <span aria-hidden="true" className="brand-mark__devanagari" lang="hi">
         रंग
       </span>
     </span>

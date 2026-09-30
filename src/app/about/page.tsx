@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 
 import { AboutCta } from "@/components/about/about-cta";
 import { AboutHero } from "@/components/about/about-hero";
 import { AboutValues } from "@/components/about/about-values";
 
 export const metadata: Metadata = {
-  title: "Meet Sneha | Our Story",
-  description:
-    "Meet Sneha, the woman behind KumaonRang in Pithoragarh, Uttarakhand. Discover a small business rooted in Aipan art, Pahadi keepsakes and personal gifts.",
+  ...pageMetadata({ title: "Our Story | A Small Business from Kumaon", path: "/about", description: "Meet Sneha, the woman behind KumaonRang in Pithoragarh, Uttarakhand. Discover a small business rooted in Aipan art, Pahadi keepsakes and personal gifts." }),
   keywords: [
     "Pithoragarh Aipan art",
     "Uttarakhand folk art",

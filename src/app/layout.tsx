@@ -81,10 +81,12 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "LocalBusiness",
+              "@type": "Organization",
+              "@id": `${siteUrl}#business`,
               name: brand.name,
               description: siteDescription,
               url: siteUrl,
+              logo: `${siteUrl}/brand/kumaonrang-logo.png`,
               areaServed: "India",
               address: {
                 "@type": "PostalAddress",
@@ -93,13 +95,13 @@ export default function RootLayout({
                 addressCountry: "IN",
               },
               sameAs: [],
-            }),
+            }).replace(/</g, "\\u003c"),
           }}
         />
         <SiteHeader />
         {children}
         <SiteFooter />
-        <Analytics />
+        {process.env.VERCEL === "1" && <Analytics />}
       </body>
     </html>
   );

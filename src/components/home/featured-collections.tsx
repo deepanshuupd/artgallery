@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import type { ProductCategory } from "@/types/product";
+import { getCategoryPath } from "@/lib/catalog";
 
 const collections: { name: ProductCategory; label: string; note: string; action: string }[] = [
   { name: "Keychains", label: "Pahadi keychains", note: "A little reminder of home, wherever you go.", action: "Shop keychains" },
@@ -15,7 +16,7 @@ const collections: { name: ProductCategory; label: string; note: string; action:
 function CollectionCard({ collection, image }: { collection: typeof collections[number]; image?: string }) {
   const [failed, setFailed] = useState(false);
   return (
-    <Link prefetch={false} href={`/collection?category=${encodeURIComponent(collection.name)}`} className="heritage-category">
+    <Link prefetch={false} href={`/${getCategoryPath(collection.name)}`} className="heritage-category">
       <div className={`heritage-category__photo${collection.name === "Fridge Magnets" ? " heritage-category__photo--magnets" : ""}`}>
         {image && !failed ? <Image src={image} alt={collection.label} fill quality={70} sizes="(max-width: 767px) calc((100vw - 56px) / 2), (max-width: 1023px) calc((100vw - 104px) / 2), (max-width: 1279px) calc((100vw - 152px) / 4), 282px" className={collection.name === "Fridge Magnets" ? "object-cover" : "object-contain"} onError={() => setFailed(true)} /> : <span className="heritage-category__fallback">{collection.label}</span>}
       </div>

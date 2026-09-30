@@ -16,7 +16,7 @@ export function HeroSection({ featuredProduct }: { featuredProduct?: Product }) 
       <div className="heritage-shell heritage-hero__grid">
         <div className="heritage-hero__copy">
           <p className="craft-eyebrow"><span aria-hidden="true">✦</span> Pithoragarh, Uttarakhand</p>
-          <h1>The hills have a way<br />of <em>staying with you.</em></h1>
+          <h1>The hills have a way<br />{" "}of <em>staying with you.</em></h1>
           <p className="heritage-hero__intro">In the colours of Aipan. In a familiar Pahadi face. In the little things that make a place feel like home.</p>
           <p className="heritage-hero__description">Discover Aipan-inspired art, Pahadi keepsakes and personal gifts from Kumaon — for your home, and the people who feel like it.</p>
           <div className="craft-actions">

@@ -42,7 +42,7 @@ export function ContactSection() {
           Get in touch
         </p>
         <h1 className="mt-4 font-serif text-3xl leading-[1.08] text-stone-900 sm:text-5xl lg:text-6xl">
-          Every great gift starts
+          Every great gift starts{" "}
           <span className="block text-[var(--color-rose-clay)]">
             with a conversation.
           </span>
