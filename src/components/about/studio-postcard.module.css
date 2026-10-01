@@ -1,4 +1,4 @@
-.rail { position: fixed; right: -38px; top: calc(66px + env(safe-area-inset-top, 0px)); z-index: 40; }
+.rail { position: fixed; right: -38px; top: calc(150px + env(safe-area-inset-top, 0px)); z-index: 40; }
 .peek { --peek-step: -10px; --peek-wide: -12px; --peek-small: -8px; position: relative; display: block; width: 84px; height: 52px; cursor: pointer; border: 0; padding: 0; background: transparent; color: var(--color-espresso); transform: rotate(12deg); transform-origin: 15% 70%; animation: paper-peek 8s ease-in-out infinite; -webkit-tap-highlight-color: transparent; }
 .miniEnvelope { position: relative; display: block; width: 84px; height: 46px; border: 1px solid #9d5945; border-bottom: 3px solid #9d5945; border-radius: 3px; background: #fff7eb; box-shadow: 3px 6px 14px rgba(71,43,23,.25), inset 0 0 0 3px #f2e3d9; transition: transform .25s ease; overflow: hidden; }
 .miniFold { position: absolute; inset: 0; background: linear-gradient(145deg, transparent 49%, #b88b77 49.5%, transparent 50.5%), linear-gradient(215deg, transparent 49%, #b88b77 49.5%, transparent 50.5%); opacity: .75; }
@@ -57,7 +57,8 @@
 @keyframes envelope-arrive { from { transform: translateY(18px) scale(.96); opacity: 0; } to { transform: none; opacity: 1; } }
 @keyframes backdrop-arrive { from { opacity: 0; } to { opacity: 1; } }
 
-@media (min-width: 640px) and (max-width: 1023px) { .rail { top: 114px; } }
+@media (max-width: 360px) { .rail { right: -46px; } }
+@media (min-width: 640px) and (max-width: 1023px) { .rail { top: 164px; } }
 @media (min-width: 1024px) {
   .page { padding-inline-start: 72px; }
   /* Keep the peeking paper in the page gutter, clear of copy and shop links. */
