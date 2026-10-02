@@ -4,8 +4,13 @@ import { useEffect, useRef, useState } from "react";
 
 import { CraftOrnament } from "@/components/home/craft-ornament";
 import { CloseIcon, InstagramIcon } from "@/components/icons";
+import { createWhatsAppLink } from "@/lib/whatsapp";
 
 import styles from "./studio-postcard.module.css";
+
+const offerInquiry = createWhatsAppLink(
+  "Hi Sneha! I'd like to order and claim the 10% follower offer from your studio note. Please help me confirm my Instagram and Pinterest follows and apply the discount to my order."
+);
 
 /** Native dialog supplies focus trapping and Escape; CSS handles the paper motion. */
 export function StudioPostcard() {
@@ -55,6 +60,7 @@ export function StudioPostcard() {
       <div ref={rail} className={styles.rail} data-open={isOpen}>
         <button ref={trigger} className={styles.peek} type="button" onClick={openNote}
           aria-label="Open Sneha’s studio note" aria-haspopup="dialog" aria-expanded={isOpen} aria-controls="studio-note">
+          <span className={styles.noteTab} aria-hidden="true">For you</span>
           <span className={styles.miniEnvelope} aria-hidden="true">
             <span className={styles.miniFold} />
             <span className={styles.miniAddress}>From<br />Kumaon</span>
@@ -84,26 +90,39 @@ export function StudioPostcard() {
               <span className={styles.postmark} aria-hidden="true"><span /><span /><span /></span>
             </div>
             <div className={styles.messageBody}>
-              <p className={styles.salutation}>There’s a story before every keepsake.</p>
-              <p className={styles.message}>
-                The colours coming together. The little details. A new piece ready
-                to find its person. Come a little closer to the everyday behind KumaonRang.
-              </p>
-              <div className={styles.signoff}>
-                <span className={styles.signature}>With love, Sneha</span>
-                <span className={styles.origin}>From Pithoragarh, Uttarakhand</span>
+              <div className={styles.offer}>
+                <p className={styles.offerLabel}>For our Instagram &amp; Pinterest family</p>
+                <p className={styles.offerValue}><strong>10%</strong><span>off every order</span></p>
               </div>
+              <p className={styles.message}>
+                Follow us on Instagram and Pinterest, then share your usernames
+                with Sneha on WhatsApp. She’ll confirm your follows and apply your discount.
+              </p>
+              <div className={styles.followLinks}>
               <a
                 className={styles.instagram}
                 href="https://www.instagram.com/art_gallery_05s/"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Step inside KumaonRang on Instagram (opens in a new tab)"
+                aria-label="Follow KumaonRang on Instagram (opens in a new tab)"
               >
                 <InstagramIcon />
-                <span>Step inside our Instagram<span className={styles.handle}>@art_gallery_05s</span></span>
+                <span>Follow on Instagram<span className={styles.handle}>@art_gallery_05s</span></span>
                 <span className={styles.linkArrow} aria-hidden="true">↗</span>
               </a>
+              <a className={styles.instagram} href="https://www.pinterest.com/snehaupadhyay168/"
+                target="_blank" rel="noopener noreferrer" aria-label="Follow Sneha on Pinterest (opens in a new tab)">
+                <span className={styles.pinterestMark} aria-hidden="true">P</span>
+                <span>Follow on Pinterest<span className={styles.handle}>@snehaupadhyay168</span></span>
+                <span className={styles.linkArrow} aria-hidden="true">↗</span>
+              </a>
+              </div>
+              <a className={styles.claim} href={offerInquiry} target="_blank" rel="noopener noreferrer"
+                aria-label="Ask Sneha to claim the follower offer on WhatsApp (opens in a new tab)">Claim with Sneha on WhatsApp</a>
+              <div className={styles.signoff}>
+                <span className={styles.signature}>With love, Sneha</span>
+                <span className={styles.origin}>From Pithoragarh, Uttarakhand</span>
+              </div>
             </div>
           </div>
           <div className={styles.envelopeFront} aria-hidden="true"><span lang="hi">पहाड़ों से, प्यार के साथ</span></div>

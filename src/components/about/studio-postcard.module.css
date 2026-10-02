@@ -1,6 +1,7 @@
-.rail { position: fixed; right: -38px; top: calc(150px + env(safe-area-inset-top, 0px)); z-index: 40; }
+.rail { position: fixed; right: -32px; top: calc(150px + env(safe-area-inset-top, 0px)); z-index: 40; }
 .peek { --peek-step: -10px; --peek-wide: -12px; --peek-small: -8px; position: relative; display: block; width: 84px; height: 52px; cursor: pointer; border: 0; padding: 0; background: transparent; color: var(--color-espresso); transform: rotate(12deg); transform-origin: 15% 70%; animation: paper-peek 8s ease-in-out infinite; -webkit-tap-highlight-color: transparent; }
-.miniEnvelope { position: relative; display: block; width: 84px; height: 46px; border: 1px solid #9d5945; border-bottom: 3px solid #9d5945; border-radius: 3px; background: #fff7eb; box-shadow: 3px 6px 14px rgba(71,43,23,.25), inset 0 0 0 3px #f2e3d9; transition: transform .25s ease; overflow: hidden; }
+.noteTab { position: absolute; top: -11px; left: -8px; display: grid; place-items: center; width: 47px; height: 20px; border: 1px solid #243d32; border-radius: 3px 3px 0 0; background: #385047; color: #fffaf1; font-family: var(--font-serif); font-size: 10px; font-style: italic; line-height: 1; box-shadow: 0 2px 5px #243d3220; transform: rotate(-4deg); transition: transform .25s ease; }
+.miniEnvelope { position: relative; display: block; width: 84px; height: 46px; border: 1px solid #9d5945; border-bottom: 3px solid #9d5945; border-radius: 3px; background: #fff7eb; box-shadow: 3px 6px 14px rgba(71,43,23,.25), 0 0 0 2px #fffaf1, inset 0 0 0 3px #f2e3d9; transition: transform .25s ease; overflow: hidden; }
 .miniFold { position: absolute; inset: 0; background: linear-gradient(145deg, transparent 49%, #b88b77 49.5%, transparent 50.5%), linear-gradient(215deg, transparent 49%, #b88b77 49.5%, transparent 50.5%); opacity: .75; }
 .miniAddress { position: absolute; right: 10px; bottom: 8px; font-family: var(--font-serif); font-size: .6rem; line-height: 1.1; color: #755947; }
 .miniStamp { position: absolute; left: 8px; top: 5px; width: 26px; height: 30px; display: grid; place-items: center; border: 1px dashed #ffe6bc; background: #a84530; color: #fff0d6; transform: rotate(-5deg); }
@@ -18,13 +19,15 @@
   30% { transform: translateX(var(--peek-small)) rotate(9deg); }
 }
 
-.dialog { position: fixed; inset: 0; width: min(460px, calc(100% - 24px)); max-width: none; max-height: calc(100svh - 24px); margin: auto; padding: 18px 12px 0; border: 0; background: transparent; color: var(--color-espresso); overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; }
+.dialog { position: fixed; inset: 0; width: min(460px, calc(100% - 24px)); max-width: none; max-height: calc(100svh - 24px); margin: auto; padding: 18px 12px 12px; border: 0; background: transparent; color: var(--color-espresso); overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; }
 .dialog::backdrop { background: rgba(47,36,29,.52); }
-.stage { position: relative; isolation: isolate; padding-bottom: 80px; perspective: 1000px; }
+/* Contain the lifting paper's visual overflow, not the note's real content height.
+   The dialog remains scrollable when its resting layout exceeds a small screen. */
+.stage { position: relative; isolation: isolate; margin: -12px; padding: 12px 12px 92px; perspective: 1000px; overflow: clip; }
 .letter { position: relative; z-index: 2; border: 1px solid #d7baa0; border-radius: 3px; background: #fffaf1; box-shadow: 0 9px 30px rgba(47,36,29,.15); }
 .close { position: absolute; right: 8px; top: 7px; z-index: 5; display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 50%; background: transparent; color: #755947; cursor: pointer; }
 .close > svg { width: 18px; height: 18px; }
-.close:focus-visible, .instagram:focus-visible { outline: 2px solid var(--color-geru); outline-offset: 2px; }
+.close:focus-visible, .instagram:focus-visible, .claim:focus-visible { outline: 2px solid var(--color-geru); outline-offset: 3px; }
 .close:hover { background: #f5e9d6; }
 .cover { position: relative; padding: 29px 87px 23px 22px; border-bottom: 1px dashed #d7baa0; background: #faf2e4; }
 .address { display: block; font-size: .55rem; font-weight: 500; line-height: 1.6; letter-spacing: .09em; text-transform: uppercase; color: #755947; }
@@ -35,18 +38,26 @@
 .postmark { position: absolute; top: 99px; right: 53px; width: 43px; transform: rotate(-12deg); opacity: .35; pointer-events: none; }
 .postmark > span { display: block; height: 4px; margin-top: 3px; border-top: 1px solid #a84530; border-radius: 50%; }
 .messageBody { padding: 22px; }
-.salutation { font-family: var(--font-serif); font-size: 1.25rem; line-height: 1.3; }
+.offer { padding-block: 12px; border-block: 1px dashed #b8c6bc; color: #385047; }
+.offerLabel { font-size: 9px; line-height: 1.5; letter-spacing: .09em; text-transform: uppercase; }
+.offerValue { display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+.offerValue strong { font-family: var(--font-serif); font-size: 3rem; line-height: 1; font-weight: 500; letter-spacing: -.04em; }
+.offerValue > span { font-family: var(--font-serif); font-style: italic; font-size: 1.15rem; }
 .message { margin-top: 12px; font-size: .8rem; line-height: 1.8; color: #6b5544; }
 .signoff { display: grid; gap: 4px; margin-top: 18px; }
 .signature { font-family: var(--font-serif); font-style: italic; font-size: 1.15rem; color: #a84530; }
 .origin { font-size: .6rem; color: #755947; }
-.instagram { display: flex; align-items: center; gap: 12px; min-height: 58px; margin-top: 20px; padding-top: 16px; border-top: 1px solid #dfcbbb; color: var(--color-espresso); font-size: .79rem; font-weight: 500; text-decoration: none; }
+.followLinks { margin-top: 14px; border-block: 1px solid #dfcbbb; }
+.instagram { display: flex; align-items: center; gap: 12px; min-height: 58px; padding-block: 8px; color: var(--color-espresso); font-size: .79rem; font-weight: 500; text-decoration: none; }
+.instagram + .instagram { border-top: 1px solid #e8dbce; }
 .instagram > svg { width: 22px; height: 22px; flex-shrink: 0; stroke-width: 1.5; color: var(--color-geru); }
+.pinterestMark { flex: none; width: 22px; text-align: center; font-family: Georgia, serif; font-size: 23px; font-weight: 700; font-style: italic; color: var(--color-geru); }
+.claim { display: flex; align-items: center; justify-content: center; min-height: 46px; margin-top: 16px; padding: 10px 12px; border: 1px solid #385047; border-radius: 4px; background: #385047; color: #fffaf1; font-size: 12px; line-height: 1.4; font-weight: 500; text-align: center; text-decoration: none; }
 .handle { display: block; margin-top: 3px; font-size: .65rem; font-weight: 400; color: #755947; }
 .linkArrow { margin-left: auto; padding: 8px; font-size: 1.2rem; color: #a84530; transition: transform .2s ease; }
-.envelopeBack { position: absolute; z-index: 0; bottom: 0; left: -3px; right: -3px; height: 200px; border: 1px solid #b9907b; border-radius: 4px; background: #eadbd0; }
-.flap { position: absolute; z-index: 4; bottom: 60px; left: -3px; right: -3px; height: 140px; background: #dac4b4; clip-path: polygon(0 0, 100% 0, 50% 100%); transform-origin: center top; transform: rotateX(180deg); }
-.envelopeFront { position: absolute; z-index: 3; bottom: 0; left: -3px; right: -3px; height: 100px; display: grid; align-items: end; justify-items: center; padding-bottom: 19px; border: 1px solid #b9907b; border-radius: 0 0 4px 4px; background: linear-gradient(150deg, transparent 48%, rgba(130,79,57,.1) 49%, transparent 50%), linear-gradient(210deg, transparent 48%, rgba(130,79,57,.1) 49%, transparent 50%), #f3e6dc; }
+.envelopeBack { position: absolute; z-index: 0; bottom: 12px; left: 9px; right: 9px; height: 200px; border: 1px solid #b9907b; border-radius: 4px; background: #eadbd0; }
+.flap { position: absolute; z-index: 4; bottom: 72px; left: 9px; right: 9px; height: 140px; background: #dac4b4; clip-path: polygon(0 0, 100% 0, 50% 100%); transform-origin: center top; transform: rotateX(180deg); }
+.envelopeFront { position: absolute; z-index: 3; bottom: 12px; left: 9px; right: 9px; height: 100px; display: grid; align-items: end; justify-items: center; padding-bottom: 19px; border: 1px solid #b9907b; border-radius: 0 0 4px 4px; background: linear-gradient(150deg, transparent 48%, rgba(130,79,57,.1) 49%, transparent 50%), linear-gradient(210deg, transparent 48%, rgba(130,79,57,.1) 49%, transparent 50%), #f3e6dc; }
 .envelopeFront > span { font-size: .83rem; color: #8e4934; }
 .dialog[open] { animation: envelope-arrive .55s ease-out both; }
 .dialog[open]::backdrop { animation: backdrop-arrive .4s ease-out both; }
@@ -57,7 +68,7 @@
 @keyframes envelope-arrive { from { transform: translateY(18px) scale(.96); opacity: 0; } to { transform: none; opacity: 1; } }
 @keyframes backdrop-arrive { from { opacity: 0; } to { opacity: 1; } }
 
-@media (max-width: 360px) { .rail { right: -46px; } }
+@media (max-width: 360px) { .rail { right: -40px; top: calc(210px + env(safe-area-inset-top, 0px)); }.noteTab { left: -12px; } }
 @media (min-width: 640px) and (max-width: 1023px) { .rail { top: 164px; } }
 @media (min-width: 1024px) {
   .page { padding-inline-start: 72px; }
@@ -67,6 +78,7 @@
   .rail { left: -44px; right: auto; top: 48%; transform: translateY(-50%); }
   .peek, .miniEnvelope { width: 96px; }
   .peek { --peek-step: 10px; --peek-wide: 12px; --peek-small: 8px; height: 76px; }
+  .noteTab { left: auto; right: 5px; }
   .miniEnvelope { height: 68px; }
   .miniAddress { left: 10px; right: auto; bottom: 10px; }
   .miniStamp { width: 32px; height: 38px; right: 8px; left: auto; top: 8px; }
@@ -77,13 +89,15 @@
 @media (hover: hover) and (pointer: fine) {
   .peek:hover { animation-play-state: paused; }
   .peek:hover .miniEnvelope { transform: translateX(var(--peek-small)) rotate(-4deg); }
+  .peek:hover .noteTab { transform: translateX(var(--peek-small)) translateY(-3px) rotate(-6deg); }
   .peek:hover .hint { visibility: visible; opacity: 1; }
   .instagram:hover { color: #a84530; }
   .instagram:hover .linkArrow { transform: translate(2px,-2px); }
+  .claim:hover { background: #293f35; }
 }
 @media (prefers-reduced-motion: reduce) {
   .peek, .dialog[open], .dialog[open]::backdrop, .dialog[open] .flap, .dialog[open] .letter { animation: none; }
   .flap { z-index: 1; }
-  .miniEnvelope, .hint, .linkArrow { transition: none; }
+  .miniEnvelope, .noteTab, .hint, .linkArrow { transition: none; }
 }
 @media print { .rail, .dialog { display: none; } }
