@@ -17,8 +17,12 @@ export type ProductImageMetadata = {
 
 export interface Product {
   id: string;
-  /** Optional editorial slug. Falls back to a URL-safe version of the name. */
+  /** Persisted immutable slug. Demo data falls back to a URL-safe name. */
   slug?: string;
+  /** The category used by the first published URL; independent of merchandising. */
+  urlCategory?: ProductCategory;
+  inStock?: boolean;
+  published?: boolean;
   name: string;
   category: ProductCategory;
   description: string;

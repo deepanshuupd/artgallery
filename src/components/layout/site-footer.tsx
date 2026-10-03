@@ -45,7 +45,7 @@ export function SiteFooter() {
             <Link
               prefetch={false}
               className="inline-flex min-h-11 items-center text-sm text-stone-200 transition hover:text-[var(--color-champagne)]"
-              href="/pithoragarh-aipan-art"
+              href="/aipan-art"
             >
               Aipan art guide
             </Link>

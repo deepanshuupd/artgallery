@@ -134,4 +134,19 @@ function harness(initial = {}, options = {}) {
   assert.deepEqual(form.calls.saved[0].image_urls, six);
   console.log('PASS saving an older gallery does not truncate existing photographs');
 }
-console.log('Product image form: 5 isolated workflow groups passed. No external writes.');
+{
+  const form = harness({ name: 'Out-of-stock Aipan frame', price: '1400', is_available: true, is_published: true });
+  form.field('is-available').props.onChange({ target: { checked: false } }); form.render();
+  await form.save();
+  assert.equal(form.calls.saved[0].is_available, false);
+  assert.equal(form.calls.saved[0].is_published, true, 'Changing stock must not unpublish the product');
+  form.field('is-published').props.onChange({ target: { checked: false } }); form.render();
+  // Model a fresh edit after the successful save, without issuing service writes.
+  const draft = harness({ name: 'Draft frame', price: '1400', is_available: true, is_published: false });
+  await draft.save();
+  assert.equal(draft.calls.saved[0].is_available, true);
+  assert.equal(draft.calls.saved[0].is_published, false, 'Unpublishing must not invent an out-of-stock state');
+  assert.ok(!Object.hasOwn(draft.calls.saved[0], 'slug'), 'Routine form edits cannot replace the permanent URL');
+  console.log('PASS stock and publication save independently, preserving permanent URLs');
+}
+console.log('Product form: 6 isolated workflow groups passed. No external writes.');

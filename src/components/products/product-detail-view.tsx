@@ -115,6 +115,10 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
               </>}
             </div>
 
+            {typeof product.inStock === "boolean" && <p className={styles.orderNote}>
+              {product.inStock ? "In stock. Confirm your quantity and delivery with Sneha." : "Currently out of stock. Ask Sneha about availability before ordering."}
+            </p>}
+
             <div className={orderStyles.actions}>
               <WhatsAppOrderButton product={product} />
               <button className={orderStyles.comingSoon} type="button" disabled>

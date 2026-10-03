@@ -27,6 +27,7 @@ export function ProductCard({ product, priority = false }: { product: Product; p
         <p className="store-product__category">{product.category}</p>
         <h3>{product.name.trim()}</h3>
         <div className="store-product__price"><span>{formatPrice(product.price)}</span>{discount && <del>{formatPrice(discount.originalPrice)}</del>}</div>
+        {product.inStock === false && <p className="store-product__category">Currently out of stock</p>}
         <p className="store-product__description">{product.description}</p>
         <span className="store-product__action">Explore this piece<span aria-hidden="true">›</span></span>
       </div>

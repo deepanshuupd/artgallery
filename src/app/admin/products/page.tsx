@@ -15,7 +15,7 @@ export default async function AdminProductsPage() {
     const supabase = await createClient();
     const { data } = await supabase
       .from("products")
-      .select("id, name, category, price, is_featured, is_available, image_url")
+      .select("id, name, category, price, is_featured, is_available, is_published, image_url")
       .order("created_at", { ascending: false });
     products = data ?? [];
   } catch {}
@@ -92,10 +92,11 @@ export default async function AdminProductsPage() {
                       )}
                       {!(p.is_available as boolean) && (
                         <span className="rounded-full bg-red-100 px-2 py-0.5 text-xs text-red-600">
-                          Hidden
+                          Out of stock
                         </span>
                       )}
-                      {(p.is_available as boolean) && !(p.is_featured as boolean) && (
+                      {p.is_published === false && <span className="rounded-full bg-stone-100 px-2 py-0.5 text-xs text-stone-600">Unpublished</span>}
+                      {p.is_published !== false && !(p.is_featured as boolean) && (
                         <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs text-green-700">
                           Live
                         </span>
@@ -174,10 +175,11 @@ export default async function AdminProductsPage() {
                       )}
                       {!(p.is_available as boolean) && (
                         <span className="rounded-full bg-red-100 px-2 py-0.5 text-xs text-red-600">
-                          Hidden
+                          Out of stock
                         </span>
                       )}
-                      {(p.is_available as boolean) && !(p.is_featured as boolean) && (
+                      {p.is_published === false && <span className="rounded-full bg-stone-100 px-2 py-0.5 text-xs text-stone-600">Unpublished</span>}
+                      {p.is_published !== false && !(p.is_featured as boolean) && (
                         <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs text-green-700">
                           Live
                         </span>

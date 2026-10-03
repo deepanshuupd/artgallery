@@ -1,1 +1,1 @@
-export { default, dynamic, metadata } from "@/app/pithoragarh-aipan-art/page";
+export { default, dynamic } from "@/app/pithoragarh-aipan-art/page";

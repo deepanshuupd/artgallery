@@ -14,7 +14,7 @@ const collections: { name: ProductCategory; label: string; note: string; action:
   { name: "Keychains", label: "Pahadi keychains", note: "A little home, wherever you go.", action: "Shop keychains", tilt: -16 },
   { name: "Frames", label: "Aipan & frames", note: "The colours of Kumaon, at home.", action: "Shop frames", tilt: 5 },
   { name: "Fridge Magnets", label: "Fridge magnets", note: "The hills, in your everyday.", action: "Shop magnets", tilt: 18 },
-  { name: "Personalized Gifts", label: "Personalised gifts", note: "Your people. Your memories.", action: "Find a gift", tilt: -9 },
+  { name: "Personalized Gifts", label: "Gifts & keepsakes", note: "Your people. Your memories.", action: "Find a gift", tilt: -9 },
 ];
 
 function JourneyCard({ collection, image, index }: { collection: typeof collections[number]; image?: ProductImageReference; index: number }) {

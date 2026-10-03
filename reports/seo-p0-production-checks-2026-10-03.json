@@ -1,0 +1,79 @@
+[
+  {
+    "start": "http://kumaonrang.com/",
+    "chain": [
+      {
+        "url": "http://kumaonrang.com/",
+        "status": 308,
+        "location": "https://kumaonrang.com/"
+      },
+      {
+        "url": "https://kumaonrang.com/",
+        "status": 308,
+        "location": "https://www.kumaonrang.com/"
+      },
+      {
+        "url": "https://www.kumaonrang.com/",
+        "status": 200,
+        "location": null
+      }
+    ]
+  },
+  {
+    "start": "http://www.kumaonrang.com/",
+    "chain": [
+      {
+        "url": "http://www.kumaonrang.com/",
+        "status": 308,
+        "location": "https://www.kumaonrang.com/"
+      },
+      {
+        "url": "https://www.kumaonrang.com/",
+        "status": 200,
+        "location": null
+      }
+    ]
+  },
+  {
+    "start": "https://kumaonrang.com/",
+    "chain": [
+      {
+        "url": "https://kumaonrang.com/",
+        "status": 308,
+        "location": "https://www.kumaonrang.com/"
+      },
+      {
+        "url": "https://www.kumaonrang.com/",
+        "status": 200,
+        "location": null
+      }
+    ]
+  },
+  {
+    "start": "https://www.kumaonrang.com/",
+    "chain": [
+      {
+        "url": "https://www.kumaonrang.com/",
+        "status": 200,
+        "location": null
+      }
+    ]
+  },
+  {
+    "path": "/robots.txt",
+    "status": 200,
+    "xRobotsTag": null,
+    "body": "User-Agent: *\nAllow: /\nDisallow: /admin\nDisallow: /admin/\n\nSitemap: https://www.kumaonrang.com/sitemap.xml\n"
+  },
+  {
+    "path": "/sitemap.xml",
+    "status": 200,
+    "xRobotsTag": null,
+    "urls": 59
+  },
+  {
+    "path": "/not-a-real-seo-audit-page",
+    "status": 404,
+    "xRobotsTag": null
+  }
+]

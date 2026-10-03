@@ -25,6 +25,7 @@ export interface OrderDetails {
   price?: number;
   originalPrice?: number;
   quantity?: number;
+  inStock?: boolean;
 }
 
 /**
@@ -37,7 +38,7 @@ export function generateOrderMessage(details: OrderDetails): string {
   const lines: string[] = [
     `Hi ${businessName}! 👋`,
     "",
-    "I'm interested in placing an order:",
+    details.inStock === false ? "I'd like to ask when this product will be available:" : "I'm interested in placing an order:",
     "",
     `📦 Product Name: ${details.productName}`,
     `📂 Category: ${details.category}`,
@@ -109,6 +110,7 @@ export function generateWhatsAppOrderLink(
     originalPrice: product.originalPrice,
     customizationInterest,
     quantity,
+    inStock: product.inStock,
   };
 
   const message = generateOrderMessage(orderDetails);

@@ -164,7 +164,7 @@ export default function UttarakhandGiftsPage() {
           <h2>Drawn to the red and white?</h2>
           <p>Learn what traditional Aipan is, and what to check when choosing an Aipan-inspired frame.</p>
         </div>
-        <Link className={styles.textLink} href="/pithoragarh-aipan-art" prefetch={false}>
+        <Link className={styles.textLink} href="/aipan-art" prefetch={false}>
           Read the Aipan art guide <span aria-hidden="true">↗</span>
         </Link>
       </aside>

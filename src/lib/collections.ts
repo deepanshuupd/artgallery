@@ -29,11 +29,11 @@ export const collections = [
     detail: "Choose a Pahadi fridge magnet for its regional artwork, or a personalised acrylic magnet for a favourite photograph. Compare the design and display options before picking a keepsake for your own home or someone else’s.",
   },
   {
-    category: "Personalized Gifts", slug: "kumaoni-gifts", label: "Personalised gifts",
-    title: "Personalised Kumaoni Gifts & Pahadi Keepsakes",
-    heading: "Personalised Kumaoni gifts",
-    description: "Explore personalised Kumaoni gifts, customised Aipan nameplates and Aipan canvas bags, alongside other keepsakes. Discuss custom options with Sneha.",
-    intro: "Their name. Your memories. Explore personalised Kumaoni gifts and regional keepsakes, with custom details available on selected pieces.",
+    category: "Personalized Gifts", slug: "kumaoni-gifts", label: "Gifts & keepsakes",
+    title: "Kumaoni Keepsakes & Gift Accessories",
+    heading: "Gifts & Kumaoni keepsakes",
+    description: "Explore Aipan nameplates, canvas bags, wedding brooches and devotional gift accessories at KumaonRang. Personalisation is available on selected pieces.",
+    intro: "A gift with a connection. Explore Aipan nameplates and canvas bags alongside wedding brooches and devotional accessories. Selected pieces can be personalised.",
     note: "Make it personal, together",
     detail: "A customised Aipan nameplate can make an entrance feel personal; an Aipan canvas bag brings the artwork into everyday life. This collection also includes other gift items, so check each listing for its origin, details and custom options.",
   },
@@ -79,7 +79,7 @@ const collectionGuides: Record<string, {
         answer: "Photo frames and art frames can have different customisation options. Share the specific product and any names, photograph or occasion you have in mind; Sneha will confirm what is possible for that piece.",
       },
     ],
-    guide: { lead: "Curious about the art behind these pieces?", href: "/pithoragarh-aipan-art", label: "Read our guide to Aipan art" },
+    guide: { lead: "Curious about the art behind these pieces?", href: "/aipan-art", label: "Read our guide to Aipan art" },
   },
   "uttarakhand-souvenirs": {
     questions: [

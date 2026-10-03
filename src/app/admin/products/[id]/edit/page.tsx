@@ -57,6 +57,7 @@ export default async function EditProductPage({
             whatsapp_message: product.whatsapp_message,
             is_featured: product.is_featured,
             is_available: product.is_available,
+            is_published: product.is_published,
             image_url: product.image_url,
             image_urls: product.image_urls ?? (product.image_url ? [product.image_url] : []),
             image_metadata: product.image_metadata ?? {},

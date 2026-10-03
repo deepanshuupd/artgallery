@@ -8,7 +8,7 @@ import { getProducts } from "@/lib/products";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  ...pageMetadata({ title: "Shop Aipan Art, Pahadi Keychains & Gifts", path: "/collection", description: "Shop KumaonRang for Aipan-inspired art, Pahadi keychains, Uttarakhand souvenirs, personalized gifts, and handmade keepsakes from Kumaon." }),
+  ...pageMetadata({ title: "Shop Aipan Products & Pahadi Gifts", path: "/collection", description: "Browse Aipan frames, Pahadi keychains, Uttarakhand souvenir magnets and selected personalised gifts. Compare designs and product details at KumaonRang." }),
   keywords: [
     "handmade Aipan keychain",
     "Aipan art frame",

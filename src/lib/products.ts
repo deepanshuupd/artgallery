@@ -18,6 +18,9 @@ function normalizeProduct(raw: Partial<Product> & { image?: string }): Product {
   return {
     id: raw.id ?? "",
     slug: raw.slug,
+    urlCategory: raw.urlCategory,
+    inStock: raw.inStock,
+    published: raw.published ?? true,
     name: raw.name ?? "",
     category: raw.category as Product["category"],
     description: raw.description ?? "",
@@ -50,6 +53,9 @@ function mapRow(row: Record<string, unknown>): Product {
   return {
     id: row.id as string,
     slug: typeof row.slug === "string" ? row.slug : undefined,
+    urlCategory: typeof row.url_category === "string" ? row.url_category as Product["category"] : undefined,
+    inStock: typeof row.is_available === "boolean" ? row.is_available : undefined,
+    published: row.is_published !== false,
     name: row.name as string,
     category: row.category as Product["category"],
     description: row.description as string,
@@ -68,9 +74,8 @@ function mapRow(row: Record<string, unknown>): Product {
 
 // Public catalog reads do not depend on the visitor's auth cookies. Cache them
 // across requests so the homepage can be served as complete, stable HTML.
-// Version the cached data shape so the image-metadata rollout cannot prerender
-// new sitemaps from an older deployment's descriptions/URL snapshot.
-const getAvailableProducts = unstable_cache(async (): Promise<Product[]> => {
+// Version the cached shape so new deployments cannot reuse old URL/stock data.
+const getPublishedProducts = unstable_cache(async (): Promise<Product[]> => {
   const supabase = createSupabaseClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -79,16 +84,16 @@ const getAvailableProducts = unstable_cache(async (): Promise<Product[]> => {
   const { data, error } = await supabase
     .from("products")
     .select("*")
-    .eq("is_available", true)
+    .eq("is_published", true)
     .order("created_at", { ascending: false });
 
   if (error || !data) throw new Error("The product catalog could not be loaded.");
   return data.map(mapRow);
-}, ["public-product-catalog", "image-metadata-v1"], { revalidate: 60, tags: ["public-products"] });
+}, ["public-product-catalog", "stable-urls-stock-v2"], { revalidate: 60, tags: ["public-products"] });
 
 export const getProducts = cache(async (): Promise<Product[]> => {
   if (!supabaseConfigured) return loadFallbackProducts();
-  return getAvailableProducts();
+  return getPublishedProducts();
 });
 
 export const getProductById = cache(
@@ -104,6 +109,7 @@ export const getProductById = cache(
       .from("products")
       .select("*")
       .eq("id", id)
+      .eq("is_published", true)
       .single();
 
     if (error || !data) return undefined;
@@ -129,7 +135,7 @@ export async function getRelatedProducts(
     .select("*")
     .eq("category", category)
     .neq("id", currentProductId)
-    .eq("is_available", true)
+    .eq("is_published", true)
     .limit(4);
 
   if (error || !data) return [];

@@ -46,7 +46,7 @@ export default async function AdminDashboard() {
         {[
           { label: "Total Products", value: stats.total },
           { label: "Featured", value: stats.featured },
-          { label: "Hidden / Unavailable", value: stats.unavailable },
+          { label: "Out of stock", value: stats.unavailable },
         ].map((stat) => (
           <div
             key={stat.label}

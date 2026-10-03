@@ -52,7 +52,7 @@ export const revalidate = 60;
 // same category. Never revive a stale, unindexable image from a removed product.
 const PREFERRED_IMAGES: Partial<Record<ProductCategory, string>> = {
   Keychains: "Pahadi Ladka Keychain",
-  Frames: "Handmade Aipan wall decor with pichora background",
+  Frames: "Aipan Wall Decor with Pichora Background",
 };
 
 const FEATURED_CATEGORIES: ProductCategory[] = [
@@ -101,8 +101,8 @@ export default async function HomePage() {
       <HeroSection featuredProduct={culturalFeaturedProduct} />
       <FeaturedCollections images={categoryImages} />
       <CustomerNotes />
-      <HeritageStory />
       <CuratedHampersSection product={products.find((product) => product.category === "Curated Hampers" && product.image)} />
+      <HeritageStory />
     </main>
   );
 }

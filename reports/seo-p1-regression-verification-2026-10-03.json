@@ -1,0 +1,12 @@
+{
+  "environment": "local production build",
+  "checks": [
+    "Homepage hamper section precedes Meet Sneha",
+    "User photo has both responsive WebP variants, matching schema dimensions and no inherited third-party credit",
+    "/pithoragarh-aipan-art -> 308 /aipan-art",
+    "/collection/90366ff1-5183-4b5e-b98b-f0d224f0b9cb -> 308 /aipan-frames/om-aipan-wall-decor-90366ff1",
+    "/collection/2a8bf870-e740-4b2c-9d91-55673f8fce05 -> 308 /aipan-frames/om-aipan-wall-decor",
+    "Missing product, collection and legacy ID return HTTP 404",
+    "Both Om designs render distinct product content"
+  ]
+}

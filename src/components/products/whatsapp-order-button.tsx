@@ -86,6 +86,7 @@ export function WhatsAppOrderButton({
     originalPrice: product.originalPrice,
     customizationInterest: customization || undefined,
     quantity,
+    inStock: product.inStock,
   });
 
   return (
@@ -98,7 +99,7 @@ export function WhatsAppOrderButton({
         type="button"
       >
         <WhatsAppIcon className="h-5 w-5" />
-        Order via WhatsApp
+        {product.inStock === false ? "Ask about availability" : "Order via WhatsApp"}
       </button>
 
       {isOpen ? (
@@ -122,7 +123,7 @@ export function WhatsAppOrderButton({
                   className="font-serif text-2xl leading-tight text-stone-900 sm:text-3xl"
                   id={titleId}
                 >
-                  Customize your order
+                  {product.inStock === false ? "Ask about availability" : "Customize your order"}
                 </h3>
                 <button
                   aria-label="Close"

@@ -32,6 +32,7 @@ interface FormValues {
   whatsapp_message: string;
   is_featured: boolean;
   is_available: boolean;
+  is_published: boolean;
   image_url: string;
   image_urls: string[];
   image_metadata: ImageMetadataMap;
@@ -62,6 +63,7 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
     whatsapp_message: initial?.whatsapp_message ?? "",
     is_featured: initial?.is_featured ?? false,
     is_available: initial?.is_available ?? true,
+    is_published: initial?.is_published ?? true,
     image_url: initialImages[0] ?? "",
     image_urls: initialImages,
     image_metadata: normalizeImageMetadata(initial?.image_metadata, initialImages),
@@ -223,6 +225,7 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
       whatsapp_message: values.whatsapp_message,
       is_featured: values.is_featured,
       is_available: values.is_available,
+      is_published: values.is_published,
       image_url: values.image_url,
       image_urls: values.image_urls,
       image_metadata: normalizeImageMetadata(
@@ -583,14 +586,24 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
         </label>
         <label className="flex cursor-pointer items-center gap-2 text-sm text-stone-700">
           <input
+            id={id("is-available")}
             type="checkbox"
             checked={values.is_available}
             onChange={(e) => set("is_available", e.target.checked)}
             className="rounded"
           />
-          Available for order
+          Currently in stock
+        </label>
+        <label className="flex cursor-pointer items-center gap-2 text-sm text-stone-700">
+          <input id={id("is-published")} type="checkbox" checked={values.is_published}
+            onChange={(e) => set("is_published", e.target.checked)} className="rounded" />
+          Published in the shop
         </label>
       </div>
+      <p className="text-xs leading-relaxed text-stone-500">
+        Out-of-stock products keep their page and show their stock status. Unpublish to hide a listing.
+        Product URLs stay the same when you edit a name or category.
+      </p>
 
       <div className="flex gap-3 pt-2">
         <button

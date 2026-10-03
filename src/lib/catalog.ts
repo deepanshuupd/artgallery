@@ -16,7 +16,7 @@ const categoryByPath = new Map(
   Object.entries(categoryPaths).map(([category, path]) => [path, category as ProductCategory]),
 );
 
-/** Converts a product name into a stable, human-readable URL segment. */
+/** Name-based fallback for demo data; live products persist their first slug. */
 export function slugify(value: string): string {
   const slug = value
     .normalize("NFKD")
@@ -44,7 +44,7 @@ export function getProductSlug(product: Product): string {
 }
 
 export function getProductPath(product: Product): string {
-  return `/${getCategoryPath(product.category)}/${getProductSlug(product)}`;
+  return `/${getCategoryPath(product.urlCategory ?? product.category)}/${getProductSlug(product)}`;
 }
 
 export function getProductByPublicSlug(
@@ -57,6 +57,7 @@ export function getProductByPublicSlug(
 
   return products.find(
     (product) =>
-      product.category === category && getProductSlug(product) === productSlug,
+      product.published !== false &&
+      (product.urlCategory ?? product.category) === category && getProductSlug(product) === productSlug,
   );
 }

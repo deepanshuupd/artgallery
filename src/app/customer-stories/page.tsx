@@ -6,7 +6,7 @@ import { pageMetadata } from "@/lib/seo";
 import styles from "@/components/home/customer-notes.module.css";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Customer Stories | Words from the KumaonRang Community",
+  title: "Customer Stories & Photos",
   path: "/customer-stories",
   description: "Customer-shared photos and genuine WhatsApp feedback from KumaonRang’s Instagram orders: Aipan frames, Pahadi keepsakes and personalised gifts.",
 });
