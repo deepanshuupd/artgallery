@@ -131,6 +131,7 @@ if (mode === "--prepare") {
       for (const upload of uploads) {
         const { error } = await db.storage.from(bucket).upload(upload.objectPath, upload.buffer, {
           contentType: "image/webp", cacheControl: "31536000", upsert: false,
+          headers: { "x-robots-tag": "all" },
         });
         if (error && String(error.statusCode) !== "409" && !/already exists|duplicate/i.test(error.message)) {
           throw new Error(`Upload failed: ${error.message}`);
@@ -138,6 +139,9 @@ if (mode === "--prepare") {
         const response = await fetch(`${storagePrefix}${upload.objectPath}`, { method: "HEAD", signal: AbortSignal.timeout(30000) });
         if (!response.ok || !response.headers.get("content-type")?.includes("image/webp")) {
           throw new Error("Uploaded image is not publicly readable as WebP; product URLs remain unchanged.");
+        }
+        if (response.headers.get("x-robots-tag")?.toLowerCase().trim() !== "all") {
+          throw new Error("Image indexing is blocked by Storage; product URLs remain unchanged. Use the image-indexing migration for previously uploaded files.");
         }
       }
       item.status = "uploaded";

@@ -3,6 +3,7 @@ import { unstable_cache } from "next/cache";
 import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 
 import type { Product } from "@/types/product";
+import { getProductImageUrls, normalizeImageMetadata } from "@/lib/product-image";
 
 const supabaseConfigured =
   process.env.NEXT_PUBLIC_SUPABASE_URL &&
@@ -12,16 +13,7 @@ const supabaseConfigured =
 // fields like `images`. Normalize it so consumers always receive a well-formed
 // Product — in particular a non-undefined `images` array.
 function normalizeProduct(raw: Partial<Product> & { image?: string }): Product {
-  const image = typeof raw.image === "string" ? raw.image.trim() : "";
-  const images =
-    Array.isArray(raw.images)
-      ? raw.images.filter(
-          (candidate): candidate is string =>
-            typeof candidate === "string" && candidate.trim().length > 0,
-        )
-      : image
-        ? [image]
-        : [];
+  const images = getProductImageUrls(raw);
 
   return {
     id: raw.id ?? "",
@@ -32,8 +24,9 @@ function normalizeProduct(raw: Partial<Product> & { image?: string }): Product {
     story: raw.story ?? "",
     price: raw.price ?? 0,
     originalPrice: raw.originalPrice,
-    image: image || images[0] || "",
+    image: images[0] || "",
     images,
+    imageMetadata: normalizeImageMetadata(raw.imageMetadata, images),
     featured: raw.featured ?? false,
     details: raw.details ?? [],
     whatsappMessage: raw.whatsappMessage ?? "",
@@ -49,18 +42,10 @@ async function loadFallbackProducts(): Promise<Product[]> {
 
 // Map a Supabase DB row to the Product interface used by components
 function mapRow(row: Record<string, unknown>): Product {
-  const imageUrls = Array.isArray(row.image_urls)
-    ? row.image_urls.filter(
-        (image): image is string =>
-          typeof image === "string" && image.trim().length > 0,
-      )
-    : typeof row.image_url === "string" && row.image_url.trim()
-      ? [row.image_url.trim()]
-      : [];
-
-  const imageUrl =
-    imageUrls[0] ??
-    (typeof row.image_url === "string" ? row.image_url.trim() : "");
+  const imageUrls = getProductImageUrls({
+    image: typeof row.image_url === "string" ? row.image_url : "",
+    images: Array.isArray(row.image_urls) ? row.image_urls : [],
+  });
 
   return {
     id: row.id as string,
@@ -72,8 +57,9 @@ function mapRow(row: Record<string, unknown>): Product {
     price: row.price as number,
     originalPrice:
       row.original_price != null ? Number(row.original_price) : undefined,
-    image: imageUrl,
+    image: imageUrls[0] || "",
     images: imageUrls,
+    imageMetadata: normalizeImageMetadata(row.image_metadata, imageUrls),
     featured: (row.is_featured as boolean) ?? false,
     details: (row.details as string[]) ?? [],
     whatsappMessage: (row.whatsapp_message as string) ?? "",
@@ -82,6 +68,8 @@ function mapRow(row: Record<string, unknown>): Product {
 
 // Public catalog reads do not depend on the visitor's auth cookies. Cache them
 // across requests so the homepage can be served as complete, stable HTML.
+// Version the cached data shape so the image-metadata rollout cannot prerender
+// new sitemaps from an older deployment's descriptions/URL snapshot.
 const getAvailableProducts = unstable_cache(async (): Promise<Product[]> => {
   const supabase = createSupabaseClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -96,7 +84,7 @@ const getAvailableProducts = unstable_cache(async (): Promise<Product[]> => {
 
   if (error || !data) throw new Error("The product catalog could not be loaded.");
   return data.map(mapRow);
-}, ["public-product-catalog"], { revalidate: 60, tags: ["public-products"] });
+}, ["public-product-catalog", "image-metadata-v1"], { revalidate: 60, tags: ["public-products"] });
 
 export const getProducts = cache(async (): Promise<Product[]> => {
   if (!supabaseConfigured) return loadFallbackProducts();

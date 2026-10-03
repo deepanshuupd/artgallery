@@ -32,6 +32,22 @@ references before deleting unused files. Store only the detail URL in the produc
 record; the storefront derives the paired card URL for `optimized/v2/` files.
 Older URLs continue to work without requiring a database schema change.
 
+Both uploads must send `headers: { "x-robots-tag": "all" }`. Supabase Storage
+otherwise returns `X-Robots-Tag: none`, which means `noindex, nofollow` to Google.
+A public HTTP 200 photo is not necessarily indexable. This header does not grant
+storage-write permissions or enable image transformation; it allows discovery of
+already-public product photographs. The admin form shares these options through
+`PRODUCT_IMAGE_UPLOAD_OPTIONS` in `src/lib/product-image.ts`.
+
+Enter the real product name before uploading. New filenames use a short product
+name and a unique identifier, not keyword lists. Each photo can have its own plain
+text description and optional caption. Encoded dimensions are recorded
+automatically. `products.image_metadata` is keyed by the detail URL so descriptions
+stay with the correct photograph when the gallery is reordered. The first photo
+is the primary/share image. Blank descriptions fall back to the actual product
+name; review them against the photograph before adding specific view/material
+claims. Future saved galleries automatically participate in the image sitemap.
+
 ## Existing photos
 
 The local migration requires the existing Supabase service-role environment
@@ -49,6 +65,30 @@ files, checks they are publicly accessible, then updates product references.
 Original storage objects are retained. Products edited since preparation cause
 the script to stop rather than overwrite those edits. The public catalog cache
 expires after 60 seconds. Deploy the storefront changes to use card images.
+
+## Fixing an existing indexing header
+
+`node scripts/audit-product-image-seo.mjs` is read-only by default and checks both
+variants, encoded dimensions and restrictive image-response headers. HTTP or
+indexing failures produce a nonzero exit code.
+
+For existing v2 WebP pairs blocked by Storage's header, use
+`scripts/fix-product-image-indexing.mjs`:
+
+1. Run `node scripts/fix-product-image-indexing.mjs --prepare`.
+2. Review the manifest, scoped product list and additional storage required.
+3. Run `node scripts/fix-product-image-indexing.mjs --apply /absolute/path/manifest.json`.
+4. Retain the manifest. `--rollback /absolute/path/manifest.json` restores the
+   original URL/metadata references, unless an editor has since changed them.
+
+This is a necessary indexability migration, not a filename-only SEO rename. It
+copies the existing bytes without resizing or recompression, uses new immutable
+URLs with the supported indexing upload header, and verifies public headers and
+SHA-256 byte equality before updating product references. Every original is
+retained. Metadata follows the migrated photo URL. Compare-and-swap guards
+protect concurrent product edits. No bucket permissions are widened, no storage
+SQL is used and no visitor-triggered proxy is introduced. Rollback does not delete
+either set of images; it restores the original indexing limitation too.
 
 ## Free resource monitoring
 

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { productCardImage } from "@/lib/product-image";
+import type { ProductImageReference } from "@/lib/product-image";
 import Link from "next/link";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { CraftOrnament } from "./craft-ornament";
@@ -17,12 +17,12 @@ const collections: { name: ProductCategory; label: string; note: string; action:
   { name: "Personalized Gifts", label: "Personalised gifts", note: "Your people. Your memories.", action: "Find a gift", tilt: -9 },
 ];
 
-function JourneyCard({ collection, image, index }: { collection: typeof collections[number]; image?: string; index: number }) {
+function JourneyCard({ collection, image, index }: { collection: typeof collections[number]; image?: ProductImageReference; index: number }) {
   const [failed, setFailed] = useState(false);
   return <Link prefetch={false} href={`/${getCategoryPath(collection.name)}`} data-journey-card className={styles.card}
     style={{ "--tilt": `${collection.tilt}deg`, "--depth": index === 1 ? 4 : 3 - index, "--mobile-scale": index === 1 ? 1.45 : 0.94, "--desktop-scale": index === 1 ? 1.16 : 0.88 } as CSSProperties}>
     <div className={styles.photo}>
-      {image && !failed ? <Image src={productCardImage(image)} alt={collection.label} fill quality={70}
+      {image?.src && !failed ? <Image src={image.cardSrc} alt={image.alt} fill quality={70}
         sizes="(max-width: 767px) 65vw, (max-width: 1279px) 36vw, 420px"
         className={collection.name === "Fridge Magnets" ? styles.cover : styles.contain} onError={() => setFailed(true)} />
         : <span className={styles.fallback}>{collection.label}</span>}
@@ -31,7 +31,7 @@ function JourneyCard({ collection, image, index }: { collection: typeof collecti
   </Link>;
 }
 
-export function KumaonCollectionJourney({ images }: { images: Partial<Record<ProductCategory, string>> }) {
+export function KumaonCollectionJourney({ images }: { images: Partial<Record<ProductCategory, ProductImageReference>> }) {
   const sectionRef = useRef<HTMLElement>(null);
   const [browseDirectly, setBrowseDirectly] = useState(false);
 

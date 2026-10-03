@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { productCardImage } from "@/lib/product-image";
+import { getProductImage, getProductImageUrls } from "@/lib/product-image";
 import Link from "next/link";
 import { useId, useRef, useState } from "react";
 
@@ -16,7 +16,7 @@ import styles from "./product-detail.module.css";
 type ProductDetailViewProps = { product: Product };
 
 export function ProductDetailView({ product }: ProductDetailViewProps) {
-  const images = product.images?.length ? product.images : [product.image];
+  const images = getProductImageUrls(product).map(src => getProductImage(product, src));
   const discount = getDiscount(product.price, product.originalPrice);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [failedImages, setFailedImages] = useState<string[]>([]);
@@ -55,41 +55,42 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
               }}
             >
               {images.map((image, index) => (
-                <div key={`${image}-${index}`} className={styles.slide}>
+                <div key={image.src} className={styles.slide}>
                   <div className={styles.imageSpace}>
-                    {failedImages.includes(image) ? (
+                    {failedImages.includes(image.src) ? (
                       <p className={styles.imageFallback}>{name}<span>Image unavailable</span></p>
                     ) : (
                       <Image
-                        alt={`${name} — view ${index + 1}`}
+                        alt={image.alt}
                         className={styles.image}
                         fill
                         priority={index === 0}
                         sizes="(max-width: 767px) calc(100vw - 72px), (max-width: 1023px) 560px, (max-width: 1280px) 50vw, 600px"
-                        src={image}
-                        onError={() => setFailedImages((failed) => failed.includes(image) ? failed : [...failed, image])}
+                        src={image.src}
+                        onError={() => setFailedImages((failed) => failed.includes(image.src) ? failed : [...failed, image.src])}
                       />
                     )}
                   </div>
                 </div>
               ))}
             </div>
+            {!images.length && <div className={styles.imageSpaceEmpty}><p className={styles.imageFallback}>{name}<span>Photo coming soon</span></p></div>}
 
             {images.length > 1 && (
               <div className={styles.galleryNav}>
                 <div className={styles.thumbnails} aria-label="Choose a product photograph">
                   {images.map((image, index) => (
                     <button
-                      key={`${image}-${index}`}
+                      key={image.src}
                       type="button"
                       onClick={() => scrollToImage(index)}
                       className={styles.thumbnail}
-                      aria-label={`View image ${index + 1}`}
+                      aria-label={`View photo ${index + 1} of ${name}`}
                       aria-current={activeImageIndex === index ? "true" : undefined}
                       aria-controls={galleryId}
                     >
-                      {failedImages.includes(image) ? index + 1 : (
-                        <Image alt="" fill sizes="64px" src={productCardImage(image)} className={styles.image} />
+                      {failedImages.includes(image.src) ? index + 1 : (
+                        <Image alt="" fill sizes="64px" src={image.cardSrc} className={styles.image} />
                       )}
                     </button>
                   ))}
@@ -99,6 +100,7 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
                 </span>
               </div>
             )}
+            {images[activeImageIndex]?.caption && <p className={styles.caption}>{images[activeImageIndex].caption}</p>}
           </section>
 
           <section className={styles.info} aria-labelledby="product-title">

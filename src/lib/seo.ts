@@ -15,8 +15,9 @@ export function conciseText(value: string, limit: number): string {
 }
 
 /** Each indexable page owns its canonical and share metadata, not the homepage. */
-export function pageMetadata({ title, description, path, image }: {
+export function pageMetadata({ title, description, path, image, imageAlt, imageWidth, imageHeight }: {
   title: string; description: string; path: string; image?: string;
+  imageAlt?: string; imageWidth?: number; imageHeight?: number;
 }): Metadata {
   const fullTitle = `${conciseText(title, 47)} | KumaonRang`;
   const summary = conciseText(description, 160);
@@ -28,7 +29,9 @@ export function pageMetadata({ title, description, path, image }: {
     openGraph: {
       title: fullTitle, description: summary, url, type: "website",
       siteName: "KumaonRang", locale: "en_IN",
-      ...(image ? { images: [{ url: image, alt: title }] } : {}),
+      ...(image ? { images: [{ url: image, alt: imageAlt || title,
+        ...(imageWidth && imageHeight ? { width: imageWidth, height: imageHeight } : {}),
+      }] } : {}),
     },
     twitter: {
       card: image ? "summary_large_image" : "summary", title: fullTitle,

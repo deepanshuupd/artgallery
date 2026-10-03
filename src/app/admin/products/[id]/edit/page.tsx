@@ -59,6 +59,7 @@ export default async function EditProductPage({
             is_available: product.is_available,
             image_url: product.image_url,
             image_urls: product.image_urls ?? (product.image_url ? [product.image_url] : []),
+            image_metadata: product.image_metadata ?? {},
             details: product.details ?? [""],
           }}
         />

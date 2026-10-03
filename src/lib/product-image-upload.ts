@@ -11,6 +11,17 @@ type DecodedImage = {
   close: () => void;
 };
 
+type EncodedImage = { file: File; width: number; height: number };
+
+export type PreparedProductImages = {
+  detail: File;
+  card: File;
+  width: number;
+  height: number;
+  cardWidth: number;
+  cardHeight: number;
+};
+
 async function decodeImage(file: File): Promise<DecodedImage> {
   try {
     const bitmap = await createImageBitmap(file, { imageOrientation: "from-image" });
@@ -45,13 +56,13 @@ async function decodeImage(file: File): Promise<DecodedImage> {
   throw new Error(`Could not read ${file.name}. This image format is not supported by this browser or the file is damaged.`);
 }
 
-async function compress(image: DecodedImage, name: string, maxDimension: number, targetBytes: number): Promise<File> {
+async function compress(image: DecodedImage, name: string, maxDimension: number, targetBytes: number): Promise<EncodedImage> {
   const canvas = document.createElement("canvas");
   const context = canvas.getContext("2d");
   if (!context) throw new Error("The browser could not prepare this image.");
   // Keep quality at 86% or higher. Byte budgets are soft so detailed artwork
   // can remain sharp instead of being forced into a tiny file.
-  let best: Blob | undefined;
+  let best: { blob: Blob; width: number; height: number } | undefined;
   try {
     for (const dimension of [maxDimension, Math.round(maxDimension * 0.85)]) {
       const scale = Math.min(1, dimension / Math.max(image.width, image.height));
@@ -65,25 +76,29 @@ async function compress(image: DecodedImage, name: string, maxDimension: number,
           canvas.toBlob(result => result ? resolve(result) : reject(new Error("Image compression failed. Please retry.")), "image/webp", quality);
         });
         if (blob.type !== "image/webp") throw new Error("This browser cannot save WebP photos. Please use an updated browser.");
-        if (!best || blob.size < best.size) best = blob;
-        if (blob.size <= targetBytes) return new File([blob], name, { type: "image/webp" });
+        const candidate = { blob, width: canvas.width, height: canvas.height };
+        if (!best || blob.size < best.blob.size) best = candidate;
+        if (blob.size <= targetBytes) {
+          return { file: new File([blob], name, { type: "image/webp" }), width: candidate.width, height: candidate.height };
+        }
       }
     }
-    return new File([best!], name, { type: "image/webp" });
+    if (!best) throw new Error("Image compression failed. Please retry.");
+    return { file: new File([best.blob], name, { type: "image/webp" }), width: best.width, height: best.height };
   } finally {
     canvas.width = canvas.height = 1;
   }
 }
 
 /** Process once in the admin's browser; preserve orientation, aspect and transparency. */
-export async function prepareProductImages(file: File): Promise<{ detail: File; card: File }> {
+export async function prepareProductImages(file: File): Promise<PreparedProductImages> {
   const image = await decodeImage(file);
   try {
     if (!image.width || !image.height) throw new Error(`Could not read the dimensions of ${file.name}.`);
     const name = file.name.replace(/\.[^.]+$/, "");
     const detail = await compress(image, `${name}.webp`, PRODUCT_IMAGE_VARIANTS.detail.maxDimension, PRODUCT_IMAGE_VARIANTS.detail.targetBytes);
     const card = await compress(image, `${name}-card.webp`, PRODUCT_IMAGE_VARIANTS.card.maxDimension, PRODUCT_IMAGE_VARIANTS.card.targetBytes);
-    return { detail, card };
+    return { detail: detail.file, card: card.file, width: detail.width, height: detail.height, cardWidth: card.width, cardHeight: card.height };
   } finally {
     image.close();
   }

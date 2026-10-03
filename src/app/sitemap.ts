@@ -4,6 +4,7 @@ import { getProducts } from "@/lib/products";
 import { getProductPath } from "@/lib/catalog";
 import { getSiteUrl } from "@/lib/site";
 import { collections } from "@/lib/collections";
+import { getProductImageUrls } from "@/lib/product-image";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = getSiteUrl();
@@ -33,6 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${siteUrl}${getProductPath(product)}`,
       changeFrequency: "weekly",
       priority: 0.6,
+      images: getProductImageUrls(product).map(src => new URL(src, siteUrl).href),
     }));
   } catch {
     // If products can't be loaded, still return the static routes.
@@ -40,9 +42,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Multiple catalogue records may currently share a public product slug.
   // List each public URL once without changing existing product routes.
-  return Array.from(
-    new Map(
-      [...staticEntries, ...productEntries].map((entry) => [entry.url, entry]),
-    ).values(),
-  );
+  // Match the product router's first record, not a different duplicate's gallery.
+  const unique = new Map<string, MetadataRoute.Sitemap[number]>();
+  for (const entry of [...staticEntries, ...productEntries]) {
+    if (!unique.has(entry.url)) unique.set(entry.url, entry);
+  }
+  return [...unique.values()];
 }

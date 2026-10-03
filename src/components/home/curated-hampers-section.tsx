@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { productCardImage } from "@/lib/product-image";
+import { getProductImage } from "@/lib/product-image";
 import Link from "next/link";
 import { useState } from "react";
 import { CraftOrnament } from "@/components/home/craft-ornament";
@@ -18,15 +18,16 @@ const occasions = [
 
 export function CuratedHampersSection({ product }: { product?: Product }) {
   const [failed, setFailed] = useState(false);
+  const image = product ? getProductImage(product) : undefined;
   return (
     <section className={`heritage-gifting ${atmosphere.gifting}`}>
       <div className="heritage-shell heritage-gifting__grid">
         <div className="heritage-gifting__visual">
           <div className="heritage-gifting__ornament" data-home-float aria-hidden="true"><CraftOrnament className={atmosphere.ornamentGraphic} /></div>
-          {product?.image && !failed ? (
+          {product && image?.src && !failed ? (
             <div className={atmosphere.giftProduct} data-home-reveal="gifting-product" onFocusCapture={event => { event.currentTarget.dataset.homeImmediate = "true"; }}>
             <Link prefetch={false} href={getProductPath(product)} className="heritage-gifting__photo">
-              <div className="heritage-gifting__image"><Image src={productCardImage(product.image)} alt={product.name.trim()} fill quality={70} sizes="(max-width: 767px) 180px, 300px" className="object-contain" onError={() => setFailed(true)} /></div>
+              <div className="heritage-gifting__image"><Image src={image.cardSrc} alt={image.alt} fill quality={70} sizes="(max-width: 767px) 180px, 300px" className="object-contain" onError={() => setFailed(true)} /></div>
               <span>{product.name}</span>
             </Link>
             </div>

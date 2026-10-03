@@ -46,7 +46,7 @@ const { ProductForm } = loadComponent('src/app/admin/_components/product-form.ts
   'next/image': () => null,
   '@/lib/supabase/client': { createClient: unused },
   '@/lib/product-image-upload': { prepareProductImages: unused },
-  '@/lib/product-image': { productCardImage: unused },
+  '@/lib/product-image': { productCardImage: unused, createProductImageStem: unused, getProductImageUrls: () => [], normalizeImageMetadata: () => ({}), PRODUCT_IMAGE_UPLOAD_OPTIONS: {} },
   '@/app/admin/actions': { refreshPublicCatalog: unused },
   '@/components/products/product-story': { ProductStory },
 });

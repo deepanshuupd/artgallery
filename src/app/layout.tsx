@@ -51,6 +51,11 @@ export const metadata: Metadata = {
   description: siteDescription,
   keywords: siteKeywords,
   alternates: { canonical: siteUrl },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
   openGraph: {
     type: "website",
     locale: "en_IN",
@@ -94,7 +99,7 @@ export default function RootLayout({
                 addressRegion: "Uttarakhand",
                 addressCountry: "IN",
               },
-              sameAs: [],
+              sameAs: ["https://www.instagram.com/art_gallery_05s/"],
             }).replace(/</g, "\\u003c"),
           }}
         />
