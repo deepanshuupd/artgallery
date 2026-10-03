@@ -16,7 +16,7 @@ The copy separates traditional ritual art from contemporary Aipan-inspired MDF p
 
 The guide now uses the photograph supplied by the user on 3 October 2026: `WhatsApp Image 2026-10-03 at 15.58.05.jpeg`. It shows red-and-white Aipan artwork with geometric panels, floral borders and footprint motifs. No artist, medium, date or licence is inferred from the photograph. The earlier Wikimedia image and its attribution file remain as unused assets; their credits are not attached to the user's photograph.
 
-The supplied original is 4,160 × 3,120 pixels and 5,129,840 bytes. WebP variants are 1,440 × 1,080 pixels / 557,502 bytes and 720 × 540 pixels / 163,278 bytes. The layout contains the whole photograph rather than cropping the artwork. Article schema and social metadata use the real dimensions and descriptive alternative text. The image is resized and compressed without generative editing.
+The supplied original is 4,160 × 3,120 pixels and 5,129,840 bytes. WebP variants are 1,440 × 1,080 pixels / 557,502 bytes and 720 × 540 pixels / 163,278 bytes. The hero now crops the surrounding work area through CSS while retaining all four artwork borders. Its image frame keeps a fixed aspect ratio rather than stretching to the text column, removing the brown letterboxing. The hero stacks below 1,100 pixels and gives the artwork more width on desktop. Article schema and social metadata retain the real source dimensions and descriptive alternative text. The image files are resized and compressed without generative editing.
 
 ## Presentation and verification
 

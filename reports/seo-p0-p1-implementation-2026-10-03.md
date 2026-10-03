@@ -78,8 +78,9 @@ see [Supabase password protection documentation](https://supabase.com/docs/guide
 
 - Homepage order: hero → collections → customer notes → hampers → Meet Sneha.
 - `/aipan-art` uses the user's real photograph with a descriptive alt, a neutral
-  caption, Article/ImageObject metadata and responsive WebP sources. The full
-  composition is contained in the layout. Original: 4,160 × 3,120 pixels / 5.13 MB;
+  caption, Article/ImageObject metadata and responsive WebP sources. A subsequent
+  CSS refinement crops the surrounding work area, retains the artwork borders
+  and removes image-panel letterboxing. Original: 4,160 × 3,120 pixels / 5.13 MB;
   desktop: 1,440 × 1,080 / 557,502 bytes; mobile: 720 × 540 / 163,278 bytes. No
   maker, medium, licence or photographed product is fabricated. Prior Wikimedia
   credits are not assigned to the supplied photo. The old guide URL keeps its 308.

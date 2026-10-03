@@ -12,10 +12,11 @@
 .heroLink { display: inline-flex; align-items: center; gap: 28px; min-height: 44px; margin-top: 20px; padding: 0 0 5px; border-bottom: 1px solid #e3bca5; font-size: 13px; font-weight: 600; text-decoration: none; }
 .heroLink:hover { color: #f5d093; border-color: currentColor; }
 .heroFigure { margin: 0; min-width: 0; background: #efe4d5; color: #5e4e40; }
-.heroPhoto { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: #583326; }
-.heroPhoto picture { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
-.heroPhoto img { display: block; width: 100%; height: 100%; object-fit: contain; }
-.photoLabel { position: absolute; bottom: 14px; left: 16px; padding: 7px 10px; background: #fffaf1; color: #50382b; font-size: 10px; line-height: 1.5; }
+/* Crop the work area around the board, retaining all four artwork borders.
+   The frame ratio and overscan preserve the source's 4:3 ratio without distortion. */
+.heroPhoto { position: relative; aspect-ratio: 106 / 87; overflow: hidden; background: #923f2e; }
+.heroPhoto picture { position: absolute; top: -4.5%; left: -10%; display: block; width: 116%; height: 106%; }
+.heroPhoto img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .heroFigure figcaption { padding: 11px 16px; font-size: 10px; line-height: 1.8; }
 .heroFigure figcaption span { display: block; }
 .heroFigure figcaption a { text-decoration: underline; text-underline-offset: 3px; color: #7d3527; }
@@ -92,14 +93,10 @@
 @media (min-width: 768px) {
   .page { padding-bottom: 60px; }
   .breadcrumbs { padding-block: 20px 8px; }
-  .hero { grid-template-columns: 1fr 1fr; }
   .heroCopy { padding: 42px 36px 32px; }
   .hindi { margin-top: 34px; }
   .hero h1 { font-size: clamp(57px, 6.3vw, 78px); }
-  .desktopBreak { display: inline; }
   .heroIntro { font-size: 14px; margin-top: 26px; }
-  .heroFigure { display: flex; flex-direction: column; }
-  .heroPhoto { flex: 1; height: auto; min-height: 460px; }
   .heroFigure figcaption { padding-inline: 20px; }
   .heroFigure figcaption span { display: inline; margin-left: 8px; }
   .contents { display: flex; justify-content: space-between; gap: 18px; padding-block: 10px; }
@@ -127,4 +124,15 @@
   .faqs details > p { font-size: 14px; }
   .sources ol { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px; }
 }
-@media (min-width: 1100px) { .heroCopy { padding: 48px 50px 44px; } .hindi { margin-top: 36px; } .heroPhoto { min-height: 560px; } }
+@media (min-width: 1100px) {
+  .hero { grid-template-columns: .85fr 1.15fr; }
+  .heroCopy { display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: 24px 32px; }
+  .hindi { margin-top: 18px; }
+  .hero h1 { font-size: clamp(54px, 4.5vw, 64px); }
+  .desktopBreak { display: inline; }
+  .heroIntro { margin-top: 18px; font-size: 13px; line-height: 1.8; }
+  .heroLink { align-self: flex-start; margin-top: 14px; }
+  .heroFigure { display: flex; flex-direction: column; }
+  .heroPhoto { flex: 0 0 auto; }
+  .heroFigure figcaption { display: flex; align-items: center; flex: 1; }
+}
