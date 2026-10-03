@@ -1,0 +1,48 @@
+.questions {
+  margin-top: 20px;
+  border-bottom: 1px solid #d9c4ad;
+}
+
+.question {
+  border-top: 1px solid #d9c4ad;
+}
+
+.question summary {
+  min-height: 44px;
+  padding-block: 14px;
+  color: #554238;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.65;
+  cursor: pointer;
+}
+
+.question summary::marker {
+  color: var(--color-geru);
+}
+
+.question summary:focus-visible {
+  outline: 2px solid var(--color-geru);
+  outline-offset: 4px;
+}
+
+.questions .answer {
+  margin-top: 0;
+  padding-bottom: 16px;
+}
+
+.guide {
+  margin-top: 20px;
+}
+
+.guide a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  color: var(--color-geru);
+  font-size: 13px;
+  line-height: 1.6;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
