@@ -52,6 +52,13 @@ await Promise.all(Array.from({ length: 4 }, async () => {
       const tag = tags.find(tag => attribute(tag, 'src') === image.contentUrl);
       assert.ok(tag, `${page.pathname}: full image has crawlable img src without interaction`);
       assert.equal(attribute(tag, 'alt'), image.description, `${page.pathname}: alt and image schema agree`);
+      if (gallery.length > 1) {
+        const thumbnailUrl = image.contentUrl.replace(/(\/optimized\/v2\/[^/?]+)\.webp$/, '$1-card.webp');
+        const thumbnail = tags.find(tag => attribute(tag, 'src') === thumbnailUrl && attribute(tag, 'aria-hidden') === 'true');
+        assert.ok(thumbnail, `${page.pathname}: gallery thumbnail present`);
+        assert.equal(attribute(thumbnail, 'alt'), image.description, `${page.pathname}: thumbnail describes its photo`);
+        assert.equal(attribute(thumbnail, 'aria-hidden'), 'true', `${page.pathname}: labelled photo button avoids duplicate announcements`);
+      }
       assert.ok(image.description.trim(), `${page.pathname}: photo described`);
       assert.ok(image.width > 0 && image.height > 0, `${page.pathname}: verified encoded dimensions`);
       assert.ok(!image.creator && !image.license && !image.copyrightNotice, 'No unconfirmed photography rights');

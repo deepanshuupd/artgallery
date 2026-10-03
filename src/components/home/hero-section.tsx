@@ -38,7 +38,7 @@ export function HeroSection({ featuredProduct }: { featuredProduct?: Product }) 
           <Link prefetch={false} className="heritage-artwork" href={featuredProduct ? getProductPath(featuredProduct) : "/collection"}>
             <div className="heritage-artwork__photo">
               {image?.src && !failed ? (
-                <Image src={image.cardSrc} alt={image.alt} fill priority fetchPriority="high" quality={70} sizes="(max-width: 348px) calc(100vw - 102px), (max-width: 767px) 246px, (max-width: 1199px) 28vw, 316px" className="object-contain" onError={() => setFailed(true)} />
+                <Image src={image.cardSrc} alt={image.alt} fill priority fetchPriority="high" quality={70} sizes="(max-width: 375px) calc(100vw - 78px), (max-width: 767px) 298px, (max-width: 1199px) 28vw, 316px" className="object-contain" onError={() => setFailed(true)} />
               ) : <div className="heritage-artwork__fallback">Colour. Craft. Kumaon.</div>}
             </div>
             <div className="heritage-artwork__caption">

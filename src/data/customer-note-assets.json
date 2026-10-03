@@ -1,0 +1,86 @@
+{
+  "kanishak-message": {
+    "src": "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/customer-notes/v1/kanishak-message-932b972aea94.webp",
+    "localSrc": "/customer-notes/kanishak-message-932b972aea94.webp",
+    "width": 478,
+    "height": 814,
+    "bytes": 311676
+  },
+  "kanishak-photo": {
+    "src": "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/customer-notes/v1/kanishak-photo-28b1c3623e53.webp",
+    "localSrc": "/customer-notes/kanishak-photo-28b1c3623e53.webp",
+    "width": 448,
+    "height": 620,
+    "bytes": 45102
+  },
+  "sargam-message": {
+    "src": "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/customer-notes/v1/sargam-message-2431fc7b2625.webp",
+    "localSrc": "/customer-notes/sargam-message-2431fc7b2625.webp",
+    "width": 588,
+    "height": 333,
+    "bytes": 76974
+  },
+  "ankita-message": {
+    "src": "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/customer-notes/v1/ankita-message-373314b50951.webp",
+    "localSrc": "/customer-notes/ankita-message-373314b50951.webp",
+    "width": 473,
+    "height": 1030,
+    "bytes": 338370
+  },
+  "ankita-photo": {
+    "src": "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/customer-notes/v1/ankita-photo-cbe7aecaf843.webp",
+    "localSrc": "/customer-notes/ankita-photo-cbe7aecaf843.webp",
+    "width": 448,
+    "height": 631,
+    "bytes": 56572
+  },
+  "tamanna-message": {
+    "src": "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/customer-notes/v1/tamanna-message-6eec005ebff3.webp",
+    "localSrc": "/customer-notes/tamanna-message-6eec005ebff3.webp",
+    "width": 390,
+    "height": 81,
+    "bytes": 13716
+  },
+  "dinesh-message": {
+    "src": "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/customer-notes/v1/dinesh-message-9d1bb89203e6.webp",
+    "localSrc": "/customer-notes/dinesh-message-9d1bb89203e6.webp",
+    "width": 427,
+    "height": 74,
+    "bytes": 11104
+  },
+  "family-frame-message": {
+    "src": "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/customer-notes/v1/family-frame-message-9a5471cbaede.webp",
+    "localSrc": "/customer-notes/family-frame-message-9a5471cbaede.webp",
+    "width": 420,
+    "height": 260,
+    "bytes": 46408
+  },
+  "parcel-message": {
+    "src": "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/customer-notes/v1/parcel-message-c85b414a068e.webp",
+    "localSrc": "/customer-notes/parcel-message-c85b414a068e.webp",
+    "width": 626,
+    "height": 165,
+    "bytes": 45740
+  },
+  "phone-cover-message": {
+    "src": "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/customer-notes/v1/phone-cover-message-7db4050a8f7b.webp",
+    "localSrc": "/customer-notes/phone-cover-message-7db4050a8f7b.webp",
+    "width": 505,
+    "height": 771,
+    "bytes": 238576
+  },
+  "phone-cover-photo": {
+    "src": "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/customer-notes/v1/phone-cover-photo-cff9e354dd2c.webp",
+    "localSrc": "/customer-notes/phone-cover-photo-cff9e354dd2c.webp",
+    "width": 449,
+    "height": 586,
+    "bytes": 21996
+  },
+  "nameplate-message": {
+    "src": "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/customer-notes/v1/nameplate-message-a75239cc7358.webp",
+    "localSrc": "/customer-notes/nameplate-message-a75239cc7358.webp",
+    "width": 545,
+    "height": 354,
+    "bytes": 68774
+  }
+}

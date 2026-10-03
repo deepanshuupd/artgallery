@@ -40,6 +40,21 @@ export function StudioPostcard() {
     };
   }, []);
 
+  useEffect(() => {
+    const customerNotes = document.getElementById("customer-notes");
+    const postcard = rail.current;
+    if (!customerNotes || !postcard || !("IntersectionObserver" in window)) return;
+    // Keep the peeking paper out of the reading area on narrow screens.
+    const observer = new IntersectionObserver(([entry]) => {
+      postcard.dataset.reading = String(entry.isIntersecting);
+    }, { rootMargin: "-64px 0px 0px", threshold: 0 });
+    observer.observe(customerNotes);
+    return () => {
+      observer.disconnect();
+      delete postcard.dataset.reading;
+    };
+  }, []);
+
   const openNote = () => {
     if (!dialog.current || dialog.current.open) return;
     dialog.current.showModal();

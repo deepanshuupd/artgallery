@@ -126,3 +126,17 @@ test("story wheel keeps rotating separately from its one-time entrance", () => {
   assert.match(css, /main\[data-home-paused="true"\].*\.storyWheel > svg \{ animation-play-state: paused/);
   assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*\.storyWheel > svg \{ animation: none !important/);
 });
+
+test("mobile featured artwork has a fitted backdrop without changing desktop framing", () => {
+  const css = readFileSync(new URL("../src/components/home/home-atmosphere.module.css", import.meta.url), "utf8");
+  const hero = readFileSync(new URL("../src/components/home/hero-section.tsx", import.meta.url), "utf8");
+  const mobile = css.match(/@media \(max-width: 767px\) \{([\s\S]*?)\n\}/)?.[1];
+  assert.ok(mobile, "Phone-only rules must remain scoped below the existing desktop breakpoint");
+  assert.match(mobile, /max-width: 336px;/);
+  assert.match(mobile, /padding: 28px 12px 12px;/);
+  assert.match(mobile, /\.heroProduct \{ max-width: none; \}/, "The card fills its phone backdrop instead of staying at 260px");
+  assert.match(mobile, /grid-template-columns: minmax\(0, 1fr\) auto;/, "Long product names may wrap without squeezing the price");
+  assert.match(css, /\.heritage-artwork__photo img\) \{ object-fit: contain;/, "Complete product photos remain visible");
+  assert.match(css, /@media \(min-width: 768px\) \{[\s\S]*\.heroProduct \{ max-width: 330px; \}/);
+  assert.match(hero, /sizes="\(max-width: 375px\) calc\(100vw - 78px\), \(max-width: 767px\) 298px,/);
+});

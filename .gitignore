@@ -2,6 +2,9 @@
 .next-dev/
 node_modules/
 
+# Supabase CLI's local version-check cache
+supabase/.temp/
+
 # logs
 npm-debug.log*
 yarn-debug.log*

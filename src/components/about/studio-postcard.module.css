@@ -69,6 +69,7 @@
 @keyframes backdrop-arrive { from { opacity: 0; } to { opacity: 1; } }
 
 @media (max-width: 360px) { .rail { right: -40px; top: calc(210px + env(safe-area-inset-top, 0px)); }.noteTab { left: -12px; } }
+@media (max-width: 767px) { .rail[data-reading="true"] { visibility: hidden; } }
 @media (min-width: 640px) and (max-width: 1023px) { .rail { top: 164px; } }
 @media (min-width: 1024px) {
   .page { padding-inline-start: 72px; }

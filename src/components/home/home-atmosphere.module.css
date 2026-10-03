@@ -118,6 +118,39 @@
   50% { transform: rotate(12deg); }
 }
 
+/* On phones the photograph leads; the arch is a close-fitting backdrop,
+   not a desktop-sized canvas around a fixed-width card. */
+@media (max-width: 767px) {
+  .hero :global(.heritage-hero__art) {
+    width: 100%;
+    max-width: 336px;
+    margin-inline: auto;
+    padding: 28px 12px 12px;
+    border-radius: 50% 50% 6px 6px / 80px 80px 6px 6px;
+  }
+  .hero :global(.heritage-hero__art)::before { inset: 6px; }
+  .heroProduct { max-width: none; }
+  .hero :global(.heritage-artwork) { width: 100%; max-width: none; }
+  .hero :global(.heritage-hero__ornament) {
+    width: 200px;
+    height: 200px;
+    right: -60px;
+    top: -12px;
+    opacity: .24;
+  }
+  .hero :global(.heritage-artwork__caption) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 10px;
+    padding: 12px 5px 6px;
+  }
+  .hero :global(.heritage-artwork__caption > div) { min-width: 0; }
+  .hero :global(.heritage-artwork__caption .craft-eyebrow) { font-size: 9px; letter-spacing: .1em; }
+  .hero :global(.heritage-artwork__caption h2) { font-size: clamp(18px, 5vw, 21px); overflow-wrap: anywhere; }
+  .hero :global(.heritage-artwork__price) { padding-bottom: 2px; line-height: 1.4; }
+}
+
 @media (min-width: 768px) {
   .hero { --frame-rest: -3deg; }
   .heroProduct { max-width: 330px; }

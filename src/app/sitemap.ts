@@ -16,6 +16,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/uttarakhand-gifts",
     "/pithoragarh-aipan-art",
     "/about",
+    "/customer-stories",
     "/contact",
   ];
   const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => ({

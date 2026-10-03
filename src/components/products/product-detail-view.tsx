@@ -90,7 +90,7 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
                       aria-controls={galleryId}
                     >
                       {failedImages.includes(image.src) ? index + 1 : (
-                        <Image alt="" fill sizes="64px" src={image.cardSrc} className={styles.image} />
+                        <Image alt={image.alt} aria-hidden="true" fill sizes="64px" src={image.cardSrc} className={styles.image} />
                       )}
                     </button>
                   ))}

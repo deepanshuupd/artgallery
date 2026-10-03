@@ -8,6 +8,7 @@ import { CuratedHampersSection } from "@/components/home/curated-hampers-section
 import { FeaturedCollections } from "@/components/home/featured-collections";
 import { HeroSection } from "@/components/home/hero-section";
 import { HeritageStory } from "@/components/home/heritage-story";
+import { CustomerNotes } from "@/components/home/customer-notes";
 import postcardStyles from "@/components/about/studio-postcard.module.css";
 import { getProducts } from "@/lib/products";
 import type { Product, ProductCategory } from "@/types/product";
@@ -99,6 +100,7 @@ export default async function HomePage() {
       }} />
       <HeroSection featuredProduct={culturalFeaturedProduct} />
       <FeaturedCollections images={categoryImages} />
+      <CustomerNotes />
       <HeritageStory />
       <CuratedHampersSection product={products.find((product) => product.category === "Curated Hampers" && product.image)} />
     </main>
