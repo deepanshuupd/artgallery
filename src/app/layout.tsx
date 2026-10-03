@@ -94,7 +94,7 @@ export default function RootLayout({
                 addressRegion: "Uttarakhand",
                 addressCountry: "IN",
               },
-              sameAs: [],
+              sameAs: ["https://www.instagram.com/art_gallery_05s/"],
             }).replace(/</g, "\\u003c"),
           }}
         />
