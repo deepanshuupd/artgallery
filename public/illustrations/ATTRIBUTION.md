@@ -9,6 +9,8 @@ Modified: merged all 13 Uttarakhand districts for the state boundary and the six
 Kumaon membership checked against https://kumaon.gov.in/about-department/introduction/ and Garhwal against https://garhwal.uk.gov.in/.
 The Pithoragarh marker identifies its district using an interior representative point; it is not a surveyed city coordinate. This is a simplified administrative origin illustration, not a navigation map or a claim about exclusive cultural boundaries. Visible source/licence credit appears under the map.
 
+The interactive Our Story map uses the same source in `src/components/about/story-map-data.json`. Its build utility is `scripts/generate-story-map.py`: shared edges are noded before a joint, 350-metre coverage simplification, then all six Kumaon district polygons are exported individually. Geometric validation checks 13 source districts, six Kumaon districts, matching edges and complete coverage. District representative points are not surveyed city locations. The original homepage geometry is unchanged.
+
 ## Aipan-inspired line border
 Original geometric repeat created for KumaonRang from lines, diamonds and dots, informed by the owner's Aipan photograph. No Pinterest stock, AI-modified or watermarked artwork copied. It is a decorative interpretation, not a named ritual motif.
 

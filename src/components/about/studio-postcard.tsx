@@ -42,7 +42,7 @@ export function StudioPostcard() {
 
   useEffect(() => {
     const customerNotes = document.getElementById("customer-notes");
-    const originStory = document.querySelector('section[aria-labelledby="heritage-title"]');
+    const originStory = document.querySelector('section[aria-labelledby="heritage-title"], [data-story-map-section]');
     const postcard = rail.current;
     const sections = [customerNotes, originStory].filter((section): section is Element => section !== null);
     if (!sections.length || !postcard || !("IntersectionObserver" in window)) return;
