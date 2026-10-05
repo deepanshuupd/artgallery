@@ -1,0 +1,234 @@
+{
+  "checkedAt": "2026-10-05T04:44:26.126Z",
+  "preview": "http://127.0.0.1:3013",
+  "allPieces": 41,
+  "categoryResults": [
+    {
+      "path": "/pahadi-keychains",
+      "pieces": 6
+    },
+    {
+      "path": "/aipan-frames",
+      "pieces": 12
+    },
+    {
+      "path": "/uttarakhand-souvenirs",
+      "pieces": 5
+    },
+    {
+      "path": "/kumaoni-gifts",
+      "pieces": 18
+    }
+  ],
+  "productPagesChecked": 48,
+  "productPagesWithRelated": 48,
+  "originalPanorama": {
+    "status": 200,
+    "bytes": 4126,
+    "contentType": "image/svg+xml"
+  },
+  "checks": [
+    "one category navigation with real consistent totals",
+    "one selected category per route",
+    "counts agree with visible cards",
+    "one main landmark per product page",
+    "name before gallery before enquiry in mobile DOM order",
+    "related product links exist in public sitemap and exclude current product",
+    "new landscape and desktop sidebar present in served CSS"
+  ],
+  "browserVisualChecks": "BLOCKED by saved local-browser setting",
+  "relatedResults": [
+    {
+      "path": "/aipan-frames/customised-a4-photo-frame",
+      "related": 3
+    },
+    {
+      "path": "/aipan-frames/customized-black-photo-frame",
+      "related": 3
+    },
+    {
+      "path": "/aipan-frames/ganesh-aipan-wall-hanging",
+      "related": 3
+    },
+    {
+      "path": "/aipan-frames/golu-devta-aipan-frame",
+      "related": 3
+    },
+    {
+      "path": "/aipan-frames/handmade-aipan-spiritual-decor",
+      "related": 3
+    },
+    {
+      "path": "/aipan-frames/handmade-aipan-wall-decor-with-pichora-background",
+      "related": 3
+    },
+    {
+      "path": "/aipan-frames/handmade-ganesh-aipan-wall-decor",
+      "related": 3
+    },
+    {
+      "path": "/aipan-frames/handmade-om-aipan-wall-frame",
+      "related": 3
+    },
+    {
+      "path": "/aipan-frames/om-aipan-wall-decor",
+      "related": 3
+    },
+    {
+      "path": "/aipan-frames/om-aipan-wall-decor-90366ff1",
+      "related": 3
+    },
+    {
+      "path": "/aipan-frames/ram-naam-frame",
+      "related": 3
+    },
+    {
+      "path": "/aipan-frames/traditional-pahadi-jwellery-display-frame",
+      "related": 3
+    },
+    {
+      "path": "/curated-hampers/blush-bloom-gift-box",
+      "related": 3
+    },
+    {
+      "path": "/curated-hampers/curated-hamper",
+      "related": 3
+    },
+    {
+      "path": "/curated-hampers/elegant-glow-gift-box",
+      "related": 3
+    },
+    {
+      "path": "/curated-hampers/grace-gift-bag",
+      "related": 3
+    },
+    {
+      "path": "/curated-hampers/pichwai-jar-gift-combo",
+      "related": 3
+    },
+    {
+      "path": "/curated-hampers/rakhii-hamper",
+      "related": 3
+    },
+    {
+      "path": "/curated-hampers/the-happiness-box",
+      "related": 3
+    },
+    {
+      "path": "/kumaoni-gifts/3-layer-lotus-brass-diya",
+      "related": 3
+    },
+    {
+      "path": "/kumaoni-gifts/big-t-light-candle",
+      "related": 3
+    },
+    {
+      "path": "/kumaoni-gifts/customised-aipan-nameplate",
+      "related": 3
+    },
+    {
+      "path": "/kumaoni-gifts/handmade-aipan-canvas-bag",
+      "related": 3
+    },
+    {
+      "path": "/kumaoni-gifts/handmade-flower-scented-candle",
+      "related": 3
+    },
+    {
+      "path": "/kumaoni-gifts/handmade-rakhii",
+      "related": 3
+    },
+    {
+      "path": "/kumaoni-gifts/hanuman-chalisa-chanting-box-with-10-devotional-bhajans",
+      "related": 3
+    },
+    {
+      "path": "/kumaoni-gifts/heart-harmony-couple-mug-hamper",
+      "related": 3
+    },
+    {
+      "path": "/kumaoni-gifts/mantra-chant-counter",
+      "related": 3
+    },
+    {
+      "path": "/kumaoni-gifts/premium-ittar",
+      "related": 3
+    },
+    {
+      "path": "/kumaoni-gifts/ram-lalla-dashboard-idol",
+      "related": 3
+    },
+    {
+      "path": "/kumaoni-gifts/roli-chawal",
+      "related": 3
+    },
+    {
+      "path": "/kumaoni-gifts/set-of-2-om-mandir-bells",
+      "related": 3
+    },
+    {
+      "path": "/kumaoni-gifts/silver-ram-darbar-frame-tulsii-combo-pack",
+      "related": 3
+    },
+    {
+      "path": "/kumaoni-gifts/srinath-ji-potli-bags",
+      "related": 3
+    },
+    {
+      "path": "/kumaoni-gifts/tea-light-candle",
+      "related": 3
+    },
+    {
+      "path": "/kumaoni-gifts/traditional-pahadi-topii",
+      "related": 3
+    },
+    {
+      "path": "/kumaoni-gifts/weeding-brooch-collection",
+      "related": 3
+    },
+    {
+      "path": "/pahadi-keychains/guardian-bell-keychain",
+      "related": 3
+    },
+    {
+      "path": "/pahadi-keychains/i-uttarakhand-couple-keychain",
+      "related": 3
+    },
+    {
+      "path": "/pahadi-keychains/i-uttarakhand-pahadi-couple-keychain",
+      "related": 3
+    },
+    {
+      "path": "/pahadi-keychains/pahadi-girl-keychain",
+      "related": 3
+    },
+    {
+      "path": "/pahadi-keychains/pahadi-girl-mdf-keychain",
+      "related": 3
+    },
+    {
+      "path": "/pahadi-keychains/pahadi-ladka-keychain",
+      "related": 3
+    },
+    {
+      "path": "/uttarakhand-souvenirs/gloss-fridge-magnet",
+      "related": 3
+    },
+    {
+      "path": "/uttarakhand-souvenirs/i-uttarakhand-fridge-magnet",
+      "related": 3
+    },
+    {
+      "path": "/uttarakhand-souvenirs/pahadi-happy-couple-fridge-magnet",
+      "related": 3
+    },
+    {
+      "path": "/uttarakhand-souvenirs/personalized-arcylic-fridge-magnet-with-stand",
+      "related": 3
+    },
+    {
+      "path": "/uttarakhand-souvenirs/personalized-arcylic-fridge-magnet-without-stand",
+      "related": 3
+    }
+  ]
+}

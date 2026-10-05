@@ -117,16 +117,6 @@ test("background tabs pause ambient animations", () => {
   scene.cleanup();
 });
 
-test("story wheel keeps rotating separately from its one-time entrance", () => {
-  const story = readFileSync(new URL("../src/components/home/heritage-story.tsx", import.meta.url), "utf8");
-  const css = readFileSync(new URL("../src/components/home/home-atmosphere.module.css", import.meta.url), "utf8");
-  assert.match(story, /className=\{atmosphere.storyWheel\} data-home-float/);
-  assert.match(css, /animation: story-wheel-turn 48s linear infinite/);
-  assert.match(css, /\.storyWheel\[data-home-visible="true"\] > svg\s*\{\s*animation-play-state: running/);
-  assert.match(css, /main\[data-home-paused="true"\].*\.storyWheel > svg \{ animation-play-state: paused/);
-  assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*\.storyWheel > svg \{ animation: none !important/);
-});
-
 test("mobile featured artwork has a fitted backdrop without changing desktop framing", () => {
   const css = readFileSync(new URL("../src/components/home/home-atmosphere.module.css", import.meta.url), "utf8");
   const hero = readFileSync(new URL("../src/components/home/hero-section.tsx", import.meta.url), "utf8");

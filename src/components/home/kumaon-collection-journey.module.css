@@ -1,26 +1,32 @@
 .journey {
   --progress: 1; --spread: 1; --fan: 0; --draw: 1; --labels: 1;
   --opening: 0; --middle: 0; --closing: 1;
-  position: relative; margin-block: 24px 32px; background: #f4ead9; border-block: 1px solid #dac5ab;
+  position: relative; margin-block: 0; background: var(--home-chalk, #f4ead9); border-block: 1px solid var(--home-section-border, #dac5ab);
 }
 .pin { position: relative; isolation: isolate; padding: 26px 20px 16px; }
-.backdrop { position: absolute; inset: 0; overflow: hidden; z-index: -1; pointer-events: none; background: radial-gradient(ellipse at 50% 48%, #e6c39a60, transparent 70%); }
+.backdrop { position: absolute; inset: 0; overflow: hidden; z-index: -1; pointer-events: none; background: radial-gradient(ellipse at 50% 48%, var(--home-journey-glow, #e6c39a60), transparent 70%); }
 .rang { position: absolute; top: 42%; left: 50%; translate: -50% -50%; font: 260px/1 var(--font-devanagari), serif; color: transparent; -webkit-text-stroke: 1px #b7654340; opacity: calc(0.5 * (1 - var(--spread))); transform: scale(calc(1 + var(--progress) * 1.4)); }
 .ornament { position: absolute; width: min(88vw, 650px); aspect-ratio: 1; left: 50%; top: 48%; translate: -50% -50%; color: #a84530; opacity: calc(0.42 - var(--spread) * 0.28); transform: rotate(calc(var(--progress) * 55deg)) scale(calc(0.75 + var(--progress) * 0.65)); }
 .ornament path, .ornament circle { stroke-dasharray: 900; stroke-dashoffset: calc(900 * (1 - var(--draw))); }
-.hills { position: absolute; bottom: -2%; width: 120%; height: 50%; left: -10%; stroke: #a84530; stroke-width: 1; opacity: .15; transform: translateY(calc(var(--progress) * 50px)); }
+.hills { position: absolute; bottom: -2%; width: 120%; height: 50%; left: -10%; stroke: var(--home-river, #a84530); stroke-width: 1; opacity: .15; transform: translateY(calc(var(--progress) * 50px)); }
 .heading { position: relative; z-index: 8; display: flex; justify-content: space-between; align-items: end; gap: 12px; flex-wrap: wrap; max-width: 1200px; margin: 0 auto 20px; }
 .heading h2 { margin-top: 6px; font: 32px/1.05 var(--font-heading), serif; letter-spacing: -.025em; }
-.heading h2 em { color: var(--color-geru); font-weight: 500; }
+.heading h2 em { color: var(--home-river, var(--color-geru)); font-weight: 500; }
 .heading :global(.craft-eyebrow) { font-size: 9px; letter-spacing: .17em; }
-.shopAll { display: inline-flex; align-items: center; min-height: 44px; font-size: 12px; font-weight: 600; color: var(--color-geru); border-bottom: 1px solid #a8453060; text-decoration: none; }
+.shopAll { display: inline-flex; align-items: center; min-height: 44px; font-size: 12px; font-weight: 600; color: var(--home-pine, var(--color-geru)); text-decoration: underline; text-underline-offset: 5px; }
 .grid { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 16px; width: 100%; max-width: 1200px; margin: auto; perspective: 1200px; }
-.card { --hero-scale: var(--mobile-scale); position: relative; display: block; min-width: 0; color: #34251e; text-decoration: none; transform-origin: 50% var(--photo-center, 50%); z-index: var(--depth); }
-.photo { position: relative; height: min(39vw, 23svh); background: #fdf6e9; border: 5px solid #fff9ef; box-shadow: 0 4px 10px #57341c14; overflow: hidden; }
+.card { --hero-scale: var(--mobile-scale); position: relative; display: block; min-width: 0; color: var(--home-ink, #34251e); text-decoration: none; transform-origin: 50% var(--photo-center, 50%); z-index: var(--depth); }
+/* Colour identifies the category frame, never recolours the photograph. */
+.card[data-collection="Keychains"] { --collection-mat: var(--home-mat-pine, #fff9ef); }
+.card[data-collection="Frames"] { --collection-mat: var(--home-mat-gold, #fff9ef); }
+.card[data-collection="Fridge Magnets"] { --collection-mat: var(--home-mat-river, #fff9ef); }
+.card[data-collection="Personalized Gifts"] { --collection-mat: var(--home-mat-berry, #fff9ef); }
+.photo { position: relative; height: min(39vw, 23svh); background: var(--home-paper, #fdf6e9); border: 5px solid var(--collection-mat, #fff9ef); box-shadow: 0 4px 10px #57341c14; overflow: hidden; }
 .contain { object-fit: contain; }.cover { object-fit: cover; }
 .fallback { display: grid; place-items: center; height: 100%; padding: 14px; text-align: center; font: 24px var(--font-heading), serif; }
 .cardCopy { padding-top: 10px; }.cardCopy h3 { font: 21px/1.08 var(--font-heading), serif; }.cardCopy p { display: none; }
-.cardCopy > span { display: inline-flex; align-items: center; min-height: 44px; font-size: 11px; font-weight: 600; color: var(--color-geru); }
+.cardCopy > span { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-size: 11px; font-weight: 600; color: var(--home-pine, var(--color-geru)); }
+.cardCopy > span > span { font-size: 16px; }
 .card:focus-visible { outline: 2px solid #a84530; outline-offset: 5px; }
 .direction { max-width: 1200px; margin: 16px auto 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px 12px; }
 .captions, .skip, .scrollHint, .progress { display: none; }
@@ -37,18 +43,18 @@
 .journey[data-motion="active"] .photo { box-shadow: 0 12px 24px #57341c24; }
 .journey[data-motion="active"] .photo img { transform: scale(calc(1.12 - var(--spread) * .12)); }
 .journey[data-motion="active"] .cardCopy { opacity: var(--labels); transform: translateY(calc(12px * (1 - var(--labels)))); }
-.journey[data-motion="active"] .captions { display: grid; width: 100%; text-align: center; font: italic 22px/1.2 var(--font-heading), serif; color: #714330; min-height: 28px; }
+.journey[data-motion="active"] .captions { display: grid; width: 100%; text-align: center; font: italic 22px/1.2 var(--font-heading), serif; color: var(--home-muted, #714330); min-height: 28px; }
 .captions span { grid-area: 1/1; }.opening { opacity: var(--opening); }.middle { opacity: var(--middle); }.closing { opacity: var(--closing); }
-.journey[data-motion="active"] .skip { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; border: 0; padding: 0 4px; background: transparent; font-size: 10px; color: #5e4b3e; cursor: pointer; text-decoration: underline; text-underline-offset: 4px; }
-.journey[data-motion="active"] .scrollHint { display: flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: .08em; color: #714330; opacity: calc(1 - var(--closing)); }
+.journey[data-motion="active"] .skip { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; border: 0; padding: 0 4px; background: transparent; font-size: 10px; color: var(--home-muted, #5e4b3e); cursor: pointer; text-decoration: underline; text-underline-offset: 4px; }
+.journey[data-motion="active"] .scrollHint { display: flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: .08em; color: var(--home-muted, #714330); opacity: calc(1 - var(--closing)); }
 .scrollHint > span { font-size: 20px; }
 .journey[data-motion="active"] .progress { display: block; position: absolute; bottom: 0; inset-inline: 0; height: 3px; background: #a8453020; }
-.progress > span { display: block; height: 100%; background: #a84530; transform: scaleX(var(--progress)); transform-origin: left; }
+.progress > span { display: block; height: 100%; background: var(--home-river, #a84530); transform: scaleX(var(--progress)); transform-origin: left; }
 @media (min-width: 768px) {
-  .journey { margin-block: 40px 50px; }.pin { padding: 38px 40px 24px; }
+  .pin { padding: 38px 40px 24px; }
   .heading { width: 100%; margin-bottom: 28px; }.heading h2 { font-size: 52px; }.heading :global(.craft-eyebrow) { font-size: 11px; }.shopAll { font-size: 13px; }
   .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }.card { --hero-scale: var(--desktop-scale); }.photo { height: min(29vw, 42svh); border-width: 7px; }
-  .cardCopy h3 { font-size: 26px; }.cardCopy p { display: block; margin-top: 8px; font-size: 12px; line-height: 1.5; color: #6b5747; }.cardCopy > span { font-size: 12px; }
+  .cardCopy h3 { font-size: 26px; }.cardCopy p { display: block; margin-top: 8px; font-size: 12px; line-height: 1.5; color: var(--home-muted, #6b5747); }.cardCopy > span { font-size: 12px; }
   .rang { font-size: 520px; }.journey[data-motion="active"] { height: 210svh; }
   .journey[data-motion="active"] .pin { top: 92px; height: calc(100svh - 92px); }
   .direction { width: 100%; margin-top: 24px; }
@@ -63,7 +69,7 @@
 @media (min-width: 768px) and (max-height: 760px) {
   .photo { height: 34svh; }
 }
-@media (hover: hover) { .card:hover h3, .shopAll:hover, .skip:hover { color: #a84530; } }
+@media (hover: hover) { .card:hover h3, .shopAll:hover, .skip:hover { color: var(--home-pine-hover, #a84530); } }
 @media (prefers-reduced-motion: reduce) {
   .journey[data-motion="active"] { height: auto; }.journey[data-motion="active"] .pin { position: relative; top: auto; height: auto; }
   .journey[data-motion="active"] .card, .journey[data-motion="active"] .photo img, .journey[data-motion="active"] .cardCopy { transform: none; opacity: 1; }

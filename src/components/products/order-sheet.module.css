@@ -1,0 +1,40 @@
+.dialog { position: fixed; inset: auto 0 0; width: min(100%, 520px); max-width: 100%; max-height: 92dvh; margin: 0 auto; padding: 0; overflow: auto; border: 0; border-radius: 20px 20px 0 0; background: #fafbf8; color: #263c46; box-shadow: 0 18px 80px #182e3b33; }
+.dialog::backdrop { background: #152d3bcc; }
+.dialog[open] { animation: arrive 240ms cubic-bezier(.22,1,.36,1); }
+.sheetHeader { display: flex; justify-content: space-between; gap: 16px; padding: 24px 22px 16px; border-bottom: 1px solid #d9e1de; }
+.eyebrow { color: #526963; font-size: 10px; letter-spacing: .13em; text-transform: uppercase; }
+.sheetHeader h2 { margin-top: 4px; font: 600 28px/1.2 var(--font-heading), serif; outline: none; }
+.close { width: 44px; height: 44px; flex-shrink: 0; border-radius: 50%; background: #e7eef1; font-size: 28px; }
+.sheetBody { padding: 20px 22px; }
+.productSummary { display: grid; grid-template-columns: 72px minmax(0,1fr); gap: 16px; align-items: center; padding-bottom: 22px; }
+.summaryImage { position: relative; width: 72px; height: 84px; border-radius: 6px; background: white; overflow: hidden; }
+.summaryImage img { object-fit: contain; padding: 4px; }
+.productSummary p { font-size: 11px; color: #526963; }
+.productSummary h3 { margin: 4px 0 8px; font: 600 16px/1.4 var(--font-body), sans-serif; overflow-wrap: anywhere; }
+.productSummary span { font-size: 15px; font-weight: 600; }
+.productSummary small { font-size: 12px; font-weight: 400; color: #526963; }
+.quantityRow { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 14px; }
+.stepper { display: flex; border: 1px solid #82958e; border-radius: 8px; background: #fff; overflow: hidden; }
+.stepper button { width: 44px; height: 44px; font-size: 21px; color: #28564f; cursor: pointer; }
+.stepper button:disabled { color: #737e79; cursor: default; }
+.stepper input { width: 48px; min-height: 44px; padding: 0; border: 0; background: transparent; text-align: center; font-size: 16px; font-variant-numeric: tabular-nums; appearance: textfield; }
+.stepper input::-webkit-inner-spin-button, .stepper input::-webkit-outer-spin-button { appearance: none; margin: 0; }
+.requestLabel { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; margin: 24px 0 10px; font-size: 14px; font-weight: 600; }
+.requestLabel span { font-size: 12px; color: #526963; font-weight: 400; }
+.request { display: block; width: 100%; padding: 12px; border: 1px solid #82958e; border-radius: 8px; background: #fff; font-size: 16px; line-height: 1.6; resize: vertical; }
+.request::placeholder { color: #526963; }
+.help { margin-top: 10px; color: #526963; font-size: 12px; line-height: 1.7; }
+.preview { margin-top: 16px; font-size: 12px; }
+.preview summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; text-decoration: underline; text-underline-offset: 4px; }
+.preview pre { padding: 12px; background: #e7eef1; font: 12px/1.8 var(--font-body), sans-serif; white-space: pre-wrap; overflow-wrap: anywhere; }
+.sheetFooter { position: sticky; bottom: 0; padding: 18px 22px max(20px, env(safe-area-inset-bottom)); border-top: 1px solid #d9e1de; background: #fafbf8; }
+.subtotal { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 16px; font-size: 13px; }
+.subtotal strong { font-size: 22px; font-weight: 600; }
+.primary { display: flex; justify-content: center; align-items: center; gap: 10px; width: 100%; min-height: 52px; padding: 12px 16px; border-radius: 8px; background: #28564f; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; transition: background-color 180ms; }
+.primary:hover { background: #1e443e; }
+.primary svg { flex-shrink: 0; }
+.sheetFooter > p { margin-top: 10px; text-align: center; font-size: 11px; color: #526963; line-height: 1.6; }
+.dialog :where(button,input,textarea,summary):focus-visible, .stepper :focus-visible, .primary:focus-visible { outline: 3px solid #a64049; outline-offset: -3px; }
+@keyframes arrive { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+@media (min-width: 768px) { .dialog { inset: 0; margin: auto; border-radius: 16px; max-height: 90dvh; } .sheetHeader { padding: 24px 28px 18px; } .sheetBody { padding: 22px 28px; } .sheetFooter { padding: 20px 28px; } }
+@media (prefers-reduced-motion: reduce) { .dialog[open] { animation: none; } .primary { transition: none; } }

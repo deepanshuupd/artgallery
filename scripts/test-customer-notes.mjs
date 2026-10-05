@@ -12,15 +12,15 @@ import sharp from "sharp";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const read = relative => readFileSync(path.join(root, relative), "utf8");
 const assets = JSON.parse(read("src/data/customer-note-assets.json"));
-const module = { exports: {} };
+const notesModule = { exports: {} };
 const compiled = ts.transpileModule(read("src/data/customer-notes.ts"), {
   compilerOptions: { module: ts.ModuleKind.CommonJS, esModuleInterop: true },
 });
 new Function("require", "module", "exports", compiled.outputText)(name => {
   assert.equal(name, "./customer-note-assets.json");
   return assets;
-}, module, module.exports);
-const notes = module.exports.customerNotes;
+}, notesModule, notesModule.exports);
+const notes = notesModule.exports.customerNotes;
 
 test("genuine notes preserve wording, private names and source distinctions", () => {
   assert.deepEqual(notes.slice(0, 5).map(note => note.author), ["Kanishak", "Sargam", "Ankita", "Tamanna", "Dinesh"]);
@@ -127,16 +127,47 @@ test("review attribution remains legible at the mobile base breakpoint", () => {
   assert.match(names, /font-weight: 600/);
   assert.match(sources, /font-size: 13px/);
   assert.match(declaration(".source"), /font-size: 13px/);
+  const variables = rule => Object.fromEntries(
+    [...rule.matchAll(/(--[\w-]+)\s*:\s*([^;]+);/g)].map(([, name, value]) => [name, value.trim()])
+  );
+  const property = (rule, name) => {
+    const match = rule.match(new RegExp(`(?:^|;)\\s*${name}:\\s*([^;]+)`));
+    assert.ok(match, `Missing ${name} declaration`);
+    return match[1].trim();
+  };
+  const resolveColour = (value, tokens, seen = new Set()) => {
+    if (/^#[a-f0-9]{6}$/i.test(value)) return value;
+    const match = value.match(/^var\(\s*(--[\w-]+)\s*(?:,\s*([\s\S]+))?\)$/);
+    assert.ok(match, `Unsupported colour: ${value}`);
+    const [, name, fallback] = match;
+    if (Object.hasOwn(tokens, name)) {
+      assert.ok(!seen.has(name), `Circular colour token: ${name}`);
+      return resolveColour(tokens[name], tokens, new Set([...seen, name]));
+    }
+    assert.ok(fallback, `Missing colour token and fallback: ${name}`);
+    return resolveColour(fallback.trim(), tokens, seen);
+  };
+  const section = declaration(".section");
+  const palette = read("src/components/home/home-palette.module.css").match(/\.page\s*\{([^}]+)\}/);
+  assert.ok(palette, "Missing homepage palette");
+  const contexts = [
+    ["default", variables(section)],
+    ["homepage", { ...variables(palette[1]), ...variables(section) }],
+  ];
   const luminance = hex => {
     const channels = hex.slice(1).match(/../g).map(channel => parseInt(channel, 16) / 255);
     const linear = channels.map(value => value <= .04045 ? value / 12.92 : ((value + .055) / 1.055) ** 2.4);
     return linear[0] * .2126 + linear[1] * .7152 + linear[2] * .0722;
   };
-  const background = declaration(".section").match(/background: (#[a-f0-9]{6})/)[1];
-  for (const rule of [names, sources, declaration(".footer p"), declaration(".motionButton")]) {
-    const foreground = rule.match(/color: (#[a-f0-9]{6})/)[1];
-    const ratio = (luminance(foreground) + .05) / (luminance(background) + .05);
-    assert.ok(ratio >= 7, `${foreground} needs at least 7:1 contrast, got ${ratio.toFixed(2)}`);
+  for (const [context, tokens] of contexts) {
+    const background = resolveColour(property(section, "background"), tokens);
+    for (const rule of [names, sources, declaration(".footer p"), declaration(".motionButton")]) {
+      const foreground = resolveColour(property(rule, "color"), tokens);
+      const light = Math.max(luminance(foreground), luminance(background));
+      const dark = Math.min(luminance(foreground), luminance(background));
+      const ratio = (light + .05) / (dark + .05);
+      assert.ok(ratio >= 7, `${context} ${foreground} on ${background} needs at least 7:1 contrast, got ${ratio.toFixed(2)}`);
+    }
   }
 });
 

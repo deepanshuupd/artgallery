@@ -1,13 +1,18 @@
-.section { position: relative; padding: 44px 0 32px; color: #fff6e7; background: #813c2d; overflow: clip; scroll-margin-top: 74px; }
+.section {
+  --notes-ink: var(--home-paper, #fff6e7);
+  --notes-muted: var(--home-berry-light, #fff0e1);
+  --notes-accent: var(--home-berry-light, #edbd91);
+  position: relative; padding: 44px 0 32px; color: var(--notes-ink); background: var(--home-berry-deep, #813c2d); overflow: clip; scroll-margin-top: 74px;
+}
 .shell { max-width: 1180px; padding-inline: 20px; margin-inline: auto; }
 .heading { margin-bottom: 28px; }
-.eyebrow { margin: 0 0 14px; color: #fff0e1; font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+.eyebrow { margin: 0 0 14px; color: var(--notes-muted, #fff0e1); font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
 .heading h2 { font-size: clamp(44px, 10vw, 58px); font-weight: 500; line-height: .99; letter-spacing: -.025em; margin: 0; }
-.heading h2 em { color: #edbd91; font-weight: 500; }
-.intro { max-width: 310px; margin: 18px 0 0; color: #fff0e1; font-size: 14px; line-height: 1.65; }
+.heading h2 em { color: var(--notes-accent, #edbd91); font-weight: 500; }
+.intro { max-width: 310px; margin: 18px 0 0; color: var(--notes-muted, #fff0e1); font-size: 14px; line-height: 1.65; }
 .wall { position: relative; }
-.row { border-top: 1px solid #e9c3a438; overflow-x: auto; scrollbar-width: thin; scrollbar-color: #edbd9170 transparent; overscroll-behavior-inline: contain; }
-.row:last-child { border-bottom: 1px solid #e9c3a438; }
+.row { border-top: 1px solid var(--home-notes-divider, #e9c3a438); overflow-x: auto; scrollbar-width: thin; scrollbar-color: var(--notes-accent, #edbd9170) transparent; overscroll-behavior-inline: contain; }
+.row:last-child { border-bottom: 1px solid var(--home-notes-divider, #e9c3a438); }
 .track { display: flex; width: max-content; }
 .group { display: flex; align-items: center; gap: 44px; padding: 28px 44px 28px 0; }
 .repeat { display: none; }
@@ -18,17 +23,17 @@
 .words { min-width: 0; }
 .words blockquote { margin: 0; font-family: var(--font-heading), serif; font-size: 25px; font-weight: 500; line-height: 1.22; }
 .words blockquote p { margin: 0; white-space: pre-line; overflow-wrap: anywhere; }
-.words figcaption { margin-top: 16px; color: #fffaf1; font-size: 14px; font-weight: 600; line-height: 1.5; }
+.words figcaption { margin-top: 16px; color: var(--notes-ink, #fffaf1); font-size: 14px; font-weight: 600; line-height: 1.5; }
 .words figcaption > span { display: block; }
-.words figcaption > span:last-child { font-size: 13px; font-weight: 400; color: #fff0e1; margin-top: 4px; }
+.words figcaption > span:last-child { font-size: 13px; font-weight: 400; color: var(--notes-muted, #fff0e1); margin-top: 4px; }
 .motionControls { height: 44px; display: flex; justify-content: flex-end; align-items: center; max-width: 1180px; margin: auto; padding-inline: 20px; }
-.motionButton { display: none; align-items: center; gap: 8px; padding: 0; min-height: 44px; color: #fffaf1; background: transparent; border: 0; font-size: 13px; cursor: pointer; }
+.motionButton { display: none; align-items: center; gap: 8px; padding: 0; min-height: 44px; color: var(--notes-ink, #fffaf1); background: transparent; border: 0; font-size: 13px; cursor: pointer; }
 .motionButton svg { width: 14px; height: 14px; }
 .motionButton:focus-visible, .storiesLink:focus-visible { outline: 2px solid #fff4e4; outline-offset: 5px; }
 .footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 24px; }
-.footer p { margin: 0; color: #fff0e1; font-size: 12px; line-height: 1.65; }
-.storiesLink { color: #fffaf1; display: inline-flex; align-items: center; min-height: 44px; font-size: 14px; font-weight: 600; text-decoration: none; }
-.storiesLink:hover { color: #edbd91; }
+.footer p { margin: 0; color: var(--notes-muted, #fff0e1); font-size: 12px; line-height: 1.65; }
+.storiesLink { color: var(--notes-ink, #fffaf1); display: inline-flex; align-items: center; min-height: 44px; font-size: 14px; font-weight: 600; text-decoration: underline; text-underline-offset: 5px; }
+.storiesLink:hover { color: var(--notes-accent, #edbd91); }
 
 /* Geometry is identical before hydration: enhancement adds only motion.
    Without JS or with reduced motion, rows are natively scrollable. */

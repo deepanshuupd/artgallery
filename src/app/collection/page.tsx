@@ -3,6 +3,7 @@ import { pageMetadata } from "@/lib/seo";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 
 import { ProductShowcase } from "@/components/products/product-showcase";
+import forest from "@/components/products/forest-storefront.module.css";
 import { getProducts } from "@/lib/products";
 
 export const dynamic = "force-dynamic";
@@ -31,12 +32,15 @@ export default async function CollectionPage({
   ]);
 
   return (
-    <main className="store-page heritage-shell">
+    <main className={forest.surface}>
+      <div className={`store-page heritage-shell ${forest.shopShell}`}>
         <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Shop", href: "/collection" }]} />
-        <header className="store-heading">
-          <p className="craft-eyebrow">Little things. Lasting connections.</p>
-          <h1>Find your piece of <em>Kumaon.</em></h1>
-          <p>Aipan-inspired art, Pahadi keychains, souvenir magnets and personal gifts. Choose something that feels like home.</p>
+        <header className={`store-heading ${forest.shopHeading}`}>
+          <div className={forest.headingCopy}>
+            <p className="craft-eyebrow">KumaonRang · Pithoragarh</p>
+            <h1>The shop</h1>
+            <p>Aipan art, Pahadi keepsakes and thoughtful gifts from Kumaon.</p>
+          </div>
         </header>
 
         <ProductShowcase
@@ -46,6 +50,7 @@ export default async function CollectionPage({
           showCategoryFilter
           title="Shop by category"
         />
+      </div>
     </main>
   );
 }

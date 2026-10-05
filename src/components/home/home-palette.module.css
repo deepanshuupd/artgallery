@@ -1,0 +1,137 @@
+/* The colours belong to the homepage. Shop, article and policy surfaces keep
+   their own palette; shared component styles consume these tokens with fallbacks. */
+.page {
+  --home-ink: #253d38;
+  --home-muted: #495d57;
+  --home-pine: #264f42;
+  --home-pine-hover: #193a30;
+  --home-river: #285d6a;
+  --home-geru: #994831;
+  --home-buransh: #713d50;
+  --home-marigold: #ebbc62;
+  --home-paper: #fffaf2;
+  --home-mist: #e4eff0;
+  --home-chalk: #f8faf6;
+  --home-sage: #e4ecdf;
+  --home-gold-wash: #f7e5b8;
+  --home-berry-deep: #65384a;
+  --home-berry-light: #f7e1df;
+  --home-section-border: #cad8d0;
+  --home-journey-glow: #d7e6dc70;
+  --home-mat-pine: #c6dcd1;
+  --home-mat-gold: #f1c982;
+  --home-mat-river: #bfd7df;
+  --home-mat-berry: #e4c6cb;
+  --home-notes-divider: #b48494;
+  --color-espresso: var(--home-ink);
+  --color-charcoal-linen: var(--home-muted);
+  --color-geru: var(--home-geru);
+  --color-biswar: var(--home-paper);
+  color: var(--home-ink);
+  background: var(--home-chalk);
+}
+
+.page :global(.craft-eyebrow) { color: var(--home-pine); }
+.page :global(.craft-button) {
+  color: var(--home-paper);
+  background: var(--home-pine);
+  border-color: var(--home-pine);
+}
+.page :global(.craft-button:hover) {
+  background: var(--home-pine-hover);
+  border-color: var(--home-pine-hover);
+}
+.page :global(.craft-text-link) {
+  color: var(--home-pine);
+  background: var(--home-paper);
+  border-color: #758c80;
+  font-size: 13px;
+}
+.page :global(.craft-text-link:hover) {
+  color: var(--home-pine-hover);
+  border-color: var(--home-pine);
+  background: #edf4ec;
+}
+.page :global(a:focus-visible), .page :global(button:focus-visible), .page :global(summary:focus-visible) {
+  outline: 3px solid var(--home-river);
+  outline-offset: 5px;
+}
+.page :global(#customer-notes a:focus-visible), .page :global(#customer-notes button:focus-visible) {
+  outline-color: var(--home-paper);
+}
+
+/* A cool, open welcome; the warm photograph frame supplies the contrast. */
+.page :global(.heritage-hero) {
+  border-bottom: 0;
+  background-color: var(--home-mist);
+  background-image: linear-gradient(120deg, var(--home-mist) 35%, #dce9e4);
+  background-size: auto;
+}
+.page :global(.heritage-hero__grid) { padding-block: 36px 30px; }
+.page :global(.heritage-hero h1) { max-width: 560px; }
+.page :global(.heritage-hero h1 em) { color: var(--home-river); }
+.page :global(.heritage-hero__intro),
+.page :global(.heritage-hero__description) { color: var(--home-muted); }
+.page :global(.heritage-hero__description) { font-size: 14px; }
+.page :global(.heritage-hero .craft-text-link) { background: var(--home-paper); }
+.page :global(.heritage-hero__art) { background: var(--home-marigold); }
+.page :global(.heritage-hero__art::before) { border-color: #99662b80; }
+.page :global(.heritage-hero__ornament) { color: var(--home-geru); }
+.page :global(.heritage-artwork) { box-shadow: 0 12px 28px #60401d24; }
+.page :global(.heritage-artwork__photo) { background: var(--home-paper); }
+.page :global(.heritage-artwork__caption .craft-eyebrow) { color: var(--home-geru); }
+.page :global(.heritage-hero__note) { border-color: #758c80; }
+.page :global(.heritage-hero__note > span:first-child) { color: var(--home-river); }
+.page :global(.heritage-hero__note > span:last-child) { color: var(--home-muted); }
+.page :global(.heritage-hero__signature) { color: #523e24; }
+.page :global(.craft-ribbon) {
+  position: relative;
+  border-top: 0;
+  padding-block: 16px 12px;
+  color: var(--home-pine);
+  background: #d5e5df;
+}
+.page :global(.craft-ribbon)::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: linear-gradient(to right, var(--home-river) 0% 25%, var(--home-marigold) 25% 50%, var(--home-buransh) 50% 75%, var(--home-pine) 75% 100%);
+}
+
+/* A sunlit gifting pause between the customer stories and the founder. */
+.page :global(.heritage-gifting) {
+  margin-top: 0;
+  color: var(--home-ink);
+  background: var(--home-gold-wash);
+  border-block: 0;
+  padding-block: 40px;
+}
+.page :global(.heritage-gifting__ornament) { color: var(--home-geru); opacity: .24; }
+.page :global(.heritage-gifting__photo) {
+  border-color: var(--home-paper);
+  background: var(--home-paper);
+  box-shadow: 0 8px 24px #60401d24;
+}
+.page :global(.heritage-gifting__photo > span) { color: var(--home-ink); }
+.page :global(.heritage-gifting .craft-eyebrow) { color: var(--home-pine); }
+.page :global(.heritage-gifting h2 em) { color: var(--home-geru); }
+.page :global(.heritage-gifting__intro),
+.page :global(.heritage-occasions details p) { color: var(--home-muted); font-size: 14px; }
+.page :global(.heritage-occasions),
+.page :global(.heritage-occasions details) { border-color: #b9a879; }
+.page :global(.heritage-occasions summary) { font-size: 14px; min-height: 48px; }
+.page :global(.heritage-occasions summary > span) { color: var(--home-pine); font-size: 22px; }
+
+/* The full-width field has a separate inner grid, preserving postcard gutters. */
+.page :global(.heritage-story-section) { background: var(--home-sage); }
+.page :global(.heritage-story) { border-top: 0; padding-block: 36px 42px; }
+.page :global(.heritage-story__mark) { color: var(--home-pine); }
+.page :global(.heritage-story em) { color: var(--home-pine); }
+.page :global(.heritage-story__copy > p:not(.craft-eyebrow)) { color: var(--home-muted); font-size: 14px; }
+
+@media (min-width: 768px) {
+  .page :global(.heritage-hero__grid) { padding-block: 58px; }
+  .page :global(.heritage-gifting) { padding-block: 64px; }
+  .page :global(.heritage-story) { padding-block: 56px 64px; }
+}

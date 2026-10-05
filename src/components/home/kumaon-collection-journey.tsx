@@ -19,7 +19,7 @@ const collections: { name: ProductCategory; label: string; note: string; action:
 
 function JourneyCard({ collection, image, index }: { collection: typeof collections[number]; image?: ProductImageReference; index: number }) {
   const [failed, setFailed] = useState(false);
-  return <Link prefetch={false} href={`/${getCategoryPath(collection.name)}`} data-journey-card className={styles.card}
+  return <Link prefetch={false} href={`/${getCategoryPath(collection.name)}`} data-journey-card data-collection={collection.name} className={styles.card}
     style={{ "--tilt": `${collection.tilt}deg`, "--depth": index === 1 ? 4 : 3 - index, "--mobile-scale": index === 1 ? 1.45 : 0.94, "--desktop-scale": index === 1 ? 1.16 : 0.88 } as CSSProperties}>
     <div className={styles.photo}>
       {image?.src && !failed ? <Image src={image.cardSrc} alt={image.alt} fill quality={70}
@@ -27,7 +27,7 @@ function JourneyCard({ collection, image, index }: { collection: typeof collecti
         className={collection.name === "Fridge Magnets" ? styles.cover : styles.contain} onError={() => setFailed(true)} />
         : <span className={styles.fallback}>{collection.label}</span>}
     </div>
-    <div className={styles.cardCopy}><h3>{collection.label}</h3><p>{collection.note}</p><span>{collection.action}</span></div>
+    <div className={styles.cardCopy}><h3>{collection.label}</h3><p>{collection.note}</p><span>{collection.action}<span aria-hidden="true">↗</span></span></div>
   </Link>;
 }
 

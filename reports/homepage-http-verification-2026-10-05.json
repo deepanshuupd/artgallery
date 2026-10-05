@@ -1,0 +1,97 @@
+{
+  "status": 200,
+  "title": "KumaonRang | Aipan Art, Pahadi Keychains &amp; Gifts",
+  "canonical": "https://www.kumaonrang.com",
+  "newHeading": true,
+  "sectionOrder": [
+    {
+      "label": "heritage-hero__grid",
+      "index": 24090
+    },
+    {
+      "label": "collections-title",
+      "index": 29809
+    },
+    {
+      "label": "customer-notes-title",
+      "index": 38731
+    },
+    {
+      "label": "heritage-gifting__grid",
+      "index": 48219
+    },
+    {
+      "label": "heritage-title",
+      "index": 53907
+    }
+  ],
+  "ordered": true,
+  "cards": [
+    {
+      "category": "Keychains",
+      "href": "/pahadi-keychains"
+    },
+    {
+      "category": "Frames",
+      "href": "/aipan-frames"
+    },
+    {
+      "category": "Fridge Magnets",
+      "href": "/uttarakhand-souvenirs"
+    },
+    {
+      "category": "Personalized Gifts",
+      "href": "/kumaoni-gifts"
+    }
+  ],
+  "linkedPages": [
+    {
+      "path": "/pahadi-keychains",
+      "status": 200
+    },
+    {
+      "path": "/aipan-frames",
+      "status": 200
+    },
+    {
+      "path": "/uttarakhand-souvenirs",
+      "status": 200
+    },
+    {
+      "path": "/kumaoni-gifts",
+      "status": 200
+    },
+    {
+      "path": "/curated-hampers",
+      "status": 200
+    },
+    {
+      "path": "/about",
+      "status": 200
+    },
+    {
+      "path": "/aipan-art",
+      "status": 200
+    },
+    {
+      "path": "/customer-stories",
+      "status": 200
+    }
+  ],
+  "stylesheets": [
+    {
+      "path": "/_next/static/css/e5330b418914aaeb.css",
+      "status": 200
+    },
+    {
+      "path": "/_next/static/css/5b2907434f5baec3.css",
+      "status": 200
+    }
+  ],
+  "paletteCompiled": true,
+  "jsonLd": [
+    "Organization",
+    "WebPage"
+  ],
+  "productImageCount": 12
+}

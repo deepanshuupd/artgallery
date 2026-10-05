@@ -1,0 +1,61 @@
+{
+  "preview": "http://127.0.0.1:3013",
+  "productWidths": [
+    {
+      "documentWidth": 320,
+      "h1s": 1,
+      "titleSize": "25px",
+      "width": 320
+    },
+    {
+      "documentWidth": 390,
+      "h1s": 1,
+      "titleSize": "25.35px",
+      "width": 390
+    },
+    {
+      "documentWidth": 430,
+      "h1s": 1,
+      "titleSize": "27.95px",
+      "width": 430
+    },
+    {
+      "documentWidth": 768,
+      "h1s": 1,
+      "titleSize": "28px",
+      "width": 768
+    },
+    {
+      "documentWidth": 1440,
+      "h1s": 1,
+      "titleSize": "36px",
+      "width": 1440
+    }
+  ],
+  "mapWidths": [
+    {
+      "documentWidth": 320,
+      "mapWidth": 280,
+      "width": 320
+    },
+    {
+      "documentWidth": 390,
+      "mapWidth": 350,
+      "width": 390
+    },
+    {
+      "documentWidth": 430,
+      "mapWidth": 390,
+      "width": 430
+    }
+  ],
+  "manualChecks": [
+    "quantity carries into sheet",
+    "subtotal and optional message preview",
+    "multi-photo enlargement",
+    "Escape closes and restores trigger focus",
+    "reverse Tab remains inside modal",
+    "mobile order bar appears after order section",
+    "manual forest pause and automatic off-screen stop"
+  ]
+}

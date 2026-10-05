@@ -1,0 +1,221 @@
+{
+  "method": "WCAG relative luminance of declared opaque sRGB colour pairs; not a rendered-page accessibility audit",
+  "rows": [
+    {
+      "label": "hero body",
+      "foreground": "#495d57",
+      "background": "#e4eff0",
+      "ratio": 5.99,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "label": "hero body gradient end",
+      "foreground": "#495d57",
+      "background": "#dce9e4",
+      "ratio": 5.63,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "label": "hero heading",
+      "foreground": "#285d6a",
+      "background": "#e4eff0",
+      "ratio": 6.25,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "label": "hero heading gradient end",
+      "foreground": "#285d6a",
+      "background": "#dce9e4",
+      "ratio": 5.87,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "label": "primary button",
+      "foreground": "#fffaf2",
+      "background": "#264f42",
+      "ratio": 8.87,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "label": "button hover",
+      "foreground": "#fffaf2",
+      "background": "#193a30",
+      "ratio": 11.96,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "label": "secondary link",
+      "foreground": "#264f42",
+      "background": "#fffaf2",
+      "ratio": 8.87,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "label": "secondary hover",
+      "foreground": "#193a30",
+      "background": "#edf4ec",
+      "ratio": 11.1,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "label": "ribbon",
+      "foreground": "#264f42",
+      "background": "#d5e5df",
+      "ratio": 7.06,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "label": "product eyebrow",
+      "foreground": "#994831",
+      "background": "#fffaf2",
+      "ratio": 6.08,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "label": "arch signature",
+      "foreground": "#523e24",
+      "background": "#ebbc62",
+      "ratio": 5.74,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "label": "collections copy",
+      "foreground": "#495d57",
+      "background": "#f8faf6",
+      "ratio": 6.7,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "label": "collections heading",
+      "foreground": "#285d6a",
+      "background": "#f8faf6",
+      "ratio": 6.98,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "label": "collection action",
+      "foreground": "#264f42",
+      "background": "#f8faf6",
+      "ratio": 8.77,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "label": "stories text",
+      "foreground": "#fffaf2",
+      "background": "#65384a",
+      "ratio": 9.11,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "label": "stories muted/hover",
+      "foreground": "#f7e1df",
+      "background": "#65384a",
+      "ratio": 7.57,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "label": "hamper body",
+      "foreground": "#495d57",
+      "background": "#f7e5b8",
+      "ratio": 5.64,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "label": "hamper heading",
+      "foreground": "#994831",
+      "background": "#f7e5b8",
+      "ratio": 5.07,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "label": "hamper label",
+      "foreground": "#264f42",
+      "background": "#f7e5b8",
+      "ratio": 7.39,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "label": "founder copy",
+      "foreground": "#495d57",
+      "background": "#e4ecdf",
+      "ratio": 5.81,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "label": "founder heading",
+      "foreground": "#264f42",
+      "background": "#e4ecdf",
+      "ratio": 7.62,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "label": "focus on mist",
+      "foreground": "#285d6a",
+      "background": "#e4eff0",
+      "ratio": 6.25,
+      "minimum": 3,
+      "pass": true
+    },
+    {
+      "label": "focus on gold",
+      "foreground": "#285d6a",
+      "background": "#f7e5b8",
+      "ratio": 5.88,
+      "minimum": 3,
+      "pass": true
+    },
+    {
+      "label": "focus on arch",
+      "foreground": "#285d6a",
+      "background": "#ebbc62",
+      "ratio": 4.16,
+      "minimum": 3,
+      "pass": true
+    },
+    {
+      "label": "focus on sage",
+      "foreground": "#285d6a",
+      "background": "#e4ecdf",
+      "ratio": 6.06,
+      "minimum": 3,
+      "pass": true
+    },
+    {
+      "label": "focus on chalk",
+      "foreground": "#285d6a",
+      "background": "#f8faf6",
+      "ratio": 6.98,
+      "minimum": 3,
+      "pass": true
+    },
+    {
+      "label": "focus on stories",
+      "foreground": "#fffaf2",
+      "background": "#65384a",
+      "ratio": 9.11,
+      "minimum": 3,
+      "pass": true
+    }
+  ]
+}

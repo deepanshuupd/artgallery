@@ -1,28 +1,28 @@
 .questions {
   margin-top: 20px;
-  border-bottom: 1px solid #d9c4ad;
+  border-bottom: 1px solid var(--shop-border, #d9c4ad);
 }
 
 .question {
-  border-top: 1px solid #d9c4ad;
+  border-top: 1px solid var(--shop-border, #d9c4ad);
 }
 
 .question summary {
   min-height: 44px;
   padding-block: 14px;
-  color: #554238;
-  font-size: 13px;
+  color: var(--shop-ink, #554238);
+  font-size: 14px;
   font-weight: 500;
   line-height: 1.65;
   cursor: pointer;
 }
 
 .question summary::marker {
-  color: var(--color-geru);
+  color: var(--shop-pine, var(--color-geru));
 }
 
 .question summary:focus-visible {
-  outline: 2px solid var(--color-geru);
+  outline: 2px solid var(--shop-pine, var(--color-geru));
   outline-offset: 4px;
 }
 
@@ -40,7 +40,7 @@
   align-items: center;
   gap: 6px;
   min-height: 44px;
-  color: var(--color-geru);
+  color: var(--shop-pine, var(--color-geru));
   font-size: 13px;
   line-height: 1.6;
   text-decoration: underline;

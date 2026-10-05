@@ -1,0 +1,174 @@
+/* Quiet catalogue surfaces keep attention on product photography. */
+.surface {
+  --shop-ink: #303650;
+  --shop-copy: #555b70;
+  --shop-pine: #394463;
+  --shop-pine-hover: #252e49;
+  --shop-cedar: #315c61;
+  --shop-deep: #252e49;
+  --shop-field: #f0eff6;
+  --shop-paper: #fffefd;
+  --shop-photo: #fffefd;
+  --shop-sage: #e9e6f0;
+  --shop-border: #d9d5e4;
+  --shop-control-border: #777a91;
+  --shop-gold: #e8c384;
+  --shop-geru: #984d3b;
+  --shop-story-padding: 24px;
+  --shop-radius: 20px;
+  --color-espresso: var(--shop-ink);
+  color: var(--shop-ink);
+  background: var(--shop-field);
+}
+.surface :global(.craft-eyebrow) { color: var(--shop-pine); }
+.surface :global(.store-breadcrumbs) { color: var(--shop-copy); font-size: 12px; }
+.surface :global(.store-breadcrumbs a:hover) { color: var(--shop-pine); text-decoration: underline; text-underline-offset: 4px; }
+.surface :global(:where(a, button, select, summary, textarea):focus-visible) {
+  outline: 3px solid var(--shop-pine);
+  outline-offset: 4px;
+}
+.surface .shopShell { padding-block: 8px 44px; }
+
+/* A compact introduction leaves the catalogue close to the top on mobile. */
+.surface .shopHeading { max-width: none; padding: 0; border: 0; border-bottom: 1px solid var(--shop-border); border-radius: 0; background: transparent; }
+.headingCopy { padding: 12px 0 24px; }
+.surface .headingCopy > :global(.craft-eyebrow) { font-size: 10px; letter-spacing: .1em; }
+.surface .headingCopy h1 { max-width: 24ch; min-block-size: 0; margin-top: 8px; color: var(--shop-ink); font-size: clamp(30px, 8vw, 38px); line-height: 1.12; text-wrap: balance; }
+.headingCopy > p:last-of-type { max-width: 62ch; margin-top: 10px; color: var(--shop-copy); font-size: 13px; line-height: 1.7; }
+
+.surface :global(.store-catalog) { margin-top: 24px; scroll-margin-top: 110px; }
+.surface :global(.store-catalog-main) { min-width: 0; }
+.surface :global(.store-toolbar) { padding-block: 4px 14px; border-top: 0; border-bottom-color: var(--shop-border); }
+.surface :global(.store-filters) { gap: 8px; margin-bottom: 12px; padding: 4px 0 12px; scrollbar-color: var(--shop-control-border) transparent; }
+.surface :global(.store-filters__heading) { display: none; }
+.surface :global(.store-filters a) {
+  gap: 12px;
+  border-color: var(--shop-control-border);
+  border-radius: 8px;
+  background: var(--shop-paper);
+  color: var(--shop-pine);
+  font-size: 12px;
+}
+.surface :global(.store-filters a:hover) { background: var(--shop-sage); }
+.surface :global(.store-filters a[aria-current='page']) {
+  background: var(--shop-pine);
+  border-color: var(--shop-pine);
+  color: var(--shop-paper);
+  font-weight: 600;
+}
+.surface :global(.store-filters__count) {
+  min-width: 22px;
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: var(--shop-sage);
+  color: var(--shop-pine);
+  font-size: 10px;
+  line-height: 1.6;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.surface :global(.store-filters a[aria-current='page'] .store-filters__count) { background: var(--shop-paper); }
+/* Inset rings remain visible inside the horizontally scrollable category rail. */
+.surface :global(.store-filters a:focus-visible) { outline-offset: -4px; }
+.surface :global(.store-filters a[aria-current='page']:focus-visible) { outline-color: var(--shop-paper); }
+.surface :global(.store-tools) { max-width: none; gap: 10px; }
+.surface :global(.store-search), .surface :global(.store-sort select) {
+  border-color: var(--shop-control-border);
+  border-radius: 8px;
+  background: var(--shop-paper);
+  color: var(--shop-copy);
+  min-height: 48px;
+}
+.surface :global(.store-search input) { color: var(--shop-ink); }
+.surface :global(.store-search input::placeholder) { color: var(--shop-copy); opacity: 1; }
+.surface :global(.store-search:focus-within) { outline: 3px solid var(--shop-pine); outline-offset: 3px; }
+.surface :global(.store-results) { gap: 8px; align-items: baseline; }
+.surface :global(.store-results > p:last-child) { color: var(--shop-copy); font-size: 12px; }
+
+/* Keep colour outside the photographs. Small, quiet mats reveal full designs. */
+.surface :global(.store-product-grid) { gap: 22px 12px; margin-top: 18px; }
+.surface :global(.store-product) {
+  border: 1px solid var(--shop-border);
+  border-radius: 12px;
+  background: var(--shop-paper);
+}
+.surface :global(.store-product__link) { border-radius: inherit; }
+.surface :global(.store-product__image) {
+  border-radius: 11px 11px 0 0;
+  border-bottom: 1px solid var(--shop-border);
+  background: var(--shop-photo);
+}
+.surface :global(.store-product__image img) { padding: 8px; }
+.surface :global(.store-product__copy) { padding: 12px 10px 6px; }
+.surface :global(.store-product__category) { color: var(--shop-copy); font-size: 10px; letter-spacing: .04em; line-height: 1.5; }
+.surface :global(.store-product h3) { font-size: 21px; line-height: 1.18; }
+.surface :global(.store-product__price) { color: var(--shop-pine); font-size: 14px; }
+.surface :global(.store-product__price del) { color: var(--shop-copy); font-size: 12px; }
+.surface :global(.store-product__badge) { background: #f4e7cd; color: #6d4b23; font-size: 11px; font-weight: 600; }
+.surface :global(.store-product__availability) { margin-top: 8px; color: var(--shop-geru); font-size: 12px; text-transform: none; letter-spacing: 0; }
+.surface :global(.store-product__description), .surface :global(.store-product__placeholder small) { color: var(--shop-copy); }
+.surface :global(.store-product__action) { color: var(--shop-pine); font-size: 12px; font-weight: 600; }
+.surface :global(.store-product__action > span) { color: var(--shop-pine); }
+.surface :global(.store-empty) { color: var(--shop-ink); }
+.surface :global(.store-empty p), .surface :global(.store-editorial p) { color: var(--shop-copy); font-size: 14px; }
+.surface :global(.store-empty a) { color: var(--shop-pine); }
+.surface :global(.store-empty .craft-button) { background: var(--shop-pine); color: var(--shop-paper); border-color: var(--shop-pine); }
+.surface :global(.store-editorial) {
+  max-width: none;
+  padding: 24px;
+  border: 1px solid var(--shop-border);
+  border-radius: 20px;
+  background: var(--shop-paper);
+}
+.surface :global(.store-editorial > p) { max-width: 75ch; }
+
+.surface :global([data-product-availability]) {
+  padding: 10px 12px;
+  border-left: 3px solid var(--shop-pine);
+  border-radius: 0 8px 8px 0;
+  background: var(--shop-sage);
+  color: var(--shop-pine);
+}
+.surface :global([data-product-availability='out-of-stock']) {
+  border-left-color: var(--shop-geru);
+  background: #f5e8dc;
+  color: #88412f;
+}
+.related { margin-top: 48px; padding-top: 28px; border-top: 1px solid var(--shop-border); }
+.related > header { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px 24px; }
+.related h2 { margin-top: 6px; font: 500 32px/1.12 var(--font-heading), serif; }
+.related > header > a { display: inline-flex; align-items: center; gap: 16px; min-height: 44px; color: var(--shop-pine); font-size: 13px; font-weight: 600; }
+.related > header > a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+@media (hover: hover) {
+  .surface :global(.store-product__link:hover h3) { color: var(--shop-pine); }
+  .surface :global(.store-product:hover) { border-color: var(--shop-control-border); }
+  /* Keep the full artwork visible even while hovering. */
+  .surface :global(.store-product__link:hover img) { transform: none; }
+}
+@media (min-width: 768px) {
+  .surface .shopShell { padding-block: 16px 64px; }
+  .headingCopy { padding: 20px 0 28px; }
+  .surface .headingCopy h1 { font-size: 44px; }
+  .headingCopy > p:last-of-type { font-size: 14px; }
+  .surface :global(.store-catalog) { margin-top: 32px; }
+  .surface :global(.store-product-grid) { gap: 28px 22px; }
+  .surface :global(.store-product__copy) { padding: 16px 16px 10px; }
+  .surface :global(.store-product h3) { font-size: 26px; }
+  .surface :global(.store-product__category) { font-size: 11px; }
+  .surface :global(.store-product__price) { font-size: 16px; }
+  .surface :global(.store-editorial) { padding: 32px; }
+  .related { margin-top: 64px; padding-top: 36px; }
+  .related h2 { font-size: 40px; }
+}
+@media (min-width: 1024px) {
+  .surface :global(.store-catalog[data-category-navigation]) { display: grid; grid-template-columns: 184px minmax(0, 1fr); align-items: start; gap: 32px; }
+  .surface :global(.store-catalog[data-category-navigation] > .store-filters) { display: flex; flex-direction: column; overflow: visible; gap: 8px; margin: 0; padding: 4px 0; }
+  .surface :global(.store-filters__heading) { display: block; margin-bottom: 10px; color: var(--shop-copy); font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+  .surface :global(.store-filters a) { width: 100%; justify-content: space-between; padding-inline: 12px; }
+  .surface :global(.store-tools) { grid-template-columns: minmax(0, 1fr) 178px; }
+  .surface :global(.store-product-grid) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .surface :global(.store-catalog[data-category-navigation] .store-product h3) { font-size: 24px; }
+}
+
+.productSurface { --shop-field: #fafbf8; --shop-ink: #263c46; --shop-copy: #526963; --shop-pine: #28564f; --shop-border: #d9e1de; --shop-sage: #e7eef1; }

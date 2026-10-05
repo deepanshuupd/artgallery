@@ -1,0 +1,113 @@
+{
+  "checkedAt": "2026-10-05T05:43:20.968Z",
+  "browser": "Chrome",
+  "mobileProduct": "/kumaoni-gifts/set-of-2-om-mandir-bells",
+  "desktopProduct": "/pahadi-keychains/i-uttarakhand-couple-keychain",
+  "phoneSizes": [
+    {
+      "galleryWidth": 280,
+      "informationHeight": 252,
+      "overflow": 0,
+      "thumbnailStrip": [
+        {
+          "scrollWidth": 239,
+          "visibleButtons": 4,
+          "width": 239
+        }
+      ],
+      "titleSize": "26px",
+      "width": 320
+    },
+    {
+      "galleryWidth": 350,
+      "informationHeight": 252,
+      "overflow": 0,
+      "thumbnailStrip": [
+        {
+          "scrollWidth": 309,
+          "visibleButtons": 4,
+          "width": 309
+        }
+      ],
+      "titleSize": "26px",
+      "width": 390
+    },
+    {
+      "galleryWidth": 390,
+      "informationHeight": 252,
+      "overflow": 0,
+      "thumbnailStrip": [
+        {
+          "scrollWidth": 349,
+          "visibleButtons": 4,
+          "width": 349
+        }
+      ],
+      "titleSize": "28.38px",
+      "width": 430
+    },
+    {
+      "galleryWidth": 600,
+      "informationHeight": 252,
+      "overflow": 0,
+      "thumbnailStrip": [
+        {
+          "scrollWidth": 559,
+          "visibleButtons": 4,
+          "width": 559
+        }
+      ],
+      "titleSize": "30px",
+      "width": 768
+    }
+  ],
+  "desktopSizes": [
+    {
+      "galleryHeight": 580,
+      "galleryTop": 214.3359375,
+      "overflow": 0,
+      "panelTop": 214.3359375,
+      "pictureFit": "contain",
+      "titleSize": "30px",
+      "topDifference": 0,
+      "width": 1024
+    },
+    {
+      "galleryHeight": 580,
+      "galleryTop": 214.3359375,
+      "overflow": 0,
+      "panelTop": 214.3359375,
+      "pictureFit": "contain",
+      "titleSize": "36px",
+      "topDifference": 0,
+      "width": 1440
+    }
+  ],
+  "mobileAccordion": {
+    "before": {
+      "infoHeight": 816.2421875,
+      "relatedTop": 1489.3046875
+    },
+    "after": {
+      "infoHeight": 816.2421875,
+      "relatedTop": 1489.3046875
+    },
+    "note": "Both values stayed unchanged during expansion; 280ms grid and 220ms opacity transitions inspected. Specifications announced in accessibility tree and longer content scrolls inside the 252px viewport."
+  },
+  "desktopAccordion": {
+    "before": {
+      "panelHeight": 821.421875,
+      "relatedTop": 1158.7578125
+    },
+    "after": {
+      "informationHeight": 260,
+      "panelHeight": 821.421875,
+      "relatedTop": 1158.7578125
+    }
+  },
+  "gallery": "All four photo buttons visible at 320/390/430px. Selecting photo 4 updated the counter to 4/4 and the full photo loaded. Photo 1 was restored.",
+  "keyboard": "Enter collapsed Product details.",
+  "orderDialog": "Opens, focuses quantity, closes and restores focus to the Order via WhatsApp button. No message sent.",
+  "viewportOverrides": "Reset after responsive tests",
+  "limits": "Chrome responsive viewport checks; not a physical iPhone/Safari test. Browser-extension warnings excluded from application errors."
+}

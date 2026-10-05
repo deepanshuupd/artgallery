@@ -10,6 +10,7 @@ import { HeroSection } from "@/components/home/hero-section";
 import { HeritageStory } from "@/components/home/heritage-story";
 import { CustomerNotes } from "@/components/home/customer-notes";
 import postcardStyles from "@/components/about/studio-postcard.module.css";
+import homeStyles from "@/components/home/home-palette.module.css";
 import { getProducts } from "@/lib/products";
 import type { Product, ProductCategory } from "@/types/product";
 import { getProductImage, type ProductImageReference } from "@/lib/product-image";
@@ -93,7 +94,7 @@ export default async function HomePage() {
   }
 
   return (
-    <main className={postcardStyles.homePage}>
+    <main className={`${postcardStyles.homePage} ${homeStyles.page}`}>
       <JsonLd data={{ "@context": "https://schema.org", "@type": "WebPage",
         "@id": `${getSiteUrl()}#webpage`, url: getSiteUrl(), name: homeTitle,
         ...(primaryImage ? { primaryImageOfPage: primaryImage } : {}),

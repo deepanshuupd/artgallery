@@ -8,6 +8,13 @@ const nextConfig: NextConfig = {
   outputFileTracingRoot: path.join(__dirname),
   // Keep descriptions and social metadata in <head>, including for audits.
   htmlLimitedBots: /.*/,
+  async headers() {
+    // Versioned, pre-compressed decoration is served directly by the CDN.
+    return [
+      "/video/pine-wind-mobile-v1.mp4", "/video/pine-wind-desktop-v1.mp4",
+      "/video/pine-poster-mobile-v1.webp", "/video/pine-poster-desktop-v1.webp",
+    ].map(source => ({ source, headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] }));
+  },
   images: {
     // Serve source images directly to avoid Vercel Image Optimization usage.
     unoptimized: true,

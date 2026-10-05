@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { ProductDetailView } from "@/components/products/product-detail-view";
+import { ProductCard } from "@/components/products/product-card";
 import { getCategoryPath, getProductPath, getProductByPublicSlug } from "@/lib/catalog";
 import { getProducts } from "@/lib/products";
 import { pageMetadata } from "@/lib/seo";
@@ -10,6 +12,7 @@ import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { JsonLd } from "@/components/seo/json-ld";
 import { getProductImage } from "@/lib/product-image";
 import { getProductImageObjects } from "@/lib/product-image-schema";
+import forest from "@/components/products/forest-storefront.module.css";
 
 export const dynamic = "force-dynamic";
 
@@ -22,13 +25,13 @@ type ProductDetailsPageProps = {
 
 async function findProduct({ params }: ProductDetailsPageProps) {
   const [{ category, slug }, products] = await Promise.all([params, getProducts()]);
-  return getProductByPublicSlug(products, category, slug);
+  return { product: getProductByPublicSlug(products, category, slug), products };
 }
 
 export async function generateMetadata(
   props: ProductDetailsPageProps,
 ): Promise<Metadata> {
-  const product = await findProduct(props);
+  const { product } = await findProduct(props);
 
   if (!product) return { title: "Product not found", robots: { index: false } };
 
@@ -37,12 +40,13 @@ export async function generateMetadata(
 }
 
 export default async function ProductDetailsPage(props: ProductDetailsPageProps) {
-  const product = await findProduct(props);
+  const { product, products } = await findProduct(props);
   if (!product) notFound();
 
   const url = `${getSiteUrl()}${getProductPath(product)}`;
   const images = getProductImageObjects(product, getSiteUrl());
-  return <>
+  const related = products.filter(item => item.category === product.category && item.id !== product.id).slice(0, 3);
+  return <div className={`${forest.surface} ${forest.productSurface}`}>
     <div className="heritage-shell"><Breadcrumbs items={[{ label: "Home", href: "/" }, { label: product.category, href: `/${getCategoryPath(product.category)}` }, { label: product.name.trim(), href: getProductPath(product) }]} /></div>
     <JsonLd data={{
       "@context": "https://schema.org", "@type": "Product", "@id": `${url}#product`,
@@ -58,6 +62,14 @@ export default async function ProductDetailsPage(props: ProductDetailsPageProps)
       url, name: product.name.trim(), mainEntity: { "@id": `${url}#product` },
       ...(images.length ? { primaryImageOfPage: images[0] } : {}),
     }} />
-    <ProductDetailView product={product} />
-  </>;
+    <ProductDetailView product={product}>
+      {related.length > 0 && <section className={forest.related} aria-labelledby="related-products-title">
+        <header>
+          <div><h2 id="related-products-title">Related products</h2></div>
+          <Link prefetch={false} href={`/${getCategoryPath(product.category)}`}>See all {product.category.toLowerCase()}</Link>
+        </header>
+        <div className="store-product-grid">{related.map(item => <ProductCard key={item.id} product={item} />)}</div>
+      </section>}
+    </ProductDetailView>
+  </div>;
 }

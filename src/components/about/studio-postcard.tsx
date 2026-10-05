@@ -42,16 +42,25 @@ export function StudioPostcard() {
 
   useEffect(() => {
     const customerNotes = document.getElementById("customer-notes");
+    const originStory = document.querySelector('section[aria-labelledby="heritage-title"]');
     const postcard = rail.current;
-    if (!customerNotes || !postcard || !("IntersectionObserver" in window)) return;
-    // Keep the peeking paper out of the reading area on narrow screens.
-    const observer = new IntersectionObserver(([entry]) => {
-      postcard.dataset.reading = String(entry.isIntersecting);
-    }, { rootMargin: "-64px 0px 0px", threshold: 0 });
-    observer.observe(customerNotes);
+    const sections = [customerNotes, originStory].filter((section): section is Element => section !== null);
+    if (!sections.length || !postcard || !("IntersectionObserver" in window)) return;
+    // Preserve the offer elsewhere without placing it over the origin map.
+    const visible = new Set<Element>();
+    const observer = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) visible.add(entry.target);
+        else visible.delete(entry.target);
+      }
+      postcard.dataset.reading = String(customerNotes !== null && visible.has(customerNotes));
+      postcard.dataset.originReading = String(originStory !== null && visible.has(originStory));
+    }, { rootMargin: "-74px 0px 0px", threshold: 0 });
+    sections.forEach(section => observer.observe(section));
     return () => {
       observer.disconnect();
       delete postcard.dataset.reading;
+      delete postcard.dataset.originReading;
     };
   }, []);
 

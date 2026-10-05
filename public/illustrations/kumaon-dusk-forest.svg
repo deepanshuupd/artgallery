@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 480" fill="none">
+  <defs>
+    <linearGradient id="sky" x1="700" y1="0" x2="700" y2="480" gradientUnits="userSpaceOnUse"><stop stop-color="#F3EFF8"/><stop offset=".58" stop-color="#DDD9EB"/><stop offset="1" stop-color="#C7CDD9"/></linearGradient>
+    <linearGradient id="ridge" x1="1000" y1="170" x2="900" y2="480" gradientUnits="userSpaceOnUse"><stop stop-color="#91A0B8"/><stop offset="1" stop-color="#60758B"/></linearGradient>
+    <linearGradient id="near" x1="1300" y1="240" x2="1100" y2="480" gradientUnits="userSpaceOnUse"><stop stop-color="#4C6677"/><stop offset="1" stop-color="#303F59"/></linearGradient>
+    <radialGradient id="light" cx="0" cy="0" r="1" gradientTransform="translate(1044 111) scale(200 160)" gradientUnits="userSpaceOnUse"><stop stop-color="#F5D7B5" stop-opacity=".8"/><stop offset="1" stop-color="#F5D7B5" stop-opacity="0"/></radialGradient>
+    <symbol id="deodar" viewBox="-88 0 176 260" overflow="visible">
+      <path d="M0 0C-4 17-6 29-15 38L-9 39-21 51-8 48C-17 66-29 78-40 83L-31 85-47 94-20 90C-29 110-42 121-57 131L-46 131-68 145-32 137C-40 159-56 174-74 187L-62 187-88 204C-65 203-48 197-32 194L-47 209C-27 205-16 203 0 201C14 204 28 207 46 208L34 195C52 200 67 203 87 204L65 189 76 189C56 177 40 160 33 139L65 145 47 133 57 132C41 123 29 109 21 91L45 96 33 86 40 85C26 78 17 65 9 49L23 53 12 40 18 40C7 29 4 14 0 0Z" fill="currentColor"/>
+      <path d="M0 17V260M0 64-20 83M0 99 31 122M0 144-48 176M0 178 54 202" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="pine" viewBox="-68 0 136 230" overflow="visible">
+      <path d="M0 0-15 42-8 40-28 77-16 72-42 113-26 107-58 158-34 151-68 199C-46 198-24 191 0 187C24 191 46 198 68 199L34 151 58 158 26 107 42 113 16 72 28 77 8 40 15 42Z" fill="currentColor"/>
+      <path d="M0 30V230" stroke="currentColor" stroke-width="5"/>
+    </symbol>
+  </defs>
+  <path fill="url(#sky)" d="M0 0H1400V480H0Z"/>
+  <path fill="url(#light)" d="M650 0H1400V390H650Z"/>
+  <circle cx="1044" cy="111" r="43" fill="#E8C384"/>
+  <path d="M390 226C556 208 593 207 710 216S953 232 1090 215 1293 198 1400 210" stroke="#FFF8F2" stroke-width="12" stroke-linecap="round" opacity=".24"/>
+  <path d="M0 359 170 303 266 326 426 236 515 282 633 222 716 253 844 150 936 230 1000 194 1083 240 1181 165 1280 242 1400 183V480H0Z" fill="#B7B9D1"/>
+  <path d="M0 400 190 362 298 383 424 309 531 333 689 247 792 294 922 216 1010 286 1131 242 1265 317 1400 263V480H0Z" fill="url(#ridge)"/>
+  <path d="M0 430C180 375 295 408 458 383S680 330 836 352 1148 291 1400 347V480H0Z" fill="#7F949E"/>
+  <g color="#6F8994">
+    <use href="#deodar" x="580" y="287" width="92" height="137"/>
+    <use href="#pine" x="692" y="265" width="87" height="147"/>
+    <use href="#deodar" x="761" y="240" width="124" height="183"/>
+    <use href="#pine" x="874" y="283" width="87" height="147"/>
+    <use href="#deodar" x="990" y="237" width="124" height="183"/>
+    <use href="#deodar" x="1140" y="204" width="136" height="202"/>
+    <use href="#pine" x="1280" y="235" width="111" height="187"/>
+  </g>
+  <path d="M0 450C219 414 361 468 528 423S870 385 1030 399 1250 365 1400 393V480H0Z" fill="#B4BEC8" opacity=".72"/>
+  <path d="M0 465C225 412 352 473 542 444S860 380 1050 405 1251 329 1400 355V480H0Z" fill="url(#near)"/>
+  <g color="#3C5868">
+    <use href="#pine" x="615" y="323" width="104" height="176"/>
+    <use href="#deodar" x="793" y="261" width="165" height="244"/>
+    <use href="#deodar" x="976" y="189" width="210" height="311"/>
+    <use href="#pine" x="1150" y="275" width="144" height="243"/>
+  </g>
+  <g color="#293D53">
+    <use href="#deodar" x="1218" y="84" width="286" height="422"/>
+    <use href="#pine" x="1110" y="261" width="152" height="257"/>
+    <use href="#deodar" x="-95" y="280" width="205" height="303"/>
+  </g>
+  <path d="M0 475C172 450 376 486 566 466S961 459 1110 450 1326 436 1400 451V480H0Z" fill="#293D53"/>
+  <path d="M858 153q9-8 18 0m-18 0q-9-8-18 0M917 130q6-6 12 0m-12 0q-6-6-12 0" stroke="#6D778D" stroke-width="2" stroke-linecap="round"/>
+</svg>

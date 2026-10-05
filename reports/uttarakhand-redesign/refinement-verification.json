@@ -1,0 +1,49 @@
+{
+  "map": [
+    {
+      "documentWidth": 320,
+      "width": 320
+    },
+    {
+      "documentWidth": 390,
+      "width": 390
+    },
+    {
+      "documentWidth": 430,
+      "width": 430
+    }
+  ],
+  "product": [
+    {
+      "directOrderDisabled": true,
+      "documentWidth": 320,
+      "titleSize": "25px",
+      "width": 320
+    },
+    {
+      "directOrderDisabled": true,
+      "documentWidth": 390,
+      "titleSize": "25.35px",
+      "width": 390
+    },
+    {
+      "directOrderDisabled": true,
+      "documentWidth": 430,
+      "titleSize": "27.95px",
+      "width": 430
+    },
+    {
+      "directOrderDisabled": true,
+      "documentWidth": 768,
+      "titleSize": "28px",
+      "width": 768
+    },
+    {
+      "directOrderDisabled": true,
+      "documentWidth": 1440,
+      "titleSize": "36px",
+      "width": 1440
+    }
+  ],
+  "checkedAt": "2026-10-05T10:10:12.506Z"
+}
