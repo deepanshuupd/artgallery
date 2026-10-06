@@ -32,7 +32,7 @@ export default async function CollectionPage({
   ]);
 
   return (
-    <main className={forest.surface}>
+    <main className={`${forest.surface} ${forest.pineBackdrop}`}>
       <div className={`store-page heritage-shell ${forest.shopShell}`}>
         <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Shop", href: "/collection" }]} />
         <header className={`store-heading ${forest.shopHeading}`}>

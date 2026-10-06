@@ -29,6 +29,35 @@
 }
 .surface .shopShell { padding-block: 8px 44px; }
 
+/* The owner's watercolour forest stays decorative behind the catalogue. */
+.pineBackdrop {
+  position: relative;
+  isolation: isolate;
+  --shop-field: #f6f3ec;
+  --shop-border: #dadbd2;
+  --forest-repeat: 620px;
+}
+.pineBackdrop::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: min(76%, 1100px);
+  z-index: -1;
+  pointer-events: none;
+  background: url('/brand/shop-pine-landscape-v1.webp') right top / auto var(--forest-repeat) repeat-y;
+  opacity: .38;
+  mask-image: linear-gradient(to right, transparent, #000 65%), linear-gradient(to bottom, #000 0%, #000 75%, transparent 100%);
+  mask-size: 100% 100%, 100% var(--forest-repeat);
+  mask-repeat: no-repeat, repeat-y;
+  mask-composite: intersect;
+}
+@media (min-width: 768px) {
+  .pineBackdrop { --forest-repeat: 850px; }
+  .pineBackdrop::before {
+    opacity: .55;
+  }
+}
+
 /* A compact introduction leaves the catalogue close to the top on mobile. */
 .surface .shopHeading { max-width: none; padding: 0; border: 0; border-bottom: 1px solid var(--shop-border); border-radius: 0; background: transparent; }
 .headingCopy { padding: 12px 0 24px; }
@@ -42,6 +71,7 @@
 .surface :global(.store-filters) { gap: 8px; margin-bottom: 12px; padding: 4px 0 12px; scrollbar-color: var(--shop-control-border) transparent; }
 .surface :global(.store-filters__heading) { display: none; }
 .surface :global(.store-filters a) {
+  position: relative;
   gap: 12px;
   border-color: var(--shop-control-border);
   border-radius: 8px;
