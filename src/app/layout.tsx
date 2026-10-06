@@ -91,7 +91,7 @@ export default function RootLayout({
               name: brand.name,
               description: siteDescription,
               url: siteUrl,
-              logo: `${siteUrl}/brand/kumaonrang-logo.png`,
+              logo: `${siteUrl}/brand/kumaonrang-logo-v2.png`,
               areaServed: "India",
               address: {
                 "@type": "PostalAddress",

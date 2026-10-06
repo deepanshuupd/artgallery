@@ -75,35 +75,17 @@ a {
 
 .brand-mark {
   display: inline-flex;
-  align-items: baseline;
-  color: var(--color-espresso);
-  line-height: 1.25;
-  white-space: nowrap;
+  align-items: center;
+  line-height: 0;
 }
 
-.brand-mark--inverse {
-  color: var(--color-biswar);
+.brand-mark__image {
+  display: block;
+  width: 120px;
+  height: auto;
 }
-
-.brand-mark--inverse .brand-mark__devanagari {
-  color: var(--color-champagne);
-}
-
-.brand-mark__latin {
-  font-family: var(--font-heading), serif;
-  font-weight: 600;
-  letter-spacing: -0.025em;
-}
-
-.brand-mark__devanagari {
-  color: var(--color-geru);
-  font-family: var(--font-devanagari), serif;
-  font-size: 0.84em;
-  font-weight: 400;
-  letter-spacing: normal;
-  margin-left: 0.075em;
-  position: relative;
-  top: 0.035em;
+@media (min-width: 768px) {
+  .brand-mark__image { width: 136px; }
 }
 
 /* Shared shop language: warm paper, quiet borders, real product photography. */

@@ -1,17 +1,24 @@
 import { brand } from "@/lib/brand";
+import Image from "next/image";
 
 type BrandMarkProps = {
   className?: string;
+  priority?: boolean;
 };
 
-/** The bilingual wordmark uses Latin and Devanagari as one visual signature. */
-export function BrandMark({ className = "" }: BrandMarkProps) {
+/** Shared mountain wordmark used in the header, footer and structured brand identity. */
+export function BrandMark({ className = "", priority = true }: BrandMarkProps) {
   return (
     <span aria-label={brand.name} className={`brand-mark ${className}`} role="img">
-      <span aria-hidden="true" className="brand-mark__latin">Kumaon</span>
-      <span aria-hidden="true" className="brand-mark__devanagari" lang="hi">
-        रंग
-      </span>
+      <Image
+        className="brand-mark__image"
+        src="/brand/kumaonrang-logo-v2.webp"
+        alt=""
+        width={512}
+        height={231}
+        sizes="(max-width: 767px) 120px, 136px"
+        priority={priority}
+      />
     </span>
   );
 }

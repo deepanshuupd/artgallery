@@ -1,17 +1,17 @@
 import { readFile, writeFile } from "node:fs/promises";
 import sharp from "sharp";
 
-// Run from the repository root after updating public/brand/kumaonrang-logo.png.
-// Preserve the supplied artwork without relying on installed browser fonts.
-const source = await readFile("public/brand/kumaonrang-logo.png");
-const { width, height } = await sharp(source).metadata();
-const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><rect width="512" height="512" rx="64" fill="#fffaf1"/><image x="8" y="${(512 - 496 * height / width) / 2}" width="496" height="${496 * height / width}" href="data:image/png;base64,${source.toString("base64")}"/></svg>\n`;
+// Owner-supplied favicon, independent of the full website wordmark.
+// Preserve its square composition and transparency without adding another frame.
+const source = await readFile("public/brand/kumaonrang-favicon-source.png");
+const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><image width="512" height="512" href="data:image/png;base64,${source.toString("base64")}"/></svg>\n`;
 await writeFile("app/icon.svg", svg);
-await sharp(Buffer.from(svg)).resize(180, 180).png().toFile("app/apple-icon.png");
+// Apple supplies its own icon mask; an opaque cream canvas avoids black corners.
+await sharp(source).resize(180, 180).flatten({ background: "#fffaf1" }).png().toFile("app/apple-icon.png");
 
 const sizes = [16, 32, 48, 64, 256];
 const images = await Promise.all(sizes.map(size =>
-  sharp(Buffer.from(svg)).resize(size, size).png().toBuffer(),
+  sharp(source).resize(size, size).png().toBuffer(),
 ));
 const header = Buffer.alloc(6 + sizes.length * 16);
 header.writeUInt16LE(1, 2);

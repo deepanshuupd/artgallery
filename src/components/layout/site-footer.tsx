@@ -5,77 +5,50 @@ import { brand } from "@/lib/brand";
 import { navigationItems } from "@/lib/navigation";
 import { generateGeneralInquiryLink } from "@/lib/whatsapp";
 import { collections } from "@/lib/collections";
+import styles from "./site-footer.module.css";
 
 export function SiteFooter() {
   return (
-    <footer className="mt-6 border-t border-[rgba(168,69,48,0.2)] bg-[var(--color-espresso)] px-4 py-7 text-[var(--color-biswar)] sm:mt-16 sm:px-6 sm:py-16 lg:px-8">
-      <div className="mx-auto grid max-w-7xl gap-5 sm:grid-cols-2 lg:grid-cols-[1.25fr_0.75fr_0.9fr] lg:gap-14">
-        <div>
-          <Link prefetch={false} className="inline-block text-4xl" href="/">
-            <BrandMark className="brand-mark--inverse text-4xl" />
-          </Link>
-          <p className="mt-4 max-w-sm text-sm leading-7 text-stone-300">
-            {brand.descriptor}. Aipan-inspired art, Pahadi keepsakes, and
-            personal gifts made in Pithoragarh.
-          </p>
-        </div>
-
-        <div>
-          <p className="text-[0.66rem] font-medium uppercase tracking-[0.24em] text-[var(--color-champagne)]">
-            Explore
-          </p>
-          <nav className="mt-3 grid grid-cols-2 gap-x-3 gap-y-1" aria-label="Footer navigation">
-            {navigationItems.map((item) => (
-              <Link
-                prefetch={false}
-                key={item.href}
-                className="inline-flex min-h-11 items-center text-sm text-stone-200 transition hover:text-[var(--color-champagne)]"
-                href={item.href}
-              >
-                {item.label}
-              </Link>
-            ))}
-            <Link
-              prefetch={false}
-              className="inline-flex min-h-11 items-center text-sm text-stone-200 transition hover:text-[var(--color-champagne)]"
-              href="/uttarakhand-gifts"
-            >
-              Uttarakhand gifts
+    <footer className={styles.footer}>
+      <div className={styles.shell}>
+        <div className={styles.layout}>
+          <div className={styles.identity}>
+            <Link prefetch={false} className={styles.logo} href="/">
+              <BrandMark priority={false} />
             </Link>
-            <Link
-              prefetch={false}
-              className="inline-flex min-h-11 items-center text-sm text-stone-200 transition hover:text-[var(--color-champagne)]"
-              href="/aipan-art"
-            >
-              Aipan art guide
-            </Link>
-          </nav>
-          <nav className="mt-4 grid grid-cols-2 gap-x-3 gap-y-1 border-t border-white/10 pt-3" aria-label="Shop collections">
-            {collections.map(collection => <Link key={collection.slug} prefetch={false} href={`/${collection.slug}`} className="inline-flex min-h-11 items-center text-xs text-stone-200 hover:text-[var(--color-champagne)]">{collection.label}</Link>)}
-          </nav>
-        </div>
+            <p>{brand.descriptor}. Aipan-inspired art, Pahadi keepsakes, and personal gifts made in Pithoragarh.</p>
+          </div>
 
-        <div>
-          <p className="text-[0.66rem] font-medium uppercase tracking-[0.24em] text-[var(--color-champagne)]">
-            From the hills
-          </p>
-          <p className="mt-4 text-sm leading-7 text-stone-200">
-            Pithoragarh, Uttarakhand<br />
-            India
-          </p>
-          <a
-            className="mt-5 inline-flex min-h-11 items-center rounded-full border border-[rgba(255,250,241,0.3)] px-5 py-2 text-xs font-medium uppercase tracking-[0.16em] text-[var(--color-biswar)] transition hover:border-[var(--color-champagne)] hover:text-[var(--color-champagne)]"
-            href={generateGeneralInquiryLink()}
-            rel="noreferrer"
-            target="_blank"
-          >
-            Chat on WhatsApp
-          </a>
+          <div>
+            <p className={styles.heading}>Explore</p>
+            <nav className={styles.links} aria-label="Footer navigation">
+              {navigationItems.map(item => <Link prefetch={false} key={item.href} href={item.href}>{item.label}</Link>)}
+              <Link prefetch={false} href="/uttarakhand-gifts">Uttarakhand gifts</Link>
+              <Link prefetch={false} href="/aipan-art">Aipan art guide</Link>
+            </nav>
+          </div>
+
+          <div>
+            <p className={styles.heading}>Shop</p>
+            <nav className={styles.links} aria-label="Shop collections">
+              {collections.map(collection => <Link key={collection.slug} prefetch={false} href={"/" + collection.slug}>{collection.label}</Link>)}
+            </nav>
+          </div>
+
+          <div className={styles.contact}>
+            <div>
+              <p className={styles.heading}>From the hills</p>
+              <p className={styles.address}>Pithoragarh, Uttarakhand<br />India</p>
+            </div>
+            <a className={styles.whatsapp} href={generateGeneralInquiryLink()} rel="noreferrer" target="_blank">
+              Chat on WhatsApp<span className="sr-only"> (opens in a new tab)</span>
+            </a>
+          </div>
         </div>
-      </div>
-      <div className="mx-auto mt-6 flex max-w-7xl flex-col gap-2 border-t border-white/10 pt-5 text-xs text-stone-400 sm:mt-14 sm:flex-row sm:items-center sm:justify-between">
-        <p>© {new Date().getFullYear()} KumaonRang. Made in Kumaon.</p>
-        <p>Colour · Craft · Keepsakes</p>
+        <div className={styles.bottom}>
+          <p>© {new Date().getFullYear()} KumaonRang. Made in Kumaon.</p>
+          <p>Colour · Craft · Keepsakes</p>
+        </div>
       </div>
     </footer>
   );

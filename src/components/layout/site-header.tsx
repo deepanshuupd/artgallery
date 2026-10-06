@@ -33,16 +33,13 @@ export function SiteHeader() {
   return (
     <>
     <header className={`${styles.header} sticky top-0 z-50 border-b border-[rgba(168,69,48,0.16)] bg-[rgba(255,250,241,0.92)] backdrop-blur-xl`}>
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-3 px-4 py-2 sm:px-6 sm:py-4 lg:px-8">
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-3 px-4 py-2 sm:px-6 sm:py-2 lg:px-8">
         <Link
           className="group flex shrink-0 flex-col items-center text-stone-900 transition-colors duration-300 hover:text-stone-700"
           href="/"
           onClick={() => setIsOpen(false)}
         >
-          <BrandMark className="text-[1.7rem] sm:text-[2.3rem]" />
-          <span className="block text-[0.5rem] uppercase tracking-[0.22em] text-stone-600 sm:text-[0.55rem]">
-            Art from the hills
-          </span>
+          <BrandMark />
         </Link>
 
         <nav className="hidden items-center gap-2 md:flex" aria-label="Primary navigation">
