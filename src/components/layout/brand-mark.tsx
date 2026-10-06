@@ -12,10 +12,10 @@ export function BrandMark({ className = "", priority = true }: BrandMarkProps) {
     <span aria-label={brand.name} className={`brand-mark ${className}`} role="img">
       <Image
         className="brand-mark__image"
-        src="/brand/kumaonrang-logo-v2.webp"
+        src="/brand/kumaonrang-logo-v3.webp"
         alt=""
         width={512}
-        height={231}
+        height={248}
         sizes="(max-width: 767px) 120px, 136px"
         priority={priority}
       />
