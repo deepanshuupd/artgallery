@@ -7,6 +7,7 @@ import forest from "@/components/products/forest-storefront.module.css";
 import { getProducts } from "@/lib/products";
 import { CollectionSchema } from "@/components/seo/collection-schema";
 import { collections } from "@/lib/collections";
+import { OrderingGuide } from "@/components/products/ordering-guide";
 
 export const dynamic = "force-dynamic";
 
@@ -54,6 +55,7 @@ export default async function CollectionPage({
           showCategoryFilter
           title="Shop by category"
         />
+        <OrderingGuide />
       </div>
     </main>
   );

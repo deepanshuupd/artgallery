@@ -15,6 +15,7 @@ export function ContactSection() {
         <h1>Hello from the hills.<br /><em>Let’s talk.</em></h1>
         <p>A question, a gift, an idea still taking shape.<br className={styles.desktopBreak} /> Tell Sneha what you have in mind.</p>
       </header>
+      <p className={styles.orderingNote}>Ordering for a particular date? Share your delivery PIN code, quantity and occasion date. <Link prefetch={false} href="/shipping-policy">See delivery and dispatch details →</Link></p>
       <ContactForm />
       <aside className={styles.social} aria-label="KumaonRang on Instagram">
         <span>Keep in touch between conversations.</span>

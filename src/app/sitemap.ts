@@ -18,6 +18,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/about",
     "/customer-stories",
     "/contact",
+    "/how-to-order",
+    "/shipping-policy",
+    "/returns-policy",
   ];
   const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
     url: `${siteUrl}${route}`,

@@ -10,8 +10,11 @@ import { getDiscount } from "@/lib/pricing";
 const DEFAULT_BUSINESS_NAME = brand.name;
 
 function getWhatsAppBusinessNumber() {
-  const number = process.env.NEXT_PUBLIC_WHATSAPP_BUSINESS_NUMBER?.replace(/\D/g, "");
-  return number || "";
+  const number = process.env.NEXT_PUBLIC_WHATSAPP_BUSINESS_NUMBER?.replace(/\D/g, "") ?? "";
+  // This shop is based in India; local mobile numbers need the country code.
+  if (/^\d{10}$/.test(number)) return `91${number}`;
+  if (/^0\d{10}$/.test(number)) return `91${number.slice(1)}`;
+  return number;
 }
 
 function getWhatsAppBusinessName() {
@@ -26,6 +29,8 @@ export interface OrderDetails {
   originalPrice?: number;
   quantity?: number;
   inStock?: boolean;
+  deliveryPincode?: string;
+  occasionDate?: string;
 }
 
 /**
@@ -63,6 +68,9 @@ export function generateOrderMessage(details: OrderDetails): string {
     lines.push(`✨ Customization Interest: ${details.customizationInterest}`);
   }
 
+  if (details.deliveryPincode) lines.push(`📍 Delivery PIN code: ${details.deliveryPincode}`);
+  if (details.occasionDate) lines.push(`📅 Occasion date: ${details.occasionDate} (please confirm if delivery is possible)`);
+
   lines.push(
     "",
     "Please let me know about:",
@@ -88,7 +96,7 @@ export function createWhatsAppLink(message: string): string {
     return `https://wa.me/?text=${encodeURIComponent(message)}`;
   }
 
-  return `https://api.whatsapp.com/send?phone=${businessNumber}&text=${encodeURIComponent(message)}`;
+  return `https://wa.me/${businessNumber}?text=${encodeURIComponent(message)}`;
 }
 
 /**
@@ -101,7 +109,9 @@ export function createWhatsAppLink(message: string): string {
 export function generateWhatsAppOrderLink(
   product: Product,
   customizationInterest?: string,
-  quantity: number = 1
+  quantity: number = 1,
+  deliveryPincode?: string,
+  occasionDate?: string,
 ): string {
   const orderDetails: OrderDetails = {
     productName: product.name,
@@ -111,6 +121,8 @@ export function generateWhatsAppOrderLink(
     customizationInterest,
     quantity,
     inStock: product.inStock,
+    deliveryPincode,
+    occasionDate,
   };
 
   const message = generateOrderMessage(orderDetails);
@@ -127,9 +139,11 @@ export function generateWhatsAppOrderLink(
 export function openWhatsAppOrder(
   product: Product,
   customizationInterest?: string,
-  quantity: number = 1
+  quantity: number = 1,
+  deliveryPincode?: string,
+  occasionDate?: string,
 ): void {
-  const link = generateWhatsAppOrderLink(product, customizationInterest, quantity);
+  const link = generateWhatsAppOrderLink(product, customizationInterest, quantity, deliveryPincode, occasionDate);
   window.open(link, "_blank");
 }
 

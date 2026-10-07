@@ -18,6 +18,8 @@
 .heading h1 em { color: var(--yellow); font-weight: 500; font-style: normal; }
 .heading > p:last-child { margin-top: 18px; font-size: 13px; line-height: 1.8; color: #c2ced8; max-width: 45ch; }
 .desktopBreak { display: none; }
+.orderingNote { max-width: 70ch; margin-bottom: 24px; color: #c2ced8; font-size: 13px; line-height: 1.8; }
+.orderingNote a { display: inline-block; padding-block: 8px; color: #e9d58b; text-decoration: underline; text-underline-offset: 4px; }
 .desk { display: grid; }
 .choices { min-width: 0; }
 .topics { margin: 0; padding: 0; border: 0; min-width: 0; width: 100%; }

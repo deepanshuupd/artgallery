@@ -6,13 +6,14 @@ import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { getProductImage, getProductImageUrls } from "@/lib/product-image";
 import { formatPrice, getDiscount } from "@/lib/pricing";
 import type { Product } from "@/types/product";
-import { LockIcon, WhatsAppIcon } from "@/components/icons";
+import { WhatsAppIcon } from "@/components/icons";
 import { WhatsAppOrderSheet } from "./whatsapp-order-sheet";
 import { QuantityControl } from "./quantity-control";
 import { useProductDialog } from "./use-product-dialog";
 import { ProductStory } from "./product-story";
 import order from "./order-sheet.module.css";
 import styles from "./product-detail.module.css";
+import { shopOrdering } from "@/data/shop-ordering";
 
 export function ProductDetailView({ product, children }: { product: Product; children?: ReactNode }) {
   const images = getProductImageUrls(product).map(src => getProductImage(product, src));
@@ -89,16 +90,21 @@ export function ProductDetailView({ product, children }: { product: Product; chi
               <h2 id="product-order-title" className={styles.purchaseHeading}>Order details</h2>
               {typeof product.inStock === "boolean" && <p className={styles.availability} data-stock-state={product.inStock ? "in-stock" : "out-of-stock"}><span aria-hidden="true" />{product.inStock ? "In stock · Confirm availability for your quantity" : "Currently out of stock · Ask Sneha about availability"}</p>}
               <QuantityControl value={quantity} onChange={setQuantity} />
+              <div className={styles.fulfilment}>
+                <p><strong>Dispatch</strong> {product.inStock === false ? "Preparation and availability are confirmed with Sneha." : shopOrdering.dispatch} Custom or larger quantities may need more time.</p>
+                <p><strong>Delivery charge</strong> Quoted for your parcel’s weight, dimensions and delivery details. <Link prefetch={false} href="/shipping-policy">Delivery & dispatch details</Link></p>
+                <p><strong>Order support</strong> Report arrival damage within 7 days. Change-of-mind returns aren’t accepted. <Link prefetch={false} href="/returns-policy">Returns & damage support</Link></p>
+              </div>
               <button type="button" className={order.primary} aria-haspopup="dialog" onClick={() => setOrderOpen(true)}><WhatsAppIcon className="h-5 w-5" />{actionLabel}</button>
-              <button type="button" className={styles.directOrder} disabled><LockIcon className="h-4 w-4" /><span>Direct order<small>Coming soon</small></span></button>
-              <p className={styles.orderHelp}>Delivery charges and custom requests are confirmed with Sneha.</p>
+              <p className={styles.orderHelp}>Choose your quantity, then speak with Sneha. She’ll confirm the full total, delivery timing and any custom requests in your chat.</p>
+              <Link prefetch={false} className={styles.orderGuide} href="/how-to-order">How ordering works →</Link>
             </div>
-            <p className={styles.contactLink}><Link prefetch={false} href="/contact">Contact KumaonRang</Link></p>
+            <nav className={styles.contactLink} aria-label="About the shop and customer experiences"><Link prefetch={false} href="/about">Meet Sneha</Link><span aria-hidden="true"> · </span><Link prefetch={false} href="/customer-stories">Customer stories</Link></nav>
           </section>
         </div>
       </div>
 
-      {(description || product.details.length > 0) && <section className={styles.information} aria-label="Product information">
+      {(description || product.details.length > 0) && <section id="product-information" className={styles.information} aria-label="Product information">
         {description && <div><h2>About this piece</h2><p className={styles.copy}>{description}</p></div>}
         {product.details.length > 0 && <div><h2>Product details</h2><ul className={styles.detailsList}>{product.details.map((detail, index) => <li key={`${detail}-${index}`}><span aria-hidden="true">◇</span>{detail}</li>)}</ul></div>}
       </section>}

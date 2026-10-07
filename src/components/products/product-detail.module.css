@@ -29,16 +29,16 @@
 .introduction { margin-bottom: 20px; color: #526963; font-size: 14px; line-height: 1.8; }
 .purchaseBox { padding: 20px; border-radius: 10px; background: #e7eef1; }
 .purchaseHeading { margin: 0; font: 600 15px/1.4 var(--font-body),sans-serif; }
-.directOrder { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 48px; padding: 9px 12px; border: 1px solid #b9c6c7; border-radius: 8px; background: #f1f4f4; color: #617376; font-size: 13px; cursor: not-allowed; }
-.directOrder span { display: flex; align-items: baseline; flex-wrap: wrap; justify-content: center; gap: 8px; }
-.directOrder small { font-size: 11px; font-weight: 400; }
+.fulfilment { display: grid; gap: 10px; margin-top: 18px; padding-top: 16px; border-top: 1px solid #cbd7d7; color: #526963; font-size: 12px; line-height: 1.8; }
+.fulfilment strong { color: #263c46; font-weight: 600; }
+.fulfilment a { display: inline-block; padding-block: 5px; color: #28564f; text-decoration: underline; text-underline-offset: 4px; }
 .availability { display: flex; align-items: baseline; gap: 8px; margin: 18px 0; font-size: 12px; color: #28564f; line-height: 1.7; }
 .availability > span { flex: 0 0 6px; height: 6px; border-radius: 50%; background: #28564f; }
 .availability[data-stock-state="out-of-stock"] { color: #904331; }
 .availability[data-stock-state="out-of-stock"] > span { background: #904331; }
 .purchaseBox > button { margin-top: 18px; }
-.purchaseBox > .directOrder { margin-top: 10px; }
 .orderHelp { margin-top: 12px; color: #526963; font-size: 11px; line-height: 1.8; text-align: center; }
+.orderGuide { display: flex; align-items: center; justify-content: center; min-height: 44px; color: #28564f; font-size: 12px; text-decoration: underline; text-underline-offset: 4px; }
 .contactLink { margin-top: 8px; color: #526963; font-size: 12px; }
 .contactLink a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: underline; text-underline-offset: 4px; }
 .information { display: grid; gap: 30px; margin-top: 36px; padding-block: 28px; border-top: 1px solid #d9e1de; border-bottom: 1px solid #d9e1de; }

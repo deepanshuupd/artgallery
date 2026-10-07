@@ -19,13 +19,13 @@ function load(file) {
   const { outputText } = ts.transpileModule(source, {
     compilerOptions: { module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX, target: ts.ScriptTarget.ES2022 },
   });
-  const module = { exports: {} };
-  modules.set(path, module);
+  const loadedModule = { exports: {} };
+  modules.set(path, loadedModule);
   const localRequire = name => {
     if (name === '@/lib/products') return { getProducts: async () => catalog };
     if (name === 'next/navigation') return { notFound: () => { throw new Error('NOT_FOUND'); } };
-    if (name === 'next/link') return ({ children, prefetch, ...props }) => React.createElement('a', props, children);
-    if (name === 'next/image') return ({ fill, priority, ...props }) => React.createElement('img', props);
+    if (name === 'next/link') return function MockLink({ children, prefetch, ...props }) { return React.createElement('a', props, children); };
+    if (name === 'next/image') return function MockImage({ fill, priority, ...props }) { return React.createElement('img', props); };
     if (name.endsWith('.module.css')) return new Proxy({}, { get: (_, key) => String(key) });
     if (name.startsWith('@/') || name.startsWith('.')) {
       const base = name.startsWith('@/') ? resolve(root, 'src', name.slice(2)) : resolve(dirname(path), name);
@@ -35,11 +35,11 @@ function load(file) {
     }
     return require(name);
   };
-  new Function('require', 'module', 'exports', outputText)(localRequire, module, module.exports);
-  return module.exports;
+  new Function('require', 'module', 'exports', outputText)(localRequire, loadedModule, loadedModule.exports);
+  return loadedModule.exports;
 }
 const { getProductPath, getProductByPublicSlug, slugify } = load('src/lib/catalog.ts');
-const { generateOrderMessage } = load('src/lib/whatsapp.ts');
+const { generateOrderMessage, createWhatsAppLink, generateWhatsAppOrderLink } = load('src/lib/whatsapp.ts');
 const { default: ProductPage, generateMetadata } = load('src/app/[category]/[slug]/page.tsx');
 const piece = overrides => ({
   id: 'one', slug: 'om-aipan-wall-decor', urlCategory: 'Frames', name: 'Om Aipan Wall Decor – Design 1',
@@ -82,4 +82,24 @@ await assert.rejects(ProductPage(draft), /NOT_FOUND/);
 const message = generateOrderMessage({ productName: original.name, category: 'Frames', inStock: false });
 assert.match(message, /when this product will be available/);
 assert.doesNotMatch(message, /interested in placing an order/);
+const originalNumber = process.env.NEXT_PUBLIC_WHATSAPP_BUSINESS_NUMBER;
+try {
+  for (const configured of ['8266064457', '+91 82660 64457', '08266064457']) {
+    process.env.NEXT_PUBLIC_WHATSAPP_BUSINESS_NUMBER = configured;
+    const link = new URL(createWhatsAppLink('A name & an occasion'));
+    assert.equal(link.origin, 'https://wa.me');
+    assert.equal(link.pathname, '/918266064457', 'Local and international configuration reach the same business');
+    assert.equal(link.searchParams.get('text'), 'A name & an occasion');
+  }
+  const prepared = new URL(generateWhatsAppOrderLink(original, 'Name: Riya & Aman', 3, '262501', '2026-11-08'));
+  const text = prepared.searchParams.get('text');
+  assert.match(text, /Quantity: 3/);
+  assert.match(text, /Name: Riya & Aman/);
+  assert.match(text, /Delivery PIN code: 262501/);
+  assert.match(text, /Occasion date: 2026-11-08 \(please confirm if delivery is possible\)/);
+  assert.doesNotMatch(generateOrderMessage({ productName: original.name, category: 'Frames' }), /PIN code|Occasion date/);
+} finally {
+  if (originalNumber === undefined) delete process.env.NEXT_PUBLIC_WHATSAPP_BUSINESS_NUMBER;
+  else process.env.NEXT_PUBLIC_WHATSAPP_BUSINESS_NUMBER = originalNumber;
+}
 console.log('Product indexability: permanent URLs, duplicate designs, draft exclusion, SSR specifications, canonical, stock schema/UI and availability enquiry passed. No external writes.');

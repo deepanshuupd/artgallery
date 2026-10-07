@@ -25,6 +25,9 @@ export function SiteFooter() {
               {navigationItems.map(item => <Link prefetch={false} key={item.href} href={item.href}>{item.label}</Link>)}
               <Link prefetch={false} href="/uttarakhand-gifts">Uttarakhand gifts</Link>
               <Link prefetch={false} href="/aipan-art">Aipan art guide</Link>
+              <Link prefetch={false} href="/how-to-order">How to order</Link>
+              <Link prefetch={false} href="/shipping-policy">Delivery & dispatch</Link>
+              <Link prefetch={false} href="/returns-policy">Returns & damage support</Link>
             </nav>
           </div>
 
