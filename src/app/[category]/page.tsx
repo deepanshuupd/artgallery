@@ -5,6 +5,7 @@ import { ProductShowcase } from "@/components/products/product-showcase";
 import { collections, findCollection } from "@/lib/collections";
 import { getProducts } from "@/lib/products";
 import { pageMetadata } from "@/lib/seo";
+import { CollectionSchema } from "@/components/seo/collection-schema";
 import styles from "@/components/products/collection-guide.module.css";
 import forest from "@/components/products/forest-storefront.module.css";
 
@@ -26,6 +27,7 @@ export default async function CategoryPage({ params }: Props) {
   const products = catalogue.filter(product => product.category === collection.category);
   const categoryCounts = Object.fromEntries(collections.map(item => [item.category, catalogue.filter(product => product.category === item.category).length]));
   return <main className={forest.surface}>
+    <CollectionSchema products={products} path={`/${collection.slug}`} name={collection.title} description={collection.description} />
     <div className={`store-page heritage-shell ${forest.shopShell}`}>
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Shop", href: "/collection" }, { label: collection.label, href: `/${collection.slug}` }]} />
       <header className={`store-heading ${forest.shopHeading}`}>

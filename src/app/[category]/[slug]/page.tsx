@@ -13,6 +13,7 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { getProductImage } from "@/lib/product-image";
 import { getProductImageObjects } from "@/lib/product-image-schema";
 import forest from "@/components/products/forest-storefront.module.css";
+import guideStyles from "@/components/products/collection-guide.module.css";
 
 export const dynamic = "force-dynamic";
 
@@ -36,7 +37,7 @@ export async function generateMetadata(
   if (!product) return { title: "Product not found", robots: { index: false } };
 
   const image = getProductImage(product);
-  return pageMetadata({ title: product.name.trim(), description: `${product.name.trim()}. ${product.description || "Discover keepsakes from KumaonRang, Pithoragarh, Uttarakhand. View product details and enquire with Sneha."}`, path: getProductPath(product), image: image.src || undefined, imageAlt: image.alt, imageWidth: image.width, imageHeight: image.height });
+  return pageMetadata({ title: product.name.trim(), description: product.description.trim() || `${product.name.trim()}. ${product.details.join(" ") || "View photos, price and product details, and enquire with Sneha at KumaonRang, Pithoragarh."}`, path: getProductPath(product), image: image.src || undefined, imageAlt: image.alt, imageWidth: image.width, imageHeight: image.height });
 }
 
 export default async function ProductDetailsPage(props: ProductDetailsPageProps) {
@@ -46,11 +47,15 @@ export default async function ProductDetailsPage(props: ProductDetailsPageProps)
   const url = `${getSiteUrl()}${getProductPath(product)}`;
   const images = getProductImageObjects(product, getSiteUrl());
   const related = products.filter(item => item.category === product.category && item.id !== product.id).slice(0, 3);
+  const isAipan = /aipan/i.test(`${product.name} ${product.description}`);
+  const isRegional = isAipan || /pahadi|kumaon|uttarakhand/i.test(product.name);
   return <div className={`${forest.surface} ${forest.productSurface}`}>
     <div className="heritage-shell"><Breadcrumbs items={[{ label: "Home", href: "/" }, { label: product.category, href: `/${getCategoryPath(product.category)}` }, { label: product.name.trim(), href: getProductPath(product) }]} /></div>
     <JsonLd data={{
       "@context": "https://schema.org", "@type": "Product", "@id": `${url}#product`,
       name: product.name.trim(), description: product.description, url,
+      ...(product.id ? { productID: product.id } : {}),
+      category: product.category,
       ...(images.length ? { image: images } : {}),
       brand: { "@type": "Brand", name: "KumaonRang" },
       offers: { "@type": "Offer", url, priceCurrency: "INR", price: product.price,
@@ -70,6 +75,11 @@ export default async function ProductDetailsPage(props: ProductDetailsPageProps)
         </header>
         <div className="store-product-grid">{related.map(item => <ProductCard key={item.id} product={item} />)}</div>
       </section>}
+      {isRegional && <nav className={guideStyles.productGuides} aria-label="Product buying guides">
+        <p>More about these keepsakes</p>
+        {isAipan && <Link prefetch={false} href="/aipan-art">Learn about Aipan art</Link>}
+        <Link prefetch={false} href="/uttarakhand-gifts">Uttarakhand gift ideas</Link>
+      </nav>}
     </ProductDetailView>
   </div>;
 }

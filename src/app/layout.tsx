@@ -84,7 +84,7 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
+            __html: JSON.stringify([{
               "@context": "https://schema.org",
               "@type": "Organization",
               "@id": `${siteUrl}#business`,
@@ -100,7 +100,15 @@ export default function RootLayout({
                 addressCountry: "IN",
               },
               sameAs: ["https://www.instagram.com/art_gallery_05s/"],
-            }).replace(/</g, "\\u003c"),
+            }, {
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "@id": `${siteUrl}#website`,
+              name: brand.name,
+              url: siteUrl,
+              inLanguage: "en-IN",
+              publisher: { "@id": `${siteUrl}#business` },
+            }]).replace(/</g, "\\u003c"),
           }}
         />
         <SiteHeader />

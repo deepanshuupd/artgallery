@@ -7,6 +7,7 @@ import { CustomHamperCta } from "@/components/products/custom-hamper-cta";
 import { ProductShowcase } from "@/components/products/product-showcase";
 import guideStyles from "@/components/products/collection-guide.module.css";
 import { getProducts } from "@/lib/products";
+import { CollectionSchema } from "@/components/seo/collection-schema";
 
 export const dynamic = "force-dynamic";
 
@@ -26,6 +27,7 @@ export default async function CuratedHampersPage() {
 
   return (
     <main className="relative overflow-hidden">
+      <CollectionSchema products={hampers} path="/curated-hampers" name="Gift Hampers & Pichwai Jar Gift Combos" description="Explore curated gift boxes and hampers from KumaonRang in Pithoragarh." />
       <div className="heritage-shell">
         <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Gift hampers", href: "/curated-hampers" }]} />
       </div>
