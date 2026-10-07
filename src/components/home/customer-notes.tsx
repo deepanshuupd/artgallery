@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { ResponsiveImage } from "@/components/responsive-image";
 import Link from "next/link";
 import { customerNotes } from "@/data/customer-notes";
 import type { CustomerNote } from "@/data/customer-notes";
@@ -49,7 +49,7 @@ function WallNote({ note }: { note: CustomerNote }) {
     <figure className={`${styles.note} ${note.photo ? styles.withPhoto : ""}`}>
       {note.photo ? (
         <div className={styles.photo}>
-          <Image src={note.photo.src} alt={note.photo.alt} width={note.photo.width} height={note.photo.height}
+          <ResponsiveImage src={note.photo.src} alt={note.photo.alt} width={note.photo.width} height={note.photo.height}
             sizes="(min-width: 768px) 130px, 94px" loading="lazy" />
         </div>
       ) : null}

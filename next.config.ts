@@ -13,6 +13,7 @@ const nextConfig: NextConfig = {
     return [
       "/video/pine-wind-mobile-v1.mp4", "/video/pine-wind-desktop-v1.mp4",
       "/video/pine-poster-mobile-v1.webp", "/video/pine-poster-desktop-v1.webp",
+      "/images/responsive/:path*",
     ].map(source => ({ source, headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] }));
   },
   images: {

@@ -1,5 +1,5 @@
 import { brand } from "@/lib/brand";
-import Image from "next/image";
+import { ResponsiveImage } from "@/components/responsive-image";
 
 type BrandMarkProps = {
   className?: string;
@@ -10,7 +10,7 @@ type BrandMarkProps = {
 export function BrandMark({ className = "", priority = true }: BrandMarkProps) {
   return (
     <span aria-label={brand.name} className={`brand-mark ${className}`} role="img">
-      <Image
+      <ResponsiveImage
         className="brand-mark__image"
         src="/brand/kumaonrang-logo-v3.webp"
         alt=""
