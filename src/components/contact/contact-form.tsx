@@ -1,345 +1,112 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "motion/react";
+import { useId, useState, type FormEvent } from "react";
+import { WhatsAppIcon } from "@/components/icons";
+import { generateContactFormLink, generateGeneralInquiryLink } from "@/lib/whatsapp";
+import styles from "./contact.module.css";
 
-import { CheckIcon, ClockIcon, SendIcon } from "@/components/icons";
-import { generateContactFormLink } from "@/lib/whatsapp";
-
-type FormValues = {
-  name: string;
-  email: string;
-  message: string;
-};
-
-type FormErrors = Partial<Record<keyof FormValues, string>>;
-
-type FormStatus = "idle" | "submitting" | "success" | "error";
-
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-const INITIAL_VALUES: FormValues = { name: "", email: "", message: "" };
-
-function validate(values: FormValues): FormErrors {
-  const errors: FormErrors = {};
-
-  if (values.name.trim().length < 2) {
-    errors.name = "Please share your name.";
-  }
-
-  if (!EMAIL_PATTERN.test(values.email.trim())) {
-    errors.email = "Please enter a valid email address.";
-  }
-
-  if (values.message.trim().length < 10) {
-    errors.message = "Tell us a little more — at least 10 characters.";
-  }
-
+type Values = { name: string; email: string; message: string };
+type Errors = Partial<Record<keyof Values, string>>;
+const initialValues: Values = { name: "", email: "", message: "" };
+const enquiries = [
+  { label: "A piece I love", subject: "Product enquiry", detail: "Availability, details & the little things.", prompt: "Which piece caught your eye? Add its name and any questions…", hint: "A product name or link helps Sneha find the piece you mean." },
+  { label: "Make it personal", subject: "Personalisation", detail: "A name, a memory, something yours.", prompt: "Tell Sneha about the piece and the personal detail you’d like to add…", hint: "Share your idea, the product and when you need it. Sneha will confirm what’s possible." },
+  { label: "A gift to remember", subject: "Gifts & bulk orders", detail: "One thoughtful gift, or a whole occasion.", prompt: "Who is it for? Share the occasion, quantity, date and budget if you have one…", hint: "An occasion, budget, quantity and delivery city are a helpful starting point." },
+  { label: "My order / something else", subject: "Order help / general enquiry", detail: "An update, a question, or just hello.", prompt: "How can Sneha help? If it’s about an order, include your order reference…", hint: "For order help, include the product or order reference. Please don’t share payment details." },
+];
+function validate(values: Values): Errors {
+  const errors: Errors = {};
+  if (values.name.trim().length < 2) errors.name = "Please share your name.";
+  if (values.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email.trim())) errors.email = "Please enter a valid email address.";
+  if (values.message.trim().length < 10) errors.message = "Please add a little more detail (at least 10 characters).";
   return errors;
 }
 
-
-type FieldProps = {
-  id: keyof FormValues;
-  label: string;
-  value: string;
-  error?: string;
-  autoComplete?: string;
-  type?: string;
-  textarea?: boolean;
-  onChange: (value: string) => void;
-  onBlur: () => void;
-};
-
-function FloatingField({
-  id,
-  label,
-  value,
-  error,
-  autoComplete,
-  type = "text",
-  textarea = false,
-  onChange,
-  onBlur,
-}: FieldProps) {
-  const fieldClasses = [
-    "peer w-full rounded-2xl border bg-white/80 px-4 pt-6 pb-2.5 text-base text-stone-900",
-    "placeholder-transparent shadow-[0_1px_2px_rgba(51,40,33,0.04)] outline-none transition-colors duration-300",
-    error
-      ? "border-[#b3423a]/60 focus:border-[#b3423a]"
-      : "border-stone-200/90 hover:border-stone-300 focus:border-stone-900",
-    "focus-visible:ring-2 focus-visible:ring-stone-900/10",
-  ].join(" ");
-
-  const labelClasses = [
-    "pointer-events-none absolute left-4 top-2 text-[0.66rem] font-semibold uppercase tracking-[0.18em] text-stone-500",
-    "transition-all duration-200",
-    "peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:font-normal",
-    "peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-placeholder-shown:text-stone-400",
-    "peer-focus:top-2 peer-focus:text-[0.66rem] peer-focus:font-semibold peer-focus:uppercase",
-    "peer-focus:tracking-[0.18em] peer-focus:text-stone-600",
-  ].join(" ");
-
-  return (
-    <div className="relative">
-      {textarea ? (
-        <textarea
-          aria-describedby={error ? `${id}-error` : undefined}
-          aria-invalid={error ? true : undefined}
-          className={`${fieldClasses} min-h-36 resize-y leading-7`}
-          id={id}
-          name={id}
-          onBlur={onBlur}
-          onChange={(event) => onChange(event.target.value)}
-          placeholder=" "
-          rows={5}
-          value={value}
-        />
-      ) : (
-        <input
-          aria-describedby={error ? `${id}-error` : undefined}
-          aria-invalid={error ? true : undefined}
-          autoComplete={autoComplete}
-          className={fieldClasses}
-          id={id}
-          name={id}
-          onBlur={onBlur}
-          onChange={(event) => onChange(event.target.value)}
-          placeholder=" "
-          type={type}
-          value={value}
-        />
-      )}
-
-      <label className={labelClasses} htmlFor={id}>
-        {label}
-      </label>
-
-      {error ? (
-        <p className="mt-2 flex items-center gap-1.5 text-xs text-[#b3423a]" id={`${id}-error`} role="alert">
-          <svg
-            aria-hidden="true"
-            className="h-3.5 w-3.5 shrink-0"
-            fill="none"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="1.8"
-            viewBox="0 0 24 24"
-          >
-            <circle cx="12" cy="12" r="9" />
-            <path d="M12 8v4" />
-            <path d="M12 16h.01" />
-          </svg>
-          {error}
-        </p>
-      ) : null}
-    </div>
-  );
-}
-
 export function ContactForm() {
-  const [values, setValues] = useState<FormValues>(INITIAL_VALUES);
-  const [errors, setErrors] = useState<FormErrors>({});
-  const [touched, setTouched] = useState<Partial<Record<keyof FormValues, boolean>>>({});
-  const [status, setStatus] = useState<FormStatus>("idle");
-  const [fallbackLink, setFallbackLink] = useState("");
+  const id = useId();
+  const [values, setValues] = useState<Values>(initialValues);
+  const [errors, setErrors] = useState<Errors>({});
+  const [draftLink, setDraftLink] = useState("");
+  const [topic, setTopic] = useState(0);
 
-  const handleChange = (field: keyof FormValues) => (value: string) => {
-    setValues((current) => ({ ...current, [field]: value }));
+  const enquiry = enquiries[topic];
 
-    if (touched[field]) {
-      setErrors(validate({ ...values, [field]: value }));
-    }
-  };
+  function change(field: keyof Values, value: string) {
+    setValues(current => ({ ...current, [field]: value }));
+    setErrors(current => ({ ...current, [field]: undefined }));
+    setDraftLink("");
+  }
 
-  const handleBlur = (field: keyof FormValues) => () => {
-    setTouched((current) => ({ ...current, [field]: true }));
-    setErrors(validate(values));
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
     const nextErrors = validate(values);
-    setTouched({ name: true, email: true, message: true });
     setErrors(nextErrors);
-
-    if (Object.keys(nextErrors).length > 0) {
-      const firstInvalid = Object.keys(nextErrors)[0];
-      document.getElementById(firstInvalid)?.focus();
+    const firstInvalid = (Object.keys(nextErrors) as (keyof Values)[])[0];
+    if (firstInvalid) {
+      event.currentTarget.querySelector<HTMLElement>(`[name="${firstInvalid}"]`)?.focus();
       return;
     }
-
-    setStatus("submitting");
-
-    const link = generateContactFormLink({
-      name: values.name.trim(),
-      email: values.email.trim(),
-      message: values.message.trim(),
-    });
-
-    // window.open must run inside the user gesture to avoid popup blockers
-    const openedWindow = window.open(link, "_blank", "noopener,noreferrer");
-
-    window.setTimeout(() => {
-      if (openedWindow) {
-        setStatus("success");
-      } else {
-        setFallbackLink(link);
-        setStatus("error");
-      }
-    }, 900);
-  };
-
-  const resetForm = () => {
-    setValues(INITIAL_VALUES);
-    setErrors({});
-    setTouched({});
-    setFallbackLink("");
-    setStatus("idle");
-  };
-
+    const message = `${enquiry.subject}\n\n${values.message.trim()}`;
+    const link = generateContactFormLink({ name: values.name.trim(), email: values.email.trim(), message });
+    setDraftLink(link);
+    // A noopener window can return null even when opened. Keep a real link available.
+    window.open(link, "_blank", "noopener,noreferrer");
+  }
   return (
-    <motion.div
-      className="relative overflow-hidden rounded-[2rem] border border-white/60 bg-[rgba(255,253,252,0.86)] p-6 shadow-[0_18px_60px_rgba(51,40,33,0.08)] backdrop-blur sm:p-8 lg:p-10"
-      initial={{ opacity: 0, y: 24 }}
-      transition={{ duration: 0.7, ease: "easeOut" }}
-      viewport={{ once: true, amount: 0.2 }}
-      whileInView={{ opacity: 1, y: 0 }}
-    >
-      <div
-        aria-hidden="true"
-        className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[var(--color-champagne)] to-transparent"
-      />
-
-      <div aria-live="polite">
-        {status === "success" ? (
-          <div className="flex min-h-96 flex-col items-center justify-center py-8 text-center">
-            <motion.span
-              animate={{ opacity: 1, scale: 1 }}
-              className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-[rgba(122,130,114,0.16)] text-[var(--color-sage-ash)]"
-              initial={{ opacity: 0, scale: 0.7 }}
-              transition={{ duration: 0.45, ease: "easeOut" }}
-            >
-              <CheckIcon />
-            </motion.span>
-
-            <h3 className="mt-6 text-3xl leading-tight text-stone-900">
-              Your message is on its way
-            </h3>
-            <p className="mt-3 max-w-sm text-sm leading-7 text-stone-600">
-              WhatsApp should have opened with your note pre-filled — just press
-              send and we&apos;ll take it from there.
-            </p>
-
-            <button
-              className="mt-8 inline-flex min-h-11 items-center justify-center rounded-full border border-stone-300/80 bg-white/80 px-6 py-2.5 text-xs font-medium uppercase tracking-[0.18em] text-stone-900 transition-transform duration-300 hover:-translate-y-0.5 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900/30"
-              onClick={resetForm}
-              type="button"
-            >
-              Write another message
-            </button>
-          </div>
-        ) : (
-          <>
-            <p className="text-[0.68rem] uppercase tracking-[0.32em] text-stone-500">
-              Send a message
-            </p>
-            <h2 className="mt-3 text-3xl leading-tight text-stone-900 sm:text-4xl">
-              Tell us about the gift
-              <span className="block text-[var(--color-rose-clay)]">
-                you have in mind.
-              </span>
-            </h2>
-            <p className="mt-4 text-sm leading-7 text-stone-600">
-              Your note opens in WhatsApp, pre-filled and ready to send — the
-              same place we plan every order, so nothing gets lost.
-            </p>
-
-            <form className="mt-8 space-y-5" noValidate onSubmit={handleSubmit}>
-              <FloatingField
-                autoComplete="name"
-                error={touched.name ? errors.name : undefined}
-                id="name"
-                label="Your name"
-                onBlur={handleBlur("name")}
-                onChange={handleChange("name")}
-                value={values.name}
-              />
-
-              <FloatingField
-                autoComplete="email"
-                error={touched.email ? errors.email : undefined}
-                id="email"
-                label="Email address"
-                onBlur={handleBlur("email")}
-                onChange={handleChange("email")}
-                type="email"
-                value={values.email}
-              />
-
-              <FloatingField
-                error={touched.message ? errors.message : undefined}
-                id="message"
-                label="Your message"
-                onBlur={handleBlur("message")}
-                onChange={handleChange("message")}
-                textarea
-                value={values.message}
-              />
-
-              {status === "error" ? (
-                <div
-                  className="rounded-2xl border border-[#b3423a]/25 bg-[#b3423a]/5 px-4 py-3 text-sm leading-6 text-[#8c3630]"
-                  role="alert"
-                >
-                  Your browser blocked the WhatsApp window.{" "}
-                  <a
-                    className="font-semibold underline underline-offset-2 hover:text-[#b3423a]"
-                    href={fallbackLink}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    Open WhatsApp manually
-                  </a>{" "}
-                  to send your message.
-                </div>
-              ) : null}
-
-              <button
-                className="group inline-flex min-h-12 w-full items-center justify-center gap-2.5 rounded-full bg-stone-900 px-7 py-3 text-sm font-medium uppercase tracking-[0.18em] text-stone-50 shadow-[0_16px_40px_rgba(51,40,33,0.2)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-stone-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-70 sm:w-auto"
-                disabled={status === "submitting"}
-                type="submit"
-              >
-                {status === "submitting" ? (
-                  <>
-                    <span
-                      aria-hidden="true"
-                      className="h-4 w-4 animate-spin rounded-full border-2 border-stone-50/30 border-t-stone-50"
-                    />
-                    Opening WhatsApp…
-                  </>
-                ) : (
-                  <>
-                    Send message
-                    <span className="transition-transform duration-300 group-hover:translate-x-1">
-                      <SendIcon />
-                    </span>
-                  </>
-                )}
+    <section className={styles.desk} aria-label="Start a conversation with Sneha">
+      <div className={styles.choices}>
+        <fieldset className={styles.topics}>
+          <legend><span className={styles.step}>01</span> What brings you here?</legend>
+          <div className={styles.topicList}>
+            {enquiries.map((item, index) => (
+              <button key={item.subject} type="button" aria-pressed={topic === index} aria-controls={`${id}-letter`} onClick={() => { setTopic(index); setDraftLink(""); }}>
+                <span className={styles.topicNumber} aria-hidden="true">0{index + 1}</span>
+                <span><strong>{item.label}</strong><small>{item.detail}</small></span>
+                <span className={styles.selection} aria-hidden="true">{topic === index ? "✓" : "+"}</span>
               </button>
-
-              <p className="flex items-center gap-2 pt-1 text-xs leading-6 text-stone-500">
-                <span className="text-[var(--color-champagne)]">
-                  <ClockIcon />
-                </span>
-                Usually responds within 24 hours.
-              </p>
-            </form>
-          </>
-        )}
+            ))}
+          </div>
+        </fieldset>
+        <div className={styles.direct}>
+          <span>Already know what to say?</span>
+          <a href={generateGeneralInquiryLink()} target="_blank" rel="noopener noreferrer"><WhatsAppIcon />Chat directly on WhatsApp<span className="sr-only"> (opens in a new tab)</span></a>
+        </div>
+        <p className={styles.deskSignature}>From your screen to Sneha’s.<br /><span>A real person, behind every piece.</span></p>
       </div>
-    </motion.div>
+      <form id={`${id}-letter`} className={styles.form} noValidate onSubmit={submit}>
+        <div className={styles.letterTop}>
+          <span><span className={styles.step}>02</span> Your note</span>
+          <span className={styles.stamp} aria-hidden="true"><svg viewBox="0 0 60 30" fill="none"><path d="m3 26 17-21 14 17 8-12 15 16M13 14l7-9 7 9-7-3-7 3Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" /></svg>KUMAONRANG</span>
+        </div>
+        <div className={styles.addressee}><span>To</span><strong>Sneha</strong><span>at KumaonRang</span></div>
+        <div className={styles.subject} aria-live="polite" aria-atomic="true"><span>About</span><strong key={enquiry.subject}>{enquiry.subject}</strong></div>
+        <div className={styles.fieldRow}>
+          <div className={styles.field}>
+            <label htmlFor={`${id}-name`}>Your name</label>
+            <input id={`${id}-name`} name="name" autoComplete="name" required maxLength={100} value={values.name} onChange={e => change("name", e.target.value)} aria-invalid={!!errors.name} aria-describedby={errors.name ? `${id}-name-error` : undefined} placeholder="How should we address you?" />
+            {errors.name && <p id={`${id}-name-error`} className={styles.error} role="alert">{errors.name}</p>}
+          </div>
+          <div className={styles.field}>
+            <label htmlFor={`${id}-email`}>Email <span>(optional)</span></label>
+            <input id={`${id}-email`} name="email" type="email" autoComplete="email" maxLength={254} value={values.email} onChange={e => change("email", e.target.value)} aria-invalid={!!errors.email} aria-describedby={errors.email ? `${id}-email-error` : undefined} placeholder="you@example.com" />
+            {errors.email && <p id={`${id}-email-error`} className={styles.error} role="alert">{errors.email}</p>}
+          </div>
+        </div>
+        <div className={styles.field}>
+          <label htmlFor={`${id}-message`}>Your message</label>
+          <textarea id={`${id}-message`} name="message" required maxLength={3000} rows={4} value={values.message} onChange={e => change("message", e.target.value)} aria-invalid={!!errors.message} aria-describedby={`${id}-hint${errors.message ? ` ${id}-message-error` : ""}`} placeholder={enquiry.prompt} />
+          <p id={`${id}-hint`} className={styles.hint}>{enquiry.hint}</p>
+          {errors.message && <p id={`${id}-message-error`} className={styles.error} role="alert">{errors.message}</p>}
+        </div>
+        <div>
+          <button className={styles.formButton} type="submit"><WhatsAppIcon />Continue on WhatsApp<span className="sr-only"> (opens in a new tab)</span></button>
+          <p className={styles.formNote}>Review your note in WhatsApp, then press send.<br />Nothing is sent automatically.</p>
+        </div>
+        {draftLink && <div className={styles.draft} role="status">
+          <p>Your draft is ready. Review it and press send in WhatsApp.</p>
+          <a href={draftLink} target="_blank" rel="noopener noreferrer">Open WhatsApp again<span className="sr-only"> (opens in a new tab)</span></a>
+        </div>}
+      </form>
+    </section>
   );
 }

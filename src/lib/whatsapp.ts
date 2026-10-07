@@ -165,8 +165,7 @@ export function generateContactFormLink(details: ContactFormDetails): string {
     `I'm ${details.name}, reaching out through your website:`,
     "",
     details.message,
-    "",
-    `You can also reach me by email at ${details.email}.`,
+    ...(details.email ? ["", `You can also reach me by email at ${details.email}.`] : []),
   ];
 
   return createWhatsAppLink(lines.join("\n"));
