@@ -21,32 +21,29 @@ function featuredProduct(products: Product[]): Product | undefined {
     products.find(product => product.image);
 }
 
-export async function generateMetadata(): Promise<Metadata> {
-  const featured = featuredProduct(await getProducts());
-  const image = featured ? getProductImage(featured) : undefined;
-  return {
-    title: { absolute: homeTitle },
-    description: homeDescription,
-    keywords: [
-      "Aipan art gifts online",
-      "handmade Uttarakhand souvenir",
-      "Pahadi keychain Uttarakhand",
-      "Kumaoni heritage gifts",
-      "gift from Uttarakhand",
-    ],
-    openGraph: {
-      title: homeTitle, description: homeDescription, url: getSiteUrl(), type: "website",
-      siteName: "KumaonRang", locale: "en_IN",
-      ...(image?.src ? { images: [{ url: image.src, alt: image.alt,
-        ...(image.width && image.height ? { width: image.width, height: image.height } : {}),
-      }] } : {}),
-    },
-    twitter: { title: homeTitle, description: homeDescription,
-      card: image?.src ? "summary_large_image" : "summary",
-      ...(image?.src ? { images: [image.src] } : {}),
-    },
-  };
-}
+// Sharing the homepage represents the brand, not whichever product is featured.
+// Keep product-page previews independent, with their own catalogue photos.
+export const metadata: Metadata = {
+  title: { absolute: homeTitle },
+  description: homeDescription,
+  keywords: [
+    "Aipan art gifts online",
+    "handmade Uttarakhand souvenir",
+    "Pahadi keychain Uttarakhand",
+    "Kumaoni heritage gifts",
+    "gift from Uttarakhand",
+  ],
+  openGraph: {
+    title: homeTitle, description: homeDescription, url: getSiteUrl(), type: "website",
+    siteName: "KumaonRang", locale: "en_IN",
+    images: [{ url: `${getSiteUrl()}/brand/kumaonrang-favicon-source.png`,
+      alt: "KumaonRang — K monogram with Himalayan mountains", width: 512, height: 512, type: "image/png" }],
+  },
+  twitter: { title: homeTitle, description: homeDescription,
+    card: "summary",
+    images: [`${getSiteUrl()}/brand/kumaonrang-favicon-source.png`],
+  },
+};
 
 export const revalidate = 60;
 
