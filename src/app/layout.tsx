@@ -100,6 +100,13 @@ export default function RootLayout({
                 addressCountry: "IN",
               },
               sameAs: ["https://www.instagram.com/art_gallery_05s/"],
+              // Google's URL-based policy option preserves the full damage and
+              // statutory-rights wording without inventing a return window.
+              hasMerchantReturnPolicy: {
+                "@type": "MerchantReturnPolicy",
+                "@id": `${siteUrl}/returns-policy#policy`,
+                merchantReturnLink: `${siteUrl}/returns-policy`,
+              },
             }, {
               "@context": "https://schema.org",
               "@type": "WebSite",

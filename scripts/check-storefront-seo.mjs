@@ -19,6 +19,7 @@ assert.equal(new Set(urls.map(url => url.href)).size, urls.length, 'Duplicate si
 const categories = ['/pahadi-keychains', '/aipan-frames', '/uttarakhand-souvenirs', '/kumaoni-gifts'];
 for (const path of categories) assert.ok(urls.some(url => url.pathname === path), `Missing category: ${path}`);
 const results = [];
+const internalLinks = new Set();
 const queue = [...urls];
 await Promise.all(Array.from({ length: 4 }, async () => {
   while (queue.length) {
@@ -39,6 +40,16 @@ await Promise.all(Array.from({ length: 4 }, async () => {
     assert.equal(new URL(ogUrl).href, new URL(canonical).href, `${path}: Open Graph URL`);
     assert.equal([...html.matchAll(/<h1\b/g)].length, 1, `${path}: exactly one H1`);
     const schemas = [...html.matchAll(/<script\b[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].flatMap(match => JSON.parse(match[1]));
+    const business = schemas.find(schema => schema['@type'] === 'Organization' && schema['@id'] === `${canonicalOrigin}#business`);
+    assert.equal(business?.hasMerchantReturnPolicy?.['@type'], 'MerchantReturnPolicy', `${path}: shop return policy`);
+    assert.equal(business.hasMerchantReturnPolicy.merchantReturnLink, `${canonicalOrigin}/returns-policy`, `${path}: full published return policy URL`);
+    assert.equal(business.hasMerchantReturnPolicy.merchantReturnDays, undefined, `${path}: do not misrepresent damage-report days as a general return window`);
+    for (const match of html.matchAll(/<a\b[^>]*>/g)) {
+      const href = attribute(match[0], 'href');
+      if (!href) continue;
+      const target = new URL(href, new URL(path, preview));
+      if (target.origin === preview.origin || target.origin === canonicalOrigin) internalLinks.add(target.pathname + target.search);
+    }
     const productPath = path.split('/').filter(Boolean).length === 2;
     if (productPath) {
       const product = schemas.find(schema => schema['@type'] === 'Product');
@@ -54,10 +65,15 @@ await Promise.all(Array.from({ length: 4 }, async () => {
 }));
 assert.equal(new Set(results.map(item => item.title)).size, results.length, 'Page titles must be unique');
 assert.equal(new Set(results.map(item => item.description)).size, results.length, 'Page descriptions must be unique');
+for (const path of internalLinks) {
+  if (results.some(item => item.path === path)) continue;
+  const response = await fetch(new URL(path, preview));
+  assert.equal(response.status, 200, `${path}: public internal link must resolve`);
+}
 const missing = await fetch(new URL('/not-a-real-collection', preview));
 assert.equal(missing.status, 404, 'Unknown collection must return 404');
 const login = await fetchHtml('/admin/login');
 assert.match(login, /<meta name="robots" content="[^"]*noindex/, 'Admin login must not be indexed');
-const report = { pagesChecked: results.length, categoriesChecked: categories.length, productPagesChecked: results.filter(item => item.product).length, uniqueTitles: new Set(results.map(item => item.title)).size, uniqueDescriptions: new Set(results.map(item => item.description)).size, results: results.sort((a, b) => a.path.localeCompare(b.path)) };
+const report = { pagesChecked: results.length, categoriesChecked: categories.length, productPagesChecked: results.filter(item => item.product).length, publicInternalLinksChecked: internalLinks.size, uniqueTitles: new Set(results.map(item => item.title)).size, uniqueDescriptions: new Set(results.map(item => item.description)).size, results: results.sort((a, b) => a.path.localeCompare(b.path)) };
 if (process.argv[4]) await writeFile(process.argv[4], JSON.stringify(report, null, 2) + '\n');
 console.log(JSON.stringify({ ...report, results: undefined }, null, 2));
