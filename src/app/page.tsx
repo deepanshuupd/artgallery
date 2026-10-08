@@ -97,7 +97,7 @@ export default async function HomePage() {
         "@id": `${getSiteUrl()}#webpage`, url: getSiteUrl(), name: homeTitle,
         ...(primaryImage ? { primaryImageOfPage: primaryImage } : {}),
       }} />
-      <HeroSection featuredProduct={culturalFeaturedProduct} />
+      <HeroSection />
       <FeaturedCollections images={categoryImages} />
       <CustomerNotes />
       <ColoursOfKumaon />

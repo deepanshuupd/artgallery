@@ -1,0 +1,20 @@
+[
+  {
+    "name": "welcome",
+    "prompt": "Use case: illustration-story. Create a website decorative transparent cutout of the Kumaoni welcome woman shown in the reference. The attached screenshot is a style/subject reference only: do NOT reproduce the webpage, text or UI. Front-facing young adult Kumaoni woman with namaste folded hands, warm welcoming expression, orange-yellow Pichora veil with red dotted motifs, dark forest green blouse, cream sari, traditional gold nath nose ring, necklace and forehead jewellery. Refined hand-painted editorial illustration, similar to the screenshot, detailed natural hands, elegant eyes, warm earthy colors. Waist-up centered portrait, full veil and shoulders intact, hem reaches image bottom, no other objects, no text, no logos, no watermark. Truly transparent background. Tall portrait composition.",
+    "transparent_background": true,
+    "reference": "WhatsApp Image 2026-10-08 at 22.03.24 (1).jpeg"
+  },
+  {
+    "name": "village",
+    "prompt": "Use case: illustration-story. Asset type: decorative website hero background. Create the Kumaon mountain village scene inspired by the attached screenshot reference, art ONLY, no UI/text/person portrait/logo. Wide landscape of a traditional two-storey Kumaoni stone and cream plaster village house, long dark slate roof, weathered carved wooden balconies, blue doors, stone courtyard, a few tiny residents doing everyday tasks, terraced green hills, tall Himalayan pine/deodar forest, distant misty mountain ridges. Warm natural daylight, beautiful realistic editorial scenery with gentle illustrated finish. House spans lower half, forest and mountains upper half, rich muted evergreen, cream and warm earthy colors. Edge to edge landscape, no borders, no watermark. Do not include the large illustrated woman or any buttons.",
+    "transparent_background": false,
+    "reference": "WhatsApp Image 2026-10-08 at 22.03.24.jpeg"
+  },
+  {
+    "name": "postcard",
+    "prompt": "Use case: illustration-story. Asset type: decorative transparent stationery artwork overlay. Attached screenshot is only a reference for decoration, DO NOT reproduce any text, website UI or cream paper background. Create a portrait decorative border on a TRULY TRANSPARENT background with large completely EMPTY transparent central area for live website text. Match the lovely Kumaoni illustrated studio note: carved dark wood ornamental corner at top-left and bottom-right, delicate pine sprig with cones at upper-left edge, red rhododendron and orange marigolds at lower-right edge, a slim copper traditional flute tilted along the far right edge, a small illustrated polaroid of red Aipan frame and woven basket near middle-right, a little orange-yellow dotted Pichora drape extending in at bottom-left. Each object hugs the very outer edge; 80% center remains clear. Refined watercolor/stationery hand-painted look, maroon evergreen gold colors. No text, no logo, no horizontal strips, no shadow rectangle, no watermark.",
+    "transparent_background": true,
+    "reference": "WhatsApp Image 2026-10-08 at 22.03.24 (2).jpeg"
+  }
+]

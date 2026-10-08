@@ -24,3 +24,8 @@
   .starTwo { right: 15px; bottom: 8px; width: 17px; height: 17px; }
   .starThree { right: 24px; top: 6px; width: 7px; height: 7px; }
 }
+
+.controls { display: flex; align-items: center; }
+@media (min-width: 768px) {
+  .controls { display: none; }
+}

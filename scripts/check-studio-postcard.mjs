@@ -46,7 +46,7 @@ assert.match(html, /target="_blank" rel="noopener noreferrer"/);
 assert.match(html, /opens in a new tab/);
 assert.ok(!/<iframe|<script|<img/.test(html), 'No embed, script or image request');
 const css = readFileSync(new URL('../src/components/about/studio-postcard.module.css', import.meta.url), 'utf8');
-assert.match(css, /\.stage \{[^}]*padding: 12px 12px 92px;[^}]*overflow: clip;/, 'Moving paper is clipped inside a padded stage, without adding scrollable clip margins');
+assert.match(css, /\.stage \{[^}]*padding: 12px 12px 20px;[^}]*overflow: clip;/, 'Moving paper is clipped inside a padded stage, without adding scrollable clip margins');
 assert.match(css, /\.dialog \{[^}]*overflow-y: auto;/, 'Small-screen content can still scroll');
 assert.match(css, /@keyframes paper-peek/);
 assert.match(css, /@keyframes unseal/);

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 import { CraftOrnament } from "@/components/home/craft-ornament";
-import { CloseIcon, InstagramIcon } from "@/components/icons";
+import { CloseIcon, InstagramIcon, WhatsAppIcon } from "@/components/icons";
 import { createWhatsAppLink } from "@/lib/whatsapp";
 
 import styles from "./studio-postcard.module.css";
@@ -142,7 +142,7 @@ export function StudioPostcard() {
               </a>
               </div>
               <a className={styles.claim} href={offerInquiry} target="_blank" rel="noopener noreferrer"
-                aria-label="Ask Sneha to claim the follower offer on WhatsApp (opens in a new tab)">Claim with Sneha on WhatsApp</a>
+                aria-label="Ask Sneha to claim the follower offer on WhatsApp (opens in a new tab)"><WhatsAppIcon /><span>Claim with Sneha on WhatsApp</span></a>
               <div className={styles.signoff}>
                 <span className={styles.signature}>With love, Sneha</span>
                 <span className={styles.origin}>From Pithoragarh, Uttarakhand</span>

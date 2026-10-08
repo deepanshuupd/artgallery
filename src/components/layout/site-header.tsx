@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { CloseIcon, MenuIcon, SparkleIcon } from "@/components/icons";
 import { navigationItems } from "@/lib/navigation";
@@ -29,12 +29,30 @@ function isActivePath(currentPath: string, href: string) {
 export function SiteHeader() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const menuButton = useRef<HTMLButtonElement>(null);
+  const header = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const closeOutside = (event: PointerEvent) => {
+      if (!header.current?.contains(event.target as Node)) setIsOpen(false);
+    };
+    const desktop = window.matchMedia("(min-width: 768px)");
+    const closeOnDesktop = () => { if (desktop.matches) setIsOpen(false); };
+    document.addEventListener("pointerdown", closeOutside);
+    desktop.addEventListener("change", closeOnDesktop);
+    return () => {
+      document.removeEventListener("pointerdown", closeOutside);
+      desktop.removeEventListener("change", closeOnDesktop);
+    };
+  }, [isOpen]);
 
   return (
     <>
-    <header className={`${styles.header} sticky top-0 z-50 border-b border-[rgba(168,69,48,0.16)] bg-[rgba(255,250,241,0.92)] backdrop-blur-xl`}>
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-3 px-4 py-2 sm:px-6 sm:py-2 lg:px-8">
+    <header ref={header} onBlur={event => { if (isOpen && !event.currentTarget.contains(event.relatedTarget)) setIsOpen(false); }} onKeyDown={event => { if (event.key === "Escape" && isOpen) { setIsOpen(false); menuButton.current?.focus(); } }} className={`${styles.header} sticky top-0 z-50 border-b border-[rgba(168,69,48,0.16)] bg-[rgba(255,250,241,0.92)] backdrop-blur-xl`}>
+      <div className={`mx-auto flex w-full max-w-7xl items-center justify-between gap-3 px-4 py-2 sm:px-6 sm:py-2 lg:px-8`}>
         <Link
+          aria-label="KumaonRang home"
           className="group flex shrink-0 flex-col items-center text-stone-900 transition-colors duration-300 hover:text-stone-700"
           href="/"
           onClick={() => setIsOpen(false)}
@@ -67,16 +85,18 @@ export function SiteHeader() {
           })}
         </nav>
 
-        <button
+        <div className={styles.controls}>
+        <button ref={menuButton}
           aria-controls="mobile-navigation"
           aria-expanded={isOpen}
           aria-label={isOpen ? "Close menu" : "Open menu"}
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(168,69,48,0.25)] bg-[var(--color-biswar)] text-[var(--color-geru)] shadow-sm transition hover:bg-white md:hidden"
+          className={`inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(168,69,48,0.25)] bg-[var(--color-biswar)] text-[var(--color-geru)] shadow-sm transition hover:bg-white md:hidden`}
           onClick={() => setIsOpen((open) => !open)}
           type="button"
         >
           {isOpen ? <CloseIcon /> : <MenuIcon />}
         </button>
+        </div>
       </div>
 
       <div

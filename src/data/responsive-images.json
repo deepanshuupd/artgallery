@@ -378,5 +378,65 @@
       "avifSrc": "/images/responsive/99a1f5ca1f27-449.avif",
       "avifBytes": 10683
     }
+  ],
+  "/images/culture/kumaoni-welcome-v1.webp": [
+    {
+      "src": "/images/responsive/519aa6fb9f37-384.webp",
+      "width": 384,
+      "height": 576,
+      "bytes": 56600
+    },
+    {
+      "src": "/images/responsive/569ebd4f1c61-640.webp",
+      "width": 640,
+      "height": 960,
+      "bytes": 120792
+    },
+    {
+      "src": "/images/responsive/bf8a74146815-960.webp",
+      "width": 960,
+      "height": 1440,
+      "bytes": 214040
+    }
+  ],
+  "/images/culture/kumaon-village-v1.webp": [
+    {
+      "src": "/images/responsive/edba811f2be1-384.webp",
+      "width": 384,
+      "height": 216,
+      "bytes": 28598
+    },
+    {
+      "src": "/images/responsive/7a513d22055d-640.webp",
+      "width": 640,
+      "height": 360,
+      "bytes": 75884
+    },
+    {
+      "src": "/images/responsive/0343536a3b9d-1440.webp",
+      "width": 1440,
+      "height": 810,
+      "bytes": 303664
+    }
+  ],
+  "/images/culture/studio-note-decoration-v1.webp": [
+    {
+      "src": "/images/responsive/36c030493e2f-384.webp",
+      "width": 384,
+      "height": 576,
+      "bytes": 65574
+    },
+    {
+      "src": "/images/responsive/8b9e6d67d80f-640.webp",
+      "width": 640,
+      "height": 960,
+      "bytes": 151606
+    },
+    {
+      "src": "/images/responsive/77dc1e8af1e8-900.webp",
+      "width": 900,
+      "height": 1350,
+      "bytes": 266690
+    }
   ]
 }

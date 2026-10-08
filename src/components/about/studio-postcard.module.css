@@ -19,11 +19,11 @@
   30% { transform: translateX(var(--peek-small)) rotate(9deg); }
 }
 
-.dialog { position: fixed; inset: 0; width: min(460px, calc(100% - 24px)); max-width: none; max-height: calc(100svh - 24px); margin: auto; padding: 18px 12px 12px; border: 0; background: transparent; color: var(--color-espresso); overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; }
+.dialog { position: fixed; inset: 0; width: min(520px, calc(100% - 24px)); max-width: none; max-height: calc(100svh - 24px); margin: auto; padding: 18px 12px 12px; border: 0; background: transparent; color: var(--color-espresso); overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; }
 .dialog::backdrop { background: rgba(47,36,29,.52); }
 /* Contain the lifting paper's visual overflow, not the note's real content height.
    The dialog remains scrollable when its resting layout exceeds a small screen. */
-.stage { position: relative; isolation: isolate; margin: -12px; padding: 12px 12px 92px; perspective: 1000px; overflow: clip; }
+.stage { position: relative; isolation: isolate; margin: -12px; padding: 12px 12px 20px; perspective: 1000px; overflow: clip; }
 .letter { position: relative; z-index: 2; border: 1px solid #d7baa0; border-radius: 3px; background: #fffaf1; box-shadow: 0 9px 30px rgba(47,36,29,.15); }
 .close { position: absolute; right: 8px; top: 7px; z-index: 5; display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 50%; background: transparent; color: #755947; cursor: pointer; }
 .close > svg { width: 18px; height: 18px; }
@@ -75,7 +75,6 @@
 @media (min-width: 1024px) {
   .page { padding-inline-start: 72px; }
   /* Keep the peeking paper in the page gutter, clear of copy and shop links. */
-  .homePage :global(.heritage-shell) { width: min(100% - 160px, 1200px); }
   .homePage :global(section[aria-labelledby="collections-title"]) > div { padding-inline: 80px; }
   .rail { left: -44px; right: auto; top: 48%; transform: translateY(-50%); }
   .peek, .miniEnvelope { width: 96px; }
@@ -103,3 +102,61 @@
   .miniEnvelope, .noteTab, .hint, .linkArrow { transition: none; }
 }
 @media print { .rail, .dialog { display: none; } }
+
+/* Illustrated stationery; the offer and every action remain live HTML. */
+.letter { border: 0; border-radius: 2px; background: radial-gradient(#ab765313 .6px, transparent .8px) 0 0 / 5px 5px, #fff8e9; color: #263f32; }
+.letter::before, .letter::after { content: ""; position: absolute; inset: 0; pointer-events: none; }
+.letter::before { z-index: 0; background: url('/images/culture/studio-note-decoration-v1.webp') center / 100% 100% no-repeat; opacity: .5; }
+.letter::after { border-block: 13px solid transparent; border-image: url('/illustrations/aipan-welcome-border.svg') 6 0 repeat; }
+.close { top: 18px; right: 18px; color: #294635; background: #fff8e9c9; }
+.close > svg { width: 26px; height: 26px; }
+.cover { padding: 40px 98px 26px 36px; background: transparent; border-color: #bfa58b; }
+.address { color: #294635; font-size: .68rem; line-height: 1.45; letter-spacing: .025em; }
+.title { color: #943c29; font-size: 2.4rem; line-height: 1.04; margin-top: 18px; }
+.stamp { right: 24px; top: 91px; width: 58px; padding: 7px; background: #fff4e3; }
+.stamp > svg { width: 39px; height: 39px; }
+.stamp > span { font-size: .48rem; }
+.postmark { top: 144px; right: 50px; width: 66px; }
+.messageBody { position: relative; padding: 24px 36px 36px; }
+.offer { padding-block: 13px; border-color: #a79d7c; border-style: dotted; color: #294635; }
+.offerLabel { font-size: 10px; letter-spacing: .015em; }
+.offerValue { gap: 12px; }
+.offerValue strong { font-size: 4.2rem; }
+.offerValue > span { font-size: 1.6rem; }
+.message { font-size: .94rem; line-height: 1.7; color: #302e23; margin-top: 16px; }
+.followLinks { margin-top: 18px; border-color: #ad9780; }
+.instagram { min-height: 68px; font-size: .96rem; }
+.instagram > svg { width: 28px; height: 28px; }
+.pinterestMark { width: 28px; font-size: 32px; }
+.handle { font-size: .76rem; color: #534c3b; }
+.claim { gap: 8px; min-height: 52px; border-radius: 999px; margin-top: 20px; background: #294635; font-size: .86rem; }
+.claim > svg { width: 21px; height: 21px; flex-shrink: 0; }
+.signoff { margin-top: 22px; gap: 7px; }
+.signature { font-size: 1.85rem; font-weight: 600; }
+.origin { font-size: .72rem; color: #343e30; }
+.envelopeBack, .flap, .envelopeFront { display: none; }
+@media (max-width: 380px) {
+  .cover { padding: 36px 83px 24px 26px; }
+  .title { font-size: 2rem; }
+  .messageBody { padding: 20px 26px 28px; }
+  .offerValue strong { font-size: 3.5rem; }
+  .offerValue > span { font-size: 1.3rem; }
+  .message { font-size: .85rem; }
+  .instagram { font-size: .85rem; }
+  .claim { font-size: .75rem; padding-inline: 10px; }
+  .signature { font-size: 1.6rem; }
+}
+.letter::after { border: 0; border-image: none; background: url('/illustrations/aipan-welcome-border.svg') repeat-x center top / 48px 18px, url('/illustrations/aipan-welcome-border.svg') repeat-x center bottom / 48px 18px; }
+.cover { padding-right: 75px; }
+.title { font-size: 2.1rem; }
+.offerValue { flex-wrap: nowrap; gap: 9px; }
+.offerValue strong { font-size: 3.6rem; }
+.offerValue > span { font-size: 1.3rem; }
+@media (max-width: 380px) {
+  .cover { padding-right: 65px; }
+  .title { font-size: 1.9rem; }
+  .offerValue strong { font-size: 3rem; }
+  .offerValue > span { font-size: 1.12rem; }
+}
+.claim { font-size: .78rem; }
+.signature { font-size: 1.55rem; }
