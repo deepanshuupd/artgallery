@@ -14,13 +14,16 @@ import { ProductStory } from "./product-story";
 import order from "./order-sheet.module.css";
 import styles from "./product-detail.module.css";
 import { shopOrdering } from "@/data/shop-ordering";
+import { getMinimumPieceQuantity, getProductHighlights } from "@/lib/product-highlights";
 
 export function ProductDetailView({ product, children }: { product: Product; children?: ReactNode }) {
   const images = getProductImageUrls(product).map(src => getProductImage(product, src));
   const discount = getDiscount(product.price, product.originalPrice);
+  const highlights = getProductHighlights(product);
+  const minimumQuantity = getMinimumPieceQuantity(product);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [failedImages, setFailedImages] = useState<string[]>([]);
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(minimumQuantity);
   const [orderOpen, setOrderOpen] = useState(false);
   const [zoomOpen, setZoomOpen] = useState(false);
   const [purchasePassed, setPurchasePassed] = useState(false);
@@ -86,10 +89,15 @@ export function ProductDetailView({ product, children }: { product: Product; chi
           </header>
           <section ref={purchaseRef} className={styles.purchase} aria-labelledby="product-order-title">
             {introduction && <p className={styles.introduction}>{introduction}</p>}
+            {highlights.length > 0 && <div className={styles.highlights}>
+              <h2>At a glance</h2>
+              <dl>{highlights.map(fact => <div key={fact.label}><dt>{fact.label}</dt><dd>{fact.value}</dd></div>)}</dl>
+              <a href="#product-information">Read all product details ↓</a>
+            </div>}
             <div className={styles.purchaseBox}>
               <h2 id="product-order-title" className={styles.purchaseHeading}>Order details</h2>
               {typeof product.inStock === "boolean" && <p className={styles.availability} data-stock-state={product.inStock ? "in-stock" : "out-of-stock"}><span aria-hidden="true" />{product.inStock ? "In stock · Confirm availability for your quantity" : "Currently out of stock · Ask Sneha about availability"}</p>}
-              <QuantityControl value={quantity} onChange={setQuantity} />
+              <QuantityControl value={quantity} onChange={setQuantity} minimum={minimumQuantity} />
               <div className={styles.fulfilment}>
                 <p><strong>Dispatch</strong> {product.inStock === false ? "Preparation and availability are confirmed with Sneha." : shopOrdering.dispatch} Custom or larger quantities may need more time.</p>
                 <p><strong>Delivery charge</strong> Quoted for your parcel’s weight, dimensions and delivery details. <Link prefetch={false} href="/shipping-policy">Delivery & dispatch details</Link></p>

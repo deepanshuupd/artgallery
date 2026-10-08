@@ -27,6 +27,13 @@
 .caption { margin-top: 10px; color: #526963; font-size: 12px; line-height: 1.7; }
 .purchase { grid-area: purchase; min-width: 0; }
 .introduction { margin-bottom: 20px; color: #526963; font-size: 14px; line-height: 1.8; }
+.highlights { margin-bottom: 20px; }
+.highlights h2 { margin-bottom: 10px; font: 600 15px/1.4 var(--font-body),sans-serif; }
+.highlights dl { display: grid; gap: 0; font-size: 13px; line-height: 1.7; }
+.highlights dl > div { display: grid; grid-template-columns: minmax(0, 100px) minmax(0, 1fr); gap: 12px; padding-block: 9px; border-bottom: 1px solid #d9e1de; }
+.highlights dt { color: #526963; }
+.highlights dd { color: #263c46; overflow-wrap: anywhere; }
+.highlights > a { display: inline-flex; align-items: center; min-height: 44px; color: #28564f; font-size: 12px; text-decoration: underline; text-underline-offset: 4px; }
 .purchaseBox { padding: 20px; border-radius: 10px; background: #e7eef1; }
 .purchaseHeading { margin: 0; font: 600 15px/1.4 var(--font-body),sans-serif; }
 .fulfilment { display: grid; gap: 10px; margin-top: 18px; padding-top: 16px; border-top: 1px solid #cbd7d7; color: #526963; font-size: 12px; line-height: 1.8; }
@@ -41,7 +48,7 @@
 .orderGuide { display: flex; align-items: center; justify-content: center; min-height: 44px; color: #28564f; font-size: 12px; text-decoration: underline; text-underline-offset: 4px; }
 .contactLink { margin-top: 8px; color: #526963; font-size: 12px; }
 .contactLink a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: underline; text-underline-offset: 4px; }
-.information { display: grid; gap: 30px; margin-top: 36px; padding-block: 28px; border-top: 1px solid #d9e1de; border-bottom: 1px solid #d9e1de; }
+.information { display: grid; gap: 30px; margin-top: 36px; padding-block: 28px; border-top: 1px solid #d9e1de; border-bottom: 1px solid #d9e1de; scroll-margin-top: 110px; }
 .information h2 { margin: 6px 0 16px; font: 600 26px/1.2 var(--font-heading),serif; }
 .copy { max-width: 64ch; color: #526963; font-size: 14px; line-height: 1.85; white-space: pre-line; overflow-wrap: anywhere; }
 .detailsList { display: grid; gap: 0; font-size: 14px; line-height: 1.7; color: #526963; }
@@ -79,3 +86,7 @@
   .mobileBar { display: none; }
 }
 @media (min-width: 1024px) { .layout { gap: 64px; } .carousel { height: 580px; } .purchaseBox { padding: 26px; } .introduction { font-size: 15px; } .image { padding: 20px; } }
+@media (min-width: 768px) and (min-height: 600px) {
+  .gallery { position: sticky; top: 110px; }
+  .carousel { height: min(580px, calc(100svh - 210px)); }
+}

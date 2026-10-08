@@ -1,0 +1,513 @@
+{
+  "pagesChecked": 63,
+  "categoriesChecked": 4,
+  "productPagesChecked": 48,
+  "uniqueTitles": 63,
+  "uniqueDescriptions": 63,
+  "results": [
+    {
+      "path": "/",
+      "title": "KumaonRang | Aipan Art, Pahadi Keychains & Gifts",
+      "description": "Shop Aipan art, Pahadi keychains, personalised gifts and curated hampers from Kumaon. Discover keepsakes rooted in Pithoragarh, Uttarakhand.",
+      "titleCharacters": 48,
+      "descriptionCharacters": 140,
+      "product": false
+    },
+    {
+      "path": "/about",
+      "title": "Our Story | A Small Business from Kumaon | KumaonRang",
+      "description": "Meet Sneha, the woman behind KumaonRang in Pithoragarh, Uttarakhand. Discover a small business rooted in Aipan art, Pahadi keepsakes and personal gifts.",
+      "titleCharacters": 53,
+      "descriptionCharacters": 152,
+      "product": false
+    },
+    {
+      "path": "/aipan-art",
+      "title": "Aipan Art: History, Traditions & Gifts | KumaonRang",
+      "description": "Discover Aipan art of Kumaon: its history, geru and rice-paste technique, ritual uses, and the contemporary frames and gifts inspired by it.",
+      "titleCharacters": 51,
+      "descriptionCharacters": 140,
+      "product": false
+    },
+    {
+      "path": "/aipan-frames",
+      "title": "Aipan Art Frames & Kumaoni Wall Decor | KumaonRang",
+      "description": "Explore Aipan art frames and Kumaoni wall decor, including Om, Ganesh, Golu Devta and Pichora-inspired designs, alongside personal photo frames.",
+      "titleCharacters": 50,
+      "descriptionCharacters": 144,
+      "product": false
+    },
+    {
+      "path": "/aipan-frames/customised-a4-photo-frame",
+      "title": "Customised A4 Photo Frame | KumaonRang",
+      "description": "Turn your favourite memories into a beautiful keepsake with our Customized A4 Photo Frame. Simply share your favourite photo with us on WhatsApp, and we'll…",
+      "titleCharacters": 38,
+      "descriptionCharacters": 156,
+      "product": true
+    },
+    {
+      "path": "/aipan-frames/customized-black-photo-frame",
+      "title": "Customized Black Photo Frame | KumaonRang",
+      "description": "Turn your favourite memories into a beautiful keepsake with our 4×4 inch Customized Black Photo Frame. Simply share your favourite photo with us, and we'll…",
+      "titleCharacters": 41,
+      "descriptionCharacters": 156,
+      "product": true
+    },
+    {
+      "path": "/aipan-frames/ganesh-aipan-wall-hanging",
+      "title": "Ganesh Aipan wall hanging | KumaonRang",
+      "description": "Bring positivity and divine blessings to your home with this beautifully handcrafted Ganesha Wall Hanging. Made on premium MDF and hand-painted using acrylic…",
+      "titleCharacters": 38,
+      "descriptionCharacters": 158,
+      "product": true
+    },
+    {
+      "path": "/aipan-frames/golu-devta-aipan-frame",
+      "title": "Golu Devta Aipan Frame | KumaonRang",
+      "description": "A 14-inch Golu Devta frame with hand-painted Aipan artwork on an MDF base, a Pichora-inspired back and a glass frame. Its folk-art detailing offers a…",
+      "titleCharacters": 35,
+      "descriptionCharacters": 150,
+      "product": true
+    },
+    {
+      "path": "/aipan-frames/handmade-aipan-spiritual-decor",
+      "title": "Handmade Aipan Spiritual Decor | KumaonRang",
+      "description": "Bring home the beauty of traditional Aipan art with our handcrafted spiritual décor collection featuring Om, Swastik, and Lord Ganesha designs. Each piece is…",
+      "titleCharacters": 43,
+      "descriptionCharacters": 158,
+      "product": true
+    },
+    {
+      "path": "/aipan-frames/handmade-aipan-wall-decor-with-pichora-background",
+      "title": "Aipan Wall Decor with Pichora Background | KumaonRang",
+      "description": "Handmade Aipan wall decor with a Pichora-inspired background in a 12 × 12-inch glass frame. This ready-to-hang piece brings two references to Kumaon into a…",
+      "titleCharacters": 53,
+      "descriptionCharacters": 156,
+      "product": true
+    },
+    {
+      "path": "/aipan-frames/handmade-ganesh-aipan-wall-decor",
+      "title": "Handmade Ganesh Aipan Wall Decor | KumaonRang",
+      "description": "Bring divine blessings and traditional elegance to your home with our handcrafted Ganesha Aipan Wall Décor. Featuring Lord Ganesha at the center with…",
+      "titleCharacters": 45,
+      "descriptionCharacters": 150,
+      "product": true
+    },
+    {
+      "path": "/aipan-frames/handmade-om-aipan-wall-frame",
+      "title": "Handmade Om Aipan Wall Frame | KumaonRang",
+      "description": "Inspired by the rich heritage of Uttarakhand’s traditional Aipanart , this handcrafted Om mandala frame adds a touch of spirituality and elegance to any space…",
+      "titleCharacters": 41,
+      "descriptionCharacters": 159,
+      "product": true
+    },
+    {
+      "path": "/aipan-frames/om-aipan-wall-decor",
+      "title": "Om Aipan Wall Decor – Design 1 | KumaonRang",
+      "description": "A 12-inch Om wall decor piece with Aipan artwork around the central Om motif, made on a 2 mm-thick MDF base. This is Design 1; use its photographs to…",
+      "titleCharacters": 43,
+      "descriptionCharacters": 150,
+      "product": true
+    },
+    {
+      "path": "/aipan-frames/om-aipan-wall-decor-90366ff1",
+      "title": "Om Aipan Wall Decor – Design 2 | KumaonRang",
+      "description": "A 12-inch Om wall decor piece with Aipan-inspired designs on the sides, made with acrylic colours on a 2 mm-thick MDF base. This is Design 2, with its own…",
+      "titleCharacters": 43,
+      "descriptionCharacters": 155,
+      "product": true
+    },
+    {
+      "path": "/aipan-frames/ram-naam-frame",
+      "title": "Ram naam frame | KumaonRang",
+      "description": "Bring peace and positivity to your home with our Handmade Ram Naam Frame. Crafted with love and devotion, this elegant spiritual artwork is perfect for your…",
+      "titleCharacters": 27,
+      "descriptionCharacters": 157,
+      "product": true
+    },
+    {
+      "path": "/aipan-frames/traditional-pahadi-jwellery-display-frame",
+      "title": "Traditional Pahadi Jewellery Display Frame | KumaonRang",
+      "description": "Celebrate the rich heritage of Uttarakhand with our Traditional Pahadi Jewellery Display Frame. Beautifully designed to showcase traditional jewellery pieces…",
+      "titleCharacters": 55,
+      "descriptionCharacters": 158,
+      "product": true
+    },
+    {
+      "path": "/collection",
+      "title": "Shop Aipan Products & Pahadi Gifts | KumaonRang",
+      "description": "Browse Aipan frames, Pahadi keychains, Uttarakhand souvenir magnets and selected personalised gifts. Compare designs and product details at KumaonRang.",
+      "titleCharacters": 47,
+      "descriptionCharacters": 151,
+      "product": false
+    },
+    {
+      "path": "/contact",
+      "title": "Contact Sneha | Custom Gifts & Orders | KumaonRang",
+      "description": "Contact KumaonRang for Aipan-inspired gifts, Pahadi keychains, personalized keepsakes, and Kumaon hampers from Pithoragarh, Uttarakhand.",
+      "titleCharacters": 50,
+      "descriptionCharacters": 136,
+      "product": false
+    },
+    {
+      "path": "/curated-hampers",
+      "title": "Gift Hampers & Pichwai Jar Gift Combos | KumaonRang",
+      "description": "Explore gift hampers and Pichwai jar gift combos at KumaonRang. Choose a gift for a birthday, housewarming or celebration, and discuss custom details.",
+      "titleCharacters": 51,
+      "descriptionCharacters": 150,
+      "product": false
+    },
+    {
+      "path": "/curated-hampers/blush-bloom-gift-box",
+      "title": "Blush & Bloom Gift Box | KumaonRang",
+      "description": "Celebrate your loved ones with a gift that's thoughtfully curated and beautifully presented. The Timeless Blush & Bloom Gift Box combines elegant fashion…",
+      "titleCharacters": 35,
+      "descriptionCharacters": 154,
+      "product": true
+    },
+    {
+      "path": "/curated-hampers/curated-hamper",
+      "title": "Curated Hamper | KumaonRang",
+      "description": "Celebrate your special moments with our beautifully curated gift hamper, thoughtfully packed with elegant accessories and premium packaging. Perfect for…",
+      "titleCharacters": 27,
+      "descriptionCharacters": 153,
+      "product": true
+    },
+    {
+      "path": "/curated-hampers/elegant-glow-gift-box",
+      "title": "Elegant Glow Gift Box | KumaonRang",
+      "description": "Make every occasion extra special with our Elegant Glow Gift Box, thoughtfully curated with beautiful accessories, chocolates, and warm cork light decoration.…",
+      "titleCharacters": 34,
+      "descriptionCharacters": 159,
+      "product": true
+    },
+    {
+      "path": "/curated-hampers/grace-gift-bag",
+      "title": "Grace Gift bag | KumaonRang",
+      "description": "Grace Gift Bag is a beautifully curated gifting option, thoughtfully packed in a premium transparent PVC gift bag with a decorative bow and warm cork lights…",
+      "titleCharacters": 27,
+      "descriptionCharacters": 157,
+      "product": true
+    },
+    {
+      "path": "/curated-hampers/pichwai-jar-gift-combo",
+      "title": "Pichwai Jar Gift Combo | KumaonRang",
+      "description": "Bring timeless elegance to your gifting with our Pichwai Jar Gift Combo. This beautiful set includes 2 premium Pichwai Jars packed in a stylish PVC gift bag,…",
+      "titleCharacters": 35,
+      "descriptionCharacters": 158,
+      "product": true
+    },
+    {
+      "path": "/curated-hampers/rakhii-hamper",
+      "title": "Rakhii Hamper | KumaonRang",
+      "description": "Thoughtfully curated for Raksha Bandhan, this Couple Rakhi Hamper brings together meaningful gifting essentials in one beautiful box. Featuring a Couple…",
+      "titleCharacters": 26,
+      "descriptionCharacters": 153,
+      "product": true
+    },
+    {
+      "path": "/curated-hampers/the-happiness-box",
+      "title": "The Happiness Box | KumaonRang",
+      "description": "Make your loved ones feel extra special with the Little Happiness Box – a thoughtfully curated gift filled with beautiful and useful essentials. This box…",
+      "titleCharacters": 30,
+      "descriptionCharacters": 154,
+      "product": true
+    },
+    {
+      "path": "/customer-stories",
+      "title": "Customer Stories & Photos | KumaonRang",
+      "description": "Customer-shared photos and genuine WhatsApp feedback from KumaonRang’s Instagram orders: Aipan frames, Pahadi keepsakes and personalised gifts.",
+      "titleCharacters": 38,
+      "descriptionCharacters": 143,
+      "product": false
+    },
+    {
+      "path": "/how-to-order",
+      "title": "How to Order | Speak with Sneha | KumaonRang",
+      "description": "Choose your KumaonRang piece, share your delivery PIN code and occasion date, then confirm the total and timing with Sneha on WhatsApp.",
+      "titleCharacters": 44,
+      "descriptionCharacters": 135,
+      "product": false
+    },
+    {
+      "path": "/kumaoni-gifts",
+      "title": "Kumaoni Keepsakes & Gift Accessories | KumaonRang",
+      "description": "Explore Aipan nameplates, canvas bags, wedding brooches and devotional gift accessories at KumaonRang. Personalisation is available on selected pieces.",
+      "titleCharacters": 49,
+      "descriptionCharacters": 151,
+      "product": false
+    },
+    {
+      "path": "/kumaoni-gifts/3-layer-lotus-brass-diya",
+      "title": "3 Layer Lotus Brass Diya | KumaonRang",
+      "description": "Enhance your festive and spiritual décor with this elegant 3-Layer Lotus Brass Diya. Designed in a beautiful lotus shape with a premium brass diya, it brings…",
+      "titleCharacters": 37,
+      "descriptionCharacters": 158,
+      "product": true
+    },
+    {
+      "path": "/kumaoni-gifts/big-t-light-candle",
+      "title": "Big T-Light Candle | KumaonRang",
+      "description": "Add a touch of elegance and a soothing fragrance to your space with our Handcrafted Big Flower Tea Light Candle. Made with a beautiful floral design and Rose…",
+      "titleCharacters": 31,
+      "descriptionCharacters": 158,
+      "product": true
+    },
+    {
+      "path": "/kumaoni-gifts/customised-aipan-nameplate",
+      "title": "Customised Aipan Nameplate | KumaonRang",
+      "description": "A handmade Aipan-inspired MDF nameplate with mirror work, decorative bells and your chosen name. It measures 10 × 11 inches with a 4 mm-thick base, making it…",
+      "titleCharacters": 39,
+      "descriptionCharacters": 158,
+      "product": true
+    },
+    {
+      "path": "/kumaoni-gifts/handmade-aipan-canvas-bag",
+      "title": "Handmade Aipan Canvas Bag | KumaonRang",
+      "description": "A 10 × 11-inch canvas bag with handcrafted Aipan-inspired artwork for everyday use, shopping or gifting. Multiple designs are available; share your preferred…",
+      "titleCharacters": 38,
+      "descriptionCharacters": 158,
+      "product": true
+    },
+    {
+      "path": "/kumaoni-gifts/handmade-flower-scented-candle",
+      "title": "Handmade Flower Scented candle | KumaonRang",
+      "description": "Bring elegance and a soothing fragrance to your space with our handcrafted Flower Scented Candles. Designed in a beautiful flower shape and available in…",
+      "titleCharacters": 43,
+      "descriptionCharacters": 153,
+      "product": true
+    },
+    {
+      "path": "/kumaoni-gifts/handmade-rakhii",
+      "title": "Handmade Rakhii | KumaonRang",
+      "description": "Celebrate the beautiful bond of Raksha Bandhan with our handcrafted Designer Rakhi. Made with love and attention to every detail, each Rakhi is designed to…",
+      "titleCharacters": 28,
+      "descriptionCharacters": 156,
+      "product": true
+    },
+    {
+      "path": "/kumaoni-gifts/hanuman-chalisa-chanting-box-with-10-devotional-bhajans",
+      "title": "Hanuman Chalisa Box & 10 Bhajans | KumaonRang",
+      "description": "A rechargeable chanting box with Hanuman Chalisa and 10 devotional bhajans for a home or pooja room. It has Type-C charging, a built-in LED light, volume…",
+      "titleCharacters": 45,
+      "descriptionCharacters": 154,
+      "product": true
+    },
+    {
+      "path": "/kumaoni-gifts/heart-harmony-couple-mug-hamper",
+      "title": "Heart Harmony Couple Mug hamper | KumaonRang",
+      "description": "Celebrate love with our adorable Heart Harmony Couple Mug Set. Crafted from premium ceramic with a charming heart-shaped design, these mugs are perfect for…",
+      "titleCharacters": 44,
+      "descriptionCharacters": 156,
+      "product": true
+    },
+    {
+      "path": "/kumaoni-gifts/mantra-chant-counter",
+      "title": "Mantra Chant Counter | KumaonRang",
+      "description": "Make your daily mantra chanting and meditation more organized with our Digital Finger Tally Counter. Designed for comfort and convenience, this lightweight…",
+      "titleCharacters": 33,
+      "descriptionCharacters": 156,
+      "product": true
+    },
+    {
+      "path": "/kumaoni-gifts/premium-ittar",
+      "title": "Premium Ittar | KumaonRang",
+      "description": "Experience the richness of premium, alcohol-free ittar crafted with long-lasting fragrances. Available in four unique variants, each attar offers a refreshing…",
+      "titleCharacters": 26,
+      "descriptionCharacters": 159,
+      "product": true
+    },
+    {
+      "path": "/kumaoni-gifts/ram-lalla-dashboard-idol",
+      "title": "Ram Lalla Dashboard Idol | KumaonRang",
+      "description": "Invite blessings, positivity, and divine protection on every journey with this beautifully crafted Shri Ram Lalla Dashboard Idol. Designed with intricate…",
+      "titleCharacters": 37,
+      "descriptionCharacters": 154,
+      "product": true
+    },
+    {
+      "path": "/kumaoni-gifts/roli-chawal",
+      "title": "Roli Chawal | KumaonRang",
+      "description": "Traditional Roli Chawal Pack, carefully packed for your pooja rituals and festive celebrations. Neatly packed and easy to use, this set is perfect for…",
+      "titleCharacters": 24,
+      "descriptionCharacters": 151,
+      "product": true
+    },
+    {
+      "path": "/kumaoni-gifts/set-of-2-om-mandir-bells",
+      "title": "Set of 2 Om Mandir bells 🔔 | KumaonRang",
+      "description": "Om Temple Bell – Set of 2 Add a divine and positive touch to your space with these beautiful Om Temple Bells. Perfect for pooja rooms, home temples, festive…",
+      "titleCharacters": 40,
+      "descriptionCharacters": 157,
+      "product": true
+    },
+    {
+      "path": "/kumaoni-gifts/silver-ram-darbar-frame-tulsii-combo-pack",
+      "title": "Silver Ram Darbar Frame & Tulsii Combo Pack | KumaonRang",
+      "description": "Bring home divine blessings with this elegant Silver Ram Darbar Frame & Decorative TulsiCombo. A beautiful spiritual set that adds positivity and grace to…",
+      "titleCharacters": 56,
+      "descriptionCharacters": 155,
+      "product": true
+    },
+    {
+      "path": "/kumaoni-gifts/srinath-ji-potli-bags",
+      "title": "Srinath ji potli bags | KumaonRang",
+      "description": "Shrinath Ji Potli – A Beautiful Blend of Devotion & Tradition 🤍🙏🏻 Add a touch of devotion and traditional charm to your special occasions with our…",
+      "titleCharacters": 34,
+      "descriptionCharacters": 150,
+      "product": true
+    },
+    {
+      "path": "/kumaoni-gifts/tea-light-candle",
+      "title": "Tea light Candle | KumaonRang",
+      "description": "Add a touch of elegance to your space with our beautifully crafted Decorative Tea Light Candle. Featuring a charming purple base with a delicate white flower,…",
+      "titleCharacters": 29,
+      "descriptionCharacters": 159,
+      "product": true
+    },
+    {
+      "path": "/kumaoni-gifts/traditional-pahadi-topii",
+      "title": "Traditional Pahadi Topii | KumaonRang",
+      "description": "Celebrate the rich culture of Uttarakhand with this beautifully crafted Traditional Pahadi Topi. Designed with classic Kumaoni-inspired detailing, this cap…",
+      "titleCharacters": 37,
+      "descriptionCharacters": 156,
+      "product": true
+    },
+    {
+      "path": "/kumaoni-gifts/weeding-brooch-collection",
+      "title": "Wedding Brooches – Barati & Ladkiwale | KumaonRang",
+      "description": "Lightweight MDF wedding brooches in Barati and Ladkiwale designs for identifying your group at a wedding or family celebration. They can be worn with sarees,…",
+      "titleCharacters": 50,
+      "descriptionCharacters": 158,
+      "product": true
+    },
+    {
+      "path": "/pahadi-keychains",
+      "title": "Pahadi Keychains & Kumaoni Keepsakes | KumaonRang",
+      "description": "Explore Pahadi girl, boy and couple keychains at KumaonRang. Choose a keepsake from Uttarakhand for your keys, bag or a gift.",
+      "titleCharacters": 49,
+      "descriptionCharacters": 125,
+      "product": false
+    },
+    {
+      "path": "/pahadi-keychains/guardian-bell-keychain",
+      "title": "Guardian Bell keychain | KumaonRang",
+      "description": "Carry protection and positive vibes wherever you go with our Guardian Bell Keychain. Designed with a classic guardian bell and an evil eye charm, this…",
+      "titleCharacters": 35,
+      "descriptionCharacters": 151,
+      "product": true
+    },
+    {
+      "path": "/pahadi-keychains/i-uttarakhand-couple-keychain",
+      "title": "I ❤️ Uttarakhand couple keychain | KumaonRang",
+      "description": "Celebrate your love for Uttarakhand with this beautifully handmade and hand-painted I ❤️ Uttarakhand Couple Keychain. ❤️ Each piece is lovingly crafted and…",
+      "titleCharacters": 45,
+      "descriptionCharacters": 156,
+      "product": true
+    },
+    {
+      "path": "/pahadi-keychains/i-uttarakhand-pahadi-couple-keychain",
+      "title": "I ❤️ Uttarakhand Pahadi Couple Keychain | KumaonRang",
+      "description": "Celebrate the spirit of the mountains with this beautifully crafted I ❤️ Uttarakhand Pahadi Couple MDF Keychain. Featuring a charming pahadi couple in…",
+      "titleCharacters": 52,
+      "descriptionCharacters": 151,
+      "product": true
+    },
+    {
+      "path": "/pahadi-keychains/pahadi-girl-keychain",
+      "title": "Pahadi Girl Keychain | KumaonRang",
+      "description": "An MDF Pahadi girl keychain with a high-gloss finish, inspired by traditional Uttarakhand attire. Attach it to keys, a bag or a backpack as a small reminder…",
+      "titleCharacters": 33,
+      "descriptionCharacters": 157,
+      "product": true
+    },
+    {
+      "path": "/pahadi-keychains/pahadi-girl-mdf-keychain",
+      "title": "Pahadi Girl MDF Keychain | KumaonRang",
+      "description": "An MDF keychain with a traditional Pahadi girl design and a bright gloss finish. A colourful Uttarakhand-inspired keepsake for keys or a bag, or a small gift…",
+      "titleCharacters": 37,
+      "descriptionCharacters": 158,
+      "product": true
+    },
+    {
+      "path": "/pahadi-keychains/pahadi-ladka-keychain",
+      "title": "Pahadi Ladka Keychain | KumaonRang",
+      "description": "A handcrafted Pahadi ladka keychain made from MDF with a smooth finish. Its traditional theme makes it a small Uttarakhand-inspired keepsake for keys, a bag…",
+      "titleCharacters": 34,
+      "descriptionCharacters": 157,
+      "product": true
+    },
+    {
+      "path": "/returns-policy",
+      "title": "Returns & Damage Support | KumaonRang",
+      "description": "Contact Sneha within 7 days if your KumaonRang piece arrives damaged. Read the change-of-mind policy and how to ask for help with your order.",
+      "titleCharacters": 37,
+      "descriptionCharacters": 141,
+      "product": false
+    },
+    {
+      "path": "/shipping-policy",
+      "title": "Delivery Charges & Dispatch | KumaonRang",
+      "description": "See how KumaonRang quotes delivery charges, dispatches in-stock pieces in 2–3 days, and confirms preparation time for made-to-order gifts.",
+      "titleCharacters": 40,
+      "descriptionCharacters": 138,
+      "product": false
+    },
+    {
+      "path": "/uttarakhand-gifts",
+      "title": "Uttarakhand Gift Guide: What to Choose | KumaonRang",
+      "description": "Choose a thoughtful Uttarakhand gift: compare Pahadi keychains, Aipan frames, souvenir magnets, personalised pieces and hampers for your occasion.",
+      "titleCharacters": 51,
+      "descriptionCharacters": 146,
+      "product": false
+    },
+    {
+      "path": "/uttarakhand-souvenirs",
+      "title": "Uttarakhand Fridge Magnets & Pahadi Souvenirs | KumaonRang",
+      "description": "Find Uttarakhand fridge magnets, Pahadi couple designs and personalised acrylic photo magnets at KumaonRang. Explore keepsakes from Pithoragarh.",
+      "titleCharacters": 58,
+      "descriptionCharacters": 144,
+      "product": false
+    },
+    {
+      "path": "/uttarakhand-souvenirs/gloss-fridge-magnet",
+      "title": "Uttarakhand Souvenir Fridge Magnet | KumaonRang",
+      "description": "A 3-inch printed, high-gloss fridge magnet on an MDF base with a 30 mm magnet. The available artwork draws on Uttarakhand landmarks and culture, including Om…",
+      "titleCharacters": 47,
+      "descriptionCharacters": 158,
+      "product": true
+    },
+    {
+      "path": "/uttarakhand-souvenirs/i-uttarakhand-fridge-magnet",
+      "title": "I ❤️ Uttarakhand Fridge Magnet | KumaonRang",
+      "description": "Bring a little piece of Uttarakhand into your home with our beautifully designed I ❤️ Uttarakhand Fridge Magnet. Featuring a cute Pahadi couple and a…",
+      "titleCharacters": 43,
+      "descriptionCharacters": 150,
+      "product": true
+    },
+    {
+      "path": "/uttarakhand-souvenirs/pahadi-happy-couple-fridge-magnet",
+      "title": "Pahadi Happy Couple Fridge Magnet | KumaonRang",
+      "description": "A handmade Pahadi couple fridge magnet on an MDF base with a glossy finish and a strong back magnet. It can be displayed on a refrigerator or a metal cabinet,…",
+      "titleCharacters": 46,
+      "descriptionCharacters": 159,
+      "product": true
+    },
+    {
+      "path": "/uttarakhand-souvenirs/personalized-arcylic-fridge-magnet-with-stand",
+      "title": "Acrylic Photo Magnet with Stand | KumaonRang",
+      "description": "A personalised 3 × 4-inch acrylic photo magnet with a stand and a strong magnet. Add your own photograph for a keepsake that can sit on a desk or attach to a…",
+      "titleCharacters": 44,
+      "descriptionCharacters": 158,
+      "product": true
+    },
+    {
+      "path": "/uttarakhand-souvenirs/personalized-arcylic-fridge-magnet-without-stand",
+      "title": "Acrylic Photo Magnet without Stand | KumaonRang",
+      "description": "A personalised 3 × 4-inch acrylic photo magnet for displaying your photograph on a refrigerator. This version has a strong magnet and does not include a…",
+      "titleCharacters": 47,
+      "descriptionCharacters": 153,
+      "product": true
+    }
+  ]
+}

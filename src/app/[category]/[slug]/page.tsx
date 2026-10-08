@@ -12,6 +12,7 @@ import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { JsonLd } from "@/components/seo/json-ld";
 import { getProductImage } from "@/lib/product-image";
 import { getProductImageObjects } from "@/lib/product-image-schema";
+import { selectRelatedProducts } from "@/lib/related-products";
 import forest from "@/components/products/forest-storefront.module.css";
 import guideStyles from "@/components/products/collection-guide.module.css";
 
@@ -46,7 +47,7 @@ export default async function ProductDetailsPage(props: ProductDetailsPageProps)
 
   const url = `${getSiteUrl()}${getProductPath(product)}`;
   const images = getProductImageObjects(product, getSiteUrl());
-  const related = products.filter(item => item.category === product.category && item.id !== product.id).slice(0, 3);
+  const related = selectRelatedProducts(product, products);
   const isAipan = /aipan/i.test(`${product.name} ${product.description}`);
   const isRegional = isAipan || /pahadi|kumaon|uttarakhand/i.test(product.name);
   return <div className={`${forest.surface} ${forest.productSurface}`}>
@@ -67,10 +68,10 @@ export default async function ProductDetailsPage(props: ProductDetailsPageProps)
       url, name: product.name.trim(), mainEntity: { "@id": `${url}#product` },
       ...(images.length ? { primaryImageOfPage: images[0] } : {}),
     }} />
-    <ProductDetailView product={product}>
+    <ProductDetailView key={product.id} product={product}>
       {related.length > 0 && <section className={forest.related} aria-labelledby="related-products-title">
         <header>
-          <div><h2 id="related-products-title">Related products</h2></div>
+          <div><h2 id="related-products-title">More pieces like this</h2></div>
           <Link prefetch={false} href={`/${getCategoryPath(product.category)}`}>See all {product.category.toLowerCase()}</Link>
         </header>
         <div className="store-product-grid">{related.map(item => <ProductCard key={item.id} product={item} />)}</div>

@@ -40,6 +40,8 @@ function load(file) {
 }
 const { getProductPath, getProductByPublicSlug, slugify } = load('src/lib/catalog.ts');
 const { generateOrderMessage, createWhatsAppLink, generateWhatsAppOrderLink } = load('src/lib/whatsapp.ts');
+const { getProductHighlights, getMinimumPieceQuantity } = load('src/lib/product-highlights.ts');
+const { selectRelatedProducts } = load('src/lib/related-products.ts');
 const { default: ProductPage, generateMetadata } = load('src/app/[category]/[slug]/page.tsx');
 const piece = overrides => ({
   id: 'one', slug: 'om-aipan-wall-decor', urlCategory: 'Frames', name: 'Om Aipan Wall Decor – Design 1',
@@ -48,6 +50,44 @@ const piece = overrides => ({
   whatsappMessage: '', published: true, inStock: true, ...overrides,
 });
 const original = piece();
+const factual = piece({ details: ['**Frame size** : 14inch', 'Base: MDF', 'Customisation: Name only; design unchanged', 'Minimum order quantity = 10pc', 'Size: 12inch', 'A lovely gift', 'Care: Soft dry cloth'] });
+assert.deepEqual(getProductHighlights(factual), [
+  { label: 'Minimum order', value: '10pc' },
+  { label: 'Size', value: '14inch; 12inch' },
+  { label: 'Material', value: 'MDF' },
+  { label: 'Personalisation', value: 'Name only; design unchanged' },
+], 'Retain supplied units, restrictions and conflicting values instead of inventing facts');
+assert.deepEqual(getProductHighlights(original), [], 'Unlabelled text is not turned into an inferred specification');
+assert.deepEqual(getProductHighlights(piece({ details: ['Material: ', 'Size:'] })), []);
+assert.deepEqual(getProductHighlights(piece({ details: ['Care instructions: Washable with lukewarm water', 'Do not scrub with a hard brush'] })), [], 'Do not promote a partial care instruction without its continuation');
+assert.equal(getMinimumPieceQuantity(factual), 10);
+assert.equal(getMinimumPieceQuantity(piece({ details: ['Minimum order quantity = 2pc'] })), 2);
+assert.equal(getMinimumPieceQuantity(piece({ details: ['Customization: Available on request (Moq-20pc)'] })), 1, 'A custom-order minimum does not apply to standard pieces');
+assert.equal(getMinimumPieceQuantity(piece({ details: ['Minimum order quantity: 2 pairs. Single pair is not available.'] })), 1, 'Do not infer the selling unit or per-pair price');
+const photographed = overrides => piece({ image: '/images/piece.webp', ...overrides });
+const nearby = photographed({ id: 'nearby', slug: 'nearby', price: 750 });
+const farther = photographed({ id: 'farther', slug: 'farther', price: 1500 });
+const unavailable = photographed({ id: 'unavailable', slug: 'unavailable', inStock: false, price: 800 });
+const candidates = [
+  photographed({ id: 'photo', slug: 'photo', name: 'Customised A4 Photo Frame' }),
+  photographed({ id: 'unpublished', slug: 'unpublished', published: false }),
+  piece({ id: 'missing-photo', slug: 'missing-photo' }),
+  unavailable, farther, nearby, { ...nearby }, original,
+];
+assert.deepEqual(selectRelatedProducts(original, candidates).map(item => item.id), ['nearby', 'farther', 'unavailable'], 'Recommend the same purpose, preferring stock and comparable prices; exclude drafts, missing photos, self and duplicate URLs');
+assert.deepEqual(selectRelatedProducts(original, [...candidates].reverse()).map(item => item.id), ['nearby', 'farther', 'unavailable']);
+const nameplate = photographed({ id: 'nameplate', slug: 'nameplate', name: 'Customised Aipan Nameplate', category: 'Personalized Gifts' });
+assert.deepEqual(selectRelatedProducts(nameplate, [nearby]), [], 'Aipan nameplates do not get broad personalised-gift or wall-art recommendations');
+const counter = photographed({ id: 'counter', slug: 'counter', name: 'Mantra Chant Counter', category: 'Personalized Gifts' });
+assert.deepEqual(selectRelatedProducts(counter, [nameplate]), [], 'Hide the section rather than substitute unrelated personalised gifts');
+assert.deepEqual(selectRelatedProducts(original, candidates, 0), []);
+catalog = [factual, ...candidates];
+const factualHtml = renderToStaticMarkup(await ProductPage({ params: Promise.resolve({ category: 'aipan-frames', slug: original.slug }) }));
+assert.ok(factualHtml.indexOf('At a glance') < factualHtml.indexOf('id="product-order-title"'), 'Important facts are server-rendered before ordering');
+assert.match(factualHtml, /Name only; design unchanged/);
+assert.match(factualHtml, /More pieces like this/);
+assert.match(factualHtml, /min="10"/);
+assert.match(factualHtml, /value="10"/);
 const renamed = piece({ name: 'A revised name', category: 'Keychains' });
 assert.equal(getProductPath(original), getProductPath(renamed), 'Name and display category edits retain the URL');
 assert.equal(getProductByPublicSlug([renamed], 'aipan-frames', original.slug), renamed);
@@ -102,4 +142,4 @@ try {
   if (originalNumber === undefined) delete process.env.NEXT_PUBLIC_WHATSAPP_BUSINESS_NUMBER;
   else process.env.NEXT_PUBLIC_WHATSAPP_BUSINESS_NUMBER = originalNumber;
 }
-console.log('Product indexability: permanent URLs, duplicate designs, draft exclusion, SSR specifications, canonical, stock schema/UI and availability enquiry passed. No external writes.');
+console.log('Product indexability: factual highlights, relevant alternatives, permanent URLs, draft exclusion, SSR specifications, canonical, stock schema/UI and WhatsApp enquiries passed. No external writes.');

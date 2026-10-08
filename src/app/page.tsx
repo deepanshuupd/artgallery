@@ -10,7 +10,6 @@ import { HeroSection } from "@/components/home/hero-section";
 import { HeritageStory } from "@/components/home/heritage-story";
 import { CustomerNotes } from "@/components/home/customer-notes";
 import { ColoursOfKumaon } from "@/components/home/colours-of-kumaon";
-import { ShopStart } from "@/components/home/shop-start";
 import postcardStyles from "@/components/about/studio-postcard.module.css";
 import homeStyles from "@/components/home/home-palette.module.css";
 import { getProducts } from "@/lib/products";
@@ -99,7 +98,6 @@ export default async function HomePage() {
         ...(primaryImage ? { primaryImageOfPage: primaryImage } : {}),
       }} />
       <HeroSection featuredProduct={culturalFeaturedProduct} />
-      <ShopStart products={products} />
       <FeaturedCollections images={categoryImages} />
       <CustomerNotes />
       <ColoursOfKumaon />

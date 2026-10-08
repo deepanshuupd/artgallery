@@ -1,6 +1,6 @@
 # KumaonRang: a shop people feel confident buying from
 
-Updated 7 October 2026. The immediate buying experience remains WhatsApp, as
+Updated 8 October 2026. The immediate buying experience remains WhatsApp, as
 confirmed by the owner. Preserve existing product URLs, honest cultural labels,
 real photographs and the KumaonRang identity.
 
@@ -39,8 +39,9 @@ Shared confirmed text lives in `src/data/shop-ordering.ts`.
 
 ## First implementation: shopping and ordering confidence
 
-- Homepage: actual products with prices before the animated collection journey;
-  clearer shop CTA and founder context; customer proof before the cultural section.
+- Homepage: clearer shop CTA and founder context; customer proof before the
+  cultural section. The introductory product grid was subsequently removed at
+  the owner's request to avoid repeating the animated collection journey.
 - Product: removed unavailable direct-checkout action; visible dispatch, delivery
   and damage-support information; ordering guide and founder/customer-story links.
 - WhatsApp: country-code correction; optional PIN code and occasion date carried
@@ -52,6 +53,28 @@ Shared confirmed text lives in `src/data/shop-ordering.ts`.
 
 No production deployment, database migration, product price change, outbound
 message, payment integration, new tracker or fabricated product fact is included.
+
+The first iteration was subsequently committed and pushed as `59796e2`. A live
+check on 8 October passed 63 public pages, including 48 products and the new policy
+routes.
+
+## Second implementation: choosing the right piece
+
+- Product pages show up to four explicitly labelled facts before ordering, with
+  the full detail text retained. No dimensions or materials are inferred.
+- Recommendations use product names and shopping purpose, rather than the first
+  three items in a broad category. Only published, photographed alternatives are
+  shown; available products and nearby prices are preferred. The section stays
+  absent when there is no relevant alternative.
+- The mantra counter's 10-piece minimum and wedding brooches' 2-piece minimum are
+  respected in the product and WhatsApp quantity controls. A customisation-only
+  minimum is not applied to standard purchases.
+- Pair/pack pricing remains a content question rather than an inferred quantity
+  rule. Follow the [product content checklist](PRODUCT-CONTENT-CHECKLIST.md) for
+  ten product/design groups needing original measurements or photos.
+
+This iteration changes presentation and ordering controls locally, without edits
+to the remote catalogue.
 
 ## Next 90 days
 

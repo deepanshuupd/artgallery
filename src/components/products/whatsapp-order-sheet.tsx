@@ -8,6 +8,7 @@ import { generateOrderMessage, openWhatsAppOrder } from "@/lib/whatsapp";
 import type { Product } from "@/types/product";
 import { QuantityControl } from "./quantity-control";
 import { useProductDialog } from "./use-product-dialog";
+import { getMinimumPieceQuantity, getProductHighlights } from "@/lib/product-highlights";
 import styles from "./order-sheet.module.css";
 export function WhatsAppOrderSheet({ product, open, onClose, quantity, onQuantityChange }: {
   product: Product; open: boolean; onClose: () => void; quantity: number; onQuantityChange: (quantity: number) => void;
@@ -22,6 +23,7 @@ export function WhatsAppOrderSheet({ product, open, onClose, quantity, onQuantit
   const [occasionDate, setOccasionDate] = useState("");
   const [imageFailed, setImageFailed] = useState(false);
   const image = getProductImage(product);
+  const minimumOrder = getProductHighlights(product).find(fact => fact.label === "Minimum order");
   const message = generateOrderMessage({ productName: product.name, category: product.category, price: product.price, originalPrice: product.originalPrice, quantity, customizationInterest: request.trim(), inStock: product.inStock, deliveryPincode, occasionDate });
   return <dialog ref={ref} className={styles.dialog} aria-labelledby={titleId} onCancel={event => { event.preventDefault(); onClose(); }}
     onClick={event => { if (event.target !== event.currentTarget) return; const rect = event.currentTarget.getBoundingClientRect(); if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) onClose(); }}>
@@ -35,7 +37,8 @@ export function WhatsAppOrderSheet({ product, open, onClose, quantity, onQuantit
           <div className={styles.summaryImage}>{image.src && !imageFailed && <Image src={image.cardSrc} alt={image.alt} fill sizes="72px" onError={() => setImageFailed(true)} />}</div>
           <div><p>{product.category}</p><h3>{product.name}</h3><span>{formatPrice(product.price)} <small>{/\bset\s+of\s+\d+/i.test(product.name) ? "per set" : "each"}</small></span></div>
         </div>
-        <QuantityControl value={quantity} onChange={onQuantityChange} />
+        {minimumOrder && <p className={styles.help}>Minimum order: {minimumOrder.value}</p>}
+        <QuantityControl value={quantity} onChange={onQuantityChange} minimum={getMinimumPieceQuantity(product)} />
         <div className={styles.deliveryFields}>
           <label htmlFor={pincodeId}>Delivery PIN code <span>Optional</span><input id={pincodeId} type="text" inputMode="numeric" autoComplete="postal-code" pattern="[0-9]{6}" maxLength={6} placeholder="6-digit PIN code" value={deliveryPincode} onChange={event => setDeliveryPincode(event.currentTarget.value.replace(/\D/g, ""))} /></label>
           <label htmlFor={occasionId}>Occasion date <span>Optional</span><input id={occasionId} type="date" value={occasionDate} onChange={event => setOccasionDate(event.currentTarget.value)} /></label>
