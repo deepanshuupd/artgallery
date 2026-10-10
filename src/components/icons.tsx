@@ -64,6 +64,34 @@ export function MenuIcon({ className = "h-5 w-5", ...props }: IconProps) {
   );
 }
 
+/** Aipan-inspired dots and rice-white strokes keep the familiar menu symbol. */
+export function AipanMenuIcon({ open = false, className = "h-11 w-11", ...props }: IconProps & { open?: boolean }) {
+  return (
+    <svg aria-hidden="true" className={className} viewBox="0 0 48 48" fill="none" {...props}>
+      <circle cx="24" cy="24" r="23" fill="currentColor" />
+      <circle cx="24" cy="24" r="19.5" stroke="#fffaf1" strokeWidth="1.6" strokeDasharray="0.1 3.4" strokeLinecap="round" />
+      <path d="M24 13c-2-1-3-3-2-5 2 1 3 3 2 5Zm0 0c0-3 1-4 3-4 0 2-1 4-3 4ZM24 35c-2 1-3 3-2 5 2-1 3-3 2-5Zm0 0c0 3 1 4 3 4 0-2-1-4-3-4Z" fill="#fffaf1" />
+      <path d={open ? "M18 18l12 12M30 18 18 30" : "M16 19h16M16 24h16M16 29h16"} stroke="#fffaf1" strokeWidth="2.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+/** Decorative floral geometry inspired by the owner's Aipan reference tile. */
+export function AipanTileIcon({ className = "h-6 w-6", ...props }: IconProps) {
+  return (
+    <svg aria-hidden="true" className={className} viewBox="0 0 64 64" fill="none" {...props}>
+      <rect x="1" y="1" width="62" height="62" rx="1" fill="#a84530" />
+      <path d="M9 9h46v46H9Z" stroke="#fffaf1" strokeWidth="1.2" />
+      <path d="M14 14h36v36H14Z" stroke="#fffaf1" strokeWidth="1.2" strokeDasharray="1 3" strokeLinecap="round" />
+      <g stroke="#fffaf1" strokeWidth="1.3" strokeLinejoin="round">
+        <path d="M32 29c-8-8-4-11 0-13 4 2 8 5 0 13ZM35 32c8-8 11-4 13 0-2 4-5 8-13 0ZM32 35c8 8 4 11 0 13-4-2-8-5 0-13ZM29 32c-8 8-11 4-13 0 2-4 5-8 13 0Z" />
+        <path d="m29 29-8-8m14 8 8-8m-8 14 8 8m-14-8-8 8" />
+        <circle cx="32" cy="32" r="2" fill="#fffaf1" />
+      </g>
+    </svg>
+  );
+}
+
 export function CloseIcon({ className = "h-5 w-5", ...props }: IconProps) {
   return (
     <svg aria-hidden="true" className={className} {...strokeDefaults} {...props}>

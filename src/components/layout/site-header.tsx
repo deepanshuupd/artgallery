@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
-import { CloseIcon, MenuIcon, SparkleIcon } from "@/components/icons";
+import { AipanMenuIcon, SparkleIcon } from "@/components/icons";
 import { navigationItems } from "@/lib/navigation";
 import { BrandMark } from "@/components/layout/brand-mark";
 import { StudioPostcard } from "@/components/about/studio-postcard";
@@ -90,11 +90,11 @@ export function SiteHeader() {
           aria-controls="mobile-navigation"
           aria-expanded={isOpen}
           aria-label={isOpen ? "Close menu" : "Open menu"}
-          className={`inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(168,69,48,0.25)] bg-[var(--color-biswar)] text-[var(--color-geru)] shadow-sm transition hover:bg-white md:hidden`}
+          className={styles.menuButton}
           onClick={() => setIsOpen((open) => !open)}
           type="button"
         >
-          {isOpen ? <CloseIcon /> : <MenuIcon />}
+          <AipanMenuIcon open={isOpen} /><span>{isOpen ? "Close" : "Menu"}</span>
         </button>
         </div>
       </div>

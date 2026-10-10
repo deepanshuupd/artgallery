@@ -29,3 +29,9 @@
 @media (min-width: 768px) {
   .controls { display: none; }
 }
+
+.menuButton { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; padding: 0; border: 0; background: transparent; color: #a84530; cursor: pointer; }
+.menuButton svg { width: 44px; height: 44px; flex-shrink: 0; }
+.menuButton span { color: #473c32; font-size: 11px; font-weight: 500; letter-spacing: .04em; }
+.menuButton:hover { color: #873623; }
+.menuButton:focus-visible { outline: 2px solid #285d6a; outline-offset: 4px; border-radius: 3px; }

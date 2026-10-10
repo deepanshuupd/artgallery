@@ -1,4 +1,6 @@
 import Link from "next/link";
+import Image from "next/image";
+import { AipanTileIcon } from "@/components/icons";
 
 import { BrandMark } from "@/components/layout/brand-mark";
 import { brand } from "@/lib/brand";
@@ -24,7 +26,7 @@ export function SiteFooter() {
             <nav className={styles.links} aria-label="Footer navigation">
               {navigationItems.map(item => <Link prefetch={false} key={item.href} href={item.href}>{item.label}</Link>)}
               <Link prefetch={false} href="/uttarakhand-gifts">Uttarakhand gifts</Link>
-              <Link prefetch={false} href="/aipan-art">Aipan art guide</Link>
+              <Link className={styles.artGuide} prefetch={false} href="/aipan-art"><AipanTileIcon />Aipan art guide</Link>
               <Link prefetch={false} href="/how-to-order">How to order</Link>
               <Link prefetch={false} href="/shipping-policy">Delivery & dispatch</Link>
               <Link prefetch={false} href="/returns-policy">Returns & damage support</Link>
@@ -39,9 +41,12 @@ export function SiteFooter() {
           </div>
 
           <div className={styles.contact}>
-            <div>
+            <div className={styles.origin}>
+              <Image className={styles.house} src="/images/culture/kumaoni-house-icon-v1.webp" alt="" width={300} height={200} sizes="100px" loading="lazy" />
+              <div>
               <p className={styles.heading}>From the hills</p>
               <p className={styles.address}>Pithoragarh, Uttarakhand<br />India</p>
+              </div>
             </div>
             <a className={styles.whatsapp} href={generateGeneralInquiryLink()} rel="noreferrer" target="_blank">
               Chat on WhatsApp<span className="sr-only"> (opens in a new tab)</span>

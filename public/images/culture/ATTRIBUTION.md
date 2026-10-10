@@ -19,3 +19,13 @@ WebP delivery files preserve the cutouts' alpha and have responsive derivatives
 in `public/images/responsive`, mapped in `src/data/responsive-images.json`.
 The generation prompts and reference roles are recorded in
 `reports/reference-redesign/artwork-prompts.json`.
+
+# Reference icon adaptation (10 October 2026)
+
+`kumaoni-house-icon-v1.webp` was created with the built-in imagegen tool using
+only the traditional house illustration from the owner's reference sheet,
+`WhatsApp Image 2026-10-10 at 16.27.29.jpeg`. It is a decorative illustration,
+not an image of Sneha’s actual home or studio. The transparent source is
+resized to a 300×200 WebP (about 28 KB) and loaded lazily in the footer.
+The prompt and placement analysis are saved in `reports/cultural-icons/`.
+Aipan menu/tile motifs are native SVG components in `src/components/icons.tsx`.
