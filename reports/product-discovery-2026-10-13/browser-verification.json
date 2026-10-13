@@ -1,0 +1,21 @@
+{
+  "mobile": {
+    "headerBottom": 86.125,
+    "headingTop": 139.0859375,
+    "height": 844,
+    "minLinkHeight": 44,
+    "scrollWidth": 390,
+    "width": 390
+  },
+  "desktop": {
+    "contexts": 5,
+    "headerBottom": 92.875,
+    "headingTop": 110.234375,
+    "height": 900,
+    "scrollWidth": 1440,
+    "width": 1440
+  },
+  "guideToProduct": "passed",
+  "productToGuide": "passed",
+  "ittarOrderPrice": "₹100 each; quantity 1; subtotal ₹100"
+}

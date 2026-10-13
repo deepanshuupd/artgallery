@@ -1,0 +1,94 @@
+[
+  {
+    "path": "/kumaoni-gifts/set-of-2-om-mandir-bells",
+    "before": 2,
+    "after": 5,
+    "newReferrers": [
+      "/kumaoni-gifts/mantra-chant-counter",
+      "/kumaoni-gifts/ram-lalla-dashboard-idol",
+      "/uttarakhand-gifts"
+    ]
+  },
+  {
+    "path": "/kumaoni-gifts/mantra-chant-counter",
+    "before": 2,
+    "after": 5,
+    "newReferrers": [
+      "/kumaoni-gifts/ram-lalla-dashboard-idol",
+      "/kumaoni-gifts/set-of-2-om-mandir-bells",
+      "/uttarakhand-gifts"
+    ]
+  },
+  {
+    "path": "/kumaoni-gifts/weeding-brooch-collection",
+    "before": 2,
+    "after": 5,
+    "newReferrers": [
+      "/curated-hampers/curated-hamper",
+      "/curated-hampers/pichwai-jar-gift-combo",
+      "/uttarakhand-gifts"
+    ]
+  },
+  {
+    "path": "/kumaoni-gifts/ram-lalla-dashboard-idol",
+    "before": 2,
+    "after": 5,
+    "newReferrers": [
+      "/kumaoni-gifts/mantra-chant-counter",
+      "/kumaoni-gifts/set-of-2-om-mandir-bells",
+      "/uttarakhand-gifts"
+    ]
+  },
+  {
+    "path": "/kumaoni-gifts/traditional-pahadi-topii",
+    "before": 2,
+    "after": 4,
+    "newReferrers": [
+      "/uttarakhand-gifts",
+      "/uttarakhand-souvenirs/i-uttarakhand-fridge-magnet"
+    ]
+  },
+  {
+    "path": "/pahadi-keychains/guardian-bell-keychain",
+    "before": 2,
+    "after": 5,
+    "newReferrers": [
+      "/pahadi-keychains/pahadi-girl-keychain",
+      "/pahadi-keychains/pahadi-ladka-keychain",
+      "/uttarakhand-gifts"
+    ]
+  },
+  {
+    "path": "/kumaoni-gifts/roli-chawal",
+    "before": 2,
+    "after": 6,
+    "newReferrers": [
+      "/curated-hampers/rakhii-hamper",
+      "/kumaoni-gifts/handmade-rakhii",
+      "/kumaoni-gifts/premium-ittar",
+      "/uttarakhand-gifts"
+    ]
+  },
+  {
+    "path": "/kumaoni-gifts/premium-ittar",
+    "before": 2,
+    "after": 6,
+    "newReferrers": [
+      "/curated-hampers/rakhii-hamper",
+      "/kumaoni-gifts/handmade-rakhii",
+      "/kumaoni-gifts/roli-chawal",
+      "/uttarakhand-gifts"
+    ]
+  },
+  {
+    "path": "/kumaoni-gifts/handmade-rakhii",
+    "before": 2,
+    "after": 6,
+    "newReferrers": [
+      "/curated-hampers/rakhii-hamper",
+      "/kumaoni-gifts/premium-ittar",
+      "/kumaoni-gifts/roli-chawal",
+      "/uttarakhand-gifts"
+    ]
+  }
+]

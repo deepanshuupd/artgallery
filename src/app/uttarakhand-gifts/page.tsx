@@ -3,10 +3,14 @@ import Link from "next/link";
 
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { pageMetadata } from "@/lib/seo";
+import { getProducts } from "@/lib/products";
+import { getProductPath } from "@/lib/catalog";
+import { getGiftContexts } from "@/lib/gift-contexts";
 
 import styles from "./gift-guides.module.css";
 
 export const dynamic = "force-static";
+export const revalidate = 60;
 
 export const metadata: Metadata = pageMetadata({
   title: "Uttarakhand Gift Guide: What to Choose",
@@ -81,7 +85,8 @@ const questions = [
   },
 ];
 
-export default function UttarakhandGiftsPage() {
+export default async function UttarakhandGiftsPage() {
+  const contexts = getGiftContexts(await getProducts());
   return (
     <main className={`heritage-shell ${styles.page}`}>
       <Breadcrumbs
@@ -142,6 +147,26 @@ export default function UttarakhandGiftsPage() {
           </aside>
         </div>
       </section>
+
+      {contexts.length > 0 && <section className={styles.section} aria-labelledby="occasion-pieces">
+        <div className={styles.sectionHeading}>
+          <p className="craft-eyebrow">A few pieces to consider</p>
+          <h2 id="occasion-pieces">For their everyday life, or a shared celebration.</h2>
+        </div>
+        <div className={styles.giftGrid}>
+          {contexts.map(context => <article className={styles.artCard} key={context.id} id={context.id}>
+            <h3>{context.title}</h3>
+            <p>{context.description}</p>
+            <ul className={styles.pieceLinks}>
+              {context.products.map(product => <li key={getProductPath(product)}>
+                <Link className={styles.textLink} href={getProductPath(product)} prefetch={false}>
+                  {product.name.trim()} <span aria-hidden="true">↗</span>
+                </Link>
+              </li>)}
+            </ul>
+          </article>)}
+        </div>
+      </section>}
 
       <section className={styles.faqSection} aria-labelledby="gift-questions">
         <div className={styles.sectionHeading}>

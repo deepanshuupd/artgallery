@@ -42,6 +42,8 @@ const { getProductPath, getProductByPublicSlug, slugify } = load('src/lib/catalo
 const { generateOrderMessage, createWhatsAppLink, generateWhatsAppOrderLink } = load('src/lib/whatsapp.ts');
 const { getProductHighlights, getMinimumPieceQuantity } = load('src/lib/product-highlights.ts');
 const { selectRelatedProducts } = load('src/lib/related-products.ts');
+const { getGiftContexts, getProductGiftContext } = load('src/lib/gift-contexts.ts');
+const { default: GiftGuidePage } = load('src/app/uttarakhand-gifts/page.tsx');
 const { default: ProductPage, generateMetadata } = load('src/app/[category]/[slug]/page.tsx');
 const piece = overrides => ({
   id: 'one', slug: 'om-aipan-wall-decor', urlCategory: 'Frames', name: 'Om Aipan Wall Decor – Design 1',
@@ -81,6 +83,20 @@ assert.deepEqual(selectRelatedProducts(nameplate, [nearby]), [], 'Aipan nameplat
 const counter = photographed({ id: 'counter', slug: 'counter', name: 'Mantra Chant Counter', category: 'Personalized Gifts' });
 assert.deepEqual(selectRelatedProducts(counter, [nameplate]), [], 'Hide the section rather than substitute unrelated personalised gifts');
 assert.deepEqual(selectRelatedProducts(original, candidates, 0), []);
+const devotionalBell = photographed({ id: 'bell', slug: 'set-of-2-om-mandir-bells', urlCategory: 'Personalized Gifts', category: 'Personalized Gifts', name: 'Om Temple Bells – Set of 2' });
+const devotionalIdol = photographed({ id: 'idol', slug: 'ram-lalla-dashboard-idol', urlCategory: 'Personalized Gifts', category: 'Personalized Gifts', name: 'Ram Lalla Dashboard Idol' });
+const draftCounter = photographed({ id: 'draft-counter', slug: 'mantra-chant-counter', urlCategory: 'Personalized Gifts', category: 'Personalized Gifts', published: false });
+const contextCatalog = [devotionalBell, devotionalIdol, { ...devotionalIdol, id: 'duplicate-idol' }, draftCounter];
+assert.deepEqual(getGiftContexts(contextCatalog)[0].products.map(item => item.id), ['bell', 'idol'], 'Contextual links use actual published products and deduplicate canonical URLs');
+assert.deepEqual(getProductGiftContext(devotionalBell, contextCatalog).products.map(item => item.id), ['idol'], 'Context links exclude the current product and unpublished companions');
+assert.equal(getProductGiftContext(devotionalBell, [devotionalBell]), undefined, 'Hide a context with no other live products');
+catalog = contextCatalog;
+const guideHtml = renderToStaticMarkup(await GiftGuidePage());
+assert.match(guideHtml, /href="\/kumaoni-gifts\/set-of-2-om-mandir-bells"/, 'Gift-guide links are available in server HTML');
+assert.doesNotMatch(guideHtml, /href="\/kumaoni-gifts\/mantra-chant-counter"/, 'Editorial links do not expose unpublished catalogue items');
+const bellHtml = renderToStaticMarkup(await ProductPage({ params: Promise.resolve({ category: 'kumaoni-gifts', slug: devotionalBell.slug }) }));
+assert.match(bellHtml, /href="\/kumaoni-gifts\/ram-lalla-dashboard-idol"/, 'Product pages link to complementary gifts through real anchors');
+assert.match(bellHtml, /href="\/uttarakhand-gifts#devotional-gifts"/);
 catalog = [factual, ...candidates];
 const factualHtml = renderToStaticMarkup(await ProductPage({ params: Promise.resolve({ category: 'aipan-frames', slug: original.slug }) }));
 assert.ok(factualHtml.indexOf('At a glance') < factualHtml.indexOf('id="product-order-title"'), 'Important facts are server-rendered before ordering');

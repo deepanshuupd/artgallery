@@ -13,6 +13,7 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { getProductImage } from "@/lib/product-image";
 import { getProductImageObjects } from "@/lib/product-image-schema";
 import { selectRelatedProducts } from "@/lib/related-products";
+import { getProductGiftContext } from "@/lib/gift-contexts";
 import forest from "@/components/products/forest-storefront.module.css";
 import guideStyles from "@/components/products/collection-guide.module.css";
 
@@ -48,6 +49,7 @@ export default async function ProductDetailsPage(props: ProductDetailsPageProps)
   const url = `${getSiteUrl()}${getProductPath(product)}`;
   const images = getProductImageObjects(product, getSiteUrl());
   const related = selectRelatedProducts(product, products);
+  const giftContext = getProductGiftContext(product, products);
   const isAipan = /aipan/i.test(`${product.name} ${product.description}`);
   const isRegional = isAipan || /pahadi|kumaon|uttarakhand/i.test(product.name);
   return <div className={`${forest.surface} ${forest.productSurface}`}>
@@ -80,6 +82,11 @@ export default async function ProductDetailsPage(props: ProductDetailsPageProps)
         <p>More about these keepsakes</p>
         {isAipan && <Link prefetch={false} href="/aipan-art">Learn about Aipan art</Link>}
         <Link prefetch={false} href="/uttarakhand-gifts">Uttarakhand gift ideas</Link>
+      </nav>}
+      {giftContext && <nav className={guideStyles.productGuides} aria-label={giftContext.title}>
+        <p>{giftContext.title}</p>
+        <Link prefetch={false} href={`/uttarakhand-gifts#${giftContext.id}`}>Read the gift guide</Link>
+        {giftContext.products.map(piece => <Link key={getProductPath(piece)} prefetch={false} href={getProductPath(piece)}>{piece.name.trim()}</Link>)}
       </nav>}
     </ProductDetailView>
   </div>;
