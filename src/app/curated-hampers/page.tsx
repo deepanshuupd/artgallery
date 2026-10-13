@@ -53,6 +53,8 @@ export default async function CuratedHampersPage() {
         </div>
       </section>
 
+      <CustomHamperCta />
+
       <section className="relative px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <ProductShowcase
@@ -103,7 +105,6 @@ export default async function CuratedHampersPage() {
         </div>
       </section>
 
-      <CustomHamperCta />
     </main>
   );
 }
