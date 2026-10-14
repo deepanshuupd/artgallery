@@ -1,186 +1,57 @@
-/**
- * WhatsApp Ordering Utility Functions
- * Handles the generation of WhatsApp messages and order links for products
- */
-
 import type { Product, ProductCategory } from "@/types/product";
 import { brand } from "@/lib/brand";
-import { getDiscount } from "@/lib/pricing";
-
-const DEFAULT_BUSINESS_NAME = brand.name;
+import { getProductPath } from "@/lib/catalog";
+import { getSiteUrl } from "@/lib/site";
 
 function getWhatsAppBusinessNumber() {
   const number = process.env.NEXT_PUBLIC_WHATSAPP_BUSINESS_NUMBER?.replace(/\D/g, "") ?? "";
-  // This shop is based in India; local mobile numbers need the country code.
   if (/^\d{10}$/.test(number)) return `91${number}`;
   if (/^0\d{10}$/.test(number)) return `91${number.slice(1)}`;
   return number;
 }
-
 function getWhatsAppBusinessName() {
-  return process.env.NEXT_PUBLIC_WHATSAPP_BUSINESS_NAME?.trim() || DEFAULT_BUSINESS_NAME;
+  return process.env.NEXT_PUBLIC_WHATSAPP_BUSINESS_NAME?.trim() || brand.name;
 }
+const amountFormatter = new Intl.NumberFormat("en-IN",{style:"currency",currency:"INR",minimumFractionDigits:0,maximumFractionDigits:2});
+export const formatOrderAmount = (amount: number) => amountFormatter.format(amount);
 
 export interface OrderDetails {
-  productName: string;
-  category: ProductCategory;
-  customizationInterest?: string;
-  price?: number;
-  originalPrice?: number;
-  quantity?: number;
-  inStock?: boolean;
-  deliveryPincode?: string;
-  occasionDate?: string;
+  productName: string; category: ProductCategory; customizationInterest?: string;
+  price?: number; originalPrice?: number; quantity?: number; inStock?: boolean;
+  deliveryPincode?: string; occasionDate?: string; productUrl?: string;
 }
-
-/**
- * Generates a formatted WhatsApp message for product ordering
- * @param details - Order details containing product information
- * @returns Formatted WhatsApp message string
- */
+/** A compact enquiry with explicit quantities, current selling price and product reference. */
 export function generateOrderMessage(details: OrderDetails): string {
-  const businessName = getWhatsAppBusinessName();
-  const lines: string[] = [
-    `Hi ${businessName}! 👋`,
-    "",
-    details.inStock === false ? "I'd like to ask when this product will be available:" : "I'm interested in placing an order:",
-    "",
-    `📦 Product Name: ${details.productName}`,
-    `📂 Category: ${details.category}`,
-  ];
-
-  if (details.price) {
-    const discount = getDiscount(details.price, details.originalPrice);
-    if (discount) {
-      lines.push(
-        `💰 Price: ₹${details.price} (was ₹${discount.originalPrice}, ${discount.percent}% off)`
-      );
-    } else {
-      lines.push(`💰 Price: ₹${details.price}`);
-    }
+  const quantity = details.quantity ?? 1;
+  const lines = [`${getWhatsAppBusinessName()} | ${details.inStock === false ? "Availability enquiry" : "Order enquiry"}`,"",`Product: ${details.productName}`,`Quantity: ${quantity}`];
+  if (typeof details.price === "number" && Number.isFinite(details.price)) {
+    lines.push(`Unit price: ${formatOrderAmount(details.price)}`,`Product subtotal: ${formatOrderAmount(Math.round(details.price*100)*quantity/100)}`);
   }
-
-  if (details.quantity && details.quantity > 1) {
-    lines.push(`📊 Quantity: ${details.quantity}`);
-  }
-
-  if (details.customizationInterest) {
-    lines.push(`✨ Customization Interest: ${details.customizationInterest}`);
-  }
-
-  if (details.deliveryPincode) lines.push(`📍 Delivery PIN code: ${details.deliveryPincode}`);
-  if (details.occasionDate) lines.push(`📅 Occasion date: ${details.occasionDate} (please confirm if delivery is possible)`);
-
-  lines.push(
-    "",
-    "Please let me know about:",
-    "• Available customization options",
-    "• Timeline for delivery",
-    "• Exact pricing with any customizations",
-    "",
-    "Thank you! 🙏"
-  );
-
+  if (details.inStock === false) lines.push("Availability: please confirm restock");
+  if (details.productUrl) lines.push(details.productUrl);
+  if (details.customizationInterest?.trim()) lines.push("",`Request: ${details.customizationInterest.trim()}`);
+  if (details.deliveryPincode) lines.push(`Delivery PIN code: ${details.deliveryPincode}`);
+  if (details.occasionDate) lines.push(`Occasion date: ${details.occasionDate}`);
+  lines.push("","Please confirm availability, shipping, delivery timing and the final total.");
   return lines.join("\n");
 }
-
-/**
- * Creates a WhatsApp direct message link with pre-filled message
- * @param message - The message to pre-fill in WhatsApp
- * @returns WhatsApp link URL
- */
 export function createWhatsAppLink(message: string): string {
-  const businessNumber = getWhatsAppBusinessNumber();
-
-  if (!businessNumber) {
-    return `https://wa.me/?text=${encodeURIComponent(message)}`;
-  }
-
-  return `https://wa.me/${businessNumber}?text=${encodeURIComponent(message)}`;
+  const number = getWhatsAppBusinessNumber();
+  return `https://wa.me/${number ? number : ""}?text=${encodeURIComponent(message)}`;
 }
-
-/**
- * Generates a complete WhatsApp order link from product and customization details
- * @param product - Product object containing name, category, and price
- * @param customizationInterest - Optional customization preferences
- * @param quantity - Optional quantity (defaults to 1)
- * @returns WhatsApp link URL
- */
-export function generateWhatsAppOrderLink(
-  product: Product,
-  customizationInterest?: string,
-  quantity: number = 1,
-  deliveryPincode?: string,
-  occasionDate?: string,
-): string {
-  const orderDetails: OrderDetails = {
-    productName: product.name,
-    category: product.category,
-    price: product.price,
-    originalPrice: product.originalPrice,
-    customizationInterest,
-    quantity,
-    inStock: product.inStock,
-    deliveryPincode,
-    occasionDate,
-  };
-
-  const message = generateOrderMessage(orderDetails);
-  return createWhatsAppLink(message);
+export function generateProductOrderMessage(product: Product, customizationInterest?: string, quantity = 1, deliveryPincode?: string, occasionDate?: string): string {
+  return generateOrderMessage({productName:product.name,category:product.category,price:product.price,quantity,inStock:product.inStock,customizationInterest,deliveryPincode,occasionDate,productUrl:`${getSiteUrl()}${getProductPath(product)}`});
 }
-
-/**
- * Opens WhatsApp with a pre-filled order message
- * Useful for button click handlers
- * @param product - Product object
- * @param customizationInterest - Optional customization details
- * @param quantity - Optional quantity
- */
-export function openWhatsAppOrder(
-  product: Product,
-  customizationInterest?: string,
-  quantity: number = 1,
-  deliveryPincode?: string,
-  occasionDate?: string,
-): void {
-  const link = generateWhatsAppOrderLink(product, customizationInterest, quantity, deliveryPincode, occasionDate);
-  window.open(link, "_blank");
+export function generateWhatsAppOrderLink(product: Product, customizationInterest?: string, quantity = 1, deliveryPincode?: string, occasionDate?: string): string {
+  return createWhatsAppLink(generateProductOrderMessage(product,customizationInterest,quantity,deliveryPincode,occasionDate));
 }
-
-/**
- * Creates a WhatsApp link for a general inquiry (no specific product)
- * Used by the contact page so it shares the same business number/config
- * @returns WhatsApp link URL
- */
+export function openWhatsAppOrder(product: Product, customizationInterest?: string, quantity = 1, deliveryPincode?: string, occasionDate?: string): void {
+  window.open(generateWhatsAppOrderLink(product,customizationInterest,quantity,deliveryPincode,occasionDate),"_blank","noopener,noreferrer");
+}
 export function generateGeneralInquiryLink(): string {
-  const message = `Hi ${getWhatsAppBusinessName()}! 👋\n\nI'd love to know more about your handmade gifts and curated hampers.\n\nThank you!`;
-
-  return createWhatsAppLink(message);
+  return createWhatsAppLink(`${getWhatsAppBusinessName()} | Product enquiry\n\nI would like information about your handmade gifts and gift hampers.`);
 }
-
-/**
- * Details captured by the website contact form
- */
-export interface ContactFormDetails {
-  name: string;
-  email: string;
-  message: string;
-}
-
-/**
- * Creates a WhatsApp link carrying a website contact-form submission
- * @param details - Name, email, and message from the contact form
- * @returns WhatsApp link URL
- */
+export interface ContactFormDetails { name: string; email: string; message: string }
 export function generateContactFormLink(details: ContactFormDetails): string {
-  const lines = [
-    `Hi ${getWhatsAppBusinessName()}! 👋`,
-    "",
-    `I'm ${details.name}, reaching out through your website:`,
-    "",
-    details.message,
-    ...(details.email ? ["", `You can also reach me by email at ${details.email}.`] : []),
-  ];
-
-  return createWhatsAppLink(lines.join("\n"));
+  return createWhatsAppLink([`${getWhatsAppBusinessName()} | Website enquiry`,`Name: ${details.name}`,...(details.email ? [`Email: ${details.email}`] : []),"",details.message].join("\n"));
 }

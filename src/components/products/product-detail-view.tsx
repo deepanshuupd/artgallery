@@ -16,6 +16,7 @@ import styles from "./product-detail.module.css";
 import { shopOrdering } from "@/data/shop-ordering";
 import { getMinimumPieceQuantity, getProductHighlights } from "@/lib/product-highlights";
 import { InspectableProductPhoto } from "./inspectable-product-photo";
+import { AddToCartButton } from "@/components/cart/cart-controls";
 
 export function ProductDetailView({ product, children }: { product: Product; children?: ReactNode }) {
   const images = getProductImageUrls(product).map(src => getProductImage(product, src));
@@ -104,7 +105,8 @@ export function ProductDetailView({ product, children }: { product: Product; chi
                 <p><strong>Delivery charge</strong> Quoted for your parcel’s weight, dimensions and delivery details. <Link prefetch={false} href="/shipping-policy">Delivery & dispatch details</Link></p>
                 <p><strong>Order support</strong> Report arrival damage within 7 days. Change-of-mind returns aren’t accepted. <Link prefetch={false} href="/returns-policy">Returns & damage support</Link></p>
               </div>
-              <button type="button" className={order.primary} aria-haspopup="dialog" onClick={() => setOrderOpen(true)}><WhatsAppIcon className="h-5 w-5" />{actionLabel}</button>
+              <div className={styles.cartAction}><AddToCartButton productId={product.id} productName={product.name} quantity={quantity} unavailable={product.inStock === false} /></div>
+              <button type="button" className={`${order.primary} ${styles.directOrder}`} aria-haspopup="dialog" onClick={() => setOrderOpen(true)}><WhatsAppIcon className="h-5 w-5" />{actionLabel}</button>
               <p className={styles.orderHelp}>Choose your quantity, then speak with Sneha. She’ll confirm the full total, delivery timing and any custom requests in your chat.</p>
               <Link prefetch={false} className={styles.orderGuide} href="/how-to-order">How ordering works →</Link>
             </div>
@@ -120,7 +122,7 @@ export function ProductDetailView({ product, children }: { product: Product; chi
       <ProductStory story={product.story} />
       {children}
     </div>
-    {purchasePassed && !orderOpen && !zoomOpen && <div className={styles.mobileBar}><div><span>Product subtotal</span><strong>{formatPrice(product.price * quantity)}</strong></div><button type="button" className={order.primary} aria-haspopup="dialog" onClick={() => setOrderOpen(true)}>{product.inStock === false ? "Ask Sneha" : "Order via WhatsApp"}</button></div>}
+    {purchasePassed && !orderOpen && !zoomOpen && <div className={styles.mobileBar}><div><span>Product subtotal</span><strong>{formatPrice(product.price * quantity)}</strong></div>{product.inStock === false ? <button type="button" className={order.primary} aria-haspopup="dialog" onClick={() => setOrderOpen(true)}>Ask Sneha</button> : <AddToCartButton productId={product.id} productName={product.name} quantity={quantity} compact />}</div>}
     <WhatsAppOrderSheet product={product} open={orderOpen} onClose={() => setOrderOpen(false)} quantity={quantity} onQuantityChange={setQuantity} />
     <dialog ref={zoomRef} className={styles.zoom} aria-labelledby={zoomTitleId} onCancel={event => { event.preventDefault(); setZoomOpen(false); }}>
       <header><h2 id={zoomTitleId} tabIndex={-1} data-dialog-focus>{name}</h2><button type="button" aria-label="Close enlarged photo" onClick={() => setZoomOpen(false)}>×</button></header>

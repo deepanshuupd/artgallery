@@ -44,6 +44,8 @@
 .availability[data-stock-state="out-of-stock"] { color: #904331; }
 .availability[data-stock-state="out-of-stock"] > span { background: #904331; }
 .purchaseBox > button { margin-top: 18px; }
+.cartAction { margin-top: 18px; }
+.purchaseBox .directOrder { background: transparent; color: #28564f; border: 1px solid #82958e; }
 .orderHelp { margin-top: 12px; color: #526963; font-size: 11px; line-height: 1.8; text-align: center; }
 .orderGuide { display: flex; align-items: center; justify-content: center; min-height: 44px; color: #28564f; font-size: 12px; text-decoration: underline; text-underline-offset: 4px; }
 .contactLink { margin-top: 8px; color: #526963; font-size: 12px; }

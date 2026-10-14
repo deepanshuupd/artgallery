@@ -7,6 +7,8 @@ import { useState } from "react";
 import type { Product } from "@/types/product";
 import { getProductPath } from "@/lib/catalog";
 import { formatPrice, getDiscount } from "@/lib/pricing";
+import { AddToCartButton } from "@/components/cart/cart-controls";
+import { getMinimumPieceQuantity } from "@/lib/product-highlights";
 
 export function ProductCard({ product, priority = false, sizes = "(max-width: 767px) calc((100vw - 56px) / 2), (max-width: 1199px) calc((100vw - 104px) / 2), 384px" }: { product: Product; priority?: boolean; sizes?: string }) {
   const [failed, setFailed] = useState(false);
@@ -32,5 +34,6 @@ export function ProductCard({ product, priority = false, sizes = "(max-width: 76
         <span className="store-product__action">View product</span>
       </div>
     </Link>
+    <AddToCartButton productId={product.id} productName={product.name} quantity={getMinimumPieceQuantity(product)} unavailable={product.inStock === false} compact />
   </article>;
 }

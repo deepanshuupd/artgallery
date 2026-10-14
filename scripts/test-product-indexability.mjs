@@ -38,6 +38,8 @@ function load(file) {
   new Function('require', 'module', 'exports', outputText)(localRequire, loadedModule, loadedModule.exports);
   return loadedModule.exports;
 }
+const { CartProvider } = load('src/components/cart/cart-provider.tsx');
+const renderPublic = content => renderToStaticMarkup(React.createElement(CartProvider,null,content));
 const { getProductPath, getProductByPublicSlug, slugify } = load('src/lib/catalog.ts');
 const { generateOrderMessage, createWhatsAppLink, generateWhatsAppOrderLink } = load('src/lib/whatsapp.ts');
 const { getProductHighlights, getMinimumPieceQuantity } = load('src/lib/product-highlights.ts');
@@ -91,14 +93,14 @@ assert.deepEqual(getGiftContexts(contextCatalog)[0].products.map(item => item.id
 assert.deepEqual(getProductGiftContext(devotionalBell, contextCatalog).products.map(item => item.id), ['idol'], 'Context links exclude the current product and unpublished companions');
 assert.equal(getProductGiftContext(devotionalBell, [devotionalBell]), undefined, 'Hide a context with no other live products');
 catalog = contextCatalog;
-const guideHtml = renderToStaticMarkup(await GiftGuidePage());
+const guideHtml = renderPublic(await GiftGuidePage());
 assert.match(guideHtml, /href="\/kumaoni-gifts\/set-of-2-om-mandir-bells"/, 'Gift-guide links are available in server HTML');
 assert.doesNotMatch(guideHtml, /href="\/kumaoni-gifts\/mantra-chant-counter"/, 'Editorial links do not expose unpublished catalogue items');
-const bellHtml = renderToStaticMarkup(await ProductPage({ params: Promise.resolve({ category: 'kumaoni-gifts', slug: devotionalBell.slug }) }));
+const bellHtml = renderPublic(await ProductPage({ params: Promise.resolve({ category: 'kumaoni-gifts', slug: devotionalBell.slug }) }));
 assert.match(bellHtml, /href="\/kumaoni-gifts\/ram-lalla-dashboard-idol"/, 'Product pages link to complementary gifts through real anchors');
 assert.match(bellHtml, /href="\/uttarakhand-gifts#devotional-gifts"/);
 catalog = [factual, ...candidates];
-const factualHtml = renderToStaticMarkup(await ProductPage({ params: Promise.resolve({ category: 'aipan-frames', slug: original.slug }) }));
+const factualHtml = renderPublic(await ProductPage({ params: Promise.resolve({ category: 'aipan-frames', slug: original.slug }) }));
 assert.ok(factualHtml.indexOf('At a glance') < factualHtml.indexOf('id="product-order-title"'), 'Important facts are server-rendered before ordering');
 assert.match(factualHtml, /Name only; design unchanged/);
 assert.match(factualHtml, /More pieces like this/);
@@ -119,7 +121,7 @@ for (const stock of [true, false, undefined]) {
   const props = { params: Promise.resolve({ category: 'aipan-frames', slug: original.slug }) };
   const metadata = await generateMetadata(props);
   assert.equal(metadata.alternates.canonical, 'https://www.kumaonrang.com/aipan-frames/om-aipan-wall-decor');
-  const html = renderToStaticMarkup(await ProductPage(props));
+  const html = renderPublic(await ProductPage(props));
   const schemas = [...html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].map(match => JSON.parse(match[1]));
   const product = schemas.find(item => item['@type'] === 'Product');
   assert.equal(product.offers.price, 800);
@@ -136,7 +138,8 @@ const draft = { params: Promise.resolve({ category: 'aipan-frames', slug: origin
 assert.equal((await generateMetadata(draft)).robots.index, false);
 await assert.rejects(ProductPage(draft), /NOT_FOUND/);
 const message = generateOrderMessage({ productName: original.name, category: 'Frames', inStock: false });
-assert.match(message, /when this product will be available/);
+assert.match(message, /Availability enquiry/);
+assert.match(message, /please confirm restock/);
 assert.doesNotMatch(message, /interested in placing an order/);
 const originalNumber = process.env.NEXT_PUBLIC_WHATSAPP_BUSINESS_NUMBER;
 try {
@@ -152,7 +155,7 @@ try {
   assert.match(text, /Quantity: 3/);
   assert.match(text, /Name: Riya & Aman/);
   assert.match(text, /Delivery PIN code: 262501/);
-  assert.match(text, /Occasion date: 2026-11-08 \(please confirm if delivery is possible\)/);
+  assert.match(text, /Occasion date: 2026-11-08/);
   assert.doesNotMatch(generateOrderMessage({ productName: original.name, category: 'Frames' }), /PIN code|Occasion date/);
 } finally {
   if (originalNumber === undefined) delete process.env.NEXT_PUBLIC_WHATSAPP_BUSINESS_NUMBER;

@@ -65,9 +65,9 @@ export function hamperDetailsErrors(draft: HamperDraft, today: string) {
 
 export function generateHamperMessage(draft: HamperDraft): string {
   if (!hasHamperSelection(draft)) throw new Error("Choose a piece or request an item first.");
-  const lines = ["Hi Sneha! I'd like a quote for a custom KumaonRang hamper.", "", `Number of hampers: ${draft.hampers}`, "", "Pieces in EACH hamper:"];
+  const lines = ["KumaonRang | Custom hamper enquiry", "", `Number of hampers: ${draft.hampers}`, "", "Pieces in EACH hamper:"];
   const selections = selectedHamperPieces(draft);
-  if (selections.length) selections.forEach(piece => lines.push(`• ${piece.quantity} × ${piece.name}`));
+  if (selections.length) selections.forEach((piece,index) => lines.push(`${index+1}. ${piece.quantity} × ${piece.name}`));
   else lines.push("• Please help me source the item request below.");
   if (draft.extra.trim()) lines.push("", "Other item / design request (please confirm availability):", draft.extra.trim());
   if (draft.recipient.trim()) lines.push("", `Gift for: ${draft.recipient.trim()}`);
@@ -75,7 +75,7 @@ export function generateHamperMessage(draft: HamperDraft): string {
   if (draft.giftNote.trim()) lines.push("", "Message for the personal note:", draft.giftNote.trim());
   if (draft.pincode) lines.push("", `Delivery PIN code: ${draft.pincode}`);
   if (draft.date) lines.push(`Occasion date: ${draft.date} (please confirm if delivery is possible)`);
-  lines.push("", "Please confirm the available designs, packaging, final price, delivery charge and preparation time before I confirm the order.", "", `Created with: ${getSiteUrl()}/build-your-hamper`);
+  lines.push("", "Please confirm designs, packaging, final price, shipping and preparation time.", "", `${getSiteUrl()}/build-your-hamper`);
   return lines.join("\n");
 }
 

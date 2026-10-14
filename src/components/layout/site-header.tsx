@@ -9,6 +9,7 @@ import { navigationItems } from "@/lib/navigation";
 import { BrandMark } from "@/components/layout/brand-mark";
 import { StudioPostcard } from "@/components/about/studio-postcard";
 import styles from "./site-header.module.css";
+import { CartLink } from "@/components/cart/cart-controls";
 
 function HamperSparkles() {
   return <span className={styles.sparkles} aria-hidden="true">
@@ -60,7 +61,7 @@ export function SiteHeader() {
           <BrandMark />
         </Link>
 
-        <nav className="hidden items-center gap-2 md:flex" aria-label="Primary navigation">
+        <nav className="ml-auto hidden items-center gap-1 md:flex" aria-label="Primary navigation">
           {navigationItems.map((item) => {
             const active = isActivePath(pathname, item.href);
 
@@ -69,7 +70,7 @@ export function SiteHeader() {
                 prefetch={false}
                 key={item.href}
                 className={[
-                  "rounded-full px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] transition-all duration-300",
+                  "rounded-full px-3 py-2 text-xs font-medium uppercase tracking-[0.14em] transition-all duration-300 lg:px-4",
                   item.href === "/curated-hampers" ? styles.hamperLink : "",
                   active
                     ? "bg-[var(--color-geru)] text-[var(--color-biswar)] shadow-[0_10px_24px_rgba(168,69,48,0.2)]"
@@ -86,6 +87,7 @@ export function SiteHeader() {
         </nav>
 
         <div className={styles.controls}>
+        <CartLink onClick={() => setIsOpen(false)} />
         <button ref={menuButton}
           aria-controls="mobile-navigation"
           aria-expanded={isOpen}

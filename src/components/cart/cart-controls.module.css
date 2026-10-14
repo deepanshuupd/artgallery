@@ -1,0 +1,17 @@
+.cartLink { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; padding: 5px 8px; color: #244d40; font-size: 11px; white-space: nowrap; }
+.cartLink > svg { width: 24px; height: 24px; }
+.cartLink:hover { color: #a84530; }
+.badge { position: absolute; top: -1px; right: -1px; min-width: 18px; padding: 1px 4px; border-radius: 9px; background: #a84530; color: #fffaf1; font-size: 9px; text-align: center; }
+.addControl { width: 100%; }
+.addButton { display: flex; align-items: center; justify-content: center; gap: 9px; width: 100%; min-height: 50px; padding: 11px 14px; border: 1px solid #28564f; border-radius: 6px; background: #28564f; color: #fffaf1; font-size: 13px; font-weight: 600; cursor: pointer; }
+.addButton > svg { width: 20px; height: 20px; flex-shrink: 0; }
+.addButton:hover { background: #1c443b; }
+.addButton:disabled { background: #e8e5dc; border-color: #d9d4c7; color: #777366; cursor: default; }
+.addStatus { margin-top: 8px; color: #28564f; font-size: 11px; line-height: 1.7; }
+.addStatus a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: underline; text-underline-offset: 4px; }
+.compact { margin-top: 5px; }
+.compact .addButton { min-height: 44px; background: #f5f1e6; color: #28564f; border-color: #c9cdbc; font-size: 11px; }
+.compact .addButton:hover { background: #e7eddf; }
+.compact .addButton:disabled { color: #777366; }
+.cartLink:focus-visible, .addControl :where(button,a):focus-visible { outline: 2px solid #a84530; outline-offset: 3px; }
+@media (max-width: 360px) { .cartLink { padding-inline: 2px; gap: 4px; } }

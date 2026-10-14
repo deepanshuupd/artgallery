@@ -9,6 +9,7 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { brand } from "@/lib/brand";
 import { getSiteUrl } from "@/lib/site";
 import { homeTitle, homeDescription } from "@/lib/seo";
+import { CartProvider } from "@/components/cart/cart-provider";
 
 const cormorantGaramond = Cormorant_Garamond({
   subsets: ["latin"],
@@ -118,10 +119,12 @@ export default function RootLayout({
             }]).replace(/</g, "\\u003c"),
           }}
         />
+        <CartProvider>
         <SiteHeader />
         {children}
         <SiteFooter />
         {process.env.VERCEL === "1" && <Analytics />}
+        </CartProvider>
       </body>
     </html>
   );

@@ -4,7 +4,7 @@ import { useId, useState } from "react";
 import { WhatsAppIcon } from "@/components/icons";
 import { getProductImage } from "@/lib/product-image";
 import { formatPrice } from "@/lib/pricing";
-import { generateOrderMessage, openWhatsAppOrder } from "@/lib/whatsapp";
+import { generateProductOrderMessage, openWhatsAppOrder } from "@/lib/whatsapp";
 import type { Product } from "@/types/product";
 import { QuantityControl } from "./quantity-control";
 import { useProductDialog } from "./use-product-dialog";
@@ -24,7 +24,7 @@ export function WhatsAppOrderSheet({ product, open, onClose, quantity, onQuantit
   const [imageFailed, setImageFailed] = useState(false);
   const image = getProductImage(product);
   const minimumOrder = getProductHighlights(product).find(fact => fact.label === "Minimum order");
-  const message = generateOrderMessage({ productName: product.name, category: product.category, price: product.price, originalPrice: product.originalPrice, quantity, customizationInterest: request.trim(), inStock: product.inStock, deliveryPincode, occasionDate });
+  const message = generateProductOrderMessage(product,request.trim(),quantity,deliveryPincode,occasionDate);
   return <dialog ref={ref} className={styles.dialog} aria-labelledby={titleId} onCancel={event => { event.preventDefault(); onClose(); }}
     onClick={event => { if (event.target !== event.currentTarget) return; const rect = event.currentTarget.getBoundingClientRect(); if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) onClose(); }}>
     <header className={styles.sheetHeader}>
@@ -41,7 +41,7 @@ export function WhatsAppOrderSheet({ product, open, onClose, quantity, onQuantit
         <QuantityControl value={quantity} onChange={onQuantityChange} minimum={getMinimumPieceQuantity(product)} />
         <div className={styles.deliveryFields}>
           <label htmlFor={pincodeId}>Delivery PIN code <span>Optional</span><input id={pincodeId} type="text" inputMode="numeric" autoComplete="postal-code" pattern="[0-9]{6}" maxLength={6} placeholder="6-digit PIN code" value={deliveryPincode} onChange={event => setDeliveryPincode(event.currentTarget.value.replace(/\D/g, ""))} /></label>
-          <label htmlFor={occasionId}>Occasion date <span>Optional</span><input id={occasionId} type="date" value={occasionDate} onChange={event => setOccasionDate(event.currentTarget.value)} /></label>
+          <label htmlFor={occasionId}>Occasion date <span>Optional</span><input id={occasionId} type="date" value={occasionDate} onInput={event => setOccasionDate(event.currentTarget.value)} onChange={event => setOccasionDate(event.currentTarget.value)} /></label>
         </div>
         <label className={styles.requestLabel} htmlFor={requestId}>Anything you’d like to ask? <span>Optional</span></label>
         <textarea id={requestId} className={styles.request} rows={3} maxLength={1000} placeholder="A gifting occasion, delivery question or personal request…" value={request} onChange={event => setRequest(event.currentTarget.value)} />
