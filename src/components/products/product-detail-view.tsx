@@ -15,6 +15,7 @@ import order from "./order-sheet.module.css";
 import styles from "./product-detail.module.css";
 import { shopOrdering } from "@/data/shop-ordering";
 import { getMinimumPieceQuantity, getProductHighlights } from "@/lib/product-highlights";
+import { InspectableProductPhoto } from "./inspectable-product-photo";
 
 export function ProductDetailView({ product, children }: { product: Product; children?: ReactNode }) {
   const images = getProductImageUrls(product).map(src => getProductImage(product, src));
@@ -63,7 +64,7 @@ export function ProductDetailView({ product, children }: { product: Product; chi
               setActiveImageIndex(Math.min(images.length - 1, Math.max(0, Math.round(container.scrollLeft / container.clientWidth))));
             }}>
               {images.map((image, index) => <div key={image.src} className={styles.slide}>
-                {failedImages.includes(image.src) ? <p className={styles.imageFallback}>{name}<span>Image unavailable</span></p> : <Image alt={image.alt} className={styles.image} fill priority={index === 0} sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) 55vw, 650px" src={image.src} onError={() => imageFailed(image.src)} />}
+                {failedImages.includes(image.src) ? <p className={styles.imageFallback}>{name}<span>Image unavailable</span></p> : <InspectableProductPhoto alt={image.alt} imageClassName={styles.image} priority={index === 0} sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) 55vw, 650px" src={image.src} label={`Inspect photo ${index + 1} of ${name}`} onError={() => imageFailed(image.src)} />}
               </div>)}
               {!images.length && <p className={styles.imageFallback}>{name}<span>Photo coming soon</span></p>}
             </div>
@@ -123,7 +124,7 @@ export function ProductDetailView({ product, children }: { product: Product; chi
     <WhatsAppOrderSheet product={product} open={orderOpen} onClose={() => setOrderOpen(false)} quantity={quantity} onQuantityChange={setQuantity} />
     <dialog ref={zoomRef} className={styles.zoom} aria-labelledby={zoomTitleId} onCancel={event => { event.preventDefault(); setZoomOpen(false); }}>
       <header><h2 id={zoomTitleId} tabIndex={-1} data-dialog-focus>{name}</h2><button type="button" aria-label="Close enlarged photo" onClick={() => setZoomOpen(false)}>×</button></header>
-      <div className={styles.zoomImage}>{zoomOpen && selectedImage && (failedImages.includes(selectedImage.src) ? <p className={styles.imageFallback}>{name}<span>Image unavailable</span></p> : <Image src={selectedImage.src} alt={selectedImage.alt} fill sizes="100vw" className={styles.image} onError={() => imageFailed(selectedImage.src)} />)}</div>
+      <div className={styles.zoomImage}>{zoomOpen && selectedImage && (failedImages.includes(selectedImage.src) ? <p className={styles.imageFallback}>{name}<span>Image unavailable</span></p> : <InspectableProductPhoto key={selectedImage.src} src={selectedImage.src} alt={selectedImage.alt} sizes="100vw" imageClassName={styles.image} label={`Inspect enlarged photo ${activeImageIndex + 1} of ${name}`} onError={() => imageFailed(selectedImage.src)} />)}</div>
       <footer><button type="button" disabled={activeImageIndex <= 0} aria-label="Previous enlarged photo" onClick={() => { setActiveImageIndex(i => i - 1); scrollToImage(activeImageIndex - 1); }}>Previous</button><p>{selectedImage?.caption || `Photo ${activeImageIndex + 1} of ${images.length}`}</p><button type="button" disabled={activeImageIndex >= images.length - 1} aria-label="Next enlarged photo" onClick={() => { setActiveImageIndex(i => i + 1); scrollToImage(activeImageIndex + 1); }}>Next</button></footer>
     </dialog>
   </main>;
