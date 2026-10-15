@@ -155,7 +155,7 @@ try {
   assert.match(text, /Quantity: 3/);
   assert.match(text, /Name: Riya & Aman/);
   assert.match(text, /Delivery PIN code: 262501/);
-  assert.match(text, /Occasion date: 2026-11-08/);
+  assert.match(text, /Occasion date: 8 Nov 2026/);
   assert.doesNotMatch(generateOrderMessage({ productName: original.name, category: 'Frames' }), /PIN code|Occasion date/);
 } finally {
   if (originalNumber === undefined) delete process.env.NEXT_PUBLIC_WHATSAPP_BUSINESS_NUMBER;

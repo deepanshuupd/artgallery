@@ -123,6 +123,7 @@
   background: var(--shop-paper);
 }
 .surface :global(.store-product__link) { border-radius: inherit; }
+.surface :global(.store-product > div) { padding: 0 10px 10px; }
 .surface :global(.store-product__image) {
   border-radius: 11px 11px 0 0;
   border-bottom: 1px solid var(--shop-border);

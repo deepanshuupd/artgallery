@@ -88,6 +88,12 @@ a {
   .brand-mark__image { width: 136px; }
 }
 
+/* Make keyboard navigation bypass the repeated site header. */
+.skip-link { position: fixed; z-index: 100; top: 8px; left: 12px; display: inline-flex; align-items: center; min-height: 44px; padding: 10px 18px; border: 2px solid #a84530; border-radius: 4px; background: #fffaf1; color: #244d40; font-size: 16px; transform: translateY(-160%); }
+.skip-link:focus { transform: none; }
+#main-content { scroll-margin-top: 100px; }
+#main-content:focus { outline: none; }
+
 /* Shared shop language: warm paper, quiet borders, real product photography. */
 .store-page { padding-block: 12px 36px; }
 .store-breadcrumbs { padding-block: 8px; color: #67594e; font-size: 11px; }
@@ -114,14 +120,14 @@ a {
 .store-search:focus-within { outline: 2px solid var(--color-geru); outline-offset: 2px; }
 .store-sort { position: relative; min-width: 0; }
 .store-sort::after { content: ""; position: absolute; right: 16px; top: 50%; width: 7px; height: 7px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-70%) rotate(45deg); pointer-events: none; }
-.store-sort select { appearance: none; -webkit-appearance: none; width: 100%; min-height: 44px; padding: 8px 38px 8px 12px; border: 1px solid #d9c4ad; border-radius: 6px; background: #fffaf1; color: #554238; font-size: 13px; }
+.store-sort select { appearance: none; -webkit-appearance: none; width: 100%; min-height: 44px; padding: 8px 38px 8px 12px; border: 1px solid #d9c4ad; border-radius: 6px; background: #fffaf1; color: #554238; font-size: 16px; }
 @media (forced-colors: active) { .store-sort select { appearance: auto; } .store-sort::after { display: none; } }
 .store-results { display: flex; justify-content: space-between; gap: 10px; align-items: center; margin-top: 12px; }
 .store-results > p:last-child { font-size: 11px; color: #67594e; }
 .store-product-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px 16px; margin-top: 20px; }
-.store-product { min-width: 0; }
-.store-product__link { display: flex; height: 100%; flex-direction: column; }
-.store-product__image { position: relative; aspect-ratio: 4/5; overflow: hidden; border-radius: 4px; background: #ece0d0; }
+.store-product { display: flex; flex-direction: column; min-width: 0; }
+.store-product__link { display: flex; flex: 1; flex-direction: column; }
+.store-product__image { flex-shrink: 0; position: relative; aspect-ratio: 4/5; overflow: hidden; border-radius: 4px; background: #ece0d0; }
 .store-product__image img { transition: transform .25s ease; }
 .store-product__badge { position: absolute; top: 8px; left: 8px; background: #fffaf1; color: #94432e; padding: 4px 8px; border-radius: 3px; font-size: 10px; }
 .store-product__copy { display: flex; flex: 1; flex-direction: column; padding-top: 10px; }

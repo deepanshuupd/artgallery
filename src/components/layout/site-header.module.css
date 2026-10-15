@@ -26,6 +26,8 @@
 }
 
 .controls { display: flex; align-items: center; gap: 12px; }
+.mobilePanel { max-height: 0; overflow: hidden; opacity: 0; }
+.mobilePanelOpen { max-height: calc(100dvh - 86px); overflow-y: auto; overscroll-behavior-y: contain; opacity: 1; }
 @media (min-width: 768px) {
   .controls .menuButton { display: none; }
 }

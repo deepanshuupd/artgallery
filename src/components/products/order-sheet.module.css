@@ -1,7 +1,7 @@
 .dialog { position: fixed; inset: auto 0 0; width: min(100%, 520px); max-width: 100%; max-height: 92dvh; margin: 0 auto; padding: 0; overflow: auto; border: 0; border-radius: 20px 20px 0 0; background: #fafbf8; color: #263c46; box-shadow: 0 18px 80px #182e3b33; }
 .dialog::backdrop { background: #152d3bcc; }
 .dialog[open] { animation: arrive 240ms cubic-bezier(.22,1,.36,1); }
-.sheetHeader { display: flex; justify-content: space-between; gap: 16px; padding: 24px 22px 16px; border-bottom: 1px solid #d9e1de; }
+.sheetHeader { position: sticky; top: 0; z-index: 2; display: flex; justify-content: space-between; gap: 16px; padding: 24px 22px 16px; border-bottom: 1px solid #d9e1de; background: #fafbf8; }
 .eyebrow { color: #526963; font-size: 10px; letter-spacing: .13em; text-transform: uppercase; }
 .sheetHeader h2 { margin-top: 4px; font: 600 28px/1.2 var(--font-heading), serif; outline: none; }
 .close { width: 44px; height: 44px; flex-shrink: 0; border-radius: 50%; background: #e7eef1; font-size: 28px; }
@@ -34,6 +34,9 @@
 .primary:hover { background: #1e443e; }
 .primary svg { flex-shrink: 0; }
 .sheetFooter > p { margin-top: 10px; text-align: center; font-size: 11px; color: #526963; line-height: 1.6; }
+.dialog :is(input,textarea,summary) { scroll-margin-block: 110px 24px; }
+.dialog:has(input:focus,textarea:focus) .sheetFooter { position: static; }
+@media (max-height: 600px) { .sheetFooter { position: static; } }
 .dialog :where(button,input,textarea,summary):focus-visible, .stepper :focus-visible, .primary:focus-visible { outline: 3px solid #a64049; outline-offset: -3px; }
 @keyframes arrive { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
 @media (min-width: 768px) { .dialog { inset: 0; margin: auto; border-radius: 16px; max-height: 90dvh; } .sheetHeader { padding: 24px 28px 18px; } .sheetBody { padding: 22px 28px; } .sheetFooter { padding: 20px 28px; } }

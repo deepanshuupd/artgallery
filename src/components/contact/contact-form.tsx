@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState, type FormEvent } from "react";
+import { useId, useState, useSyncExternalStore, type FormEvent } from "react";
 import { WhatsAppIcon } from "@/components/icons";
 import { generateContactFormLink, generateGeneralInquiryLink } from "@/lib/whatsapp";
 import styles from "./contact.module.css";
@@ -8,6 +8,7 @@ import styles from "./contact.module.css";
 type Values = { name: string; email: string; message: string };
 type Errors = Partial<Record<keyof Values, string>>;
 const initialValues: Values = { name: "", email: "", message: "" };
+const subscribeToHydration = () => () => {};
 const enquiries = [
   { label: "A piece I love", subject: "Product enquiry", detail: "Availability, details & the little things.", prompt: "Which piece caught your eye? Add its name and any questions…", hint: "A product name or link helps Sneha find the piece you mean." },
   { label: "Make it personal", subject: "Personalisation", detail: "A name, a memory, something yours.", prompt: "Tell Sneha about the piece and the personal detail you’d like to add…", hint: "Share your idea, the product and when you need it. Sneha will confirm what’s possible." },
@@ -24,6 +25,7 @@ function validate(values: Values): Errors {
 
 export function ContactForm() {
   const id = useId();
+  const ready = useSyncExternalStore(subscribeToHydration, () => true, () => false);
   const [values, setValues] = useState<Values>(initialValues);
   const [errors, setErrors] = useState<Errors>({});
   const [draftLink, setDraftLink] = useState("");
@@ -99,7 +101,7 @@ export function ContactForm() {
           {errors.message && <p id={`${id}-message-error`} className={styles.error} role="alert">{errors.message}</p>}
         </div>
         <div>
-          <button className={styles.formButton} type="submit"><WhatsAppIcon />Continue on WhatsApp<span className="sr-only"> (opens in a new tab)</span></button>
+          <button className={styles.formButton} type="submit" disabled={!ready}><WhatsAppIcon />Continue on WhatsApp<span className="sr-only"> (opens in a new tab)</span></button>
           <p className={styles.formNote}>Review your note in WhatsApp, then press send.<br />Nothing is sent automatically.</p>
         </div>
         {draftLink && <div className={styles.draft} role="status">

@@ -119,9 +119,10 @@ export default function RootLayout({
             }]).replace(/</g, "\\u003c"),
           }}
         />
+        <a className="skip-link" href="#main-content">Skip to content</a>
         <CartProvider>
         <SiteHeader />
-        {children}
+        <div id="main-content" tabIndex={-1}>{children}</div>
         <SiteFooter />
         {process.env.VERCEL === "1" && <Analytics />}
         </CartProvider>

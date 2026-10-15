@@ -103,8 +103,8 @@ export function SiteHeader() {
 
       <div
         className={[
-          "overflow-hidden border-t border-[rgba(168,69,48,0.16)] bg-[rgba(255,250,241,0.98)] transition-[max-height,opacity] duration-300 md:hidden",
-          isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0",
+          `${styles.mobilePanel} border-t border-[rgba(168,69,48,0.16)] bg-[rgba(255,250,241,0.98)] transition-[max-height,opacity] duration-300 md:hidden`,
+          isOpen ? styles.mobilePanelOpen : "",
         ].join(" ")}
         id="mobile-navigation"
         inert={!isOpen}

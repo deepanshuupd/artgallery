@@ -5,17 +5,16 @@ import { getMinimumPieceQuantity } from "./product-highlights";
 import { getProductPath } from "./catalog";
 import { getProductImage } from "./product-image";
 import { getSiteUrl } from "./site";
-import { createWhatsAppLink, formatOrderAmount } from "./whatsapp";
-import { brand } from "./brand";
+import { createWhatsAppLink, formatOrderAmount, orderEnquiryHeading, orderItemLines, productOrderFacts, orderDeliveryLines, quoteOrderRequest, orderEstimateNote, orderConfirmationNote } from "./whatsapp";
 
-export type CartProduct = { id: string; name: string; path: string; price: number; image: string; alt: string; minimum: number; inStock?: boolean };
+export type CartProduct = { id: string; name: string; category: Product["category"]; path: string; price: number; image: string; alt: string; minimum: number; inStock?: boolean };
 export type CartDetails = { deliveryPincode: string; occasionDate: string; request: string };
 export type CartRequest = CartDetails & { items: CartLine[] };
 export type CartQuote = { message: string; url: string; subtotal: number; lines: (CartLine & CartProduct)[] };
 export class CartValidationError extends Error {}
 export const cartProduct = (product: Product): CartProduct => {
   const image = getProductImage(product);
-  return { id:product.id, name:product.name.trim(), path:getProductPath(product), price:product.price, image:image.cardSrc, alt:image.alt, minimum:getMinimumPieceQuantity(product), inStock:product.inStock };
+  return { id:product.id, name:product.name.trim(), category:product.category, path:getProductPath(product), price:product.price, image:image.cardSrc, alt:image.alt, minimum:getMinimumPieceQuantity(product), inStock:product.inStock };
 };
 const inputText = (value: unknown, maximum: number) => {
   if (value === undefined || value === null) return "";
@@ -52,19 +51,16 @@ export function prepareCartQuote(request: CartRequest, products: Product[]): Car
     return {...item,...current};
   });
   const subtotalPaise = lines.reduce((sum,line) => sum+Math.round(line.price*100)*line.quantity,0);
-  const text = [`${brand.name} | Cart enquiry`,""];
+  const text = [orderEnquiryHeading("Cart"), `${lines.length} ${lines.length === 1 ? "product" : "products"} from my cart`, ""];
   lines.forEach((line,index) => {
-    const amount = Math.round(line.price*100)*line.quantity/100;
-    text.push(`${index+1}. ${line.name}`,`Quantity: ${line.quantity} | Unit: ${formatOrderAmount(line.price)} | Amount: ${formatOrderAmount(amount)}`);
-    if (line.request) text.push(`Request: ${line.request}`);
-    if (line.inStock === false) text.push("Availability: please confirm restock");
-    text.push(`${getSiteUrl()}${line.path}`,"");
+    const product = catalog.get(line.id)!;
+    text.push(...orderItemLines({ productName:line.name, category:product.category, quantity:line.quantity, price:line.price,
+      inStock:line.inStock, customizationInterest:line.request, facts:productOrderFacts(product), productUrl:`${getSiteUrl()}${line.path}` }, index+1), "");
   });
-  text.push(`Product subtotal: ${formatOrderAmount(subtotalPaise/100)}`,"Shipping and any customisation costs: to be confirmed");
-  if (request.deliveryPincode) text.push(`Delivery PIN code: ${request.deliveryPincode}`);
-  if (request.occasionDate) text.push(`Occasion date: ${request.occasionDate}`);
-  if (request.request) text.push("",`Order notes: ${request.request}`);
-  text.push("","Please confirm availability, delivery timing and the final total.");
+  text.push(`*Product subtotal: ${formatOrderAmount(subtotalPaise/100)}*`, orderEstimateNote,
+    ...orderDeliveryLines(request.deliveryPincode, request.occasionDate));
+  if (request.request) text.push("", "*Notes for the whole order*", quoteOrderRequest(request.request));
+  text.push("", orderConfirmationNote);
   const message = text.join("\n");
   return {message,url:createWhatsAppLink(message),subtotal:subtotalPaise/100,lines};
 }

@@ -109,6 +109,8 @@
 .letter::before { z-index: 0; background: url('/images/culture/studio-note-decoration-v1.webp') center / 100% 100% no-repeat; opacity: .5; }
 .letter::after { border-block: 13px solid transparent; border-image: url('/illustrations/aipan-welcome-border.svg') 6 0 repeat; }
 .close { top: 18px; right: 18px; color: #294635; background: #fff8e9c9; }
+/* Keep dismissal reachable when the illustrated note scrolls on a small phone. */
+.close { position: sticky; margin: 0 18px -44px auto; }
 .close > svg { width: 26px; height: 26px; }
 .cover { padding: 40px 98px 26px 36px; background: transparent; border-color: #bfa58b; }
 .address { color: #294635; font-size: .68rem; line-height: 1.45; letter-spacing: .025em; }

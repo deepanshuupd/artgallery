@@ -2,11 +2,12 @@
 
 import { useEffect, useRef, useState, useSyncExternalStore, type FormEvent } from "react";
 import { hamperPieces, hamperGroups, hamperOccasions, type HamperPieceId } from "@/data/hamper-pieces";
-import { changeHamperPiece, createHamperWhatsAppLink, hamperDetailsErrors, hasHamperSelection, selectedHamperPieces, type HamperDraft } from "@/lib/hamper-builder";
+import { changeHamperPiece, createHamperWhatsAppLink, generateHamperMessage, hamperDetailsErrors, hasHamperSelection, selectedHamperPieces, type HamperDraft } from "@/lib/hamper-builder";
 import { createHamperDraftStore, getServerHamperDraft, subscribeToHydration, clientReady, serverReady } from "@/lib/hamper-draft-store";
 import { WhatsAppIcon, ArrowRightIcon } from "@/components/icons";
 import { HamperBasketArt, HamperPieceArt } from "./hamper-art";
 import styles from "./hamper-builder.module.css";
+import { OrderMessagePreview } from "@/components/products/order-message-preview";
 
 const stepNames = ["Pick your pieces", "Make it personal", "Review & share"];
 const localDate = () => {
@@ -94,7 +95,7 @@ export function HamperBuilder() {
       if (!heading) return;
       heading.focus({preventScroll:true});
       const panel = basketRef.current?.closest("aside");
-      const offset = window.innerWidth < 1000 && panel
+      const offset = window.innerWidth < 1000 && panel && getComputedStyle(panel).position === "sticky"
         ? Number.parseFloat(getComputedStyle(panel).top) + panel.offsetHeight + 40
         : 125;
       window.scrollTo({top: window.scrollY + heading.getBoundingClientRect().top - offset,
@@ -114,7 +115,7 @@ export function HamperBuilder() {
     visit(2);
   }
 
-  return <div className={styles.builder} data-hamper-builder>
+  return <div className={styles.builder} data-hamper-builder data-step={step}>
     <ol className={styles.steps} aria-label="Build your hamper steps">
       {stepNames.map((name,index) => <li key={name}><button type="button" disabled={index>step} aria-current={step===index ? "step" : undefined} onClick={() => visit(index)}><span>{String(index+1).padStart(2,"0")}</span>{name}</button></li>)}
     </ol>
@@ -165,9 +166,9 @@ export function HamperBuilder() {
         </form>}
 
         {step===2 && <div className={styles.review}>
-          <div className={styles.reviewCard}><div className={styles.reviewTitle}><p className="craft-eyebrow">Your chosen pieces</p><button type="button" onClick={() => visit(0)}>Edit pieces</button></div><ul>{picks.map(piece => <li key={piece.id}><HamperPieceArt id={piece.id} /><span>{piece.name}</span><strong>× {piece.quantity}</strong></li>)}</ul>{draft.extra.trim() && <div className={styles.requestReview}><p>Other-item / design request</p><p>{draft.extra}</p><small>Availability to be checked by Sneha.</small></div>}</div>
+          <div className={styles.reviewCard}><div className={styles.reviewTitle}><p className="craft-eyebrow">In each hamper</p><button type="button" onClick={() => visit(0)}>Edit pieces</button></div><ul>{picks.map(piece => <li key={piece.id}><HamperPieceArt id={piece.id} /><span>{piece.name}</span><strong>× {piece.quantity}</strong></li>)}</ul>{draft.extra.trim() && <div className={styles.requestReview}><p>Other-item / design request</p><p>{draft.extra}</p><small>Availability to be checked by Sneha.</small></div>}</div>
           <div className={styles.reviewCard}><div className={styles.reviewTitle}><p className="craft-eyebrow">The personal details</p><button type="button" onClick={() => visit(1)}>Edit details</button></div><dl><div><dt>Hampers</dt><dd>{draft.hampers}</dd></div>{draft.recipient.trim() && <div><dt>For</dt><dd>{draft.recipient}</dd></div>}{draft.occasion && <div><dt>Occasion</dt><dd>{draft.occasion}</dd></div>}{draft.pincode && <div><dt>Delivery PIN</dt><dd>{draft.pincode}</dd></div>}{draft.date && <div><dt>Occasion date</dt><dd>{draft.date}</dd></div>}</dl>{draft.giftNote.trim() && <blockquote>{draft.giftNote}</blockquote>}</div>
-          <div className={styles.sendCard}><span aria-hidden="true">✦</span><h3>Over to Sneha, with love.</h3><p>She’ll check your choices and any special requests, then confirm packaging, availability, price and delivery with you.</p>{hasHamperSelection(draft) ? <a className={styles.primary} href={createHamperWhatsAppLink(draft)} target="_blank" rel="noopener noreferrer"><WhatsAppIcon />Share my hamper on WhatsApp</a> : <button className={styles.primary} type="button" onClick={() => visit(0)}>Choose a piece or add a request</button>}<small>Opens a prepared message. Send it in WhatsApp to request your quote; your order is confirmed with Sneha.</small></div>
+          <div className={styles.sendCard}><span aria-hidden="true">✦</span><h3>Over to Sneha, with love.</h3><p>She’ll check your choices and any special requests, then confirm packaging, availability, price and delivery with you.</p>{hasHamperSelection(draft) && <OrderMessagePreview message={generateHamperMessage(draft)} />}{hasHamperSelection(draft) ? <a className={styles.primary} href={createHamperWhatsAppLink(draft)} target="_blank" rel="noopener noreferrer"><WhatsAppIcon />Share my hamper on WhatsApp</a> : <button className={styles.primary} type="button" onClick={() => visit(0)}>Choose a piece or add a request</button>}<small>Review the draft and press send in WhatsApp. Nothing is sent automatically; Sneha confirms the final quote and delivery.</small></div>
         </div>}
       </section>
     </div>

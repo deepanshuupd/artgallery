@@ -4,12 +4,13 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRef, useState, type FormEvent } from "react";
 import type { CartProduct, CartQuote, CartDetails } from "@/lib/cart-quote";
-import { formatOrderAmount } from "@/lib/whatsapp";
+import { formatOrderAmount, orderUnit } from "@/lib/whatsapp";
 import { useCart } from "./cart-provider";
 import { CartIcon } from "./cart-controls";
 import { QuantityControl } from "@/components/products/quantity-control";
 import { WhatsAppIcon } from "@/components/icons";
 import styles from "./cart.module.css";
+import { OrderMessagePreview } from "@/components/products/order-message-preview";
 
 function CartPhoto({ product }: { product: CartProduct }) {
   const [failed, setFailed] = useState(false);
@@ -52,14 +53,15 @@ export function CartPage({ catalog, catalogFailed = false }: { catalog: CartProd
         {catalogFailed && <div className={styles.error} role="alert"><p>Product details could not be loaded. Your cart is still saved.</p><button type="button" onClick={() => router.refresh()}>Try loading product details again</button></div>}
         {cart.items.map(line => {
           const product = products.get(line.productId);
+          const unit = product ? orderUnit(product.name,product.category) : null;
           return <article key={line.productId} className={styles.item} aria-label={product?.name || "Unavailable product"}>
             {product ? <>
               <Link prefetch={false} href={product.path} className={styles.photoLink} aria-label={`View ${product.name}`}><CartPhoto key={product.image} product={product} /></Link>
               <div className={styles.itemBody}><div className={styles.itemTitle}><Link prefetch={false} href={product.path}><h3>{product.name}</h3></Link><button type="button" className={styles.remove} onClick={() => cart.remove(line.productId)} aria-label={`Remove ${product.name} from cart`}>Remove</button></div>
-                <p className={styles.unit}>{formatOrderAmount(product.price)} {/\bset\s+of\s+\d+/i.test(product.name) ? "per set" : "each"}</p>
+                <p className={styles.unit}>{formatOrderAmount(product.price)} per {unit?.one}</p>
                 {product.inStock === false && <p className={styles.stock}>Currently out of stock. Sneha will confirm restock availability.</p>}
                 {line.quantity < product.minimum && <p className={styles.stock}>Minimum order: {product.minimum}. <button type="button" onClick={() => cart.quantity(line.productId,product.minimum)}>Update to {product.minimum}</button></p>}
-                <div className={styles.itemQuantity}><QuantityControl value={line.quantity} minimum={product.minimum} onChange={value => { cart.quantity(line.productId,value); setError(""); }} /><strong>{formatOrderAmount(Math.round(product.price*100)*line.quantity/100)}</strong></div>
+                <div className={styles.itemQuantity}><QuantityControl value={line.quantity} minimum={product.minimum} label={`${product.name} quantity (${unit?.many})`} onChange={value => { cart.quantity(line.productId,value); setError(""); }} /><strong>{formatOrderAmount(Math.round(product.price*100)*line.quantity/100)}</strong></div>
                 <label className={styles.itemRequest}>Request for this item <span>Optional</span><input maxLength={250} placeholder="Names, colours, fragrance or a design request…" value={line.request} onChange={event => cart.request(line.productId,event.currentTarget.value)} /></label>
               </div>
             </> : <div className={styles.unavailable}><h3>{catalogFailed ? "Product details temporarily unavailable" : "This product is no longer listed"}</h3><p>{catalogFailed ? "Try loading the catalogue again before reviewing your enquiry." : "Remove it to continue with the other pieces in your cart."}</p><button type="button" className={styles.remove} onClick={() => cart.remove(line.productId)}>Remove unavailable product</button></div>}
@@ -76,7 +78,7 @@ export function CartPage({ catalog, catalogFailed = false }: { catalog: CartProd
         <p className={styles.help}>We’ll check the current catalogue before preparing your message. Shipping is quoted separately; this enquiry does not confirm an order.</p>
         <button type="submit" className={styles.primary} disabled={busy || missing || catalogFailed}>{busy ? "Checking your pieces…" : "Review my order enquiry →"}</button>
       </form>
-      {quote && <section className={styles.review} aria-labelledby="cart-review-title"><p className="craft-eyebrow">Ready for Sneha</p><h2 id="cart-review-title" ref={reviewRef} tabIndex={-1}>Your enquiry, all together.</h2><p>Current product subtotal: <strong>{formatOrderAmount(quote.subtotal)}</strong>. Check the message below, then send it in WhatsApp.</p><pre>{quote.message}</pre><a className={styles.primary} href={quote.url} target="_blank" rel="noopener noreferrer"><WhatsAppIcon />Continue to WhatsApp</a><p className={styles.help}>Your cart stays saved so you can return to it. Sneha confirms your final order in the chat.</p></section>}
+      {quote && <section className={styles.review} aria-labelledby="cart-review-title"><p className="craft-eyebrow">Ready for Sneha</p><h2 id="cart-review-title" ref={reviewRef} tabIndex={-1}>Your enquiry, all together.</h2><p>Current product subtotal: <strong>{formatOrderAmount(quote.subtotal)}</strong>. Check the message below, then send it in WhatsApp.</p><OrderMessagePreview message={quote.message} defaultOpen /><a className={styles.primary} href={quote.url} target="_blank" rel="noopener noreferrer"><WhatsAppIcon />Continue to WhatsApp</a><p className={styles.help}>Nothing is sent automatically. Your cart stays saved; Sneha confirms the final total and delivery in the chat.</p></section>}
     </div>}
   </main>;
 }

@@ -4,12 +4,13 @@ import { useId, useState } from "react";
 import { WhatsAppIcon } from "@/components/icons";
 import { getProductImage } from "@/lib/product-image";
 import { formatPrice } from "@/lib/pricing";
-import { generateProductOrderMessage, openWhatsAppOrder } from "@/lib/whatsapp";
+import { generateProductOrderMessage, openWhatsAppOrder, orderUnit } from "@/lib/whatsapp";
 import type { Product } from "@/types/product";
 import { QuantityControl } from "./quantity-control";
 import { useProductDialog } from "./use-product-dialog";
 import { getMinimumPieceQuantity, getProductHighlights } from "@/lib/product-highlights";
 import styles from "./order-sheet.module.css";
+import { OrderMessagePreview } from "./order-message-preview";
 export function WhatsAppOrderSheet({ product, open, onClose, quantity, onQuantityChange }: {
   product: Product; open: boolean; onClose: () => void; quantity: number; onQuantityChange: (quantity: number) => void;
 }) {
@@ -23,6 +24,7 @@ export function WhatsAppOrderSheet({ product, open, onClose, quantity, onQuantit
   const [occasionDate, setOccasionDate] = useState("");
   const [imageFailed, setImageFailed] = useState(false);
   const image = getProductImage(product);
+  const unit = orderUnit(product.name,product.category);
   const minimumOrder = getProductHighlights(product).find(fact => fact.label === "Minimum order");
   const message = generateProductOrderMessage(product,request.trim(),quantity,deliveryPincode,occasionDate);
   return <dialog ref={ref} className={styles.dialog} aria-labelledby={titleId} onCancel={event => { event.preventDefault(); onClose(); }}
@@ -35,23 +37,23 @@ export function WhatsAppOrderSheet({ product, open, onClose, quantity, onQuantit
       <div className={styles.sheetBody}>
         <div className={styles.productSummary}>
           <div className={styles.summaryImage}>{image.src && !imageFailed && <Image src={image.cardSrc} alt={image.alt} fill sizes="72px" onError={() => setImageFailed(true)} />}</div>
-          <div><p>{product.category}</p><h3>{product.name}</h3><span>{formatPrice(product.price)} <small>{/\bset\s+of\s+\d+/i.test(product.name) ? "per set" : "each"}</small></span></div>
+          <div><p>{product.category}</p><h3>{product.name}</h3><span>{formatPrice(product.price)} <small>per {unit.one}</small></span></div>
         </div>
         {minimumOrder && <p className={styles.help}>Minimum order: {minimumOrder.value}</p>}
-        <QuantityControl value={quantity} onChange={onQuantityChange} minimum={getMinimumPieceQuantity(product)} />
+        <QuantityControl value={quantity} onChange={onQuantityChange} minimum={getMinimumPieceQuantity(product)} label={`Quantity (${unit.many})`} />
         <div className={styles.deliveryFields}>
           <label htmlFor={pincodeId}>Delivery PIN code <span>Optional</span><input id={pincodeId} type="text" inputMode="numeric" autoComplete="postal-code" pattern="[0-9]{6}" maxLength={6} placeholder="6-digit PIN code" value={deliveryPincode} onChange={event => setDeliveryPincode(event.currentTarget.value.replace(/\D/g, ""))} /></label>
           <label htmlFor={occasionId}>Occasion date <span>Optional</span><input id={occasionId} type="date" value={occasionDate} onInput={event => setOccasionDate(event.currentTarget.value)} onChange={event => setOccasionDate(event.currentTarget.value)} /></label>
         </div>
-        <label className={styles.requestLabel} htmlFor={requestId}>Anything you’d like to ask? <span>Optional</span></label>
-        <textarea id={requestId} className={styles.request} rows={3} maxLength={1000} placeholder="A gifting occasion, delivery question or personal request…" value={request} onChange={event => setRequest(event.currentTarget.value)} />
+        <label className={styles.requestLabel} htmlFor={requestId}>Personalisation or a request for this item <span>Optional</span></label>
+        <textarea id={requestId} className={styles.request} rows={3} maxLength={1000} placeholder="Exact names or wording, colour, fragrance or a design request…" value={request} onChange={event => setRequest(event.currentTarget.value)} />
         <p className={styles.help}>In-stock quantities dispatch in 2–3 days. Made-to-order pieces and larger quantities may take longer. Share your date so Sneha can check what’s possible and confirm the delivery charge.</p>
-        <details className={styles.preview}><summary>Preview your message</summary><pre>{message}</pre></details>
+        <OrderMessagePreview message={message} />
       </div>
       <footer className={styles.sheetFooter}>
         <div className={styles.subtotal}><span>Product subtotal</span><strong>{formatPrice(product.price * quantity)}</strong></div>
         <button className={styles.primary} type="submit"><WhatsAppIcon className="h-5 w-5" />Continue to WhatsApp</button>
-        <p>This opens a chat. Your order is confirmed with Sneha.</p>
+        <p>Review the draft and press send in WhatsApp. Nothing is sent automatically; Sneha confirms the final total and delivery.</p>
       </footer>
     </form>
   </dialog>;

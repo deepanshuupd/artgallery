@@ -49,7 +49,7 @@ test('other-item-only requests are valid; an empty basket cannot generate a requ
   const draft={...fresh(),extra:'Could you include a photo keepsake?'};
   assert.equal(model.hasHamperSelection(draft),true);
   assert.match(model.generateHamperMessage(draft),/photo keepsake/);
-  assert.match(model.generateHamperMessage(draft),/please confirm availability/);
+  assert.match(model.generateHamperMessage(draft),/please confirm availability/i);
 });
 test('the WhatsApp request preserves per-hamper counts, custom requests, names and Unicode',()=>{
   const original=process.env.NEXT_PUBLIC_WHATSAPP_BUSINESS_NUMBER;
@@ -59,10 +59,17 @@ test('the WhatsApp request preserves per-hamper counts, custom requests, names a
     const url=new URL(model.createHamperWhatsAppLink(draft));
     assert.equal(url.hostname,'wa.me');assert.equal(url.pathname,'/918266064457');
     const message=url.searchParams.get('text');
-    for (const text of ['Number of hampers: 3','Pieces in EACH hamper:','2 × Pendant','1 × Pair of earrings',draft.extra,draft.giftNote,'Delivery PIN code: 262501',draft.date,'final price']) assert.ok(message.includes(text),text);
+    for (const text of ['Number of hampers: 3','Pieces in EACH hamper','2 × Pendant','Each: 2 | Total: 6','1 × Pair of earrings','Each: 1 | Total: 3',draft.extra,draft.giftNote,'Delivery PIN code: 262501','21 Nov 2027','Quote requested — no price confirmed','price per hamper and the total for all hampers']) assert.ok(message.includes(text),text);
     assert.doesNotMatch(message,/₹|\bsubtotal\b/i);
     assert.match(message,/https:\/\/www.kumaonrang.com\/build-your-hamper/);
   } finally { if(original===undefined)delete process.env.NEXT_PUBLIC_WHATSAPP_BUSINESS_NUMBER;else process.env.NEXT_PUBLIC_WHATSAPP_BUSINESS_NUMBER=original; }
+});
+test('custom requests and gift-card wording remain separate and no price is invented',()=>{
+  const message=model.generateHamperMessage({...fresh(),pieces:{note:1},hampers:'2',extra:'A blue ribbon\nNo glitter',giftNote:'For you\nWith love, माँ'});
+  assert.match(message,/\*Other item \/ design request\*[\s\S]*> A blue ribbon\n> No glitter/);
+  assert.match(message,/\*Gift-note wording\*\n> For you\n> With love, माँ/);
+  assert.match(message,/Each: 1 \| Total: 2/);
+  assert.doesNotMatch(message,/₹|undefined|NaN|Occasion date|PIN code/);
 });
 test('draft restoration discards unknown items, impossible quantities, invalid dates and oversized counts',()=>{
   const draft=model.restoreHamperDraft({pieces:{pendant:2,earrings:-1,clutcher:21,scrunchie:'2',unknown:5},hampers:'100',occasion:'Unknown',date:'2026-02-30',extra:'x'.repeat(500),pincode:'262501'});

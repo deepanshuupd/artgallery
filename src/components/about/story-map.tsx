@@ -56,6 +56,11 @@ export function StoryMap() {
         <strong>{district.name}</strong>
       </div>
       <p className={styles.hint}>Tap a district to explore.</p>
+      <label className={styles.districtPicker} htmlFor={`${id}-district`}>Explore a Kumaon district
+        <select id={`${id}-district`} value={selected} onChange={event => selectDistrict(event.currentTarget.value)}>
+          {geometry.districts.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}
+        </select>
+      </label>
       <figcaption className={styles.credit}>District map adapted from <a href="https://github.com/datameet/maps/tree/master/Districts/Census_2011" target="_blank" rel="noreferrer">DataMeet</a> · <a href="https://creativecommons.org/licenses/by/2.5/in/" target="_blank" rel="noreferrer">CC BY 2.5 IN</a> · Simplified</figcaption>
     </figure>
   );

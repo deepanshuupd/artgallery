@@ -1,5 +1,5 @@
 import { hamperPieces, hamperOccasions, type HamperPieceId } from "@/data/hamper-pieces";
-import { createWhatsAppLink } from "@/lib/whatsapp";
+import { createWhatsAppLink, orderEnquiryHeading, orderDeliveryLines, quoteOrderRequest } from "@/lib/whatsapp";
 import { getSiteUrl } from "@/lib/site";
 
 export const hamperDraftKey = "kumaonrang-hamper-v1";
@@ -65,17 +65,19 @@ export function hamperDetailsErrors(draft: HamperDraft, today: string) {
 
 export function generateHamperMessage(draft: HamperDraft): string {
   if (!hasHamperSelection(draft)) throw new Error("Choose a piece or request an item first.");
-  const lines = ["KumaonRang | Custom hamper enquiry", "", `Number of hampers: ${draft.hampers}`, "", "Pieces in EACH hamper:"];
+  const lines = [orderEnquiryHeading("Custom hamper"), `Number of hampers: ${draft.hampers}`, "", "*Pieces in EACH hamper*", "Each = per hamper; total = across all hampers."];
   const selections = selectedHamperPieces(draft);
-  if (selections.length) selections.forEach((piece,index) => lines.push(`${index+1}. ${piece.quantity} × ${piece.name}`));
-  else lines.push("• Please help me source the item request below.");
-  if (draft.extra.trim()) lines.push("", "Other item / design request (please confirm availability):", draft.extra.trim());
-  if (draft.recipient.trim()) lines.push("", `Gift for: ${draft.recipient.trim()}`);
+  if (selections.length) selections.forEach((piece,index) => lines.push(`${index+1}. ${piece.quantity} × ${piece.name}`, `   Each: ${piece.quantity} | Total: ${piece.quantity * Number(draft.hampers)}`));
+  else lines.push("Please help me source the item request below.");
+  if (draft.extra.trim()) lines.push("", "*Other item / design request*", "Please confirm availability:", quoteOrderRequest(draft.extra));
+  if (draft.recipient.trim()) lines.push("", `Gift for: ${draft.recipient.trim().replace(/\s+/g," ")}`);
   if (draft.occasion) lines.push(`Occasion: ${draft.occasion}`);
-  if (draft.giftNote.trim()) lines.push("", "Message for the personal note:", draft.giftNote.trim());
-  if (draft.pincode) lines.push("", `Delivery PIN code: ${draft.pincode}`);
-  if (draft.date) lines.push(`Occasion date: ${draft.date} (please confirm if delivery is possible)`);
-  lines.push("", "Please confirm designs, packaging, final price, shipping and preparation time.", "", `${getSiteUrl()}/build-your-hamper`);
+  if (draft.giftNote.trim()) lines.push("", "*Gift-note wording*", quoteOrderRequest(draft.giftNote));
+  lines.push(...orderDeliveryLines(draft.pincode, draft.date), "", "*Quote requested — no price confirmed*",
+    "Please quote the price per hamper and the total for all hampers.",
+    "Include packaging, custom requests and shipping.",
+    "Please confirm designs, delivery timing and payment options before I place the order.",
+    "", `Built on: ${getSiteUrl()}/build-your-hamper`);
   return lines.join("\n");
 }
 

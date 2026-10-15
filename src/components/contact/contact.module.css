@@ -107,3 +107,4 @@
   .social { flex-direction: row; align-items: center; justify-content: space-between; margin-top: 42px; padding-top: 20px; }
 }
 @media (prefers-reduced-motion: reduce) { .page * { transition: none; animation: none; } }
+.formButton:disabled { opacity: .55; cursor: wait; }
