@@ -34,7 +34,7 @@ assert.match(html, /aria-labelledby="studio-note-title"/);
 assert.match(html, /aria-label="Close studio note"/);
 assert.match(html, /Open Sneha’s studio note/);
 assert.match(html, /class="noteTab" aria-hidden="true">For you<\/span>/, 'A small personal-note cue, not a fake notification count');
-assert.match(html, /href="https:\/\/www.instagram.com\/art_gallery_05s\/"/);
+assert.match(html, /href="https:\/\/www.instagram.com\/kumaonrang\/"/);
 assert.match(html, /href="https:\/\/www.pinterest.com\/snehaupadhyay168\/"/);
 assert.match(html, /10%<\/strong><span>off every order/);
 assert.ok(!html.includes('A little thank-you, just for you'), 'One warm heading; no repeated salutation before the offer');
@@ -73,6 +73,7 @@ const { SiteHeader } = load('src/components/layout/site-header.tsx', {
   '@/lib/navigation': { navigationItems: [{ label: 'Home', href: '/' }] },
   '@/components/layout/brand-mark': { BrandMark: () => React.createElement('span', null, 'KumaonRang') },
   '@/components/about/studio-postcard': { StudioPostcard },
+  '@/components/cart/cart-controls': { CartLink: () => React.createElement('a', { href: '/cart' }, 'Cart') },
 });
 const home = renderToStaticMarkup(React.createElement(SiteHeader));
 assert.match(home, /<\/header><div[^>]*class="rail"/, 'Fixed postcard is outside the sticky header');

@@ -46,7 +46,7 @@ export function AboutValues() {
             <h3>A home for the growing collection</h3>
             <p>That support led to this website: a place to explore the pieces, find a gift and speak directly with Sneha. Art, Pahadi culture and the everyday details of Uttarakhand continue to shape what comes next.</p>
           </div>
-          <a className={styles.textLink} href="https://www.instagram.com/art_gallery_05s/" target="_blank" rel="noopener noreferrer">Visit Sneha’s Instagram<span className="sr-only"> (opens in a new tab)</span></a>
+          <a className={styles.textLink} href="https://www.instagram.com/kumaonrang/" target="_blank" rel="noopener noreferrer">Visit Sneha’s Instagram<span className="sr-only"> (opens in a new tab)</span></a>
         </div>
       </div>
     </section>

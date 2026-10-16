@@ -20,7 +20,7 @@ export function ContactSection() {
       <aside className={styles.social} aria-label="KumaonRang on Instagram">
         <span>Keep in touch between conversations.</span>
         <div>
-          <a href="https://www.instagram.com/art_gallery_05s/" target="_blank" rel="noopener noreferrer"><InstagramIcon />Art & keepsakes<span className="sr-only"> on Instagram (opens in a new tab)</span></a>
+          <a href="https://www.instagram.com/kumaonrang/" target="_blank" rel="noopener noreferrer"><InstagramIcon />Art & keepsakes<span className="sr-only"> on Instagram (opens in a new tab)</span></a>
           <a href="https://www.instagram.com/snehacuratedhampers/" target="_blank" rel="noopener noreferrer"><InstagramIcon />Curated hampers<span className="sr-only"> on Instagram (opens in a new tab)</span></a>
         </div>
       </aside>

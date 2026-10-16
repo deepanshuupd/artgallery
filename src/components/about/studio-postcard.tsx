@@ -125,13 +125,13 @@ export function StudioPostcard() {
               <div className={styles.followLinks}>
               <a
                 className={styles.instagram}
-                href="https://www.instagram.com/art_gallery_05s/"
+                href="https://www.instagram.com/kumaonrang/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Follow KumaonRang on Instagram (opens in a new tab)"
               >
                 <InstagramIcon />
-                <span>Follow on Instagram<span className={styles.handle}>@art_gallery_05s</span></span>
+                <span>Follow on Instagram<span className={styles.handle}>@kumaonrang</span></span>
                 <span className={styles.linkArrow} aria-hidden="true">↗</span>
               </a>
               <a className={styles.instagram} href="https://www.pinterest.com/snehaupadhyay168/"

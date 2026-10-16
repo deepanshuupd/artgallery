@@ -100,7 +100,7 @@ export default function RootLayout({
                 addressRegion: "Uttarakhand",
                 addressCountry: "IN",
               },
-              sameAs: ["https://www.instagram.com/art_gallery_05s/"],
+              sameAs: ["https://www.instagram.com/kumaonrang/"],
               // Google's URL-based policy option preserves the full damage and
               // statutory-rights wording without inventing a return window.
               hasMerchantReturnPolicy: {
