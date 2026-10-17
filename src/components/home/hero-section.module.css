@@ -36,3 +36,16 @@
 @media (min-width: 768px) {
   .hero .copy .intro, .hero .copy .description { font-size: 18px; line-height: 1.5; }
 }
+
+/* On phones, keep the illustrated welcome without delaying the shop entrance. */
+.compactIntro { display: none; }
+@media (max-width: 767px) {
+  .scene { height: clamp(190px, 33svh, 280px); }
+  .copy { margin-top: 0; padding-top: 8px; padding-bottom: 24px; }
+  .copy h1 { font-size: clamp(32px, 8.8vw, 44px); line-height: 1.08; }
+  .hero .copy .intro { margin-top: 12px; font-size: 15px; line-height: 1.5; }
+  .fullIntro { display: none; }
+  .compactIntro { display: inline; }
+  .hero .copy .description { display: none; }
+  .actions { margin-top: 18px; }
+}

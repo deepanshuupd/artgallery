@@ -21,7 +21,7 @@ export function HeroSection() {
       <div className={`heritage-hero__copy ${styles.copy}`} data-home-reveal="hero-copy">
         <p className={`craft-eyebrow ${styles.location}`}><span aria-hidden="true">✦</span> Pithoragarh, Uttarakhand</p>
         <h1 id="welcome-title">Bring home<br /><em>the colours of Kumaon</em></h1>
-        <p className={`heritage-hero__intro ${styles.intro}`}>In the colours of Aipan. In a familiar Pahadi face, the little things that make a place feel like home.</p>
+        <p className={`heritage-hero__intro ${styles.intro}`}><span className={styles.compactIntro}>Aipan art, Pahadi keepsakes and thoughtful gifts from Sneha’s small shop in Pithoragarh.</span><span className={styles.fullIntro}>In the colours of Aipan. In a familiar Pahadi face, the little things that make a place feel like home.</span></p>
         <p className={`heritage-hero__description ${styles.description}`}>Discover Aipan-inspired art, Pahadi keepsakes and personal gifts from Sneha’s small shop in Pithoragarh — for your home, and the people who feel like it.</p>
         <div className={`craft-actions ${styles.actions}`}>
           <Link prefetch={false} href="/collection" className={styles.primary}>Browse the shop</Link>

@@ -28,9 +28,9 @@ export function ProductDetailView({ product, children }: { product: Product; chi
   const [quantity, setQuantity] = useState(minimumQuantity);
   const [orderOpen, setOrderOpen] = useState(false);
   const [zoomOpen, setZoomOpen] = useState(false);
-  const [purchasePassed, setPurchasePassed] = useState(false);
+  const [inlineActionsVisible, setInlineActionsVisible] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
-  const purchaseRef = useRef<HTMLDivElement>(null);
+  const actionsRef = useRef<HTMLDivElement>(null);
   const zoomRef = useProductDialog(zoomOpen);
   const galleryId = useId();
   const zoomTitleId = useId();
@@ -41,10 +41,14 @@ export function ProductDetailView({ product, children }: { product: Product; chi
   const actionLabel = product.inStock === false ? "Ask about availability" : "Order via WhatsApp";
 
   useEffect(() => {
-    const purchase = purchaseRef.current;
-    if (!purchase) return;
-    const observer = new IntersectionObserver(([entry]) => setPurchasePassed(!entry.isIntersecting && entry.boundingClientRect.bottom < 0));
-    observer.observe(purchase);
+    const actions = actionsRef.current;
+    if (!actions || typeof IntersectionObserver === "undefined") return;
+    // Keep buying available from the gallery onward. Hide the duplicate bar only
+    // when the inline actions are actually usable above the phone's bottom bar.
+    const observer = new IntersectionObserver(([entry]) => {
+      setInlineActionsVisible(entry.isIntersecting && entry.intersectionRatio >= .5);
+    }, { threshold: [0, .5], rootMargin: "0px 0px -88px 0px" });
+    observer.observe(actions);
     return () => observer.disconnect();
   }, []);
 
@@ -89,27 +93,32 @@ export function ProductDetailView({ product, children }: { product: Product; chi
               {discount && <><del className={styles.originalPrice}><span className="sr-only">Original price </span>{formatPrice(discount.originalPrice)}</del><span className={styles.saving}>Save {discount.percent}%</span></>}
             </div>
           </header>
-          <section ref={purchaseRef} className={styles.purchase} aria-labelledby="product-order-title">
+          <section className={styles.purchase} aria-labelledby="product-order-title">
             {introduction && <p className={styles.introduction}>{introduction}</p>}
+            <div className={styles.purchaseBox}>
+              <h2 id="product-order-title" className={styles.purchaseHeading}>Order details</h2>
+              {typeof product.inStock === "boolean" && <p className={styles.availability} data-stock-state={product.inStock ? "in-stock" : "out-of-stock"}><span aria-hidden="true" />{product.inStock ? "In stock · Confirm availability for your quantity" : "Currently out of stock · Ask Sneha about availability"}</p>}
+              <QuantityControl value={quantity} onChange={setQuantity} minimum={minimumQuantity} />
+              <p className={styles.deliverySummary}>Delivery is extra, confirmed before you order.</p>
+              <div ref={actionsRef} className={styles.buyingActions}>
+                <AddToCartButton productId={product.id} productName={product.name} quantity={quantity} unavailable={product.inStock === false} />
+                <button type="button" className={`${order.primary} ${styles.directOrder}`} aria-haspopup="dialog" onClick={() => setOrderOpen(true)}><WhatsAppIcon className="h-5 w-5" />{actionLabel}</button>
+              </div>
+              <p className={styles.orderHelp}>Sneha confirms availability, the final total and timing on WhatsApp. <Link prefetch={false} href="/how-to-order">How ordering works</Link></p>
+              <details className={styles.fulfilmentDetails}>
+                <summary>Delivery &amp; order support<span aria-hidden="true">+</span></summary>
+                <div className={styles.fulfilment}>
+                  <p><strong>Dispatch</strong> {product.inStock === false ? "Preparation and availability are confirmed with Sneha." : shopOrdering.dispatch} Custom or larger quantities may need more time.</p>
+                  <p><strong>Delivery charge</strong> Quoted for your parcel’s weight, dimensions and delivery details. <Link prefetch={false} href="/shipping-policy">Delivery & dispatch details</Link></p>
+                  <p><strong>Order support</strong> Report arrival damage within 7 days. Change-of-mind returns aren’t accepted. <Link prefetch={false} href="/returns-policy">Returns & damage support</Link></p>
+                </div>
+              </details>
+            </div>
             {highlights.length > 0 && <div className={styles.highlights}>
               <h2>At a glance</h2>
               <dl>{highlights.map(fact => <div key={fact.label}><dt>{fact.label}</dt><dd>{fact.value}</dd></div>)}</dl>
               <a href="#product-information">Read all product details ↓</a>
             </div>}
-            <div className={styles.purchaseBox}>
-              <h2 id="product-order-title" className={styles.purchaseHeading}>Order details</h2>
-              {typeof product.inStock === "boolean" && <p className={styles.availability} data-stock-state={product.inStock ? "in-stock" : "out-of-stock"}><span aria-hidden="true" />{product.inStock ? "In stock · Confirm availability for your quantity" : "Currently out of stock · Ask Sneha about availability"}</p>}
-              <QuantityControl value={quantity} onChange={setQuantity} minimum={minimumQuantity} />
-              <div className={styles.fulfilment}>
-                <p><strong>Dispatch</strong> {product.inStock === false ? "Preparation and availability are confirmed with Sneha." : shopOrdering.dispatch} Custom or larger quantities may need more time.</p>
-                <p><strong>Delivery charge</strong> Quoted for your parcel’s weight, dimensions and delivery details. <Link prefetch={false} href="/shipping-policy">Delivery & dispatch details</Link></p>
-                <p><strong>Order support</strong> Report arrival damage within 7 days. Change-of-mind returns aren’t accepted. <Link prefetch={false} href="/returns-policy">Returns & damage support</Link></p>
-              </div>
-              <div className={styles.cartAction}><AddToCartButton productId={product.id} productName={product.name} quantity={quantity} unavailable={product.inStock === false} /></div>
-              <button type="button" className={`${order.primary} ${styles.directOrder}`} aria-haspopup="dialog" onClick={() => setOrderOpen(true)}><WhatsAppIcon className="h-5 w-5" />{actionLabel}</button>
-              <p className={styles.orderHelp}>Choose your quantity, then speak with Sneha. She’ll confirm the full total, delivery timing and any custom requests in your chat.</p>
-              <Link prefetch={false} className={styles.orderGuide} href="/how-to-order">How ordering works →</Link>
-            </div>
             <nav className={styles.contactLink} aria-label="About the shop and customer experiences"><Link prefetch={false} href="/about">Meet Sneha</Link><span aria-hidden="true"> · </span><Link prefetch={false} href="/customer-stories">Customer stories</Link></nav>
           </section>
         </div>
@@ -122,7 +131,10 @@ export function ProductDetailView({ product, children }: { product: Product; chi
       <ProductStory story={product.story} />
       {children}
     </div>
-    {purchasePassed && !orderOpen && !zoomOpen && <div className={styles.mobileBar}><div><span>Product subtotal</span><strong>{formatPrice(product.price * quantity)}</strong></div>{product.inStock === false ? <button type="button" className={order.primary} aria-haspopup="dialog" onClick={() => setOrderOpen(true)}>Ask Sneha</button> : <AddToCartButton productId={product.id} productName={product.name} quantity={quantity} compact />}</div>}
+    <aside className={styles.mobileBar} aria-label="Quick purchase" hidden={inlineActionsVisible || orderOpen || zoomOpen}>
+      <div><strong>{formatPrice(product.price * quantity)}</strong><span>{quantity} {quantity === 1 ? "item" : "items"} · delivery extra</span></div>
+      {product.inStock === false ? <button type="button" className={order.primary} aria-haspopup="dialog" onClick={() => setOrderOpen(true)}>Ask Sneha</button> : <AddToCartButton productId={product.id} productName={product.name} quantity={quantity} />}
+    </aside>
     <WhatsAppOrderSheet product={product} open={orderOpen} onClose={() => setOrderOpen(false)} quantity={quantity} onQuantityChange={setQuantity} />
     <dialog ref={zoomRef} className={styles.zoom} aria-labelledby={zoomTitleId} onCancel={event => { event.preventDefault(); setZoomOpen(false); }}>
       <header><h2 id={zoomTitleId} tabIndex={-1} data-dialog-focus>{name}</h2><button type="button" aria-label="Close enlarged photo" onClick={() => setZoomOpen(false)}>×</button></header>
