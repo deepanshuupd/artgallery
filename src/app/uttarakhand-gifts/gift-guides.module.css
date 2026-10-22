@@ -84,6 +84,188 @@
   border: 1px solid #e5d8c6;
 }
 
+.priceNote {
+  max-width: 760px;
+  margin-bottom: 18px;
+  color: #67594e;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.visualGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.visualGrid .giftCard {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0;
+  padding: 12px;
+}
+
+.visualGrid .giftCard h3 {
+  margin-top: 6px;
+  min-height: 2.3em;
+  font-size: clamp(21px, 4.6vw, 28px);
+  line-height: 1.15;
+}
+
+.visualGrid .kicker {
+  min-height: 2.8em;
+  line-height: 1.4;
+}
+
+@media (max-width: 899px) {
+  .hero {
+    gap: 10px;
+    padding-bottom: 20px;
+  }
+
+  .quickNote {
+    padding: 0;
+    background: none;
+    border: 0;
+  }
+
+  .quickNote > p {
+    display: none;
+  }
+
+  .quickNote .textLink {
+    margin-top: 0;
+  }
+}
+
+.productLink {
+  display: grid;
+  gap: 6px;
+  margin-top: 14px;
+  color: #34271e;
+  text-decoration: none;
+}
+
+.photo {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: #eee5d8;
+  border: 1px solid #e5d8c6;
+}
+
+.productImage {
+  object-fit: contain;
+  padding: 6px;
+}
+
+.productName {
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.productPrice {
+  font-size: 15px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.minimum {
+  color: #67594e;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.viewPiece {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: #813c2c;
+  border-bottom: 1px solid #c8ad96;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.viewPiece > span {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.productLink:hover .viewPiece,
+.productLink:focus-visible .viewPiece {
+  color: #34271e;
+  border-color: #34271e;
+}
+
+.productLink:hover .photo,
+.productLink:focus-visible .photo {
+  border-color: #a47545;
+}
+
+.giftDescription {
+  margin-top: 12px;
+  margin-bottom: 4px;
+  color: #67594e;
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.visualGrid .giftCard > .textLink {
+  margin-top: auto;
+  line-height: 1.5;
+}
+
+.visualGrid .noteCard {
+  grid-column: 1 / -1;
+  align-self: start;
+}
+
+.occasion {
+  min-width: 0;
+  scroll-margin-top: 110px;
+  border-bottom: 1px solid #d9c4ad;
+}
+
+.occasion summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 60px;
+  padding: 14px 2px;
+  font: 500 24px/1.2 var(--font-heading), serif;
+  cursor: pointer;
+  list-style: none;
+}
+
+.occasion summary::-webkit-details-marker {
+  display: none;
+}
+
+.occasion summary::after {
+  content: "+";
+  flex-shrink: 0;
+  color: #813c2c;
+  font: 400 22px/1 var(--font-body), sans-serif;
+}
+
+.occasion[open] summary::after {
+  content: "−";
+}
+
+.occasionBody {
+  padding: 0 2px 16px;
+  color: #67594e;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
 .number {
   padding-top: 2px;
   color: #a47545;
@@ -266,9 +448,39 @@
     padding: 24px;
   }
 
+  .visualGrid .giftCard {
+    padding: 20px;
+  }
+
+  .productName,
+  .viewPiece,
+  .giftDescription {
+    font-size: 13px;
+  }
+
+  .productImage {
+    padding: 10px;
+  }
+
   .checklist dl {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .visualGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .visualGrid .noteCard {
+    grid-column: auto;
+    padding: 26px;
+  }
+
+  .photo {
+    aspect-ratio: 4 / 3;
   }
 }
 

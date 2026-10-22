@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
@@ -6,66 +7,34 @@ import { pageMetadata } from "@/lib/seo";
 import { getProducts } from "@/lib/products";
 import { getProductPath } from "@/lib/catalog";
 import { getGiftContexts } from "@/lib/gift-contexts";
+import { getGiftGuideCover, getGiftGuideIdeas } from "@/lib/gift-guide";
+import { getProductImage } from "@/lib/product-image";
+import { formatPrice } from "@/lib/pricing";
+import { getMinimumPieceQuantity } from "@/lib/product-highlights";
+import { getSiteUrl } from "@/lib/site";
+import { JsonLd } from "@/components/seo/json-ld";
 
 import styles from "./gift-guides.module.css";
 
 export const dynamic = "force-static";
 export const revalidate = 60;
 
-export const metadata: Metadata = pageMetadata({
+const guideMetadata = {
   title: "Uttarakhand Gift Guide: What to Choose",
   path: "/uttarakhand-gifts",
   description:
     "Choose a thoughtful Uttarakhand gift: compare Pahadi keychains, Aipan frames, souvenir magnets, personalised pieces and hampers for your occasion.",
-});
+};
 
-const giftIdeas = [
-  {
-    number: "01",
-    occasion: "For an everyday reminder",
-    title: "Pahadi keychains",
-    description:
-      "A small gift for a friend, sibling or someone moving away from home. Start with the Pahadi boy, girl and couple designs, then choose the character that feels most like them.",
-    href: "/pahadi-keychains",
-    link: "Explore keychains",
-  },
-  {
-    number: "02",
-    occasion: "For a favourite corner",
-    title: "Aipan & heritage frames",
-    description:
-      "For a housewarming or a family home, consider an Aipan-inspired frame. Choose devotional imagery to suit the recipient, or explore Pichora and Pahadi jewellery display frames for a different connection to Kumaon.",
-    href: "/aipan-frames",
-    link: "Explore frames",
-  },
-  {
-    number: "03",
-    occasion: "For a memory of the hills",
-    title: "Souvenir magnets",
-    description:
-      "A regional fridge magnet keeps a place in view without needing a whole wall. It is a useful starting point for a travel keepsake or a small thank-you gift; check that the recipient has a magnetic surface to display it.",
-    href: "/uttarakhand-souvenirs",
-    link: "Explore souvenir magnets",
-  },
-  {
-    number: "04",
-    occasion: "For something that is theirs",
-    title: "Personalised Kumaoni gifts",
-    description:
-      "A nameplate can mark a new home, while a personalised photo piece can hold a shared memory. Start with a product that offers customisation, then confirm the wording, photograph and available options.",
-    href: "/kumaoni-gifts",
-    link: "Explore personalised gifts",
-  },
-  {
-    number: "05",
-    occasion: "For a gift with a few parts",
-    title: "Curated hampers",
-    description:
-      "A hamper suits someone who enjoys opening a collection of little things. Compare the listed contents as carefully as the presentation, and pick a combination the recipient will use or display.",
-    href: "/curated-hampers",
-    link: "Explore hampers",
-  },
-];
+export async function generateMetadata(): Promise<Metadata> {
+  const cover = getGiftGuideCover(await getProducts());
+  const image = cover ? getProductImage(cover) : undefined;
+  return pageMetadata({
+    ...guideMetadata,
+    image: image?.src, imageAlt: image?.alt,
+    imageWidth: image?.width, imageHeight: image?.height,
+  });
+}
 
 const questions = [
   {
@@ -86,9 +55,36 @@ const questions = [
 ];
 
 export default async function UttarakhandGiftsPage() {
-  const contexts = getGiftContexts(await getProducts());
+  const products = await getProducts();
+  const contexts = getGiftContexts(products);
+  const ideas = getGiftGuideIdeas(products);
+  const pieces = ideas.flatMap(idea => idea.product ? [idea.product] : []);
+  const cover = getGiftGuideCover(products);
+  const coverImage = cover ? getProductImage(cover) : undefined;
+  const url = `${getSiteUrl()}/uttarakhand-gifts`;
   return (
     <main className={`heritage-shell ${styles.page}`}>
+      <JsonLd data={{
+        "@context": "https://schema.org", "@type": "CollectionPage",
+        "@id": `${url}#guide`, url, name: guideMetadata.title,
+        description: guideMetadata.description,
+        ...(coverImage ? {
+          primaryImageOfPage: {
+            "@type": "ImageObject",
+            url: new URL(coverImage.src, getSiteUrl()).href,
+            name: coverImage.alt,
+          },
+        } : {}),
+        mainEntity: {
+          "@type": "ItemList", name: "Gift ideas from the current KumaonRang catalogue",
+          numberOfItems: pieces.length,
+          itemListElement: pieces.map((product, index) => ({
+            "@type": "ListItem", position: index + 1, name: product.name.trim(),
+            url: `${getSiteUrl()}${getProductPath(product)}`,
+            image: new URL(getProductImage(product).src, getSiteUrl()).href,
+          })),
+        },
+      }} />
       <Breadcrumbs
         items={[
           { label: "Home", href: "/" },
@@ -101,9 +97,8 @@ export default async function UttarakhandGiftsPage() {
           <p className="craft-eyebrow">The KumaonRang gift guide</p>
           <h1>Gifts from Uttarakhand, <em>chosen for them.</em></h1>
           <p className={styles.intro}>
-            A reminder of home, a new beginning, a little thank-you. Start with
-            the person and the place your gift will live, then find a keepsake
-            from our Pithoragarh studio that belongs in their story.
+            For someone who misses the hills, a new home or a little thank-you.
+            Find a keepsake from our Pithoragarh studio that feels like them.
           </p>
         </div>
         <div className={styles.quickNote}>
@@ -118,20 +113,36 @@ export default async function UttarakhandGiftsPage() {
           <p className="craft-eyebrow">Five ways to give</p>
           <h2 id="gift-ideas">Choose by the way they will enjoy it.</h2>
         </div>
-        <div className={styles.giftGrid}>
-          {giftIdeas.map((idea) => (
-            <article className={styles.giftCard} key={idea.href}>
-              <span className={styles.number} aria-hidden="true">{idea.number}</span>
-              <div>
+        <p className={styles.priceNote}>Listed prices exclude delivery. Check each piece’s contents, custom options and minimum order.</p>
+        <div className={`${styles.giftGrid} ${styles.visualGrid}`}>
+          {ideas.map((idea) => {
+            const product = idea.product;
+            const image = product ? getProductImage(product) : undefined;
+            const minimum = product ? getMinimumPieceQuantity(product) : 1;
+            return (
+              <article className={styles.giftCard} key={idea.href}>
                 <p className={styles.kicker}>{idea.occasion}</p>
                 <h3>{idea.title}</h3>
-                <p>{idea.description}</p>
+                {product && image && (
+                  <Link href={getProductPath(product)} prefetch={false} className={styles.productLink}>
+                    <span className={styles.photo}>
+                      <Image src={image.cardSrc} alt={image.alt} fill loading="lazy"
+                        sizes="(max-width: 639px) calc((100vw - 80px) / 2), (max-width: 1023px) 42vw, 360px"
+                        className={styles.productImage} />
+                    </span>
+                    <span className={styles.productName}>{product.name.trim()}</span>
+                    <span className={styles.productPrice}>{formatPrice(product.price)}</span>
+                    {minimum > 1 && <span className={styles.minimum}>Minimum order: {minimum} pieces</span>}
+                    <span className={styles.viewPiece}>View this piece <span aria-hidden="true">›</span></span>
+                  </Link>
+                )}
+                <p className={styles.giftDescription}>{idea.description}</p>
                 <Link className={styles.textLink} href={idea.href} prefetch={false}>
-                  {idea.link} <span aria-hidden="true">↗</span>
+                  {idea.link} <span aria-hidden="true">›</span>
                 </Link>
-              </div>
-            </article>
-          ))}
+              </article>
+            );
+          })}
           <aside className={styles.noteCard}>
             <p className="craft-eyebrow">Before you decide</p>
             <h3>Leave room for the details.</h3>
@@ -154,17 +165,19 @@ export default async function UttarakhandGiftsPage() {
           <h2 id="occasion-pieces">For their everyday life, or a shared celebration.</h2>
         </div>
         <div className={styles.giftGrid}>
-          {contexts.map(context => <article className={styles.artCard} key={context.id} id={context.id}>
-            <h3>{context.title}</h3>
-            <p>{context.description}</p>
-            <ul className={styles.pieceLinks}>
-              {context.products.map(product => <li key={getProductPath(product)}>
-                <Link className={styles.textLink} href={getProductPath(product)} prefetch={false}>
-                  {product.name.trim()} <span aria-hidden="true">↗</span>
-                </Link>
-              </li>)}
-            </ul>
-          </article>)}
+          {contexts.map(context => <details className={styles.occasion} key={context.id} id={context.id}>
+            <summary>{context.title}</summary>
+            <div className={styles.occasionBody}>
+              <p>{context.description}</p>
+              <ul className={styles.pieceLinks}>
+                {context.products.map(product => <li key={getProductPath(product)}>
+                  <Link className={styles.textLink} href={getProductPath(product)} prefetch={false}>
+                    {product.name.trim()} <span aria-hidden="true">↗</span>
+                  </Link>
+                </li>)}
+              </ul>
+            </div>
+          </details>)}
         </div>
       </section>}
 

@@ -5,6 +5,8 @@ import { ProductShowcase } from "@/components/products/product-showcase";
 import { collections, findCollection } from "@/lib/collections";
 import { getProducts } from "@/lib/products";
 import { pageMetadata } from "@/lib/seo";
+import { getGiftGuideIdeas } from "@/lib/gift-guide";
+import { getProductImage } from "@/lib/product-image";
 import { CollectionSchema } from "@/components/seo/collection-schema";
 import styles from "@/components/products/collection-guide.module.css";
 import forest from "@/components/products/forest-storefront.module.css";
@@ -13,9 +15,14 @@ type Props = { params: Promise<{ category: string }> };
 export async function generateMetadata({ params }: Props) {
   const collection = findCollection((await params).category);
   if (!collection) return { title: "Collection not found", robots: { index: false } };
-  const hasProducts = (await getProducts()).some(product => product.category === collection.category);
+  const products = await getProducts();
+  const hasProducts = products.some(product => product.category === collection.category);
+  const representative = getGiftGuideIdeas(products).find(idea => idea.category === collection.category)?.product;
+  const image = representative ? getProductImage(representative) : undefined;
   return {
-    ...pageMetadata({ title: collection.title, description: collection.description, path: `/${collection.slug}` }),
+    ...pageMetadata({ title: collection.title, description: collection.description, path: `/${collection.slug}`,
+      image: image?.src, imageAlt: image?.alt, imageWidth: image?.width, imageHeight: image?.height,
+    }),
     ...(!hasProducts ? { robots: { index: false, follow: true } } : {}),
   };
 }
