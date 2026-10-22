@@ -46,6 +46,7 @@ for (const path of ['/pahadi-keychains', '/uttarakhand-gifts', '/aipan-frames', 
   const src = decode(image.match(/\bsrc="([^"]+)"/)[1]);
   const asset = await fetch(new URL(src, origin));
   assert.equal(asset.status, 200, src);
+  assert.ok((await asset.arrayBuffer()).byteLength > 0, src + ' nonempty image response');
   assert.match(asset.headers.get('content-type'), /image\/webp/);
   assert.ok(!/noindex|noimageindex|\bnone\b/i.test(asset.headers.get('x-robots-tag') || ''), src);
   const schemas = [...main.matchAll(/type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].map(match => JSON.parse(match[1]));
