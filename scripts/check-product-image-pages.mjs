@@ -84,12 +84,16 @@ const home = await fetchHtml('/');
 const homePrimary = schemasFrom(home).find(schema => schema['@type'] === 'WebPage')?.primaryImageOfPage;
 assert.ok(homePrimary?.contentUrl, 'Homepage identifies the actual featured product photograph');
 const homeCard = homePrimary.contentUrl.replace(/(\/optimized\/v2\/[^/?]+)\.webp$/, '$1-card.webp');
-assert.ok([...home.matchAll(/<img\b[^>]*>/g)].some(match => attribute(match[0], 'src') === homeCard &&
-  attribute(match[0], 'alt') === homePrimary.description), 'Homepage hero photo matches its image metadata');
+const manifest = JSON.parse(await fs.readFile('src/data/responsive-images.json', 'utf8'));
+const homePhotoUrls = new Set([homeCard, ...(manifest[homeCard] || []).map(image => image.src)]);
+assert.ok([...home.matchAll(/<img\b[^>]*>/g)].some(match => homePhotoUrls.has(attribute(match[0], 'src')) &&
+  attribute(match[0], 'alt') === homePrimary.description), 'Homepage featured photo matches its image metadata, including offline derivatives');
 const homeHead = home.match(/<head>([\s\S]*?)<\/head>/i)?.[1] || '';
 const homeOg = [...homeHead.matchAll(/<meta\b[^>]*>/g)].map(match => match[0])
   .find(tag => attribute(tag, 'property') === 'og:image');
-assert.equal(attribute(homeOg || '', 'content'), homePrimary.contentUrl, 'Homepage share image matches the featured product');
+// Homepage sharing intentionally represents the brand; product pages above
+// must still share their individual source photograph.
+assert.equal(attribute(homeOg || '', 'content'), `${canonicalOrigin}/brand/kumaonrang-favicon-source.png`, 'Homepage shares the brand image');
 const report = { checkedAt: new Date().toISOString(), preview: preview.origin, xmlParser,
   homepagePrimaryPhotoChecked: true,
   publicPagesInSitemap: entries.length, productPagesChecked: results.length,

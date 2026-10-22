@@ -438,5 +438,1071 @@
       "height": 1350,
       "bytes": 266690
     }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/i-uttarakhand-couple-keychain-indexable-4cedd85fcf326483e19f1a0f9b62590eb4538ae7815ffc3d9368f163b703d78c-card.webp": [
+    {
+      "src": "/images/responsive/i-uttarakhand-couple-keychain-8f8dfe5d83f7-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 10824,
+      "avifSrc": "/images/responsive/i-uttarakhand-couple-keychain-fc23a2a9c363-256.avif",
+      "avifBytes": 7713
+    },
+    {
+      "src": "/images/responsive/i-uttarakhand-couple-keychain-8d2a4c96ef98-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 17896,
+      "avifSrc": "/images/responsive/i-uttarakhand-couple-keychain-773a44693734-384.avif",
+      "avifBytes": 11843
+    },
+    {
+      "src": "/images/responsive/i-uttarakhand-couple-keychain-88e00bfd0abd-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 34538,
+      "avifSrc": "/images/responsive/i-uttarakhand-couple-keychain-0c6709f4f181-600.avif",
+      "avifBytes": 20388
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/pahadi-girl-keychain-indexable-ed57db636b5a1bc7ba4bf87371f508a789fd927ee6020a656dd957567349e91a-card.webp": [
+    {
+      "src": "/images/responsive/pahadi-girl-keychain-ace3eb07f377-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 13212,
+      "avifSrc": "/images/responsive/pahadi-girl-keychain-6a3cfad5d9dd-256.avif",
+      "avifBytes": 10064
+    },
+    {
+      "src": "/images/responsive/pahadi-girl-keychain-e09e34ee07b0-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 20956,
+      "avifSrc": "/images/responsive/pahadi-girl-keychain-b5ee25aaabbc-384.avif",
+      "avifBytes": 14743
+    },
+    {
+      "src": "/images/responsive/pahadi-girl-keychain-a1b5c1dfd667-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 38538,
+      "avifSrc": "/images/responsive/pahadi-girl-keychain-022101bcf2fd-600.avif",
+      "avifBytes": 23743
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/pahadi-girl-mdf-keychain-indexable-009078af263231dae5706af0d94ea34b1258b2f698237f2512f96e7a93669f40-card.webp": [
+    {
+      "src": "/images/responsive/pahadi-girl-mdf-keychain-5d8a361b62c3-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 11556,
+      "avifSrc": "/images/responsive/pahadi-girl-mdf-keychain-09c581d24049-256.avif",
+      "avifBytes": 8351
+    },
+    {
+      "src": "/images/responsive/pahadi-girl-mdf-keychain-ce324b10948f-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 18852,
+      "avifSrc": "/images/responsive/pahadi-girl-mdf-keychain-5620825cfa73-384.avif",
+      "avifBytes": 12609
+    },
+    {
+      "src": "/images/responsive/pahadi-girl-mdf-keychain-f5794973007a-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 36196,
+      "avifSrc": "/images/responsive/pahadi-girl-mdf-keychain-56a97d6467a4-600.avif",
+      "avifBytes": 21043
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/i-uttarakhand-pahadi-couple-keychain-indexable-792eb768c471ec86183ed07019adac1128e9af1546e9f9f5c04e85839374e4cc-card.webp": [
+    {
+      "src": "/images/responsive/i-uttarakhand-pahadi-couple-keychain-49f1f1ca3e9b-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 14014,
+      "avifSrc": "/images/responsive/i-uttarakhand-pahadi-couple-keychain-c5eac20c91df-256.avif",
+      "avifBytes": 11084
+    },
+    {
+      "src": "/images/responsive/i-uttarakhand-pahadi-couple-keychain-0f959f4fbebd-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 23750,
+      "avifSrc": "/images/responsive/i-uttarakhand-pahadi-couple-keychain-493697f3dc39-384.avif",
+      "avifBytes": 16626
+    },
+    {
+      "src": "/images/responsive/i-uttarakhand-pahadi-couple-keychain-797ae5dd0dba-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 44200,
+      "avifSrc": "/images/responsive/i-uttarakhand-pahadi-couple-keychain-10963d3df436-600.avif",
+      "avifBytes": 27587
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/guardian-bell-keychain-indexable-168a715a629b06f46e0fd8919f41176afaad1edf6b30e4a11dac128fa771cae5-card.webp": [
+    {
+      "src": "/images/responsive/guardian-bell-keychain-b6455883695b-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 9344,
+      "avifSrc": "/images/responsive/guardian-bell-keychain-33627659888a-256.avif",
+      "avifBytes": 6296
+    },
+    {
+      "src": "/images/responsive/guardian-bell-keychain-640818521804-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 15090,
+      "avifSrc": "/images/responsive/guardian-bell-keychain-4482863fa42a-384.avif",
+      "avifBytes": 9649
+    },
+    {
+      "src": "/images/responsive/guardian-bell-keychain-ebac2c81a3e0-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 29626,
+      "avifSrc": "/images/responsive/guardian-bell-keychain-881c8c487a3b-600.avif",
+      "avifBytes": 16541
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/customised-a4-photo-frame-indexable-cf5ca97e09937eb635446b2462373df916a849db9526bbdbe2985957e6e5de3c-card.webp": [
+    {
+      "src": "/images/responsive/customised-a4-photo-frame-7d8e44ca6003-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 18376,
+      "avifSrc": "/images/responsive/customised-a4-photo-frame-12780a44b10c-256.avif",
+      "avifBytes": 14646
+    },
+    {
+      "src": "/images/responsive/customised-a4-photo-frame-e6360b5d63a7-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 33344,
+      "avifSrc": "/images/responsive/customised-a4-photo-frame-e65d519726c1-384.avif",
+      "avifBytes": 25261
+    },
+    {
+      "src": "/images/responsive/customised-a4-photo-frame-9491e8b21c68-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 80038,
+      "avifSrc": "/images/responsive/customised-a4-photo-frame-f8c153228479-600.avif",
+      "avifBytes": 56094
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/traditional-pahadi-jwellery-display-frame-indexable-80006a0bd984c825f075b328016eef9e51f5dcfacece67972e8ed3796e35a4de-card.webp": [
+    {
+      "src": "/images/responsive/traditional-pahadi-jwellery-display-frame-0023ea9d5cfa-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 16262,
+      "avifSrc": "/images/responsive/traditional-pahadi-jwellery-display-frame-9b2f1d6ce316-256.avif",
+      "avifBytes": 12263
+    },
+    {
+      "src": "/images/responsive/traditional-pahadi-jwellery-display-frame-56a68a64a47d-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 31514,
+      "avifSrc": "/images/responsive/traditional-pahadi-jwellery-display-frame-3c4c04f7f626-384.avif",
+      "avifBytes": 22695
+    },
+    {
+      "src": "/images/responsive/traditional-pahadi-jwellery-display-frame-270055e26d7f-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 83228,
+      "avifSrc": "/images/responsive/traditional-pahadi-jwellery-display-frame-ec83a02e2e0c-600.avif",
+      "avifBytes": 59342
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/customized-black-photo-frame-indexable-52be1bcf79e8a5fbb5590b4f85f9bb20dd24e26ad9e7b69ce14b22d9da9b8384-card.webp": [
+    {
+      "src": "/images/responsive/customized-black-photo-frame-621436e412b1-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 9556,
+      "avifSrc": "/images/responsive/customized-black-photo-frame-342fd792ba84-256.avif",
+      "avifBytes": 7259
+    },
+    {
+      "src": "/images/responsive/customized-black-photo-frame-d86966ef9e4b-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 16026,
+      "avifSrc": "/images/responsive/customized-black-photo-frame-972964ae1f1e-384.avif",
+      "avifBytes": 11117
+    },
+    {
+      "src": "/images/responsive/customized-black-photo-frame-8e93e1b9654d-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 31616,
+      "avifSrc": "/images/responsive/customized-black-photo-frame-bb43547900b4-600.avif",
+      "avifBytes": 20117
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/handmade-aipan-spiritual-decor-indexable-f04d7a9649ebb9c20a740b8da55b59bb791b7550900322a516fcce255b9161ad-card.webp": [
+    {
+      "src": "/images/responsive/handmade-aipan-spiritual-decor-7136186605db-256.webp",
+      "width": 256,
+      "height": 192,
+      "bytes": 12348,
+      "avifSrc": "/images/responsive/handmade-aipan-spiritual-decor-4d583c8453f0-256.avif",
+      "avifBytes": 10161
+    },
+    {
+      "src": "/images/responsive/handmade-aipan-spiritual-decor-7c3f7f576e8c-384.webp",
+      "width": 384,
+      "height": 288,
+      "bytes": 23324,
+      "avifSrc": "/images/responsive/handmade-aipan-spiritual-decor-327adbd08a6b-384.avif",
+      "avifBytes": 18742
+    },
+    {
+      "src": "/images/responsive/handmade-aipan-spiritual-decor-c94c83c51dca-640.webp",
+      "width": 640,
+      "height": 480,
+      "bytes": 45192,
+      "avifSrc": "/images/responsive/handmade-aipan-spiritual-decor-6212dbf547a8-640.avif",
+      "avifBytes": 35351
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/om-aipan-wall-decor-indexable-37e9d1b5e0aadfaf87ba6dfbad0c2e444c8427375b74c106d4fd0c0d179f9e96-card.webp": [
+    {
+      "src": "/images/responsive/om-aipan-wall-decor-102104dc3553-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 18116,
+      "avifSrc": "/images/responsive/om-aipan-wall-decor-4b4a21084d95-256.avif",
+      "avifBytes": 14202
+    },
+    {
+      "src": "/images/responsive/om-aipan-wall-decor-9d88b627d6ad-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 34244,
+      "avifSrc": "/images/responsive/om-aipan-wall-decor-8d081be36f8e-384.avif",
+      "avifBytes": 25368
+    },
+    {
+      "src": "/images/responsive/om-aipan-wall-decor-c17ecf2193a1-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 70298,
+      "avifSrc": "/images/responsive/om-aipan-wall-decor-63d6d8f033a2-600.avif",
+      "avifBytes": 49436
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/handmade-ganesh-aipan-wall-decor-indexable-d5a01a696d77a08d5d553dd6a21318ff93c82bfbc25c31969622b4edbcd036c3-card.webp": [
+    {
+      "src": "/images/responsive/handmade-ganesh-aipan-wall-decor-a739cd793717-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 18498,
+      "avifSrc": "/images/responsive/handmade-ganesh-aipan-wall-decor-1f7db04a8b79-256.avif",
+      "avifBytes": 14551
+    },
+    {
+      "src": "/images/responsive/handmade-ganesh-aipan-wall-decor-d3041fff9a46-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 35176,
+      "avifSrc": "/images/responsive/handmade-ganesh-aipan-wall-decor-53ddcbb60b1f-384.avif",
+      "avifBytes": 27014
+    },
+    {
+      "src": "/images/responsive/handmade-ganesh-aipan-wall-decor-6bb8b65be389-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 74252,
+      "avifSrc": "/images/responsive/handmade-ganesh-aipan-wall-decor-cca699114508-600.avif",
+      "avifBytes": 54771
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/om-aipan-wall-decor-indexable-9a82d8ceae80b3a578ff3a26f0d8641cf25b253b020da0ce5e4cde7c9bee8213-card.webp": [
+    {
+      "src": "/images/responsive/om-aipan-wall-decor-68c45dbd2d68-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 18504,
+      "avifSrc": "/images/responsive/om-aipan-wall-decor-dc23944300cf-256.avif",
+      "avifBytes": 14307
+    },
+    {
+      "src": "/images/responsive/om-aipan-wall-decor-b615124fcfa5-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 34212,
+      "avifSrc": "/images/responsive/om-aipan-wall-decor-642c9ebb0250-384.avif",
+      "avifBytes": 25811
+    },
+    {
+      "src": "/images/responsive/om-aipan-wall-decor-20bf2cc54d59-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 70474,
+      "avifSrc": "/images/responsive/om-aipan-wall-decor-cbdc4328ea48-600.avif",
+      "avifBytes": 49803
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/ganesh-aipan-wall-hanging-indexable-119e7a792f60b426ecf5404cda40ed4ad450faeae6dd2b7c8243d78ae3a5ff35-card.webp": [
+    {
+      "src": "/images/responsive/ganesh-aipan-wall-hanging-5d11ba28faf4-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 18716,
+      "avifSrc": "/images/responsive/ganesh-aipan-wall-hanging-5ece14c798d2-256.avif",
+      "avifBytes": 14494
+    },
+    {
+      "src": "/images/responsive/ganesh-aipan-wall-hanging-0110121845b2-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 36836,
+      "avifSrc": "/images/responsive/ganesh-aipan-wall-hanging-1800cb137e98-384.avif",
+      "avifBytes": 27654
+    },
+    {
+      "src": "/images/responsive/ganesh-aipan-wall-hanging-4326a3bf5483-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 82126,
+      "avifSrc": "/images/responsive/ganesh-aipan-wall-hanging-c31ad9386ba2-600.avif",
+      "avifBytes": 58067
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/handmade-om-aipan-wall-frame-indexable-4c91912c68731ee2e50097cd3e7335748eb06dcda685adefc9be4c26df03c18f-card.webp": [
+    {
+      "src": "/images/responsive/handmade-om-aipan-wall-frame-0da8f5aff1d4-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 13412,
+      "avifSrc": "/images/responsive/handmade-om-aipan-wall-frame-8e2aa209b409-256.avif",
+      "avifBytes": 10042
+    },
+    {
+      "src": "/images/responsive/handmade-om-aipan-wall-frame-a393db71c2d0-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 26798,
+      "avifSrc": "/images/responsive/handmade-om-aipan-wall-frame-deab198e2721-384.avif",
+      "avifBytes": 20317
+    },
+    {
+      "src": "/images/responsive/handmade-om-aipan-wall-frame-f89e86c771e1-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 68454,
+      "avifSrc": "/images/responsive/handmade-om-aipan-wall-frame-2065fd49935b-600.avif",
+      "avifBytes": 50147
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/ram-naam-frame-indexable-61fc6fbe9b9a53b2c2b7563212119d9cb1a5e70ecc76108c526c3f45c9e3efb2-card.webp": [
+    {
+      "src": "/images/responsive/ram-naam-frame-decc79d181a4-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 23440,
+      "avifSrc": "/images/responsive/ram-naam-frame-fddf4d7e9844-256.avif",
+      "avifBytes": 17496
+    },
+    {
+      "src": "/images/responsive/ram-naam-frame-5492532d8cfa-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 46640,
+      "avifSrc": "/images/responsive/ram-naam-frame-6f2e5a3a8552-384.avif",
+      "avifBytes": 34183
+    },
+    {
+      "src": "/images/responsive/ram-naam-frame-44d31fc62c6c-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 99906,
+      "avifSrc": "/images/responsive/ram-naam-frame-e29a70795ba3-600.avif",
+      "avifBytes": 83188
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/personalized-arcylic-fridge-magnet-without-stand-indexable-2049f54a3214486892c256b910e842db6a0264c88aa88dcfe4c2d3d02e18c917-card.webp": [
+    {
+      "src": "/images/responsive/personalized-arcylic-fridge-magnet-without-stand-d54f2ea3fd62-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 13690,
+      "avifSrc": "/images/responsive/personalized-arcylic-fridge-magnet-without-stand-a300395fe89f-256.avif",
+      "avifBytes": 10883
+    },
+    {
+      "src": "/images/responsive/personalized-arcylic-fridge-magnet-without-stand-09be8419eb61-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 24974,
+      "avifSrc": "/images/responsive/personalized-arcylic-fridge-magnet-without-stand-a7e3774860ed-384.avif",
+      "avifBytes": 18820
+    },
+    {
+      "src": "/images/responsive/personalized-arcylic-fridge-magnet-without-stand-b783e64e3814-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 57344,
+      "avifSrc": "/images/responsive/personalized-arcylic-fridge-magnet-without-stand-ccd0604dbd65-600.avif",
+      "avifBytes": 39505
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/personalized-arcylic-fridge-magnet-with-stand-indexable-c82f501bf1eb0a056cea089d13bded5ec063dd702866df9530578f7eb5f09510-card.webp": [
+    {
+      "src": "/images/responsive/personalized-arcylic-fridge-magnet-with-stand-3db249b6abd1-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 9552,
+      "avifSrc": "/images/responsive/personalized-arcylic-fridge-magnet-with-stand-1b4f50209b16-256.avif",
+      "avifBytes": 6994
+    },
+    {
+      "src": "/images/responsive/personalized-arcylic-fridge-magnet-with-stand-73c5f4bd45c9-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 15870,
+      "avifSrc": "/images/responsive/personalized-arcylic-fridge-magnet-with-stand-3b738fab0b3a-384.avif",
+      "avifBytes": 10783
+    },
+    {
+      "src": "/images/responsive/personalized-arcylic-fridge-magnet-with-stand-3277db216955-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 29146,
+      "avifSrc": "/images/responsive/personalized-arcylic-fridge-magnet-with-stand-48df03983106-600.avif",
+      "avifBytes": 17474
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/gloss-fridge-magnet-indexable-d0239b16d3b93c2cac32764d35a388708dbac4973f68b6a8f5083dd902ef5f43-card.webp": [
+    {
+      "src": "/images/responsive/gloss-fridge-magnet-97ed54545e13-256.webp",
+      "width": 256,
+      "height": 192,
+      "bytes": 5236,
+      "avifSrc": "/images/responsive/gloss-fridge-magnet-803b520eda22-256.avif",
+      "avifBytes": 4270
+    },
+    {
+      "src": "/images/responsive/gloss-fridge-magnet-a3c8d6135cb8-384.webp",
+      "width": 384,
+      "height": 288,
+      "bytes": 9310,
+      "avifSrc": "/images/responsive/gloss-fridge-magnet-549faada61c9-384.avif",
+      "avifBytes": 7033
+    },
+    {
+      "src": "/images/responsive/gloss-fridge-magnet-792e103a60d2-640.webp",
+      "width": 640,
+      "height": 480,
+      "bytes": 18640,
+      "avifSrc": "/images/responsive/gloss-fridge-magnet-708640341a1c-640.avif",
+      "avifBytes": 12800
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/srinath-ji-potli-bags-indexable-002773c4bee32176aeb747f21b1a52b93b6f1d10057e0e04b199c33a4f187842-card.webp": [
+    {
+      "src": "/images/responsive/srinath-ji-potli-bags-5e0333dc8de5-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 18482,
+      "avifSrc": "/images/responsive/srinath-ji-potli-bags-dc3cc42d937c-256.avif",
+      "avifBytes": 16978
+    },
+    {
+      "src": "/images/responsive/srinath-ji-potli-bags-dfbb12ab9100-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 33524,
+      "avifSrc": "/images/responsive/srinath-ji-potli-bags-ea0c8ec5df95-384.avif",
+      "avifBytes": 28686
+    },
+    {
+      "src": "/images/responsive/srinath-ji-potli-bags-7e1db3bb2e1c-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 74562,
+      "avifSrc": "/images/responsive/srinath-ji-potli-bags-ac1d437c287d-600.avif",
+      "avifBytes": 56529
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/handmade-aipan-canvas-bag-indexable-b8624f81da4a8f437fa642aa7662ddcfadfc46ca7414455b0270067a8fe8bbd5-card.webp": [
+    {
+      "src": "/images/responsive/handmade-aipan-canvas-bag-bfa9e0e83ce7-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 19596,
+      "avifSrc": "/images/responsive/handmade-aipan-canvas-bag-160812d1ad76-256.avif",
+      "avifBytes": 15765
+    },
+    {
+      "src": "/images/responsive/handmade-aipan-canvas-bag-85b4b2905a44-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 37110,
+      "avifSrc": "/images/responsive/handmade-aipan-canvas-bag-5b191743afe2-384.avif",
+      "avifBytes": 28825
+    },
+    {
+      "src": "/images/responsive/handmade-aipan-canvas-bag-04299ec2267f-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 83110,
+      "avifSrc": "/images/responsive/handmade-aipan-canvas-bag-7db28682f058-600.avif",
+      "avifBytes": 70605
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/silver-ram-darbar-frame-tulsii-combo-pack-indexable-9631fcef34886d7b3163a9f904e3f6950597f8cce52ac9fd20d88f0b670544a6-card.webp": [
+    {
+      "src": "/images/responsive/silver-ram-darbar-frame-tulsii-combo-pack-ced9f7c8bd2e-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 13240,
+      "avifSrc": "/images/responsive/silver-ram-darbar-frame-tulsii-combo-pack-278f04689821-256.avif",
+      "avifBytes": 9405
+    },
+    {
+      "src": "/images/responsive/silver-ram-darbar-frame-tulsii-combo-pack-63e8e3dcbfcb-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 24460,
+      "avifSrc": "/images/responsive/silver-ram-darbar-frame-tulsii-combo-pack-2989a2204976-384.avif",
+      "avifBytes": 16379
+    },
+    {
+      "src": "/images/responsive/silver-ram-darbar-frame-tulsii-combo-pack-2edccac7656a-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 55242,
+      "avifSrc": "/images/responsive/silver-ram-darbar-frame-tulsii-combo-pack-c0759a02b3b0-600.avif",
+      "avifBytes": 35396
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/mantra-chant-counter-indexable-1f6bc1c8b6c73a3816a50d27a3f3252e4e85c1833e5f7d95aaf3d13bdbb11b9f-card.webp": [
+    {
+      "src": "/images/responsive/mantra-chant-counter-2e9afc09194c-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 8298,
+      "avifSrc": "/images/responsive/mantra-chant-counter-2ec9a03c3ce4-256.avif",
+      "avifBytes": 6260
+    },
+    {
+      "src": "/images/responsive/mantra-chant-counter-8a50ca393678-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 14056,
+      "avifSrc": "/images/responsive/mantra-chant-counter-ee44bc9057ed-384.avif",
+      "avifBytes": 9984
+    },
+    {
+      "src": "/images/responsive/mantra-chant-counter-cc84173d60fd-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 29666,
+      "avifSrc": "/images/responsive/mantra-chant-counter-308b8c68c570-600.avif",
+      "avifBytes": 19602
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/weeding-brooch-collection-indexable-93e9f65cd451b1e6a03e81cc540d860ee2eb46f62fdb2f01c73eef0e585ca145-card.webp": [
+    {
+      "src": "/images/responsive/weeding-brooch-collection-9498634f2b15-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 10724,
+      "avifSrc": "/images/responsive/weeding-brooch-collection-15e0e769727a-256.avif",
+      "avifBytes": 8651
+    },
+    {
+      "src": "/images/responsive/weeding-brooch-collection-a37127678cc8-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 18618,
+      "avifSrc": "/images/responsive/weeding-brooch-collection-29434455a7b6-384.avif",
+      "avifBytes": 14196
+    },
+    {
+      "src": "/images/responsive/weeding-brooch-collection-b4518af25f5c-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 38206,
+      "avifSrc": "/images/responsive/weeding-brooch-collection-76681bc15d19-600.avif",
+      "avifBytes": 26871
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/hanuman-chalisa-chanting-box-with-10-devotional-bhajans-indexable-637b9dda7e77d9fa7e907152fdfc5ded3b9455587c0711d073e1e1771fa240b6-card.webp": [
+    {
+      "src": "/images/responsive/hanuman-chalisa-chanting-box-with-10-devotional-bhajans-34719d512e35-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 10382,
+      "avifSrc": "/images/responsive/hanuman-chalisa-chanting-box-with-10-devotional-bhajans-f69ebcfc9f06-256.avif",
+      "avifBytes": 6936
+    },
+    {
+      "src": "/images/responsive/hanuman-chalisa-chanting-box-with-10-devotional-bhajans-7c5e351a3580-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 18034,
+      "avifSrc": "/images/responsive/hanuman-chalisa-chanting-box-with-10-devotional-bhajans-ed14d75c96c9-384.avif",
+      "avifBytes": 11133
+    },
+    {
+      "src": "/images/responsive/hanuman-chalisa-chanting-box-with-10-devotional-bhajans-94a1d7f436d1-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 40126,
+      "avifSrc": "/images/responsive/hanuman-chalisa-chanting-box-with-10-devotional-bhajans-a573af9a8c2d-600.avif",
+      "avifBytes": 22932
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/3-layer-lotus-brass-diya-indexable-e0c81705bdc1ec0378e375447384a9f2feac387a9975cf55d8c67bd7782c1b02-card.webp": [
+    {
+      "src": "/images/responsive/3-layer-lotus-brass-diya-a8cb52ea4c9e-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 9352,
+      "avifSrc": "/images/responsive/3-layer-lotus-brass-diya-176389ab52e9-256.avif",
+      "avifBytes": 6891
+    },
+    {
+      "src": "/images/responsive/3-layer-lotus-brass-diya-6fb2c069d512-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 15644,
+      "avifSrc": "/images/responsive/3-layer-lotus-brass-diya-f620afcfad8a-384.avif",
+      "avifBytes": 10612
+    },
+    {
+      "src": "/images/responsive/3-layer-lotus-brass-diya-d7cfb75e92cb-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 29958,
+      "avifSrc": "/images/responsive/3-layer-lotus-brass-diya-998686fdce16-600.avif",
+      "avifBytes": 18103
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/heart-harmony-couple-mug-hamper-indexable-4ccb79e86b77eff77273089f917d2866c91e33c9ec06252ccd858fd2cbc561d0-card.webp": [
+    {
+      "src": "/images/responsive/heart-harmony-couple-mug-hamper-5898898fbe4a-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 5420,
+      "avifSrc": "/images/responsive/heart-harmony-couple-mug-hamper-ee56ad4eecab-256.avif",
+      "avifBytes": 3854
+    },
+    {
+      "src": "/images/responsive/heart-harmony-couple-mug-hamper-bf8b0ec9bc1d-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 9278,
+      "avifSrc": "/images/responsive/heart-harmony-couple-mug-hamper-29ff31e198c7-384.avif",
+      "avifBytes": 5976
+    },
+    {
+      "src": "/images/responsive/heart-harmony-couple-mug-hamper-1dc711fd0c19-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 18308,
+      "avifSrc": "/images/responsive/heart-harmony-couple-mug-hamper-7c9c5b057946-600.avif",
+      "avifBytes": 10604
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/ram-lalla-dashboard-idol-indexable-711c67c800bbfe460a0053125e6871430d0008f3e5fdb0173df6fbc64678c93b-card.webp": [
+    {
+      "src": "/images/responsive/ram-lalla-dashboard-idol-11576483f201-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 9038,
+      "avifSrc": "/images/responsive/ram-lalla-dashboard-idol-8992aede47c1-256.avif",
+      "avifBytes": 6453
+    },
+    {
+      "src": "/images/responsive/ram-lalla-dashboard-idol-2c4a982c7694-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 16094,
+      "avifSrc": "/images/responsive/ram-lalla-dashboard-idol-1308396d7524-384.avif",
+      "avifBytes": 11088
+    },
+    {
+      "src": "/images/responsive/ram-lalla-dashboard-idol-b185e821bff6-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 35456,
+      "avifSrc": "/images/responsive/ram-lalla-dashboard-idol-0875367bdfcc-600.avif",
+      "avifBytes": 23593
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/traditional-pahadi-topii-indexable-f916f0aaea97c8a0bf91f93963f642f2b440348e536f1ceb379a9c78c8d9ff79-card.webp": [
+    {
+      "src": "/images/responsive/traditional-pahadi-topii-4dc44e5ef586-256.webp",
+      "width": 256,
+      "height": 192,
+      "bytes": 9846,
+      "avifSrc": "/images/responsive/traditional-pahadi-topii-93a407ae9f8d-256.avif",
+      "avifBytes": 7913
+    },
+    {
+      "src": "/images/responsive/traditional-pahadi-topii-7f1d639525cb-384.webp",
+      "width": 384,
+      "height": 288,
+      "bytes": 18380,
+      "avifSrc": "/images/responsive/traditional-pahadi-topii-8713a6dc8668-384.avif",
+      "avifBytes": 13580
+    },
+    {
+      "src": "/images/responsive/traditional-pahadi-topii-3a188b0161fd-640.webp",
+      "width": 640,
+      "height": 480,
+      "bytes": 36180,
+      "avifSrc": "/images/responsive/traditional-pahadi-topii-e2c326264bdd-640.avif",
+      "avifBytes": 25281
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/big-t-light-candle-indexable-17073bbe1358b502848a086faa620bab2967056bbace1e6b91eae1fd2131ba14-card.webp": [
+    {
+      "src": "/images/responsive/big-t-light-candle-5c3005e4e22b-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 28022,
+      "avifSrc": "/images/responsive/big-t-light-candle-4aac20652b21-256.avif",
+      "avifBytes": 22625
+    },
+    {
+      "src": "/images/responsive/big-t-light-candle-3ab595f7c6ba-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 51200,
+      "avifSrc": "/images/responsive/big-t-light-candle-004770cf5198-384.avif",
+      "avifBytes": 38261
+    },
+    {
+      "src": "/images/responsive/big-t-light-candle-94bcf5b03dbb-480.webp",
+      "width": 480,
+      "height": 640,
+      "bytes": 86458,
+      "avifSrc": "/images/responsive/big-t-light-candle-f6a7eab7807a-480.avif",
+      "avifBytes": 63331
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/roli-chawal-indexable-117fa096269a89b0d828adc14f4654cf876529426407226e5a07f9a28bee5220-card.webp": [
+    {
+      "src": "/images/responsive/roli-chawal-d538f89f7bb8-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 5776,
+      "avifSrc": "/images/responsive/roli-chawal-fc5235b7afc9-256.avif",
+      "avifBytes": 3757
+    },
+    {
+      "src": "/images/responsive/roli-chawal-dbcd06783b51-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 9398,
+      "avifSrc": "/images/responsive/roli-chawal-dc0685f177b2-384.avif",
+      "avifBytes": 5676
+    },
+    {
+      "src": "/images/responsive/roli-chawal-06e73b9d6eb1-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 16582,
+      "avifSrc": "/images/responsive/roli-chawal-2200ef1d434e-600.avif",
+      "avifBytes": 8967
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/handmade-flower-scented-candle-indexable-587aa8cf7f7ab35ef8703107312bb5c4a160710f66f79a24430a74b2bcbbaefb-card.webp": [
+    {
+      "src": "/images/responsive/handmade-flower-scented-candle-7a9603726cac-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 6314,
+      "avifSrc": "/images/responsive/handmade-flower-scented-candle-e892774a218e-256.avif",
+      "avifBytes": 4577
+    },
+    {
+      "src": "/images/responsive/handmade-flower-scented-candle-b7c41f79bb4e-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 10694,
+      "avifSrc": "/images/responsive/handmade-flower-scented-candle-92483bb967ae-384.avif",
+      "avifBytes": 7153
+    },
+    {
+      "src": "/images/responsive/handmade-flower-scented-candle-251525ae9f09-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 20770,
+      "avifSrc": "/images/responsive/handmade-flower-scented-candle-9b3c727634f3-600.avif",
+      "avifBytes": 12361
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/tea-light-candle-indexable-20972da313181ffbe3ce6690a031752c668d0a0ffbac88af133b5e29a157c52d-card.webp": [
+    {
+      "src": "/images/responsive/tea-light-candle-c505fdf0a14b-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 11064,
+      "avifSrc": "/images/responsive/tea-light-candle-eb2466637acb-256.avif",
+      "avifBytes": 8285
+    },
+    {
+      "src": "/images/responsive/tea-light-candle-be4d959a8f1f-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 19068,
+      "avifSrc": "/images/responsive/tea-light-candle-5ff75a8fa468-384.avif",
+      "avifBytes": 13310
+    },
+    {
+      "src": "/images/responsive/tea-light-candle-2e92817c5660-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 40400,
+      "avifSrc": "/images/responsive/tea-light-candle-e85854ddf323-600.avif",
+      "avifBytes": 26050
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/customised-aipan-nameplate-indexable-ff5447b986a0d04152b7d15f680309313c22fcb940f3fc3cffa84e5256a682a7-card.webp": [
+    {
+      "src": "/images/responsive/customised-aipan-nameplate-7a54bf24ec00-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 17678,
+      "avifSrc": "/images/responsive/customised-aipan-nameplate-eba3bb052b0e-256.avif",
+      "avifBytes": 14833
+    },
+    {
+      "src": "/images/responsive/customised-aipan-nameplate-50e4fd76aa93-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 32032,
+      "avifSrc": "/images/responsive/customised-aipan-nameplate-ed2bcc91237a-384.avif",
+      "avifBytes": 25524
+    },
+    {
+      "src": "/images/responsive/customised-aipan-nameplate-ed6150cab293-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 65524,
+      "avifSrc": "/images/responsive/customised-aipan-nameplate-9515da116315-600.avif",
+      "avifBytes": 48116
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/premium-ittar-indexable-b2223eb2abef7b867a096000732f2cd2ed20991450acac71bd188cf18bc6e460-card.webp": [
+    {
+      "src": "/images/responsive/premium-ittar-cd0701703dfb-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 10700,
+      "avifSrc": "/images/responsive/premium-ittar-26aa9cefb4a9-256.avif",
+      "avifBytes": 8435
+    },
+    {
+      "src": "/images/responsive/premium-ittar-501f1891aca5-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 17916,
+      "avifSrc": "/images/responsive/premium-ittar-4cb195fbac86-384.avif",
+      "avifBytes": 12988
+    },
+    {
+      "src": "/images/responsive/premium-ittar-0dbc36183862-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 36376,
+      "avifSrc": "/images/responsive/premium-ittar-4ffbfb1af725-600.avif",
+      "avifBytes": 23086
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/handmade-rakhii-indexable-f5a3de3f13973da9f44605120cf9d80323db4a54ec0b6c07f6f99898ef9a381c-card.webp": [
+    {
+      "src": "/images/responsive/handmade-rakhii-2df57e0f1605-256.webp",
+      "width": 256,
+      "height": 192,
+      "bytes": 9052,
+      "avifSrc": "/images/responsive/handmade-rakhii-952413b175fd-256.avif",
+      "avifBytes": 7302
+    },
+    {
+      "src": "/images/responsive/handmade-rakhii-8cc0030c2fa6-384.webp",
+      "width": 384,
+      "height": 288,
+      "bytes": 17658,
+      "avifSrc": "/images/responsive/handmade-rakhii-36bb738f8ab8-384.avif",
+      "avifBytes": 13581
+    },
+    {
+      "src": "/images/responsive/handmade-rakhii-f5730fcb2ee3-640.webp",
+      "width": 640,
+      "height": 480,
+      "bytes": 39522,
+      "avifSrc": "/images/responsive/handmade-rakhii-c2449730afd3-640.avif",
+      "avifBytes": 27886
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/elegant-glow-gift-box-indexable-54fece4cf37c9b3b6a240664c834970b621430ee78ecdc5e9c3d96dd557b5e23-card.webp": [
+    {
+      "src": "/images/responsive/elegant-glow-gift-box-894b87058706-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 13650,
+      "avifSrc": "/images/responsive/elegant-glow-gift-box-6db2af165266-256.avif",
+      "avifBytes": 10370
+    },
+    {
+      "src": "/images/responsive/elegant-glow-gift-box-7f346c110410-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 24968,
+      "avifSrc": "/images/responsive/elegant-glow-gift-box-cf2c1c9df492-384.avif",
+      "avifBytes": 18018
+    },
+    {
+      "src": "/images/responsive/elegant-glow-gift-box-3a60169ba331-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 61272,
+      "avifSrc": "/images/responsive/elegant-glow-gift-box-8edd456f1b06-600.avif",
+      "avifBytes": 40427
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/blush-bloom-gift-box-indexable-c01cdfe4aa55e89b53df33bbf25d52e8fc7c25d293a5225bd4eab9303fcdcd5f-card.webp": [
+    {
+      "src": "/images/responsive/blush-bloom-gift-box-b55318fe9766-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 12508,
+      "avifSrc": "/images/responsive/blush-bloom-gift-box-57a997abd597-256.avif",
+      "avifBytes": 9079
+    },
+    {
+      "src": "/images/responsive/blush-bloom-gift-box-b90d9cd0d5e9-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 23804,
+      "avifSrc": "/images/responsive/blush-bloom-gift-box-35b46cc37a23-384.avif",
+      "avifBytes": 15804
+    },
+    {
+      "src": "/images/responsive/blush-bloom-gift-box-1c850a93dbe1-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 60914,
+      "avifSrc": "/images/responsive/blush-bloom-gift-box-2792771c387a-600.avif",
+      "avifBytes": 36969
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/grace-gift-bag-indexable-93783645780568a9b08a946977b774dd934c039792521d38f55e7146ba783faf-card.webp": [
+    {
+      "src": "/images/responsive/grace-gift-bag-1a92059296ef-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 10750,
+      "avifSrc": "/images/responsive/grace-gift-bag-6a331aa92da8-256.avif",
+      "avifBytes": 7705
+    },
+    {
+      "src": "/images/responsive/grace-gift-bag-ca4823c305d6-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 18264,
+      "avifSrc": "/images/responsive/grace-gift-bag-bdcc0cea59d7-384.avif",
+      "avifBytes": 12434
+    },
+    {
+      "src": "/images/responsive/grace-gift-bag-f1f99cb2790a-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 36142,
+      "avifSrc": "/images/responsive/grace-gift-bag-2daef5d7f988-600.avif",
+      "avifBytes": 22084
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/the-happiness-box-indexable-5fd78ea1fe2dc3232a1ca96eea3599bb6a031a58fd22789d7164fc4e4ffa3fbe-card.webp": [
+    {
+      "src": "/images/responsive/the-happiness-box-90c4712b1715-256.webp",
+      "width": 256,
+      "height": 320,
+      "bytes": 10786,
+      "avifSrc": "/images/responsive/the-happiness-box-8c11636d879a-256.avif",
+      "avifBytes": 7991
+    },
+    {
+      "src": "/images/responsive/the-happiness-box-4fba4653ec86-384.webp",
+      "width": 384,
+      "height": 480,
+      "bytes": 19276,
+      "avifSrc": "/images/responsive/the-happiness-box-46e02b54bc80-384.avif",
+      "avifBytes": 12936
+    },
+    {
+      "src": "/images/responsive/the-happiness-box-189c1543be72-640.webp",
+      "width": 640,
+      "height": 800,
+      "bytes": 45434,
+      "avifSrc": "/images/responsive/the-happiness-box-ccd7f10a6e01-640.avif",
+      "avifBytes": 27318
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/curated-hamper-indexable-0e28d7cfb4283d62c150c709c5333fc6e2457f303bd026ae31d32c55a1ae7867-card.webp": [
+    {
+      "src": "/images/responsive/curated-hamper-0ae2efeff96b-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 13744,
+      "avifSrc": "/images/responsive/curated-hamper-93262ff2f1dd-256.avif",
+      "avifBytes": 10806
+    },
+    {
+      "src": "/images/responsive/curated-hamper-9e032c9173ba-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 23700,
+      "avifSrc": "/images/responsive/curated-hamper-17ffc52b0df0-384.avif",
+      "avifBytes": 17702
+    },
+    {
+      "src": "/images/responsive/curated-hamper-c779298878a9-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 50032,
+      "avifSrc": "/images/responsive/curated-hamper-352e52bf6bb6-600.avif",
+      "avifBytes": 34761
+    }
+  ],
+  "https://psqdrmdyucsyiuugvitd.supabase.co/storage/v1/object/public/product-images/optimized/v2/rakhii-hamper-indexable-94a971850192746975845d38972682d6c8c16eec8559e443386720772e2ffa57-card.webp": [
+    {
+      "src": "/images/responsive/rakhii-hamper-28052ba67566-256.webp",
+      "width": 256,
+      "height": 341,
+      "bytes": 10112,
+      "avifSrc": "/images/responsive/rakhii-hamper-a1471204742c-256.avif",
+      "avifBytes": 7114
+    },
+    {
+      "src": "/images/responsive/rakhii-hamper-1fc09c30fccf-384.webp",
+      "width": 384,
+      "height": 512,
+      "bytes": 18178,
+      "avifSrc": "/images/responsive/rakhii-hamper-09a188a53c01-384.avif",
+      "avifBytes": 11949
+    },
+    {
+      "src": "/images/responsive/rakhii-hamper-948613e0589e-600.webp",
+      "width": 600,
+      "height": 800,
+      "bytes": 43158,
+      "avifSrc": "/images/responsive/rakhii-hamper-b2b11cfa9ede-600.avif",
+      "avifBytes": 25652
+    }
   ]
 }

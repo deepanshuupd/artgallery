@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { homeTitle, homeDescription } from "@/lib/seo";
 import { getSiteUrl } from "@/lib/site";
 import { JsonLd } from "@/components/seo/json-ld";
-import { getProductImageObjects } from "@/lib/product-image-schema";
 
 import { CuratedHampersSection } from "@/components/home/curated-hampers-section";
 import { FeaturedCollections } from "@/components/home/featured-collections";
@@ -15,11 +14,6 @@ import homeStyles from "@/components/home/home-palette.module.css";
 import { getProducts } from "@/lib/products";
 import type { Product, ProductCategory } from "@/types/product";
 import { getProductImage, type ProductImageReference } from "@/lib/product-image";
-
-function featuredProduct(products: Product[]): Product | undefined {
-  return products.find((product) => product.image && /aipan|pahadi|pichora|kumaon/i.test(product.name)) ??
-    products.find(product => product.image);
-}
 
 // Sharing the homepage represents the brand, not whichever product is featured.
 // Keep product-page previews independent, with their own catalogue photos.
@@ -63,8 +57,6 @@ const FEATURED_CATEGORIES: ProductCategory[] = [
 
 export default async function HomePage() {
   const products = await getProducts();
-  const culturalFeaturedProduct = featuredProduct(products);
-  const primaryImage = culturalFeaturedProduct ? getProductImageObjects(culturalFeaturedProduct, getSiteUrl())[0] : undefined;
 
   const imageFor = (category: ProductCategory): ProductImageReference | undefined => {
     const preferred = PREFERRED_IMAGES[category];
@@ -90,6 +82,17 @@ export default async function HomePage() {
     const image = imageFor(category);
     if (image) categoryImages[category] = image;
   }
+
+  // Describe a photograph actually displayed in the collection journey, rather
+  // than an unrelated first catalogue record. Sharing still uses the brand icon.
+  const primaryPhoto = categoryImages.Frames ?? categoryImages.Keychains;
+  const primaryImage = primaryPhoto ? {
+    "@type": "ImageObject", url: new URL(primaryPhoto.src, getSiteUrl()).href,
+    contentUrl: new URL(primaryPhoto.src, getSiteUrl()).href,
+    name: primaryPhoto.alt, description: primaryPhoto.alt,
+    ...(primaryPhoto.caption ? { caption: primaryPhoto.caption } : {}),
+    ...(primaryPhoto.width && primaryPhoto.height ? { width: primaryPhoto.width, height: primaryPhoto.height } : {}),
+  } : undefined;
 
   return (
     <main className={`${postcardStyles.homePage} ${homeStyles.page}`}>

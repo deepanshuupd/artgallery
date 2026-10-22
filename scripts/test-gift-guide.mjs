@@ -29,6 +29,7 @@ function load(file) {
     if (name.endsWith('.module.css')) return { __esModule: true, default: new Proxy({}, { get: (_, key) => String(key) }) };
     if (name.startsWith('@/') || name.startsWith('.')) {
       const base = name.startsWith('@/') ? resolve(root, 'src', name.slice(2)) : resolve(dirname(path), name);
+      if (base.endsWith('.json')) return JSON.parse(readFileSync(base, 'utf8'));
       const target = [base + '.ts', base + '.tsx'].find(existsSync);
       assert.ok(target, `Resolvable local import: ${name}`);
       return load(target);
@@ -42,6 +43,8 @@ function load(file) {
 const { getGiftGuideIdeas, getGiftGuideCover } = load('src/lib/gift-guide.ts');
 const { default: GiftGuide, generateMetadata } = load('src/app/uttarakhand-gifts/page.tsx');
 const { generateMetadata: categoryMetadata } = load('src/app/[category]/page.tsx');
+const { KeychainBuyingGuide } = load('src/components/products/keychain-buying-guide.tsx');
+const { CollectionSchema } = load('src/components/seo/collection-schema.tsx');
 const product = (category, slug, price, extra = {}) => ({
   id: slug, slug, urlCategory: category, category, name: slug.replaceAll('-', ' '),
   price, image: `/images/${slug}.webp`, images: [], published: true, inStock: true,
@@ -75,6 +78,27 @@ for (const override of [
   assert.equal(getGiftGuideCover([changed]), undefined);
 }
 const unrelated = product('Personalized Gifts', 'tea-light-candle', 30);
+const keychainHtml = renderToStaticMarkup(React.createElement(KeychainBuyingGuide, { products: [
+  girl, { ...girl, price: 1 },
+  product('Keychains', 'unpublished', 1, { published: false }),
+  product('Keychains', 'sold-out', 2, { inStock: false }),
+  product('Keychains', 'group-design', 120, { details: ['Minimum order quantity = 2pc'] }),
+  unrelated,
+] }));
+assert.match(keychainHtml, /range from ₹80 to ₹120/);
+assert.match(keychainHtml, /minimum 2 pieces/);
+assert.match(keychainHtml, /party return gifts/);
+assert.match(keychainHtml, /not automatically an Aipan design/);
+assert.doesNotMatch(keychainHtml, /href="[^"]*(?:unpublished|sold-out|tea-light-candle)/);
+assert.equal(renderToStaticMarkup(React.createElement(KeychainBuyingGuide, { products: [] })), '');
+const collectionHtml = renderToStaticMarkup(React.createElement(CollectionSchema, {
+  products: [girl, { ...girl, image: '/wrong-duplicate.webp' }, { ...unrelated, published: false }],
+  path: '/pahadi-keychains', name: 'Pahadi keychains', description: 'Current designs',
+}));
+const collectionSchema = JSON.parse(collectionHtml.match(/>([\s\S]*)<\/script>/)[1]);
+assert.equal(collectionSchema.mainEntity.numberOfItems, 1);
+assert.equal(collectionSchema.primaryImageOfPage.url, 'https://www.kumaonrang.com/images/pahadi-girl-keychain.webp');
+assert.equal(collectionSchema.mainEntity.itemListElement[0].image, collectionSchema.primaryImageOfPage.url);
 assert.equal(getGiftGuideIdeas([unrelated]).find(idea => idea.category === 'Personalized Gifts').product, undefined,
   'Do not present an unrelated candle as a personalised nameplate');
 const wrongCategory = { ...frame, category: 'Keychains' };

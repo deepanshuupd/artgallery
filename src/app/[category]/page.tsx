@@ -8,6 +8,7 @@ import { pageMetadata } from "@/lib/seo";
 import { getGiftGuideIdeas } from "@/lib/gift-guide";
 import { getProductImage } from "@/lib/product-image";
 import { CollectionSchema } from "@/components/seo/collection-schema";
+import { KeychainBuyingGuide } from "@/components/products/keychain-buying-guide";
 import styles from "@/components/products/collection-guide.module.css";
 import forest from "@/components/products/forest-storefront.module.css";
 
@@ -45,6 +46,7 @@ export default async function CategoryPage({ params }: Props) {
         </div>
       </header>
       <ProductShowcase products={products} categoryCounts={categoryCounts} eyebrow={collection.label} title={`Explore ${collection.label.toLowerCase()}`} showCategoryFilter initialCategory={collection.category} />
+      {collection.category === "Keychains" && <KeychainBuyingGuide products={products} />}
       <section className="store-editorial" aria-labelledby="collection-guide-title">
         <h2 id="collection-guide-title">{collection.note}</h2>
         <p>{collection.detail}</p>

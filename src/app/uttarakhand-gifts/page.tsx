@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { ResponsiveImage } from "@/components/responsive-image";
 import Link from "next/link";
 
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
@@ -126,7 +126,7 @@ export default async function UttarakhandGiftsPage() {
                 {product && image && (
                   <Link href={getProductPath(product)} prefetch={false} className={styles.productLink}>
                     <span className={styles.photo}>
-                      <Image src={image.cardSrc} alt={image.alt} fill loading="lazy"
+                      <ResponsiveImage src={image.cardSrc} alt={image.alt} fill loading="lazy"
                         sizes="(max-width: 639px) calc((100vw - 80px) / 2), (max-width: 1023px) 42vw, 360px"
                         className={styles.productImage} />
                     </span>

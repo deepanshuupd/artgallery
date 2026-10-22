@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { ResponsiveImage } from "@/components/responsive-image";
 import { getProductImage } from "@/lib/product-image";
 import Link from "next/link";
 import { useState } from "react";
@@ -17,9 +17,9 @@ export function ProductCard({ product, priority = false, sizes = "(max-width: 76
   return <article className="store-product">
     <Link prefetch={false} href={getProductPath(product)} className="store-product__link">
       <div className="store-product__image">
-        {image.src && !failed ? <Image
+        {image.src && !failed ? <ResponsiveImage
           src={image.cardSrc} alt={image.alt} fill priority={priority}
-          fetchPriority={priority ? "high" : undefined} quality={70}
+          fetchPriority={priority ? "high" : undefined}
           sizes={sizes}
           className="object-contain" onError={() => setFailed(true)}
         /> : <div className="store-product__placeholder"><span>Kumaonरंग</span><small>Photo coming soon</small></div>}

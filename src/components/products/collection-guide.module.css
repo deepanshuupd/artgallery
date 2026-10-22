@@ -3,6 +3,16 @@
   border-bottom: 1px solid var(--shop-border, #d9c4ad);
 }
 
+.buyingFacts { margin-block: 24px; }
+.buyingFacts > div { padding-block: 16px; border-top: 1px solid var(--shop-border, #d9c4ad); }
+.buyingFacts dt { font-weight: 600; line-height: 1.6; }
+.buyingFacts dd { max-width: 75ch; margin: 8px 0 0; line-height: 1.8; }
+.buyingGuide h2 { scroll-margin-top: 120px; }
+.buyingGuide a { color: var(--shop-pine, var(--color-geru)); text-decoration: underline; text-underline-offset: 4px; }
+.buyingGuide a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+.designLinks { list-style: disc; padding-left: 22px; margin-block: 16px; }
+.designLinks li { padding-block: 6px; line-height: 1.8; }
+
 .question {
   border-top: 1px solid var(--shop-border, #d9c4ad);
 }

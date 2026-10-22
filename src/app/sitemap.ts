@@ -4,7 +4,8 @@ import { getProducts } from "@/lib/products";
 import { getProductPath } from "@/lib/catalog";
 import { getSiteUrl } from "@/lib/site";
 import { collections } from "@/lib/collections";
-import { getProductImageUrls } from "@/lib/product-image";
+import { getProductImage, getProductImageUrls } from "@/lib/product-image";
+import { getGiftGuideCover, getGiftGuideIdeas } from "@/lib/gift-guide";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = getSiteUrl();
@@ -32,9 +33,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let productEntries: MetadataRoute.Sitemap = [];
   try {
     const products = await getProducts();
+    const ideas = getGiftGuideIdeas(products);
+    const guideCover = getGiftGuideCover(products);
+    const guideEntry = staticEntries.find(entry => entry.url === `${siteUrl}/uttarakhand-gifts`);
+    if (guideEntry && guideCover) {
+      guideEntry.images = [new URL(getProductImage(guideCover).src, siteUrl).href];
+    }
     staticEntries.push(...collections
       .filter(collection => products.some(product => product.category === collection.category))
-      .map(collection => ({ url: `${siteUrl}/${collection.slug}`, changeFrequency: "weekly" as const, priority: 0.8 })));
+      .map(collection => {
+        const representative = ideas.find(idea => idea.category === collection.category)?.product;
+        return { url: `${siteUrl}/${collection.slug}`, changeFrequency: "weekly" as const, priority: 0.8,
+          ...(representative ? { images: [new URL(getProductImage(representative).src, siteUrl).href] } : {}),
+        };
+      }));
     productEntries = products.map((product) => ({
       url: `${siteUrl}${getProductPath(product)}`,
       changeFrequency: "weekly",
