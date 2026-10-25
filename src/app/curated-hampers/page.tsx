@@ -8,6 +8,7 @@ import { ProductShowcase } from "@/components/products/product-showcase";
 import guideStyles from "@/components/products/collection-guide.module.css";
 import { getProducts } from "@/lib/products";
 import { CollectionSchema } from "@/components/seo/collection-schema";
+import styles from "./hampers.module.css";
 
 export const dynamic = "force-dynamic";
 
@@ -26,44 +27,32 @@ export default async function CuratedHampersPage() {
   );
 
   return (
-    <main className="relative overflow-hidden">
+    <main className={styles.page}>
       <CollectionSchema products={hampers} path="/curated-hampers" name="Gift Hampers & Pichwai Jar Gift Combos" description="Explore curated gift boxes and hampers from KumaonRang in Pithoragarh." />
       <div className="heritage-shell">
         <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Gift hampers", href: "/curated-hampers" }]} />
-      </div>
-      <section className="relative px-4 py-6 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
-        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[var(--color-espresso)]" />
-        <div aria-hidden="true" className="aipan-motif absolute inset-0 -z-10 opacity-20" />
-
-        <div className="mx-auto max-w-7xl">
-          <p className="text-[0.72rem] uppercase tracking-[0.38em] text-stone-300">
-            KumaonRang Hampers
-          </p>
-          <h1 className="mt-3 max-w-2xl font-serif text-3xl leading-[1.06] text-[var(--color-porcelain)] sm:text-5xl lg:text-6xl">
-            Gift hampers,{" "}
-            <span className="block text-[var(--color-champagne)]">
-              with a little belonging.
-            </span>
-          </h1>
-          <p className="mt-3 max-w-2xl text-sm leading-6 text-stone-300 sm:text-lg">
-            From Pichwai jar gift combos to carefully put-together gift boxes,
-            find something for their birthday, new home or just-because moment.
-            Curated by Sneha in Pithoragarh, with the person receiving it in mind.
-          </p>
-        </div>
-      </section>
-
-      <CustomHamperCta />
-
-      <section className="relative px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl">
+        <header className={styles.intro}>
+          <p className="craft-eyebrow">KumaonRang hampers</p>
+          <h1>Gift hampers,<br /><em>with a little belonging.</em></h1>
+          <p>Gift boxes and Pichwai jar combos, thoughtfully chosen by Sneha in Pithoragarh.</p>
+          <Link prefetch={false} href="/build-your-hamper" className={styles.customLink}>Prefer to choose each piece? Build your own hamper</Link>
+        </header>
+        <section className={styles.catalogue} aria-label="Ready-made gift hampers">
+          <p className={styles.priceNote}>Listed prices exclude delivery. Confirm contents and timing with Sneha.</p>
           <ProductShowcase
-            eyebrow="Browse the edit"
+            eyebrow="Ready-made gifts"
             products={hampers}
             searchPlaceholder="Search by occasion or style"
             title="Hampers ready to gift"
+            compactTools
           />
-          <section className="store-editorial" aria-labelledby="hamper-guide-heading">
+        </section>
+      </div>
+
+      <CustomHamperCta />
+
+      <div className="heritage-shell">
+          <section className={`store-editorial ${styles.guide}`} aria-labelledby="hamper-guide-heading">
             <h2 id="hamper-guide-heading">A gift that feels like them.</h2>
             <p>
               Begin with the person, then the occasion. Compare each hamper’s
@@ -99,11 +88,11 @@ export default async function CuratedHampersPage() {
               </details>
             </div>
             <div className={guideStyles.guide}>
+              <Link prefetch={false} href="/bulk-orders">Planning wedding return gifts or team hampers? Prepare a bulk-gifting brief for Sneha.</Link>
               <Link prefetch={false} href="/uttarakhand-gifts">Looking for a single keepsake? Explore our Uttarakhand gift guide.</Link>
             </div>
           </section>
-        </div>
-      </section>
+      </div>
 
     </main>
   );

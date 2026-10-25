@@ -28,6 +28,7 @@ function load(file) {
     if (name.endsWith('.module.css')) return new Proxy({}, { get: (_, key) => String(key) });
     if (name.startsWith('@/') || name.startsWith('.')) {
       const base = name.startsWith('@/') ? resolve(root, 'src', name.slice(2)) : resolve(dirname(path), name);
+      if (base.endsWith('.json')) return require(base);
       const target = [base + '.ts', base + '.tsx'].find(existsSync);
       if (!target) throw new Error(`Unknown local import: ${name}`);
       return load(target);
@@ -43,6 +44,41 @@ const model=load('src/lib/cart-quote.ts');
 const whatsapp=load('src/lib/whatsapp.ts');
 const product=(overrides={})=>({id:'frame',slug:'test-frame',name:'Aipan Frame',category:'Frames',price:1200,image:'/images/frame.webp',images:[],details:[],published:true,...overrides});
 const request=(items,overrides={})=>model.parseCartRequest({items,...overrides});
+
+test('a photo enquiry identifies the exact piece without implying an order',()=>{
+  const piece=product({name:'Pahadi Happy Couple Fridge Magnet',category:'Fridge Magnets',slug:'pahadi-happy-couple-fridge-magnet',image:'',price:100,details:['Material: MDF']});
+  const message=whatsapp.generateProductPhotoRequest(piece,'Can I see the back?\nPlease show the size.');
+  assert.match(message,/KumaonRang \| Product photo enquiry/);
+  assert.match(message,/Listed price: ₹100/);
+  assert.match(message,/Material: MDF/);
+  assert.match(message,/https:\/\/www.kumaonrang.com\/uttarakhand-souvenirs\/pahadi-happy-couple-fridge-magnet/);
+  assert.match(message,/current photograph of this exact piece, its dimensions and what is included/);
+  assert.match(message,/> Can I see the back\?\n> Please show the size\./);
+  assert.doesNotMatch(message,/Product subtotal|Item total|Quantity:|place the order|My question:\n\n/);
+  assert.doesNotMatch(whatsapp.generateProductPhotoRequest(piece),/My question:/);
+  assert.match(whatsapp.generateProductPhotoRequest({...piece,inStock:false}),/confirm when it will be available/);
+});
+
+test('missing-photo cards and sheets offer a photo request while photographed pieces keep buying controls',()=>{
+  const {CartProvider}=load('src/components/cart/cart-provider.tsx');
+  const {ProductCard}=load('src/components/products/product-card.tsx');
+  const {WhatsAppOrderSheet}=load('src/components/products/whatsapp-order-sheet.tsx');
+  const render=component=>renderToStaticMarkup(React.createElement(CartProvider,null,component));
+  const missing=product({image:'',images:[]});
+  const card=render(React.createElement(ProductCard,{product:missing}));
+  assert.match(card,/Request a photo/);
+  assert.match(card,/href="\/aipan-frames\/test-frame#product-order-title"/);
+  assert.doesNotMatch(card,/Add to cart|Photo coming soon/);
+  const props={product:missing,open:false,onClose(){},quantity:1,onQuantityChange(){}};
+  const sheet=render(React.createElement(WhatsAppOrderSheet,props));
+  assert.match(sheet,/See this piece first|Product photo enquiry/);
+  assert.doesNotMatch(sheet,/Delivery PIN code|Occasion date|Quantity \(items\)|Product subtotal/);
+  const ordinaryCard=render(React.createElement(ProductCard,{product:product()}));
+  assert.match(ordinaryCard,/Add to cart/);
+  const ordinarySheet=render(React.createElement(WhatsAppOrderSheet,{...props,product:product()}));
+  assert.match(ordinarySheet,/Delivery PIN code/);
+  assert.match(ordinarySheet,/Product subtotal/);
+});
 
 test('adding merges quantities, preserves item requests and never mutates the previous cart',()=>{
   const previous=[{productId:'frame',quantity:2,request:'For Riya'}];

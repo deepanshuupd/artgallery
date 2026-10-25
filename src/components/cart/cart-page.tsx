@@ -11,6 +11,7 @@ import { QuantityControl } from "@/components/products/quantity-control";
 import { WhatsAppIcon } from "@/components/icons";
 import styles from "./cart.module.css";
 import { OrderMessagePreview } from "@/components/products/order-message-preview";
+import { commerceEvent } from "@/lib/commerce-events";
 
 function CartPhoto({ product }: { product: CartProduct }) {
   const [failed, setFailed] = useState(false);
@@ -38,6 +39,7 @@ export function CartPage({ catalog, catalogFailed = false }: { catalog: CartProd
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || "Your enquiry could not be prepared.");
       setReview({source:payload,quote:result});
+      commerceEvent("enquiry_review", "cart");
       requestAnimationFrame(() => { reviewRef.current?.focus({preventScroll:true}); reviewRef.current?.scrollIntoView({block:"start",behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"}); });
     } catch (cause) { setError(cause instanceof Error ? cause.message : "Please check your connection and try again."); }
     finally { setBusy(false); }
@@ -78,7 +80,7 @@ export function CartPage({ catalog, catalogFailed = false }: { catalog: CartProd
         <p className={styles.help}>We’ll check the current catalogue before preparing your message. Shipping is quoted separately; this enquiry does not confirm an order.</p>
         <button type="submit" className={styles.primary} disabled={busy || missing || catalogFailed}>{busy ? "Checking your pieces…" : "Review my order enquiry →"}</button>
       </form>
-      {quote && <section className={styles.review} aria-labelledby="cart-review-title"><p className="craft-eyebrow">Ready for Sneha</p><h2 id="cart-review-title" ref={reviewRef} tabIndex={-1}>Your enquiry, all together.</h2><p>Current product subtotal: <strong>{formatOrderAmount(quote.subtotal)}</strong>. Check the message below, then send it in WhatsApp.</p><OrderMessagePreview message={quote.message} defaultOpen /><a className={styles.primary} href={quote.url} target="_blank" rel="noopener noreferrer"><WhatsAppIcon />Continue to WhatsApp</a><p className={styles.help}>Nothing is sent automatically. Your cart stays saved; Sneha confirms the final total and delivery in the chat.</p></section>}
+      {quote && <section className={styles.review} aria-labelledby="cart-review-title"><p className="craft-eyebrow">Ready for Sneha</p><h2 id="cart-review-title" ref={reviewRef} tabIndex={-1}>Your enquiry, all together.</h2><p>Current product subtotal: <strong>{formatOrderAmount(quote.subtotal)}</strong>. Check the message below, then send it in WhatsApp.</p><OrderMessagePreview message={quote.message} defaultOpen /><a className={styles.primary} href={quote.url} target="_blank" rel="noopener noreferrer" onClick={() => commerceEvent("whatsapp_handoff", "cart")}><WhatsAppIcon />Continue to WhatsApp</a><p className={styles.help}>Nothing is sent automatically. Your cart stays saved; Sneha confirms the final total and delivery in the chat.</p></section>}
     </div>}
   </main>;
 }

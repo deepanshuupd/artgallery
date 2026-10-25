@@ -11,6 +11,6 @@ export function OrderingGuide() {
       <li><span aria-hidden="true">03</span><div><h3>Confirm the details</h3><p>Discuss availability, the full total including delivery, preparation time and payment with Sneha before confirming your order.</p></div></li>
     </ol>
     <p className={styles.dispatch}>{shopOrdering.dispatch} Preparation time for made-to-order pieces and larger quantities is confirmed with Sneha.</p>
-    <div className={styles.links}><Link prefetch={false} href="/shipping-policy">Delivery & dispatch →</Link><Link prefetch={false} href="/about">Meet Sneha →</Link><Link prefetch={false} href="/customer-stories">Read customer stories →</Link></div>
+    <div className={styles.links}><Link prefetch={false} href="/bulk-orders">Wedding & bulk gifts →</Link><Link prefetch={false} href="/shipping-policy">Delivery & dispatch →</Link><Link prefetch={false} href="/about">Meet Sneha →</Link><Link prefetch={false} href="/customer-stories">Read customer stories →</Link></div>
   </section>;
 }

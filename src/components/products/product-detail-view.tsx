@@ -6,7 +6,7 @@ import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { getProductImage, getProductImageUrls } from "@/lib/product-image";
 import { formatPrice, getDiscount } from "@/lib/pricing";
 import type { Product } from "@/types/product";
-import { WhatsAppIcon } from "@/components/icons";
+import { CameraIcon, WhatsAppIcon } from "@/components/icons";
 import { WhatsAppOrderSheet } from "./whatsapp-order-sheet";
 import { QuantityControl } from "./quantity-control";
 import { useProductDialog } from "./use-product-dialog";
@@ -17,12 +17,16 @@ import { shopOrdering } from "@/data/shop-ordering";
 import { getMinimumPieceQuantity, getProductHighlights } from "@/lib/product-highlights";
 import { InspectableProductPhoto } from "./inspectable-product-photo";
 import { AddToCartButton } from "@/components/cart/cart-controls";
+import { commerceEvent } from "@/lib/commerce-events";
+import { orderUnit } from "@/lib/whatsapp";
 
 export function ProductDetailView({ product, children }: { product: Product; children?: ReactNode }) {
   const images = getProductImageUrls(product).map(src => getProductImage(product, src));
+  const needsPhoto = images.length === 0;
   const discount = getDiscount(product.price, product.originalPrice);
   const highlights = getProductHighlights(product);
   const minimumQuantity = getMinimumPieceQuantity(product);
+  const unit = orderUnit(product.name, product.category);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [failedImages, setFailedImages] = useState<string[]>([]);
   const [quantity, setQuantity] = useState(minimumQuantity);
@@ -38,7 +42,11 @@ export function ProductDetailView({ product, children }: { product: Product; chi
   const description = product.description.trim();
   const introduction = description.match(/^[\s\S]*?[.!?](?=\s|$)|^[^\n]+/)?.[0] ?? description;
   const selectedImage = images[activeImageIndex];
-  const actionLabel = product.inStock === false ? "Ask about availability" : "Order via WhatsApp";
+  const actionLabel = needsPhoto ? "Request a photo" : product.inStock === false ? "Ask about availability" : "Order via WhatsApp";
+  function openOrder() {
+    setOrderOpen(true);
+    commerceEvent("order_details_open", needsPhoto ? "photo_request" : "product", product.id);
+  }
 
   useEffect(() => {
     const actions = actionsRef.current;
@@ -63,7 +71,7 @@ export function ProductDetailView({ product, children }: { product: Product; chi
     <div className={styles.shell}>
       <div className={styles.layout}>
         <section className={styles.gallery} aria-label="Product photographs">
-          <div className={styles.photoFrame}>
+          <div className={styles.photoFrame} data-photo-state={needsPhoto ? "missing" : undefined}>
             <div ref={carouselRef} id={galleryId} className={`${styles.carousel} no-scrollbar`} onScroll={event => {
               const container = event.currentTarget;
               setActiveImageIndex(Math.min(images.length - 1, Math.max(0, Math.round(container.scrollLeft / container.clientWidth))));
@@ -71,7 +79,7 @@ export function ProductDetailView({ product, children }: { product: Product; chi
               {images.map((image, index) => <div key={image.src} className={styles.slide}>
                 {failedImages.includes(image.src) ? <p className={styles.imageFallback}>{name}<span>Image unavailable</span></p> : <InspectableProductPhoto alt={image.alt} imageClassName={styles.image} priority={index === 0} sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) 55vw, 650px" src={image.src} label={`Inspect photo ${index + 1} of ${name}`} onError={() => imageFailed(image.src)} />}
               </div>)}
-              {!images.length && <p className={styles.imageFallback}>{name}<span>Photo coming soon</span></p>}
+              {needsPhoto && <div className={styles.photoRequestNote}><CameraIcon className="h-8 w-8" /><p>See the piece.<br />Then make it yours.</p><span>A photograph of this design isn’t listed yet. Ask Sneha for a current photo and dimensions before choosing.</span></div>}
             </div>
             {selectedImage && !failedImages.includes(selectedImage.src) && <button type="button" className={styles.enlarge} aria-haspopup="dialog" onClick={() => setZoomOpen(true)}>Enlarge photo</button>}
           </div>
@@ -95,16 +103,21 @@ export function ProductDetailView({ product, children }: { product: Product; chi
           </header>
           <section className={styles.purchase} aria-labelledby="product-order-title">
             {introduction && <p className={styles.introduction}>{introduction}</p>}
+            {highlights.length > 0 && <div className={styles.highlights}>
+              <h2>At a glance</h2>
+              <dl>{highlights.map(fact => <div key={fact.label}><dt>{fact.label}</dt><dd>{fact.value}</dd></div>)}</dl>
+              <a href="#product-information">Read all product details ↓</a>
+            </div>}
             <div className={styles.purchaseBox}>
-              <h2 id="product-order-title" className={styles.purchaseHeading}>Order details</h2>
+              <h2 id="product-order-title" className={styles.purchaseHeading}>{needsPhoto ? "A closer look, first" : "Order details"}</h2>
               {typeof product.inStock === "boolean" && <p className={styles.availability} data-stock-state={product.inStock ? "in-stock" : "out-of-stock"}><span aria-hidden="true" />{product.inStock ? "In stock · Confirm availability for your quantity" : "Currently out of stock · Ask Sneha about availability"}</p>}
-              <QuantityControl value={quantity} onChange={setQuantity} minimum={minimumQuantity} />
+              {!needsPhoto && <QuantityControl value={quantity} onChange={setQuantity} minimum={minimumQuantity} label={`Quantity (${unit.many})`} />}
               <p className={styles.deliverySummary}>Delivery is extra, confirmed before you order.</p>
               <div ref={actionsRef} className={styles.buyingActions}>
-                <AddToCartButton productId={product.id} productName={product.name} quantity={quantity} unavailable={product.inStock === false} />
-                <button type="button" className={`${order.primary} ${styles.directOrder}`} aria-haspopup="dialog" onClick={() => setOrderOpen(true)}><WhatsAppIcon className="h-5 w-5" />{actionLabel}</button>
+                {!needsPhoto && <AddToCartButton productId={product.id} productName={product.name} quantity={quantity} unavailable={product.inStock === false} />}
+                <button type="button" className={`${order.primary} ${styles.directOrder}`} aria-haspopup="dialog" onClick={openOrder}><WhatsAppIcon className="h-5 w-5" />{actionLabel}</button>
               </div>
-              <p className={styles.orderHelp}>Sneha confirms availability, the final total and timing on WhatsApp. <Link prefetch={false} href="/how-to-order">How ordering works</Link></p>
+              <p className={styles.orderHelp}>{needsPhoto ? "Ask to see this exact design and what’s included. There’s no need to decide on an order yet." : "Sneha confirms availability, the final total and timing on WhatsApp."} <Link prefetch={false} href="/how-to-order">How ordering works</Link></p>
               <details className={styles.fulfilmentDetails}>
                 <summary>Delivery &amp; order support<span aria-hidden="true">+</span></summary>
                 <div className={styles.fulfilment}>
@@ -114,11 +127,7 @@ export function ProductDetailView({ product, children }: { product: Product; chi
                 </div>
               </details>
             </div>
-            {highlights.length > 0 && <div className={styles.highlights}>
-              <h2>At a glance</h2>
-              <dl>{highlights.map(fact => <div key={fact.label}><dt>{fact.label}</dt><dd>{fact.value}</dd></div>)}</dl>
-              <a href="#product-information">Read all product details ↓</a>
-            </div>}
+            <p className={styles.bulkLink}>Gifting for a group? <Link prefetch={false} href="/bulk-orders">Plan wedding & bulk gifts</Link></p>
             <nav className={styles.contactLink} aria-label="About the shop and customer experiences"><Link prefetch={false} href="/about">Meet Sneha</Link><span aria-hidden="true"> · </span><Link prefetch={false} href="/customer-stories">Customer stories</Link></nav>
           </section>
         </div>
@@ -132,8 +141,8 @@ export function ProductDetailView({ product, children }: { product: Product; chi
       {children}
     </div>
     <aside className={styles.mobileBar} aria-label="Quick purchase" hidden={inlineActionsVisible || orderOpen || zoomOpen}>
-      <div><strong>{formatPrice(product.price * quantity)}</strong><span>{quantity} {quantity === 1 ? "item" : "items"} · delivery extra</span></div>
-      {product.inStock === false ? <button type="button" className={order.primary} aria-haspopup="dialog" onClick={() => setOrderOpen(true)}>Ask Sneha</button> : <AddToCartButton productId={product.id} productName={product.name} quantity={quantity} />}
+      <div><strong>{formatPrice(product.price * quantity)}</strong><span>{needsPhoto ? "Listed price · delivery extra" : `${quantity} ${quantity === 1 ? unit.one : unit.many} · delivery extra`}</span></div>
+      {needsPhoto || product.inStock === false ? <button type="button" className={order.primary} aria-haspopup="dialog" onClick={openOrder}>{needsPhoto ? "Request a photo" : "Ask Sneha"}</button> : <AddToCartButton productId={product.id} productName={product.name} quantity={quantity} />}
     </aside>
     <WhatsAppOrderSheet product={product} open={orderOpen} onClose={() => setOrderOpen(false)} quantity={quantity} onQuantityChange={setQuantity} />
     <dialog ref={zoomRef} className={styles.zoom} aria-labelledby={zoomTitleId} onCancel={event => { event.preventDefault(); setZoomOpen(false); }}>

@@ -31,7 +31,7 @@ export function orderDeliveryLines(pincode?: string, date?: string): string[] {
   return ["", "*Delivery*", ...(pincode ? [`Delivery PIN code: ${pincode}`] : []), ...(date ? [`Occasion date: ${formatOrderDate(date)}`] : [])];
 }
 /** Only explicit catalogue facts; no generated sales copy or inferred specs. */
-export function productOrderFacts(product: Pick<Product, "details">): string[] {
+export function productOrderFacts(product: Pick<Product, "details"> & Partial<Pick<Product, "description">>): string[] {
   return getProductHighlights(product)
     .filter(fact => ["Size", "Material", "Included"].includes(fact.label))
     .map(fact => `${fact.label}: ${oneLine(fact.value)}`)
@@ -82,6 +82,18 @@ export function createWhatsAppLink(message: string): string {
 }
 export function generateProductOrderMessage(product: Product, customizationInterest?: string, quantity = 1, deliveryPincode?: string, occasionDate?: string): string {
   return generateOrderMessage({productName:product.name,category:product.category,price:product.price,quantity,inStock:product.inStock,customizationInterest,deliveryPincode,occasionDate,facts:productOrderFacts(product),productUrl:`${getSiteUrl()}${getProductPath(product)}`});
+}
+/** Help a buyer see an unphotographed piece before starting an order. */
+export function generateProductPhotoRequest(product: Product, request?: string): string {
+  return [orderEnquiryHeading("Product photo"), "From: KumaonRang website", "",
+    `Product: ${oneLine(product.name)}`, `Category: ${product.category}`,
+    `Listed price: ${formatOrderAmount(product.price)}`,
+    ...productOrderFacts(product),
+    `Product link: ${getSiteUrl()}${getProductPath(product)}`, "",
+    "Please share a current photograph of this exact piece, its dimensions and what is included so I can decide.",
+    ...(product.inStock === false ? ["Please also confirm when it will be available."] : []),
+    ...(request?.trim() ? ["", "My question:", quoteOrderRequest(request)] : []),
+  ].join("\n");
 }
 export function generateWhatsAppOrderLink(product: Product, customizationInterest?: string, quantity = 1, deliveryPincode?: string, occasionDate?: string): string {
   return createWhatsAppLink(generateProductOrderMessage(product,customizationInterest,quantity,deliveryPincode,occasionDate));

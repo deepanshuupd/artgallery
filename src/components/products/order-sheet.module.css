@@ -9,6 +9,7 @@
 .productSummary { display: grid; grid-template-columns: 72px minmax(0,1fr); gap: 16px; align-items: center; padding-bottom: 22px; }
 .summaryImage { position: relative; width: 72px; height: 84px; border-radius: 6px; background: white; overflow: hidden; }
 .summaryImage img { object-fit: contain; padding: 4px; }
+.summaryImage > svg { position: absolute; inset: 0; margin: auto; color: #526963; }
 .productSummary p { font-size: 11px; color: #526963; }
 .productSummary h3 { margin: 4px 0 8px; font: 600 16px/1.4 var(--font-body), sans-serif; overflow-wrap: anywhere; }
 .productSummary span { font-size: 15px; font-weight: 600; }
@@ -42,6 +43,10 @@
 @media (min-width: 768px) { .dialog { inset: 0; margin: auto; border-radius: 16px; max-height: 90dvh; } .sheetHeader { padding: 24px 28px 18px; } .sheetBody { padding: 22px 28px; } .sheetFooter { padding: 20px 28px; } }
 @media (prefers-reduced-motion: reduce) { .dialog[open] { animation: none; } .primary { transition: none; } }
 .deliveryFields { display: grid; gap: 16px; margin-block: 20px; }
+.optionalDetails { margin-top: 20px; border-block: 1px solid #d9e1de; }
+.optionalDetails > summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 52px; padding-block: 10px; color: #28564f; font-size: 13px; font-weight: 600; cursor: pointer; }
+.optionalDetails > summary > span { color: #526963; font-size: 11px; font-weight: 400; }
+.optionalDetails[open] { padding-bottom: 14px; }
 .deliveryFields label { display: grid; gap: 7px; min-width: 0; font-size: 12px; color: #263c46; }
 .deliveryFields label > span { color: #526963; font-size: 10px; }
 .deliveryFields input { width: 100%; min-width: 0; min-height: 44px; padding: 10px 12px; border: 1px solid #b9c6c7; border-radius: 6px; background: #fff; color: #263c46; font: 16px/1.5 var(--font-body), sans-serif; }

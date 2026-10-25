@@ -8,6 +8,7 @@ import { WhatsAppIcon, ArrowRightIcon } from "@/components/icons";
 import { HamperBasketArt, HamperPieceArt } from "./hamper-art";
 import styles from "./hamper-builder.module.css";
 import { OrderMessagePreview } from "@/components/products/order-message-preview";
+import { commerceEvent } from "@/lib/commerce-events";
 
 const stepNames = ["Pick your pieces", "Make it personal", "Review & share"];
 const localDate = () => {
@@ -113,6 +114,7 @@ export function HamperBuilder() {
     const first = Object.keys(nextErrors)[0];
     if (first) { document.getElementById(`hamper-${first}`)?.focus(); return; }
     visit(2);
+    commerceEvent("enquiry_review", "hamper_builder");
   }
 
   return <div className={styles.builder} data-hamper-builder data-step={step}>
@@ -168,7 +170,7 @@ export function HamperBuilder() {
         {step===2 && <div className={styles.review}>
           <div className={styles.reviewCard}><div className={styles.reviewTitle}><p className="craft-eyebrow">In each hamper</p><button type="button" onClick={() => visit(0)}>Edit pieces</button></div><ul>{picks.map(piece => <li key={piece.id}><HamperPieceArt id={piece.id} /><span>{piece.name}</span><strong>× {piece.quantity}</strong></li>)}</ul>{draft.extra.trim() && <div className={styles.requestReview}><p>Other-item / design request</p><p>{draft.extra}</p><small>Availability to be checked by Sneha.</small></div>}</div>
           <div className={styles.reviewCard}><div className={styles.reviewTitle}><p className="craft-eyebrow">The personal details</p><button type="button" onClick={() => visit(1)}>Edit details</button></div><dl><div><dt>Hampers</dt><dd>{draft.hampers}</dd></div>{draft.recipient.trim() && <div><dt>For</dt><dd>{draft.recipient}</dd></div>}{draft.occasion && <div><dt>Occasion</dt><dd>{draft.occasion}</dd></div>}{draft.pincode && <div><dt>Delivery PIN</dt><dd>{draft.pincode}</dd></div>}{draft.date && <div><dt>Occasion date</dt><dd>{draft.date}</dd></div>}</dl>{draft.giftNote.trim() && <blockquote>{draft.giftNote}</blockquote>}</div>
-          <div className={styles.sendCard}><span aria-hidden="true">✦</span><h3>Over to Sneha, with love.</h3><p>She’ll check your choices and any special requests, then confirm packaging, availability, price and delivery with you.</p>{hasHamperSelection(draft) && <OrderMessagePreview message={generateHamperMessage(draft)} />}{hasHamperSelection(draft) ? <a className={styles.primary} href={createHamperWhatsAppLink(draft)} target="_blank" rel="noopener noreferrer"><WhatsAppIcon />Share my hamper on WhatsApp</a> : <button className={styles.primary} type="button" onClick={() => visit(0)}>Choose a piece or add a request</button>}<small>Review the draft and press send in WhatsApp. Nothing is sent automatically; Sneha confirms the final quote and delivery.</small></div>
+          <div className={styles.sendCard}><span aria-hidden="true">✦</span><h3>Over to Sneha, with love.</h3><p>She’ll check your choices and any special requests, then confirm packaging, availability, price and delivery with you.</p>{hasHamperSelection(draft) && <OrderMessagePreview message={generateHamperMessage(draft)} />}{hasHamperSelection(draft) ? <a className={styles.primary} href={createHamperWhatsAppLink(draft)} target="_blank" rel="noopener noreferrer" onClick={() => commerceEvent("whatsapp_handoff", "hamper_builder")}><WhatsAppIcon />Share my hamper on WhatsApp</a> : <button className={styles.primary} type="button" onClick={() => visit(0)}>Choose a piece or add a request</button>}<small>Review the draft and press send in WhatsApp. Nothing is sent automatically; Sneha confirms the final quote and delivery.</small></div>
         </div>}
       </section>
     </div>

@@ -24,6 +24,9 @@ promises before confirming them.
 
 The website now promotes explicitly labelled size, material, personalisation and
 minimum-order facts. Original descriptions and detail lines remain available.
+Explicit `What's Included` or `Package contents` headings followed by bullet lists
+are also supported for older hamper descriptions. Only the supplied list is used;
+photographed props and marketing prose are not inferred to be included.
 Labels such as `Size:`, `Material:` and `Customisation:` make future catalogue edits
 appear in the summary automatically. Keep related restrictions in the same line;
 care instructions remain in the full details to avoid separating warnings from

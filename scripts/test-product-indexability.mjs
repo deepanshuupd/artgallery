@@ -29,6 +29,7 @@ function load(file) {
     if (name.endsWith('.module.css')) return new Proxy({}, { get: (_, key) => String(key) });
     if (name.startsWith('@/') || name.startsWith('.')) {
       const base = name.startsWith('@/') ? resolve(root, 'src', name.slice(2)) : resolve(dirname(path), name);
+      if (base.endsWith('.json')) return require(base);
       const target = [base + '.ts', base + '.tsx'].find(existsSync);
       if (!target) throw new Error(`Unknown local import: ${name}`);
       return load(target);
@@ -54,7 +55,7 @@ const piece = overrides => ({
   whatsappMessage: '', published: true, inStock: true, ...overrides,
 });
 const original = piece();
-const factual = piece({ details: ['**Frame size** : 14inch', 'Base: MDF', 'Customisation: Name only; design unchanged', 'Minimum order quantity = 10pc', 'Size: 12inch', 'A lovely gift', 'Care: Soft dry cloth'] });
+const factual = piece({ image: '/images/piece.webp', details: ['**Frame size** : 14inch', 'Base: MDF', 'Customisation: Name only; design unchanged', 'Minimum order quantity = 10pc', 'Size: 12inch', 'A lovely gift', 'Care: Soft dry cloth'] });
 assert.deepEqual(getProductHighlights(factual), [
   { label: 'Minimum order', value: '10pc' },
   { label: 'Size', value: '14inch; 12inch' },
@@ -117,7 +118,7 @@ assert.equal(slugify('Caféine DéCOR 🎨'), 'cafeine-decor');
 assert.equal(getProductByPublicSlug([piece({ published: false })], 'aipan-frames', original.slug), undefined);
 
 for (const stock of [true, false, undefined]) {
-  catalog = [piece({ inStock: stock })];
+  catalog = [piece({ inStock: stock, image: '/images/piece.webp' })];
   const props = { params: Promise.resolve({ category: 'aipan-frames', slug: original.slug }) };
   const metadata = await generateMetadata(props);
   assert.equal(metadata.alternates.canonical, 'https://www.kumaonrang.com/aipan-frames/om-aipan-wall-decor');

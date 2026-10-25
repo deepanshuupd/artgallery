@@ -9,6 +9,7 @@ import { getProductPath } from "@/lib/catalog";
 import { formatPrice, getDiscount } from "@/lib/pricing";
 import { AddToCartButton } from "@/components/cart/cart-controls";
 import { getMinimumPieceQuantity } from "@/lib/product-highlights";
+import { CameraIcon } from "@/components/icons";
 
 export function ProductCard({ product, priority = false, sizes = "(max-width: 767px) calc((100vw - 56px) / 2), (max-width: 1199px) calc((100vw - 104px) / 2), 384px" }: { product: Product; priority?: boolean; sizes?: string }) {
   const [failed, setFailed] = useState(false);
@@ -22,7 +23,7 @@ export function ProductCard({ product, priority = false, sizes = "(max-width: 76
           fetchPriority={priority ? "high" : undefined}
           sizes={sizes}
           className="object-contain" onError={() => setFailed(true)}
-        /> : <div className="store-product__placeholder"><span>Kumaonरंग</span><small>Photo coming soon</small></div>}
+        /> : <div className="store-product__placeholder"><CameraIcon className="h-7 w-7" /><span>Take a closer look</span><small>{image.src ? "Photo unavailable" : "Photo on request"}</small></div>}
         {discount && <span className="store-product__badge">{discount.percent}% off</span>}
       </div>
       <div className="store-product__copy">
@@ -34,6 +35,6 @@ export function ProductCard({ product, priority = false, sizes = "(max-width: 76
         <span className="store-product__action">View product</span>
       </div>
     </Link>
-    <AddToCartButton productId={product.id} productName={product.name} quantity={getMinimumPieceQuantity(product)} unavailable={product.inStock === false} compact />
+    {image.src ? <AddToCartButton productId={product.id} productName={product.name} quantity={getMinimumPieceQuantity(product)} unavailable={product.inStock === false} compact /> : <Link prefetch={false} href={`${getProductPath(product)}#product-order-title`} className="store-product__photo-request">Request a photo</Link>}
   </article>;
 }

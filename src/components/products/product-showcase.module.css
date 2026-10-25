@@ -1,0 +1,8 @@
+.compactToolbar { position: relative; padding-block: 8px; }
+.compactToolbar > :global(.store-results) { flex-wrap: wrap; justify-content: flex-start; gap: 4px 12px; min-height: 44px; margin: 0; padding-right: 124px; }
+.toolsDisclosure > summary { position: absolute; top: 8px; right: 0; display: flex; align-items: center; gap: 12px; min-height: 44px; color: #28564f; font-size: 12px; font-weight: 600; cursor: pointer; list-style: none; }
+.toolsDisclosure > summary::-webkit-details-marker { display: none; }
+.toolsDisclosure > summary > span { font-size: 20px; font-weight: 400; }
+.toolsDisclosure[open] > summary > span { transform: rotate(45deg); }
+.toolsDisclosure > :global(.store-tools) { padding: 8px 0 4px; }
+.toolsDisclosure > summary:focus-visible { outline: 2px solid #28564f; outline-offset: 2px; }

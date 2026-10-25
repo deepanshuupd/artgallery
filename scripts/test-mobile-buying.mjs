@@ -14,17 +14,20 @@ const compiled = ts.transpileModule(source, {
 const element = React.createElement;
 const product = {
   id: 'frame', name: 'Aipan frame', category: 'Frames', price: 1400,
+  image: '/images/frame.webp', images: [],
   description: 'A hand-painted frame. A longer story.', details: ['MDF base'], inStock: true,
 };
 function load(react = React, observer) {
-  const module = { exports: {} };
+  const loadedModule = { exports: {} };
   const imports = {
     react,
     'next/image': ({ fill, priority, ...props }) => element('img', props),
     'next/link': ({ prefetch, ...props }) => element('a', props),
-    '@/lib/product-image': { getProductImageUrls: () => [], getProductImage: () => ({}) },
+    '@/lib/product-image': { getProductImageUrls: p => p.image ? [p.image] : [], getProductImage: (p, src) => ({ src, cardSrc: src, alt: p.name }) },
     '@/lib/pricing': { formatPrice: value => `INR ${value}`, getDiscount: () => null },
-    '@/components/icons': { WhatsAppIcon: () => null },
+    '@/lib/commerce-events': { commerceEvent() {} },
+    '@/lib/whatsapp': { orderUnit: (_name, category) => category === 'Curated Hampers' ? { one: 'hamper', many: 'hampers' } : { one: 'item', many: 'items' } },
+    '@/components/icons': { WhatsAppIcon: () => null, CameraIcon: () => null },
     './whatsapp-order-sheet': { WhatsAppOrderSheet: () => null },
     './quantity-control': { QuantityControl: ({ value, minimum }) => element('input', { 'aria-label': 'Quantity', value, min: minimum, readOnly: true }) },
     './use-product-dialog': { useProductDialog: () => ({ current: null }) },
@@ -37,8 +40,8 @@ function load(react = React, observer) {
   const localRequire = name => name.endsWith('.module.css')
     ? { __esModule: true, default: new Proxy({}, { get: (_, key) => String(key) }) }
     : imports[name] ?? require(name);
-  new Function('require', 'module', 'exports', 'IntersectionObserver', compiled)(localRequire, module, module.exports, observer);
-  return module.exports.ProductDetailView;
+  new Function('require', 'module', 'exports', 'IntersectionObserver', compiled)(localRequire, loadedModule, loadedModule.exports, observer);
+  return loadedModule.exports.ProductDetailView;
 }
 const View = load();
 const render = overrides => renderToStaticMarkup(element(View, { product: { ...product, ...overrides } }));
@@ -50,11 +53,11 @@ test('quick purchase is available in initial HTML, with subtotal and delivery ca
   assert.match(html, /1 item · delivery extra/);
   assert.doesNotMatch(html, /<aside[^>]*hidden/);
 });
-test('buying precedes specs and expandable fulfilment without removing policy details', () => {
+test('concise factual highlights precede buying, while fulfilment remains expandable', () => {
   const html = render();
   const actions = html.indexOf('class="buyingActions"');
   assert.ok(actions < html.indexOf('class="fulfilmentDetails"'));
-  assert.ok(actions < html.indexOf('class="highlights"'));
+  assert.ok(html.indexOf('class="highlights"') < actions);
   assert.match(html, /<details class="fulfilmentDetails"><summary>/);
   assert.match(html, /dispatch takes 2–3 days/);
   assert.match(html, /Change-of-mind returns aren’t accepted/);
@@ -70,6 +73,17 @@ test('quick purchase respects minimum quantities and out-of-stock enquiries', ()
   assert.match(out, /<button disabled="" data-quantity="1">Add to cart/);
   assert.match(out, /Ask Sneha<\/button><\/aside>/);
   assert.doesNotMatch(out, /dispatch takes 2–3 days/);
+});
+test('an unphotographed piece offers a photo enquiry before a purchase', () => {
+  const html = render({ image: '' });
+  assert.match(html, /A closer look, first/);
+  assert.match(html, /Request a photo/);
+  assert.match(html, /current photo and dimensions/);
+  assert.doesNotMatch(html, /Add to cart|Photo coming soon|aria-label="Quantity"/);
+  assert.match(html, /Listed price · delivery extra/);
+});
+test('the mobile subtotal identifies a ready-made hamper rather than an individual piece', () => {
+  assert.match(render({ category: 'Curated Hampers' }), /1 hamper · delivery extra/);
 });
 test('one observer hides only the duplicate bar and disconnects on unmount', () => {
   const effects = [], updates = [];

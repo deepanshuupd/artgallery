@@ -15,6 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/collection",
     "/curated-hampers",
     "/build-your-hamper",
+    "/bulk-orders",
     "/uttarakhand-gifts",
     "/aipan-art",
     "/about",
