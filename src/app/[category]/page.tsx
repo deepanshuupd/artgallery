@@ -18,7 +18,8 @@ export async function generateMetadata({ params }: Props) {
   if (!collection) return { title: "Collection not found", robots: { index: false } };
   const products = await getProducts();
   const hasProducts = products.some(product => product.category === collection.category);
-  const representative = getGiftGuideIdeas(products).find(idea => idea.category === collection.category)?.product;
+  const representative = getGiftGuideIdeas(products).find(idea => idea.category === collection.category)?.product ??
+    products.find(product => product.category === collection.category && getProductImage(product).src);
   const image = representative ? getProductImage(representative) : undefined;
   return {
     ...pageMetadata({ title: collection.title, description: collection.description, path: `/${collection.slug}`,

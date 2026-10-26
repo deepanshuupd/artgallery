@@ -149,4 +149,14 @@ function harness(initial = {}, options = {}) {
   assert.ok(!Object.hasOwn(draft.calls.saved[0], 'slug'), 'Routine form edits cannot replace the permanent URL');
   console.log('PASS stock and publication save independently, preserving permanent URLs');
 }
-console.log('Product form: 6 isolated workflow groups passed. No external writes.');
+{
+  const form = harness({ name: 'Decorative piece', category: 'Frames', price: '400' });
+  const options = form.field('category').props.children.flat();
+  assert.ok(options.some(option => option.props.value === 'Home Decor'), 'Home Decor is selectable in the admin form');
+  form.field('category').props.onChange({ target: { value: 'Home Decor' } }); form.render();
+  await form.save();
+  assert.equal(form.calls.saved[0].category, 'Home Decor');
+  assert.ok(!Object.hasOwn(form.calls.saved[0], 'url_category'), 'Recategorising must preserve the original public URL');
+  console.log('PASS Home Decor selection and save preserve permanent URL fields');
+}
+console.log('Product form: 7 isolated workflow groups passed. No external writes.');

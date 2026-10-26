@@ -7,6 +7,7 @@ import type { Product, ProductCategory } from "@/types/product";
 const categoryPaths: Record<ProductCategory, string> = {
   Keychains: "pahadi-keychains",
   Frames: "aipan-frames",
+  "Home Decor": "home-decor",
   "Fridge Magnets": "uttarakhand-souvenirs",
   "Personalized Gifts": "kumaoni-gifts",
   "Curated Hampers": "curated-hampers",

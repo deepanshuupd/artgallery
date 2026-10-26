@@ -43,7 +43,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     staticEntries.push(...collections
       .filter(collection => products.some(product => product.category === collection.category))
       .map(collection => {
-        const representative = ideas.find(idea => idea.category === collection.category)?.product;
+        const representative = ideas.find(idea => idea.category === collection.category)?.product ??
+          products.find(product => product.category === collection.category && getProductImage(product).src);
         return { url: `${siteUrl}/${collection.slug}`, changeFrequency: "weekly" as const, priority: 0.8,
           ...(representative ? { images: [new URL(getProductImage(representative).src, siteUrl).href] } : {}),
         };

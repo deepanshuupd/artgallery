@@ -1,6 +1,7 @@
 export type ProductCategory =
   | "Keychains"
   | "Frames"
+  | "Home Decor"
   | "Fridge Magnets"
   | "Personalized Gifts"
   | "Curated Hampers";

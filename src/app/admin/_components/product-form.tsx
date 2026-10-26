@@ -13,6 +13,7 @@ import type { Product, ProductCategory } from "@/types/product";
 const CATEGORIES: ProductCategory[] = [
   "Keychains",
   "Frames",
+  "Home Decor",
   "Fridge Magnets",
   "Personalized Gifts",
   "Curated Hampers",

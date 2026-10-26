@@ -20,6 +20,15 @@ export const collections = [
     detail: "Explore Om, Ganesh and Golu Devta designs, Pichora-inspired backgrounds and traditional jewellery display frames. A personal photo frame offers another way to make a corner feel like home.",
   },
   {
+    category: "Home Decor", slug: "home-decor", label: "Home decor",
+    title: "Home Decor & Decorative Gifts",
+    heading: "Home decor",
+    description: "Explore home decor at KumaonRang. Compare decorative pieces for your space, check their size and materials, and ask about availability before ordering.",
+    intro: "Thoughtful details for your space. Find a decorative piece for a favourite corner, or choose something for a home you love.",
+    note: "Choose a piece that fits your space",
+    detail: "Check the dimensions, materials and display instructions on each listing. Think about where the piece will sit or hang, and confirm any details you need before ordering.",
+  },
+  {
     category: "Fridge Magnets", slug: "uttarakhand-souvenirs", label: "Fridge magnets",
     title: "Uttarakhand Fridge Magnets & Pahadi Souvenirs",
     heading: "Uttarakhand fridge magnets",
@@ -80,6 +89,19 @@ const collectionGuides: Record<string, {
       },
     ],
     guide: { lead: "Curious about the art behind these pieces?", href: "/aipan-art", label: "Read our guide to Aipan art" },
+  },
+  "home-decor": {
+    questions: [
+      {
+        question: "What should I check before choosing home decor?",
+        answer: "Compare the listed dimensions and material with the space you have in mind. Check whether the piece stands, hangs or needs any additional fittings. Ask Sneha about anything not shown in the listing.",
+      },
+      {
+        question: "Can I personalise a decorative piece for a gift?",
+        answer: "Options depend on the individual product. Share the product link, your idea and the occasion date so the available changes, price and preparation time can be confirmed before ordering.",
+      },
+    ],
+    guide: { lead: "Choosing something for another home?", href: "/uttarakhand-gifts", label: "Explore our Uttarakhand gift guide" },
   },
   "uttarakhand-souvenirs": {
     questions: [

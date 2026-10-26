@@ -55,6 +55,12 @@ const piece = overrides => ({
   whatsappMessage: '', published: true, inStock: true, ...overrides,
 });
 const original = piece();
+const homeDecor = piece({ id: 'home-piece', name: 'Decorative piece', slug: 'decorative-piece', category: 'Home Decor', urlCategory: 'Home Decor' });
+assert.equal(getProductPath(homeDecor), '/home-decor/decorative-piece');
+assert.equal(getProductByPublicSlug([homeDecor], 'home-decor', 'decorative-piece'), homeDecor);
+const movedDecor = { ...original, category: 'Home Decor' };
+assert.equal(getProductPath(movedDecor), '/aipan-frames/om-aipan-wall-decor', 'Moving existing items keeps their indexed URLs');
+assert.equal(getProductByPublicSlug([movedDecor], 'aipan-frames', original.slug), movedDecor);
 const factual = piece({ image: '/images/piece.webp', details: ['**Frame size** : 14inch', 'Base: MDF', 'Customisation: Name only; design unchanged', 'Minimum order quantity = 10pc', 'Size: 12inch', 'A lovely gift', 'Care: Soft dry cloth'] });
 assert.deepEqual(getProductHighlights(factual), [
   { label: 'Minimum order', value: '10pc' },
