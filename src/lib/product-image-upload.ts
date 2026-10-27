@@ -1,3 +1,5 @@
+import { createProductWebpEncoder, type ProductWebpEncoder } from "./product-webp-encoder";
+
 // Byte targets guide compression; input size and resolution are not restricted.
 export const PRODUCT_IMAGE_VARIANTS = {
   detail: { maxDimension: 1920, targetBytes: 550 * 1024 },
@@ -56,7 +58,7 @@ async function decodeImage(file: File): Promise<DecodedImage> {
   throw new Error(`Could not read ${file.name}. This image format is not supported by this browser or the file is damaged.`);
 }
 
-async function compress(image: DecodedImage, name: string, maxDimension: number, targetBytes: number): Promise<EncodedImage> {
+async function compress(image: DecodedImage, name: string, maxDimension: number, targetBytes: number, encoder: ProductWebpEncoder): Promise<EncodedImage> {
   const canvas = document.createElement("canvas");
   const context = canvas.getContext("2d");
   if (!context) throw new Error("The browser could not prepare this image.");
@@ -72,10 +74,7 @@ async function compress(image: DecodedImage, name: string, maxDimension: number,
       context.imageSmoothingQuality = "high";
       context.drawImage(image.source, 0, 0, canvas.width, canvas.height);
       for (const quality of [0.92, 0.89, 0.86]) {
-        const blob = await new Promise<Blob>((resolve, reject) => {
-          canvas.toBlob(result => result ? resolve(result) : reject(new Error("Image compression failed. Please retry.")), "image/webp", quality);
-        });
-        if (blob.type !== "image/webp") throw new Error("This browser cannot save WebP photos. Please use an updated browser.");
+        const blob = await encoder.encode(canvas, quality);
         const candidate = { blob, width: canvas.width, height: canvas.height };
         if (!best || blob.size < best.blob.size) best = candidate;
         if (blob.size <= targetBytes) {
@@ -93,13 +92,15 @@ async function compress(image: DecodedImage, name: string, maxDimension: number,
 /** Process once in the admin's browser; preserve orientation, aspect and transparency. */
 export async function prepareProductImages(file: File): Promise<PreparedProductImages> {
   const image = await decodeImage(file);
+  const encoder = createProductWebpEncoder();
   try {
     if (!image.width || !image.height) throw new Error(`Could not read the dimensions of ${file.name}.`);
     const name = file.name.replace(/\.[^.]+$/, "");
-    const detail = await compress(image, `${name}.webp`, PRODUCT_IMAGE_VARIANTS.detail.maxDimension, PRODUCT_IMAGE_VARIANTS.detail.targetBytes);
-    const card = await compress(image, `${name}-card.webp`, PRODUCT_IMAGE_VARIANTS.card.maxDimension, PRODUCT_IMAGE_VARIANTS.card.targetBytes);
+    const detail = await compress(image, `${name}.webp`, PRODUCT_IMAGE_VARIANTS.detail.maxDimension, PRODUCT_IMAGE_VARIANTS.detail.targetBytes, encoder);
+    const card = await compress(image, `${name}-card.webp`, PRODUCT_IMAGE_VARIANTS.card.maxDimension, PRODUCT_IMAGE_VARIANTS.card.targetBytes, encoder);
     return { detail: detail.file, card: card.file, width: detail.width, height: detail.height, cardWidth: card.width, cardHeight: card.height };
   } finally {
+    encoder.close();
     image.close();
   }
 }

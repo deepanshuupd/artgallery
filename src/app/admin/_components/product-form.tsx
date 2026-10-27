@@ -74,6 +74,7 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [uploadStatus, setUploadStatus] = useState("");
 
   function set<K extends keyof FormValues>(key: K, value: FormValues[K]) {
     setValues((prev) => ({ ...prev, [key]: value }));
@@ -154,10 +155,14 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
 
     const uploadedUrls: string[] = [];
     const uploadedMetadata: ImageMetadataMap = {};
+    let activeFile = "";
 
     try {
-      for (const file of filesToUpload) {
+      for (const [fileIndex, file] of filesToUpload.entries()) {
+        activeFile = file.name;
+        setUploadStatus(`Preparing photo ${fileIndex + 1} of ${filesToUpload.length} as WebP…`);
         const variants = await prepareProductImages(file);
+        setUploadStatus(`Uploading photo ${fileIndex + 1} of ${filesToUpload.length}…`);
         const stem = createProductImageStem(productName, crypto.randomUUID());
         const paths = [`${stem}-card.webp`, `${stem}.webp`];
         // Publish the detail URL only after both files exist.
@@ -185,7 +190,7 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
         };
       }
     } catch (error) {
-      setError(error instanceof Error ? error.message : "Image upload failed.");
+      setError(`${activeFile ? `Photo “${activeFile}”: ` : ""}${error instanceof Error ? error.message : "Image upload failed. Please retry."} Your product details and any photos already uploaded are still here.`);
     } finally {
       // Merge with the latest fields: editing an existing photo's caption while
       // another photo uploads must not lose that work.
@@ -199,6 +204,7 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
         };
       });
       setUploading(false);
+      setUploadStatus(uploadedUrls.length ? `${uploadedUrls.length} ${uploadedUrls.length === 1 ? "photo is" : "photos are"} ready. Save the product when you’re finished.` : "");
       if (fileRef.current) fileRef.current.value = "";
     }
   }
@@ -270,7 +276,7 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {error && (
-        <div className="rounded-md bg-red-50 p-3 text-sm text-red-700">
+        <div role="alert" className="rounded-md bg-red-50 p-3 text-sm text-red-700">
           {error}
         </div>
       )}
@@ -326,7 +332,7 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
               className="min-h-11 rounded-md border border-stone-300 bg-white px-4 py-2 text-sm text-stone-700 hover:bg-stone-50 disabled:opacity-50"
             >
               {uploading
-                ? "Uploading…"
+                ? "Preparing photos…"
                 : `Choose Images (${values.image_urls.length}/${MAX_IMAGES})`}
             </button>
             <p className="text-xs text-stone-500">
@@ -335,6 +341,7 @@ export function ProductForm({ mode, productId, initial }: ProductFormProps) {
                 : "Enter the product name first to give your photos descriptive filenames."}
             </p>
           </div>
+          <p role="status" aria-live="polite" className="text-xs text-stone-600">{uploadStatus}</p>
 
           {values.image_urls.length > 0 && (
             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">

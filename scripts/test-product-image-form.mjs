@@ -5,7 +5,7 @@ import ts from 'typescript';
 // Exercise the real form handlers with in-memory React/Storage stubs.
 // No browser session, credentials, uploads or database writes.
 function load(file, stubs) {
-  const module = { exports: {} };
+  const loadedModule = { exports: {} };
   const { outputText } = ts.transpileModule(readFileSync(file, 'utf8'), {
     compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, jsx: ts.JsxEmit.ReactJSX },
   });
@@ -13,9 +13,9 @@ function load(file, stubs) {
     if (Object.hasOwn(stubs, name)) return stubs[name];
     throw new Error(`Unexpected dependency in isolated test: ${name}`);
   };
-  new Function('require', 'module', 'exports', 'document', 'crypto', outputText)(require, module, module.exports,
+  new Function('require', 'module', 'exports', 'document', 'crypto', outputText)(require, loadedModule, loadedModule.exports,
     { getElementById: () => ({ focus() {} }) }, { randomUUID: () => 'test-unique-id' });
-  return module.exports;
+  return loadedModule.exports;
 }
 const helpers = load('src/lib/product-image.ts', {});
 const prefix = 'https://example.supabase.co/storage/v1/object/public/product-images/';
@@ -159,4 +159,29 @@ function harness(initial = {}, options = {}) {
   assert.ok(!Object.hasOwn(form.calls.saved[0], 'url_category'), 'Recategorising must preserve the original public URL');
   console.log('PASS Home Decor selection and save preserve permanent URL fields');
 }
-console.log('Product form: 7 isolated workflow groups passed. No external writes.');
+{
+  const form = harness({ name: 'Aipan frame', price: '1400', image_url: first, image_urls: [first] },
+    { prepare: async () => { throw new Error('The photo converter could not load.'); } });
+  await form.upload([{ name: 'iphone-photo.jpg' }]); form.render();
+  assert.equal(form.calls.uploads.length, 0, 'Never upload the original or PNG bytes when WebP preparation fails');
+  assert.deepEqual(form.state[0].image_urls, [first]);
+  assert.equal(form.state[0].name, 'Aipan frame');
+  assert.equal(form.state[1], false, 'Release the upload controls after failure');
+  assert.match(form.state[3], /iphone-photo.jpg/);
+  assert.match(form.state[3], /details.*still here/);
+  console.log('PASS conversion failure preserves details and existing photos with no storage writes');
+}
+{
+  let count = 0;
+  const form = harness({ name: 'Aipan frame', price: '1400' }, { prepare: async () => {
+    if (++count === 2) throw new Error('Damaged photo');
+    return variants;
+  } });
+  await form.upload([{ name: 'first.jpg' }, { name: 'damaged.jpg' }]); form.render();
+  assert.equal(form.calls.uploads.length, 2, 'Only the successfully prepared first pair is uploaded');
+  assert.equal(form.state[0].image_urls.length, 1);
+  assert.match(form.state[3], /damaged.jpg/);
+  assert.match(form.state[4], /1 photo is ready/);
+  console.log('PASS later photo failure keeps the earlier successful upload and names the failed file');
+}
+console.log('Product form: 9 isolated workflow groups passed. No external writes.');

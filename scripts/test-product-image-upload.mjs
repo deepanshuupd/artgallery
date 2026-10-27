@@ -8,6 +8,12 @@ const { outputText } = ts.transpileModule(readFileSync('src/lib/product-image-up
   compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 },
 });
 const canvases = [];
+const encoderModule = { exports: {} };
+const encoderCode = ts.transpileModule(readFileSync('src/lib/product-webp-encoder.ts', 'utf8'), {
+  compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 },
+}).outputText.replaceAll('import.meta.url', '"file:///test/product-webp-encoder.ts"');
+new Function('module', 'exports', 'Worker', encoderCode)(encoderModule, encoderModule.exports,
+  class UnexpectedWorker { constructor() { throw new Error('Native WebP must not load the fallback worker'); } });
 let closed = 0;
 const document = { createElement: tag => {
   assert.equal(tag, 'canvas');
@@ -18,12 +24,14 @@ const document = { createElement: tag => {
       // Every result exceeds its soft byte budget. The first, full-sized result
       // wins, even though a smaller canvas is tried later and finally cleared.
       const bytes = (canvases.indexOf(canvas) === 0 ? 600000 : 180000) + canvas.calls++ * 20000;
-      callback(new Blob([new Uint8Array(bytes)], { type: mime }));
+      const data = new Uint8Array(bytes);
+      data.set(new TextEncoder().encode('RIFF'), 0); data.set(new TextEncoder().encode('WEBP'), 8);
+      callback(new Blob([data], { type: mime }));
     } };
   canvases.push(canvas); return canvas;
 } };
 new Function('require', 'module', 'exports', 'document', 'createImageBitmap', outputText)(
-  () => { throw new Error('Native decode succeeds; HEIC must not be loaded'); }, module, module.exports, document,
+  name => { if (name === './product-webp-encoder') return encoderModule.exports; throw new Error('Native decode succeeds; HEIC must not be loaded'); }, module, module.exports, document,
   async () => ({ width: 4000, height: 3000, close() { closed++; } }),
 );
 const result = await module.exports.prepareProductImages(new File(['source'], 'artwork.jpg', { type: 'image/jpeg' }));
