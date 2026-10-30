@@ -94,7 +94,7 @@ test("message evidence is pixel-identical to the authorized original crops", {
 test("homepage placement and lightweight, accessible enhancement stay intact", () => {
   const homepage = read("src/app/page.tsx");
   assert.ok(homepage.indexOf("<FeaturedCollections") < homepage.indexOf("<CustomerNotes"));
-  assert.ok(homepage.indexOf("<CustomerNotes") < homepage.indexOf("<HeritageStory"));
+  assert.ok(homepage.indexOf("<CustomerNotes") < homepage.indexOf("<HomeStory"));
   const wall = read("src/components/home/customer-notes-wall.tsx");
   const section = read("src/components/home/customer-notes.tsx");
   const stories = read("src/app/customer-stories/page.tsx");

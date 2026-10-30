@@ -1,0 +1,47 @@
+.doorway { background: var(--home-paper); color: var(--home-ink); border-bottom: 1px solid var(--home-section-border); }
+.inner { display: grid; justify-items: center; gap: 22px; width: min(100% - 40px, 1120px); margin-inline: auto; padding-block: 20px 28px; }
+
+/* Arched doorway with a fine painted frame; the figure stands inside it. */
+.entrance { display: grid; justify-items: center; width: min(58vw, 236px); }
+.arch { position: relative; width: 100%; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 999px 999px 0 0; background: radial-gradient(circle at 50% 30%, #edf3ef, #d6e4df 72%); box-shadow: inset 0 0 0 5px var(--home-paper), inset 0 0 0 6px #99483159; }
+.welcome { position: absolute; left: 50%; bottom: 0; width: 92%; height: 96%; transform: translateX(-50%); object-fit: contain; object-position: center bottom; }
+/* Aipan on the doorstep. */
+.threshold { width: calc(100% + 28px); height: 14px; background: url("/illustrations/aipan-welcome-border.svg") repeat-x center / 37px 14px; }
+
+.copy { display: grid; justify-items: center; text-align: center; }
+.place { font-size: 10px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--home-geru); }
+.copy h1 { margin-top: 10px; max-width: 13ch; font: 500 clamp(32px, 9vw, 40px)/1.06 var(--font-heading), serif; letter-spacing: -.02em; text-wrap: balance; }
+.copy h1 em { display: block; color: var(--home-river); }
+.intro { max-width: 34ch; margin-top: 12px; font-size: 15px; line-height: 1.55; color: var(--home-muted); }
+.actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px 20px; margin-top: 20px; }
+.primary { display: inline-flex; align-items: center; justify-content: center; min-height: 50px; padding: 12px 26px; border-radius: 999px; background: var(--home-pine); color: #fffaf1; font-size: 14px; font-weight: 600; text-decoration: none; transition: background .2s; }
+.secondary { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-size: 14px; font-weight: 600; color: var(--home-pine); text-decoration: underline; text-underline-offset: 5px; }
+.promises { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 16px; margin: 16px 0 0; padding: 0; list-style: none; font-size: 11px; line-height: 1.6; color: var(--home-muted); }
+/* A small Aipan diamond marks each promise, so wrapped lines still read cleanly. */
+.promises li { display: inline-flex; align-items: center; gap: 7px; }
+.promises li::before { content: ""; width: 5px; height: 5px; background: var(--home-geru); transform: rotate(45deg); opacity: .8; }
+.primary:focus-visible, .secondary:focus-visible { outline: 3px solid var(--home-geru); outline-offset: 3px; }
+
+@media (hover: hover) {
+  .primary:hover { background: var(--home-pine-hover); }
+  .secondary:hover { color: var(--home-pine-hover); }
+}
+@media (max-height: 700px) and (max-width: 767px) {
+  .inner { gap: 16px; padding-block: 14px 22px; }
+  .entrance { width: min(46vw, 190px); }
+  .copy h1 { font-size: 30px; }
+  .intro { margin-top: 8px; font-size: 14px; }
+  .actions { margin-top: 14px; }
+}
+@media (min-width: 768px) {
+  .inner { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); align-items: center; gap: 48px; padding-block: 56px 64px; }
+  .entrance { order: 2; width: min(100%, 380px); }
+  .threshold { height: 18px; background-size: 48px 18px; }
+  .copy { justify-items: start; text-align: left; }
+  .place { font-size: 12px; }
+  .copy h1 { max-width: 14ch; margin-top: 14px; font-size: clamp(44px, 5vw, 64px); }
+  .intro { max-width: 40ch; margin-top: 18px; font-size: 17px; }
+  .actions { justify-content: flex-start; margin-top: 28px; }
+  .primary { min-height: 54px; padding-inline: 32px; font-size: 15px; }
+  .promises { justify-content: flex-start; margin-top: 22px; font-size: 12px; }
+}

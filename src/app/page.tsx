@@ -3,12 +3,11 @@ import { homeTitle, homeDescription } from "@/lib/seo";
 import { getSiteUrl } from "@/lib/site";
 import { JsonLd } from "@/components/seo/json-ld";
 
-import { CuratedHampersSection } from "@/components/home/curated-hampers-section";
 import { FeaturedCollections } from "@/components/home/featured-collections";
-import { HeroSection } from "@/components/home/hero-section";
-import { HeritageStory } from "@/components/home/heritage-story";
+import { HomeDoorway } from "@/components/home/home-doorway";
 import { CustomerNotes } from "@/components/home/customer-notes";
-import { ColoursOfKumaon } from "@/components/home/colours-of-kumaon";
+import { GiftingPaths } from "@/components/home/gifting-paths";
+import { HomeStory } from "@/components/home/home-story";
 import { ShopPicks } from "@/components/home/shop-picks";
 import postcardStyles from "@/components/about/studio-postcard.module.css";
 import homeStyles from "@/components/home/home-palette.module.css";
@@ -104,13 +103,12 @@ export default async function HomePage() {
         "@id": `${getSiteUrl()}#webpage`, url: getSiteUrl(), name: homeTitle,
         ...(primaryImage ? { primaryImageOfPage: primaryImage } : {}),
       }} />
-      <HeroSection />
+      <HomeDoorway />
       <FeaturedCollections images={categoryImages} fromPrices={categoryFromPrices} />
       <ShopPicks products={products} />
       <CustomerNotes />
-      <ColoursOfKumaon />
-      <CuratedHampersSection product={products.find((product) => product.category === "Curated Hampers" && product.image)} />
-      <HeritageStory />
+      <GiftingPaths />
+      <HomeStory />
     </main>
   );
 }

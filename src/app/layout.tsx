@@ -105,7 +105,7 @@ export default function RootLayout({
                 addressRegion: "Uttarakhand",
                 addressCountry: "IN",
               },
-              sameAs: ["https://www.instagram.com/kumaonrang/"],
+              sameAs: ["https://www.instagram.com/kumaonrang/", "https://www.pinterest.com/snehaupadhyay168/"],
               // Google's URL-based policy option preserves the full damage and
               // statutory-rights wording without inventing a return window.
               hasMerchantReturnPolicy: {
@@ -118,6 +118,7 @@ export default function RootLayout({
               "@type": "WebSite",
               "@id": `${siteUrl}#website`,
               name: brand.name,
+              alternateName: ["Kumaon Rang"],
               url: siteUrl,
               inLanguage: "en-IN",
               publisher: { "@id": `${siteUrl}#business` },
