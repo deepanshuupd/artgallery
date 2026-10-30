@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 
 import { ProductDetailView } from "@/components/products/product-detail-view";
 import { ProductCard } from "@/components/products/product-card";
-import { getCategoryPath, getProductPath, getProductByPublicSlug } from "@/lib/catalog";
+import { getCategoryPath, getProductPath, getProductByPublicSlug, getRenamedProductPath } from "@/lib/catalog";
 import { getProducts } from "@/lib/products";
 import { pageMetadata } from "@/lib/seo";
 import { getSiteUrl } from "@/lib/site";
@@ -28,7 +28,12 @@ type ProductDetailsPageProps = {
 
 async function findProduct({ params }: ProductDetailsPageProps) {
   const [{ category, slug }, products] = await Promise.all([params, getProducts()]);
-  return { product: getProductByPublicSlug(products, category, slug), products };
+  const product = getProductByPublicSlug(products, category, slug);
+  if (!product) {
+    const renamedPath = getRenamedProductPath(products, category, slug);
+    if (renamedPath) permanentRedirect(renamedPath);
+  }
+  return { product, products };
 }
 
 export async function generateMetadata(

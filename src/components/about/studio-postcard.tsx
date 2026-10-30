@@ -42,23 +42,33 @@ export function StudioPostcard() {
 
   useEffect(() => {
     const customerNotes = document.getElementById("customer-notes");
+    const productGrids = [...document.querySelectorAll(".store-product-grid")];
     const originStory = document.querySelector('section[aria-labelledby="heritage-title"], [data-story-map-section]');
     const postcard = rail.current;
     const sections = [customerNotes, originStory].filter((section): section is Element => section !== null);
-    if (!sections.length || !postcard || !("IntersectionObserver" in window)) return;
+    if ((!sections.length && !productGrids.length) || !postcard || !("IntersectionObserver" in window)) return;
     // Preserve the offer elsewhere without placing it over the origin map.
     const visible = new Set<Element>();
-    const observer = new IntersectionObserver(entries => {
+    const update = () => {
+      // On mobile the note stays out of the way of reading and product photos.
+      postcard.dataset.reading = String((customerNotes !== null && visible.has(customerNotes)) || productGrids.some(grid => visible.has(grid)));
+      postcard.dataset.originReading = String(originStory !== null && visible.has(originStory));
+    };
+    const track = (entries: IntersectionObserverEntry[]) => {
       for (const entry of entries) {
         if (entry.isIntersecting) visible.add(entry.target);
         else visible.delete(entry.target);
       }
-      postcard.dataset.reading = String(customerNotes !== null && visible.has(customerNotes));
-      postcard.dataset.originReading = String(originStory !== null && visible.has(originStory));
-    }, { rootMargin: "-74px 0px 0px", threshold: 0 });
+      update();
+    };
+    const observer = new IntersectionObserver(track, { rootMargin: "-74px 0px 0px", threshold: 0 });
+    // Grids count only once they reach the band where the note is pinned.
+    const gridObserver = new IntersectionObserver(track, { rootMargin: "-130px 0px -65% 0px", threshold: 0 });
     sections.forEach(section => observer.observe(section));
+    productGrids.forEach(grid => gridObserver.observe(grid));
     return () => {
       observer.disconnect();
+      gridObserver.disconnect();
       delete postcard.dataset.reading;
       delete postcard.dataset.originReading;
     };

@@ -48,6 +48,28 @@ export function getProductPath(product: Product): string {
   return `/${getCategoryPath(product.urlCategory ?? product.category)}/${getProductSlug(product)}`;
 }
 
+/**
+ * Misspelt slugs corrected once by migration 20261030170000. Keyed by
+ * "category-path/old-slug"; the old URL redirects only once the new slug is live.
+ */
+const RENAMED_PRODUCT_SLUGS: Record<string, string> = {
+  "kumaoni-gifts/weeding-brooch-collection": "wedding-brooch-collection",
+  "kumaoni-gifts/handmade-rakhii": "handmade-rakhi",
+  "kumaoni-gifts/traditional-pahadi-topii": "traditional-pahadi-topi",
+};
+
+/** The current path for a renamed product URL, if that product is published. */
+export function getRenamedProductPath(
+  products: Product[],
+  categoryPath: string,
+  productSlug: string,
+): string | undefined {
+  const renamed = RENAMED_PRODUCT_SLUGS[`${categoryPath}/${productSlug}`];
+  if (!renamed) return undefined;
+  const product = getProductByPublicSlug(products, categoryPath, renamed);
+  return product ? getProductPath(product) : undefined;
+}
+
 export function getProductByPublicSlug(
   products: Product[],
   categoryPath: string,
