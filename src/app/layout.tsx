@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Tiro_Devanagari_Hindi, Cormorant_Garamond, Manrope } from "next/font/google";
+import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 
 import "./globals.css";
@@ -11,22 +11,27 @@ import { getSiteUrl } from "@/lib/site";
 import { homeTitle, homeDescription } from "@/lib/seo";
 import { CartProvider } from "@/components/cart/cart-provider";
 
-const cormorantGaramond = Cormorant_Garamond({
-  subsets: ["latin"],
+// Self-hosted so builds never depend on fetching Google Fonts. Files are
+// Google Fonts sources subset to Latin + ₹ (and Devanagari for Tiro), limited
+// to the weights used; licences are in ./fonts/OFL-*.txt.
+const cormorantGaramond = localFont({
+  src: "./fonts/cormorant-garamond-latin.woff2",
   variable: "--font-heading",
-  weight: ["500", "600", "700"],
+  weight: "500 700",
+  adjustFontFallback: "Times New Roman",
 });
 
-const manrope = Manrope({
-  subsets: ["latin"],
+const manrope = localFont({
+  src: "./fonts/manrope-latin.woff2",
   variable: "--font-body",
-  weight: ["400", "500", "600", "700"],
+  weight: "400 700",
 });
 
-const tiroDevanagari = Tiro_Devanagari_Hindi({
-  subsets: ["devanagari", "latin"],
+const tiroDevanagari = localFont({
+  src: "./fonts/tiro-devanagari-hindi.woff2",
   variable: "--font-devanagari",
   weight: "400",
+  adjustFontFallback: "Times New Roman",
 });
 
 const siteUrl = getSiteUrl();
