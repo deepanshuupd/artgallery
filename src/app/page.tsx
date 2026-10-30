@@ -79,9 +79,12 @@ export default async function HomePage() {
   };
 
   const categoryImages: Partial<Record<ProductCategory, ProductImageReference>> = {};
+  const categoryFromPrices: Partial<Record<ProductCategory, number>> = {};
   for (const category of FEATURED_CATEGORIES) {
     const image = imageFor(category);
     if (image) categoryImages[category] = image;
+    const prices = products.filter(product => product.category === category && product.inStock !== false && product.price > 0).map(product => product.price);
+    if (prices.length) categoryFromPrices[category] = Math.min(...prices);
   }
 
   // Describe a photograph actually displayed in the collection journey, rather
@@ -102,8 +105,8 @@ export default async function HomePage() {
         ...(primaryImage ? { primaryImageOfPage: primaryImage } : {}),
       }} />
       <HeroSection />
+      <FeaturedCollections images={categoryImages} fromPrices={categoryFromPrices} />
       <ShopPicks products={products} />
-      <FeaturedCollections images={categoryImages} />
       <CustomerNotes />
       <ColoursOfKumaon />
       <CuratedHampersSection product={products.find((product) => product.category === "Curated Hampers" && product.image)} />

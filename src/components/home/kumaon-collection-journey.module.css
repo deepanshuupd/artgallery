@@ -28,6 +28,11 @@
 .cardCopy > span { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-size: 11px; font-weight: 600; color: var(--home-pine, var(--color-geru)); }
 .cardCopy > span > span { font-size: 16px; }
 .card:focus-visible { outline: 2px solid #a84530; outline-offset: 5px; }
+/* Paper gift tag: notched end, punched hole, a slight swing. */
+.tag { --swing: 6deg; position: absolute; z-index: 2; top: 12px; right: -7px; display: inline-flex; align-items: baseline; gap: 4px; padding: 5px 9px 5px 17px; background: var(--home-paper, #fffaf2); color: var(--home-muted, #5e4b3e); font-size: 9px; letter-spacing: .04em; white-space: nowrap; clip-path: polygon(9px 0, 100% 0, 100% 100%, 9px 100%, 0 50%); box-shadow: inset 0 0 0 1px #b9907b; filter: drop-shadow(0 3px 4px #57341c26); transform: rotate(var(--swing)); transform-origin: 6px 50%; }
+.tag::before { content: ""; position: absolute; left: 6px; top: 50%; width: 4px; height: 4px; margin-top: -2px; border-radius: 50%; background: #b9907b; }
+.tag strong { font: 600 14px/1 var(--font-heading), serif; color: var(--home-geru, #994831); letter-spacing: 0; }
+.card:nth-child(even) .tag { --swing: -5deg; }
 .direction { max-width: 1200px; margin: 16px auto 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px 12px; }
 .captions, .skip, .scrollHint, .progress { display: none; }
 
@@ -43,6 +48,7 @@
 .journey[data-motion="active"] .photo { box-shadow: 0 12px 24px #57341c24; }
 .journey[data-motion="active"] .photo img { transform: scale(calc(1.12 - var(--spread) * .12)); }
 .journey[data-motion="active"] .cardCopy { opacity: var(--labels); transform: translateY(calc(12px * (1 - var(--labels)))); }
+.journey[data-motion="active"] .tag { opacity: var(--labels); transform: translateY(calc(-10px * (1 - var(--labels)))) rotate(calc(var(--swing) * (2 - var(--labels)))); }
 .journey[data-motion="active"] .captions { display: grid; width: 100%; text-align: center; font: italic 22px/1.2 var(--font-heading), serif; color: var(--home-muted, #714330); min-height: 28px; }
 .captions span { grid-area: 1/1; }.opening { opacity: var(--opening); }.middle { opacity: var(--middle); }.closing { opacity: var(--closing); }
 .journey[data-motion="active"] .skip { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; border: 0; padding: 0 4px; background: transparent; font-size: 10px; color: var(--home-muted, #5e4b3e); cursor: pointer; text-decoration: underline; text-underline-offset: 4px; }
@@ -54,6 +60,7 @@
   .pin { padding: 38px 40px 24px; }
   .heading { width: 100%; margin-bottom: 28px; }.heading h2 { font-size: 52px; }.heading :global(.craft-eyebrow) { font-size: 11px; }.shopAll { font-size: 13px; }
   .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }.card { --hero-scale: var(--desktop-scale); }.photo { height: min(29vw, 42svh); border-width: 7px; }
+  .tag { top: 18px; right: -10px; padding: 6px 12px 6px 20px; font-size: 10px; }.tag strong { font-size: 17px; }
   .cardCopy h3 { font-size: 26px; }.cardCopy p { display: block; margin-top: 8px; font-size: 12px; line-height: 1.5; color: var(--home-muted, #6b5747); }.cardCopy > span { font-size: 12px; }
   .rang { font-size: 520px; }.journey[data-motion="active"] { height: 210svh; }
   .journey[data-motion="active"] .pin { top: 92px; height: calc(100svh - 92px); }
@@ -73,6 +80,7 @@
 @media (prefers-reduced-motion: reduce) {
   .journey[data-motion="active"] { height: auto; }.journey[data-motion="active"] .pin { position: relative; top: auto; height: auto; }
   .journey[data-motion="active"] .card, .journey[data-motion="active"] .photo img, .journey[data-motion="active"] .cardCopy { transform: none; opacity: 1; }
+  .journey[data-motion="active"] .tag { opacity: 1; transform: rotate(var(--swing)); }
   .rang { display: none; }.ornament, .hills { transform: none; }.ornament { opacity: .12; }.ornament path, .ornament circle { stroke-dashoffset: 0; }
   .journey[data-motion="active"] .direction, .journey[data-motion="active"] .progress { display: none; }
 }

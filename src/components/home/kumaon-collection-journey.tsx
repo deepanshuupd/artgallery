@@ -7,6 +7,7 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { CraftOrnament } from "./craft-ornament";
 import { journeyProgress } from "./kumaon-journey-progress";
 import { getCategoryPath } from "@/lib/catalog";
+import { formatPrice } from "@/lib/pricing";
 import type { ProductCategory } from "@/types/product";
 import styles from "./kumaon-collection-journey.module.css";
 
@@ -17,10 +18,12 @@ const collections: { name: ProductCategory; label: string; note: string; action:
   { name: "Personalized Gifts", label: "Gifts & keepsakes", note: "Your people. Your memories.", action: "Find a gift", tilt: -9 },
 ];
 
-function JourneyCard({ collection, image, index }: { collection: typeof collections[number]; image?: ProductImageReference; index: number }) {
+function JourneyCard({ collection, image, index, fromPrice }: { collection: typeof collections[number]; image?: ProductImageReference; index: number; fromPrice?: number }) {
   const [failed, setFailed] = useState(false);
   return <Link prefetch={false} href={`/${getCategoryPath(collection.name)}`} data-journey-card data-collection={collection.name} className={styles.card}
     style={{ "--tilt": `${collection.tilt}deg`, "--depth": index === 1 ? 4 : 3 - index, "--mobile-scale": index === 1 ? 1.45 : 0.94, "--desktop-scale": index === 1 ? 1.16 : 0.88 } as CSSProperties}>
+    {/* A paper price tag, hung once the polaroids settle. */}
+    {fromPrice !== undefined && <span className={styles.tag}>from <strong>{formatPrice(fromPrice)}</strong></span>}
     <div className={styles.photo}>
       {image?.src && !failed ? <ResponsiveImage src={image.cardSrc} alt={image.alt} fill
         sizes="(max-width: 767px) 45vw, (max-width: 1279px) 23vw, 280px"
@@ -31,7 +34,10 @@ function JourneyCard({ collection, image, index }: { collection: typeof collecti
   </Link>;
 }
 
-export function KumaonCollectionJourney({ images }: { images: Partial<Record<ProductCategory, ProductImageReference>> }) {
+export function KumaonCollectionJourney({ images, fromPrices = {} }: {
+  images: Partial<Record<ProductCategory, ProductImageReference>>;
+  fromPrices?: Partial<Record<ProductCategory, number>>;
+}) {
   const sectionRef = useRef<HTMLElement>(null);
   const [browseDirectly, setBrowseDirectly] = useState(false);
 
@@ -100,7 +106,7 @@ export function KumaonCollectionJourney({ images }: { images: Partial<Record<Pro
         <svg className={styles.hills} viewBox="0 0 1440 400" preserveAspectRatio="none" fill="none"><path d="M-20 340 220 130 380 245 640 30 810 200 1030 95 1460 330"/><path d="M-20 390 220 240 380 330 640 145 810 310 1030 205 1460 380"/><path d="M-20 420 320 300 550 360 850 255 1130 350 1460 285"/></svg>
       </div>
       <header className={styles.heading}><div><p className="craft-eyebrow">Little things. Lasting connections.</p><h2 id="collections-title">Find your piece of <em>Kumaon.</em></h2></div><Link href="/collection" prefetch={false} className={styles.shopAll}>Shop all pieces</Link></header>
-      <div className={styles.grid}>{collections.map((collection, index) => <JourneyCard key={collection.name} collection={collection} image={images[collection.name]} index={index} />)}</div>
+      <div className={styles.grid}>{collections.map((collection, index) => <JourneyCard key={collection.name} collection={collection} image={images[collection.name]} index={index} fromPrice={fromPrices[collection.name]} />)}</div>
       <div className={styles.direction}>
         <div className={styles.captions} aria-hidden="true"><span className={styles.opening}>It starts with our colours.</span><span className={styles.middle}>A little art. A little belonging.</span><span className={styles.closing}>Four ways to keep Kumaon close.</span></div>
         <button type="button" className={styles.skip} onClick={() => setBrowseDirectly(true)}>Browse without motion</button>

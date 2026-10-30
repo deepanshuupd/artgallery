@@ -1,6 +1,9 @@
 import Link from "next/link";
 
-import { ProductCard } from "@/components/products/product-card";
+import { ResponsiveImage } from "@/components/responsive-image";
+import { getProductPath } from "@/lib/catalog";
+import { formatPrice } from "@/lib/pricing";
+import { getProductImage } from "@/lib/product-image";
 import type { Product, ProductCategory } from "@/types/product";
 import styles from "./shop-picks.module.css";
 
@@ -27,20 +30,34 @@ export function selectShopPicks(products: Product[], count = PICK_COUNT): Produc
   return picks;
 }
 
+/** A quiet shelf after the collection journey: photo, name, price. */
 export function ShopPicks({ products }: { products: Product[] }) {
   const picks = selectShopPicks(products);
   if (!picks.length) return null;
   return (
     <section className={styles.section} aria-labelledby="shop-picks-title">
-      <div className="heritage-shell">
-        <div className={styles.heading}>
+      <div className={styles.inner}>
+        <header className={styles.heading}>
           <h2 id="shop-picks-title">Sneha’s picks</h2>
-          <p>A few favourites from across the shop.</p>
-        </div>
-        <div className={`store-product-grid ${styles.grid}`}>
-          {picks.map(product => <ProductCard key={product.id} product={product} sizes="(max-width: 767px) calc((100vw - 56px) / 2), 360px" />)}
-        </div>
-        <Link prefetch={false} href="/collection" className={`craft-text-link ${styles.all}`}>Shop all pieces</Link>
+          <Link prefetch={false} href="/collection" className={styles.all}>Shop all <span aria-hidden="true">→</span></Link>
+        </header>
+        <ul className={styles.shelf} data-product-shelf>
+          {picks.map(product => {
+            const image = getProductImage(product);
+            return (
+              <li key={product.id}>
+                <Link prefetch={false} href={getProductPath(product)} className={styles.item}>
+                  <span className={styles.photo}>
+                    <ResponsiveImage src={image.cardSrc} alt={image.alt} fill className={styles.image}
+                      sizes="(max-width: 767px) 42vw, (max-width: 1099px) 26vw, 180px" />
+                  </span>
+                  <span className={styles.name}>{product.name.trim()}</span>
+                  <span className={styles.price}>{formatPrice(product.price)}</span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </section>
   );

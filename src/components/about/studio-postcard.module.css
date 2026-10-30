@@ -76,8 +76,7 @@
 @media (min-width: 1024px) {
   .page { padding-inline-start: 72px; }
   /* Keep the peeking paper in the page gutter, clear of copy and shop links. */
-  .homePage :global(section[aria-labelledby="collections-title"]) > div,
-  .homePage :global(section[aria-labelledby="shop-picks-title"]) > div { padding-inline: 80px; }
+  .homePage :global(section[aria-labelledby="collections-title"]) > div { padding-inline: 80px; }
   .rail { left: -44px; right: auto; top: 48%; transform: translateY(-50%); }
   .peek, .miniEnvelope { width: 96px; }
   .peek { --peek-step: 10px; --peek-wide: 12px; --peek-small: 8px; height: 76px; }

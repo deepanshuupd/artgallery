@@ -20,11 +20,11 @@ function load(file) {
   const loadedModule = { exports: {} };
   modules.set(path, loadedModule);
   const localRequire = name => {
-    if (name === '@/components/products/product-card') return { ProductCard: ({ product }) => React.createElement('article', null, product.name) };
     if (name === 'next/link') return function MockLink({ children, prefetch, ...props }) { return React.createElement('a', props, children); };
     if (name.endsWith('.module.css')) return new Proxy({}, { get: (_, key) => String(key) });
     if (name.startsWith('@/') || name.startsWith('.')) {
       const base = name.startsWith('@/') ? resolve(root, 'src', name.slice(2)) : resolve(dirname(path), name);
+      if (base.endsWith('.json')) return require(base);
       const target = [base + '.ts', base + '.tsx'].find(existsSync);
       if (!target) throw new Error(`Unknown local import: ${name}`);
       return load(target);
@@ -65,7 +65,12 @@ test('picks are featured, photographed and in stock, one category at a time', ()
 
 test('the picks section is omitted when nothing qualifies', () => {
   assert.equal(renderToStaticMarkup(React.createElement(ShopPicks, { products: [product('Hidden', 'Frames', { featured: false })] })), '');
-  const html = renderToStaticMarkup(React.createElement(ShopPicks, { products: [product('Frame A', 'Frames')] }));
+  const html = renderToStaticMarkup(React.createElement(ShopPicks, { products: [product('Frame A', 'Frames', { slug: 'frame-a', price: 1400 })] }));
   assert.match(html, /Sneha’s picks/);
   assert.match(html, /href="\/collection"/);
+  // A quiet shelf: each pick links to its product with name and price, no cart controls.
+  assert.match(html, /href="\/aipan-frames\/frame-a"/);
+  assert.match(html, /Frame A/);
+  assert.match(html, /₹1,400/);
+  assert.doesNotMatch(html, /Add to cart|% off/);
 });
