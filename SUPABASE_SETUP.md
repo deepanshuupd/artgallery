@@ -77,6 +77,21 @@ In Supabase Dashboard → Authentication → Users → Add User:
 - Email: sneha@yourdomain.com
 - Password: (choose a strong password)
 
+The authenticated-user policies above are replaced by
+`20261030120000_restrict_catalogue_writes_to_admin.sql` and
+`20261030121500_move_admin_check_to_private_schema.sql`: only users listed in
+`private.admin_users` can change products or product images. The first
+migration adds the account matching `DEFAULT_ADMIN_EMAIL`; for another admin,
+run in the SQL editor:
+
+```sql
+insert into private.admin_users (user_id)
+select id from auth.users where lower(email) = lower('admin@example.com');
+```
+
+Turn off public sign-ups in Authentication → Sign In / Providers, since the
+shop has no customer accounts.
+
 ## 5. Get your API keys
 
 In Supabase Dashboard → Project Settings → API:
