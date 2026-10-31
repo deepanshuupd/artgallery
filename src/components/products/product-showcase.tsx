@@ -5,6 +5,7 @@ import { useDeferredValue, useEffect, useId, useRef, useState } from "react";
 import { SearchIcon } from "@/components/icons";
 import { ProductCard } from "@/components/products/product-card";
 import { collections } from "@/lib/collections";
+import { searchProducts, searchShortcuts } from "@/lib/product-search";
 import { generateGeneralInquiryLink } from "@/lib/whatsapp";
 import type { Product, ProductCategory } from "@/types/product";
 import styles from "./product-showcase.module.css";
@@ -29,8 +30,14 @@ export function ProductShowcase({ products, eyebrow, title, showCategoryFilter =
   const catalog = showCategoryFilter ? products.filter(product => product.category !== "Curated Hampers") : products;
   const counts = categoryCounts ?? Object.fromEntries(collections.map(collection => [collection.category, catalog.filter(product => product.category === collection.category).length]));
   const allCount = Object.values(counts).reduce<number>((total, count) => total + (count ?? 0), 0);
-  const filtered = catalog.filter(product => (!activeCategory || product.category === activeCategory) && (!term || `${product.name} ${product.category} ${product.description}`.toLowerCase().includes(term)));
+  // A search on the whole shop also finds hampers, which otherwise have their own page.
+  const scope = activeCategory ? catalog.filter(product => product.category === activeCategory) : term ? products : catalog;
+  const filtered = searchProducts(scope, term) ?? scope;
+  // Search results arrive ranked by relevance, which "Newest first" keeps.
   const sorted = [...filtered].sort((a, b) => sort === "price-low" ? a.price - b.price : sort === "price-high" ? b.price - a.price : sort === "featured" ? Number(b.featured) - Number(a.featured) : 0);
+  const shortcuts = <div className={styles.shortcuts} role="group" aria-label="Quick searches">
+    {searchShortcuts.map(shortcut => <button key={shortcut.query} type="button" aria-pressed={term === shortcut.query} onClick={() => setQuery(term === shortcut.query ? "" : shortcut.query)}>{shortcut.label}</button>)}
+  </div>;
 
   useEffect(() => {
     const filters = filtersRef.current;
@@ -62,13 +69,13 @@ export function ProductShowcase({ products, eyebrow, title, showCategoryFilter =
     </nav>}
     <div className="store-catalog-main">
     <div className={`store-toolbar ${compactTools ? styles.compactToolbar : ""}`}>
-      {compactTools ? <>{results}<details className={styles.toolsDisclosure}><summary>Search &amp; sort<span aria-hidden="true">+</span></summary>{tools}</details></> : <>{tools}{results}</>}
+      {compactTools ? <>{results}<details className={styles.toolsDisclosure}><summary>Search &amp; sort<span aria-hidden="true">+</span></summary>{tools}</details></> : <>{tools}{!activeCategory && shortcuts}{results}</>}
     </div>
     <h2 className="sr-only">{title}</h2>
     <div className="store-product-grid" aria-busy={query !== deferredQuery}>{sorted.map((product, index) => <ProductCard key={product.id} product={product} priority={index === 0 && !term} sizes={showCategoryFilter ? "(max-width: 767px) calc((100vw - 54px) / 2), (max-width: 1023px) calc((100vw - 102px) / 2), (max-width: 1279px) calc((100vw - 320px) / 3), 300px" : undefined} />)}</div>
     {sorted.length === 0 && <div className="store-empty">
       <h3>{term ? "Let’s find your kind of keepsake." : "No pieces here right now."}</h3>
-      <p>{term ? "Try a different word, or ask Sneha for a little help choosing." : activeCategory && allCount > 0 ? "There are no pieces in this category right now. Explore another category, or ask Sneha about availability." : "There are no pieces to browse just now. You can still speak to Sneha about availability."}</p>
+      <p>{term ? activeCategory ? "Try a different word, browse all pieces, or ask Sneha for a little help choosing." : "Try a quick search above, a different word, or ask Sneha for a little help choosing." : activeCategory && allCount > 0 ? "There are no pieces in this category right now. Explore another category, or ask Sneha about availability." : "There are no pieces to browse just now. You can still speak to Sneha about availability."}</p>
       <div className="craft-actions">{query && <button className="craft-button" type="button" onClick={() => setQuery("")}>Clear search</button>}{activeCategory && allCount > 0 && <Link prefetch={false} href="/collection" className="craft-text-link">Browse all pieces</Link>}<a className="craft-text-link" href={generateGeneralInquiryLink()} target="_blank" rel="noopener noreferrer">Ask Sneha on WhatsApp</a></div>
     </div>}
     </div>

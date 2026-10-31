@@ -6,3 +6,10 @@
 .toolsDisclosure[open] > summary > span { transform: rotate(45deg); }
 .toolsDisclosure > :global(.store-tools) { padding: 8px 0 4px; }
 .toolsDisclosure > summary:focus-visible { outline: 2px solid #28564f; outline-offset: 2px; }
+/* Quick searches scroll sideways on phones instead of wrapping into a tall block. */
+.shortcuts { display: flex; gap: 8px; margin-top: 10px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.shortcuts::-webkit-scrollbar { display: none; }
+.shortcuts > button { flex: none; min-height: 36px; padding: 0 14px; border: 1px solid #d9c4ad; border-radius: 999px; background: #fffaf1; color: #4b3d33; font-size: 12px; font-weight: 600; white-space: nowrap; cursor: pointer; }
+.shortcuts > button[aria-pressed="true"] { border-color: #28564f; background: #28564f; color: #fffaf1; }
+.shortcuts > button:focus-visible { outline: 2px solid #28564f; outline-offset: 2px; }
+@media (min-width: 768px) { .shortcuts { flex-wrap: wrap; overflow: visible; } }

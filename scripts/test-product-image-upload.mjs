@@ -35,8 +35,8 @@ new Function('require', 'module', 'exports', 'document', 'createImageBitmap', ou
   async () => ({ width: 4000, height: 3000, close() { closed++; } }),
 );
 const result = await module.exports.prepareProductImages(new File(['source'], 'artwork.jpg', { type: 'image/jpeg' }));
-assert.equal(result.width, 1920); assert.equal(result.height, 1440);
-assert.equal(result.cardWidth, 960); assert.equal(result.cardHeight, 720);
+assert.equal(result.width, 1600); assert.equal(result.height, 1200);
+assert.equal(result.cardWidth, 800); assert.equal(result.cardHeight, 600);
 assert.equal(result.detail.size, 600000); assert.equal(result.card.size, 180000);
 assert.equal(result.detail.type, 'image/webp'); assert.equal(result.card.type, 'image/webp');
 assert.equal(closed, 1);

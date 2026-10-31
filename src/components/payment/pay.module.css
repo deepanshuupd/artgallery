@@ -1,0 +1,19 @@
+.page { max-width: 480px; margin-inline: auto; }
+.heading { padding-top: 20px; text-align: center; }
+.heading h1 { margin-top: 8px; font: 500 30px/1.15 var(--font-heading), serif; color: #2f241d; }
+.heading p { margin-top: 10px; font-size: 14px; line-height: 1.7; color: #67594e; }
+.card { display: grid; justify-items: center; gap: 12px; margin-top: 20px; padding: 20px 16px; border: 1px solid #d9c4ad; border-radius: 12px; background: #fffaf1; text-align: center; font-size: 14px; color: #4b3d33; }
+.appButton { width: 100%; }
+.or { font-size: 12px; color: #67594e; }
+.qr { width: min(240px, 70vw); aspect-ratio: 1; }
+.qr svg { display: block; width: 100%; height: 100%; }
+.payee { font-size: 13px; }
+.upiId { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; padding: 8px 8px 8px 12px; border: 1px dashed #d9c4ad; border-radius: 8px; text-align: left; }
+.upiId > span { display: grid; min-width: 0; }
+.upiId small { font-size: 11px; color: #67594e; }
+.upiId strong { overflow-wrap: anywhere; font-size: 14px; color: #2f241d; }
+.upiId button { flex: none; min-height: 40px; padding: 0 14px; border: 1px solid #28564f; border-radius: 8px; color: #28564f; font-size: 13px; font-weight: 600; cursor: pointer; }
+.upiId button:focus-visible { outline: 2px solid #28564f; outline-offset: 2px; }
+.after { margin-block: 24px 40px; }
+.after h2 { font: 500 22px/1.2 var(--font-heading), serif; color: #2f241d; }
+.after p { margin-block: 8px 12px; font-size: 13px; line-height: 1.8; color: #67594e; }

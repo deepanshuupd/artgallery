@@ -11,7 +11,7 @@ export function CartIcon() {
 export function CartLink({ onClick }: { onClick?: () => void }) {
   const { items } = useCart();
   const count = items.reduce((sum,line) => sum+line.quantity,0);
-  return <Link href="/cart" prefetch={false} className={styles.cartLink} onClick={onClick} aria-label={count ? `Cart, ${count} items` : "Cart, empty"}>
+  return <Link href="/cart" prefetch={false} className={styles.cartLink} onClick={onClick} aria-label={count ? `Cart, ${count} ${count === 1 ? "item" : "items"}` : "Cart, empty"}>
     <CartIcon /><span>Cart</span>{count>0 && <span className={styles.badge} aria-hidden="true">{count>99 ? "99+" : count}</span>}
   </Link>;
 }

@@ -15,7 +15,8 @@ import forest from "@/components/products/forest-storefront.module.css";
 type Props = { params: Promise<{ category: string }> };
 export async function generateMetadata({ params }: Props) {
   const collection = findCollection((await params).category);
-  if (!collection) return { title: "Collection not found", robots: { index: false } };
+  // Every unknown single-segment URL lands here, so name it as a missing page.
+  if (!collection) return { title: "Page not found", robots: { index: false } };
   const products = await getProducts();
   const hasProducts = products.some(product => product.category === collection.category);
   const representative = getGiftGuideIdeas(products).find(idea => idea.category === collection.category)?.product ??

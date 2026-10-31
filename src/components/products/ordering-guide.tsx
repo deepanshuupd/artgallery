@@ -8,7 +8,7 @@ export function OrderingGuide() {
     <ol className={styles.steps}>
       <li><span aria-hidden="true">01</span><div><h3>Find your piece</h3><p>Look through the photos, dimensions, materials and price. Open the order details and choose your quantity.</p></div></li>
       <li><span aria-hidden="true">02</span><div><h3>Share what matters</h3><p>Add your delivery PIN code, an occasion date or a personal request if you have one. Your message is ready to review before you open WhatsApp.</p></div></li>
-      <li><span aria-hidden="true">03</span><div><h3>Confirm the details</h3><p>Discuss availability, the full total including delivery, preparation time and payment with Sneha before confirming your order.</p></div></li>
+      <li><span aria-hidden="true">03</span><div><h3>Confirm and pay</h3><p>Agree availability, the full total including delivery and preparation time with Sneha, then pay by UPI.</p></div></li>
     </ol>
     <p className={styles.dispatch}>{shopOrdering.dispatch} Preparation time for made-to-order pieces and larger quantities is confirmed with Sneha.</p>
     <div className={styles.links}><Link prefetch={false} href="/bulk-orders">Wedding & bulk gifts →</Link><Link prefetch={false} href="/shipping-policy">Delivery & dispatch →</Link><Link prefetch={false} href="/about">Meet Sneha →</Link><Link prefetch={false} href="/customer-stories">Read customer stories →</Link></div>

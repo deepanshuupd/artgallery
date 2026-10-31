@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 
 import { AipanMenuIcon, SparkleIcon } from "@/components/icons";
 import { navigationItems } from "@/lib/navigation";
+import { collections } from "@/lib/collections";
 import { BrandMark } from "@/components/layout/brand-mark";
 import { StudioPostcard } from "@/components/about/studio-postcard";
 import styles from "./site-header.module.css";
@@ -117,9 +118,9 @@ export function SiteHeader() {
             const active = isActivePath(pathname, item.href);
 
             return (
+              <Fragment key={item.href}>
               <Link
                 prefetch={false}
-                key={item.href}
                 className={[
                   "flex min-h-11 items-center rounded-xl px-4 py-2 text-xs font-medium uppercase tracking-[0.16em] transition-colors duration-300",
                   item.href === "/curated-hampers" ? styles.hamperLink : "",
@@ -134,6 +135,13 @@ export function SiteHeader() {
                 {item.href === "/curated-hampers" && <HamperSparkles />}
                 <span className={styles.label}>{item.label}</span>
               </Link>
+              {/* Phones have no category bar until the shop loads, so offer the categories here. */}
+              {item.href === "/collection" && <ul className={styles.categories} aria-label="Shop by type">
+                {collections.map(collection => <li key={collection.slug}>
+                  <Link prefetch={false} href={`/${collection.slug}`} aria-current={pathname === `/${collection.slug}` ? "page" : undefined} onClick={() => setIsOpen(false)}>{collection.label}</Link>
+                </li>)}
+              </ul>}
+              </Fragment>
             );
           })}
         </nav>

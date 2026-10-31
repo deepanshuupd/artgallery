@@ -1,9 +1,10 @@
 import { createProductWebpEncoder, type ProductWebpEncoder } from "./product-webp-encoder";
 
 // Byte targets guide compression; input size and resolution are not restricted.
+// Sized for a 650px product photo and ~400px cards at 2x, to stay within Supabase's free egress.
 export const PRODUCT_IMAGE_VARIANTS = {
-  detail: { maxDimension: 1920, targetBytes: 550 * 1024 },
-  card: { maxDimension: 960, targetBytes: 160 * 1024 },
+  detail: { maxDimension: 1600, targetBytes: 450 * 1024 },
+  card: { maxDimension: 800, targetBytes: 120 * 1024 },
 } as const;
 
 type DecodedImage = {
