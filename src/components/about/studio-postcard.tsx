@@ -32,9 +32,22 @@ export function StudioPostcard() {
     const updateVisibility = () => {
       if (rail.current) rail.current.dataset.paused = String(document.hidden);
     };
+    // On phones the pinned note covers headings and photos further down,
+    // so it belongs to the first screen only (see the max-width rule in CSS).
+    let frame = 0;
+    const updateScrolled = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        if (rail.current) rail.current.dataset.scrolled = String(window.scrollY > window.innerHeight * 0.6);
+      });
+    };
     updateVisibility();
+    updateScrolled();
     document.addEventListener("visibilitychange", updateVisibility);
+    window.addEventListener("scroll", updateScrolled, { passive: true });
     return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", updateScrolled);
       document.removeEventListener("visibilitychange", updateVisibility);
       if (savedOverflow.current !== null) document.body.style.overflow = savedOverflow.current;
     };

@@ -125,7 +125,7 @@
   .basketPanel { display: block; grid-column: 2; grid-row: 1; top: 112px; order: unset; padding: 24px; }
   .basketHeading { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
   .count { margin-top: 0; }
-  .basketHeading :global(.craft-eyebrow) { display: block; font-size: 9px; }
+  .basketHeading :global(.craft-eyebrow) { display: block; font-size: 10px; }
   .basketHeading h2 { margin-top: 8px; font-size: 29px; }
   .basketCanvas { width: 100%; margin: 12px auto 2px; }
   .basketCanvas > p { display: block; position: absolute; inset: auto 0 -1px; color: #947454; text-align: center; font: italic 19px/1.3 var(--font-heading),serif; }
