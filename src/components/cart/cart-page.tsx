@@ -12,13 +12,14 @@ import { WhatsAppIcon } from "@/components/icons";
 import styles from "./cart.module.css";
 import { OrderMessagePreview } from "@/components/products/order-message-preview";
 import { commerceEvent } from "@/lib/commerce-events";
+import { UpiPaySteps } from "@/components/payment/upi-pay-steps";
 
 function CartPhoto({ product }: { product: CartProduct }) {
   const [failed, setFailed] = useState(false);
   return <div className={styles.photo}>{product.image && !failed ? <Image src={product.image} alt={product.alt} fill sizes="100px" onError={() => setFailed(true)} /> : <CartIcon />}</div>;
 }
 
-export function CartPage({ catalog, catalogFailed = false }: { catalog: CartProduct[]; catalogFailed?: boolean }) {
+export function CartPage({ catalog, catalogFailed = false, upiQr }: { catalog: CartProduct[]; catalogFailed?: boolean; upiQr?: string }) {
   const cart = useCart();
   const router = useRouter();
   const [details, setDetails] = useState<CartDetails>({deliveryPincode:"",occasionDate:"",request:""});
@@ -70,7 +71,7 @@ export function CartPage({ catalog, catalogFailed = false }: { catalog: CartProd
           </article>;
         })}
       </section>
-      <aside className={styles.summary} aria-labelledby="cart-summary-title"><p className="craft-eyebrow">One enquiry, all your pieces</p><h2 id="cart-summary-title">Order summary</h2><dl><div><dt>Products</dt><dd>{cart.items.length}</dd></div><div><dt>Total quantity</dt><dd>{cart.items.reduce((sum,line) => sum+line.quantity,0)}</dd></div><div className={styles.total}><dt>Product subtotal</dt><dd>{catalogFailed || missing ? "To be checked" : formatOrderAmount(subtotal)}</dd></div><div><dt>Shipping</dt><dd>Confirmed by Sneha</dd></div></dl><p>Availability, personalisation costs, shipping and delivery timing are confirmed in your WhatsApp chat.</p><a href="#cart-details" className={styles.summaryLink}>Add details & review ↓</a></aside>
+      <aside className={styles.summary} aria-labelledby="cart-summary-title"><p className="craft-eyebrow">One enquiry, all your pieces</p><h2 id="cart-summary-title">Order summary</h2><dl><div><dt>Products</dt><dd>{cart.items.length}</dd></div><div><dt>Total quantity</dt><dd>{cart.items.reduce((sum,line) => sum+line.quantity,0)}</dd></div><div className={styles.total}><dt>Product subtotal</dt><dd>{catalogFailed || missing ? "To be checked" : formatOrderAmount(subtotal)}</dd></div><div><dt>Shipping</dt><dd>Confirmed by Sneha</dd></div></dl><p>Availability, personalisation costs, shipping and delivery timing are confirmed in your WhatsApp chat. Then pay by UPI.</p><a href="#cart-details" className={styles.summaryLink}>Add details & review ↓</a></aside>
       <form className={styles.checkout} onSubmit={prepare} id="cart-details">
         <p className="craft-eyebrow">The finishing details</p><h2>Where shall these go?</h2>
         <div className={styles.fields}><label>Delivery PIN code <span>Optional</span><input type="text" inputMode="numeric" autoComplete="postal-code" pattern="[0-9]{6}" maxLength={6} placeholder="6-digit PIN code" value={details.deliveryPincode} onChange={event => changeDetail("deliveryPincode",event.currentTarget.value.replace(/\D/g,""))} /></label><label>Occasion date <span>Optional</span><input type="date" value={details.occasionDate} onInput={event => changeDetail("occasionDate",event.currentTarget.value)} onChange={event => changeDetail("occasionDate",event.currentTarget.value)} /></label></div>
@@ -80,7 +81,7 @@ export function CartPage({ catalog, catalogFailed = false }: { catalog: CartProd
         <p className={styles.help}>We’ll check the current catalogue before preparing your message. Shipping is quoted separately; this enquiry does not confirm an order.</p>
         <button type="submit" className={styles.primary} disabled={busy || missing || catalogFailed}>{busy ? "Checking your pieces…" : "Review my order enquiry →"}</button>
       </form>
-      {quote && <section className={styles.review} aria-labelledby="cart-review-title"><p className="craft-eyebrow">Ready for Sneha</p><h2 id="cart-review-title" ref={reviewRef} tabIndex={-1}>Your enquiry, all together.</h2><p>Current product subtotal: <strong>{formatOrderAmount(quote.subtotal)}</strong>. Check the message below, then send it in WhatsApp.</p><OrderMessagePreview message={quote.message} defaultOpen /><a className={styles.primary} href={quote.url} target="_blank" rel="noopener noreferrer" onClick={() => commerceEvent("whatsapp_handoff", "cart")}><WhatsAppIcon />Continue to WhatsApp</a><p className={styles.help}>Nothing is sent automatically. Your cart stays saved; Sneha confirms the final total and delivery in the chat.</p></section>}
+      {quote && <section className={styles.review} aria-labelledby="cart-review-title"><p className="craft-eyebrow">Ready for Sneha</p><h2 id="cart-review-title" ref={reviewRef} tabIndex={-1}>Your enquiry, all together.</h2><p>Current product subtotal: <strong>{formatOrderAmount(quote.subtotal)}</strong>. Check the message below, then send it in WhatsApp.</p><OrderMessagePreview message={quote.message} defaultOpen /><a className={styles.primary} href={quote.url} target="_blank" rel="noopener noreferrer" onClick={() => commerceEvent("whatsapp_handoff", "cart")}><WhatsAppIcon />Continue to WhatsApp</a><p className={styles.help}>Nothing is sent automatically. Your cart stays saved; Sneha confirms the final total and delivery in the chat.</p><UpiPaySteps qrSvg={upiQr} /></section>}
     </div>}
   </main>;
 }

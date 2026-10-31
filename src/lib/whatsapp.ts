@@ -58,7 +58,7 @@ export function orderItemLines(details: OrderDetails, index = 1): string[] {
   return lines;
 }
 export const orderEstimateNote = "Estimate only. Shipping and any customisation costs are extra, to be confirmed.";
-export const orderConfirmationNote = "Please confirm availability, delivery timing, payment options and the final total before I place the order.";
+export const orderConfirmationNote = "Please confirm availability, delivery timing and the final total. I will pay by UPI.";
 
 export interface OrderDetails {
   productName: string; category: ProductCategory; customizationInterest?: string;

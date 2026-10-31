@@ -118,11 +118,13 @@ export function ProductDetailView({ product, children }: { product: Product; chi
                 <button type="button" className={`${order.primary} ${styles.directOrder}`} aria-haspopup="dialog" onClick={openOrder}><WhatsAppIcon className="h-5 w-5" />{actionLabel}</button>
               </div>
               <p className={styles.orderHelp}>{needsPhoto ? "Ask to see this exact design and what’s included. There’s no need to decide on an order yet." : "Sneha confirms availability, the final total and timing on WhatsApp."} <Link prefetch={false} href="/how-to-order">How ordering works</Link></p>
+              {!needsPhoto && <p className={styles.payNote}><strong>Pay by UPI</strong> GPay, PhonePe, Paytm or any UPI app, once Sneha confirms your total. <Link prefetch={false} href="/pay">See the UPI QR</Link></p>}
               <details className={styles.fulfilmentDetails}>
                 <summary>Delivery &amp; order support<span aria-hidden="true">+</span></summary>
                 <div className={styles.fulfilment}>
                   <p><strong>Dispatch</strong> {product.inStock === false ? "Preparation and availability are confirmed with Sneha." : shopOrdering.dispatch} Custom or larger quantities may need more time.</p>
                   <p><strong>Delivery charge</strong> Quoted for your parcel’s weight, dimensions and delivery details. <Link prefetch={false} href="/shipping-policy">Delivery & dispatch details</Link></p>
+                  <p><strong>Payment</strong> {shopOrdering.payment} <Link prefetch={false} href="/pay">UPI payment page</Link></p>
                   <p><strong>Order support</strong> Report arrival damage within 7 days. Change-of-mind returns aren’t accepted. <Link prefetch={false} href="/returns-policy">Returns & damage support</Link></p>
                 </div>
               </details>

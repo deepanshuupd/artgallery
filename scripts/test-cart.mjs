@@ -136,7 +136,7 @@ test('single and cart messages use the same factual item block, with requests di
     assert.ok(message.includes(block));
     assert.match(message,/Size: 14 inch\nMaterial: MDF\nIncluded: Frame and stand/);
     assert.match(message,/> Name: Riya & Aman\n> Please use blue 💙/);
-    assert.match(message,/Estimate only/);assert.match(message,/before I place the order/);
+    assert.match(message,/Estimate only/);assert.match(message,/I will pay by UPI/);
     assert.doesNotMatch(message,/Marketing copy|Legacy greeting/);
   }
   assert.match(quote.message,/\*Notes for the whole order\*\n> Gift wrap the whole order/);

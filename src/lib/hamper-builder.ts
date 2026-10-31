@@ -76,7 +76,7 @@ export function generateHamperMessage(draft: HamperDraft): string {
   lines.push(...orderDeliveryLines(draft.pincode, draft.date), "", "*Quote requested — no price confirmed*",
     "Please quote the price per hamper and the total for all hampers.",
     "Include packaging, custom requests and shipping.",
-    "Please confirm designs, delivery timing and payment options before I place the order.",
+    "Please confirm designs, delivery timing and the final total. I will pay by UPI.",
     "", `Built on: ${getSiteUrl()}/build-your-hamper`);
   return lines.join("\n");
 }

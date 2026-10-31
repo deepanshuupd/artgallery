@@ -1,0 +1,14 @@
+.steps { margin-top: 24px; padding: 18px 16px; border: 1px dashed #b9c4ad; border-radius: 6px; background: #fffdf6; color: #354c41; }
+.steps h3 { margin-top: 6px; font: 500 20px/1.25 var(--font-heading), serif; color: #263c32; }
+.steps ol { display: grid; gap: 8px; margin-top: 12px; padding-left: 20px; list-style: decimal; font-size: 13px; line-height: 1.7; }
+.qr { margin-top: 14px; border-top: 1px solid #d2d8c7; }
+.qr summary { display: flex; align-items: center; justify-content: space-between; min-height: 48px; color: #244d40; font-size: 13px; font-weight: 600; cursor: pointer; list-style: none; }
+.qr summary::-webkit-details-marker { display: none; }
+.qr summary > span { font-size: 20px; font-weight: 400; }
+.qr[open] summary > span { transform: rotate(45deg); }
+.qrBody { display: grid; justify-items: center; gap: 10px; padding-bottom: 6px; text-align: center; font-size: 13px; line-height: 1.7; }
+.code { width: min(220px, 64vw); aspect-ratio: 1; }
+.code svg { display: block; width: 100%; height: 100%; }
+.qrBody strong { overflow-wrap: anywhere; }
+.note { font-size: 11px; color: #626d5f; }
+.link { display: inline-flex; align-items: center; min-height: 44px; margin-top: 6px; color: #244d40; font-size: 13px; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }

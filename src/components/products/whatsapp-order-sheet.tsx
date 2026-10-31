@@ -66,7 +66,7 @@ export function WhatsAppOrderSheet({ product, open, onClose, quantity, onQuantit
         </>}
         {needsPhoto && <><label className={styles.requestLabel} htmlFor={requestId}>Anything you’d like to see or ask? <span>Optional</span></label>
         <textarea id={requestId} className={styles.request} rows={3} maxLength={1000} placeholder="For example, the back of the magnet or a photo showing its size…" value={request} onChange={event => setRequest(event.currentTarget.value)} /></>}
-        {!needsPhoto && <p className={styles.help}>{product.inStock === false ? "Availability and preparation time are confirmed with Sneha." : "In-stock quantities dispatch in 2–3 days. Made-to-order pieces and larger quantities may take longer."} Delivery is extra.</p>}
+        {!needsPhoto && <p className={styles.help}>{product.inStock === false ? "Availability and preparation time are confirmed with Sneha." : "In-stock quantities dispatch in 2–3 days. Made-to-order pieces and larger quantities may take longer."} Delivery is extra; pay by UPI once Sneha confirms the total.</p>}
         <OrderMessagePreview message={message} />
       </div>
       <footer className={styles.sheetFooter}>

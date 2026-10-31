@@ -106,3 +106,6 @@
   .gallery { position: sticky; top: 110px; }
   .carousel { height: min(580px, calc(100svh - 210px)); }
 }
+.payNote { margin-top: 4px; padding: 10px 12px; border-left: 3px solid #28564f; background: rgba(40, 86, 79, 0.06); color: #526963; font-size: 12px; line-height: 1.7; }
+.payNote strong { margin-right: 4px; color: #263c46; font-weight: 600; }
+.payNote a { display: inline-flex; align-items: center; min-height: 32px; color: #28564f; text-decoration: underline; text-underline-offset: 4px; }
