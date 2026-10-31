@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
 
-import { AboutCta } from "@/components/about/about-cta";
 import { AboutHero } from "@/components/about/about-hero";
-import { AboutValues } from "@/components/about/about-values";
+import { StoryRoad } from "@/components/about/story-road";
 import styles from "@/components/about/our-story.module.css";
 
 export const metadata: Metadata = {
@@ -20,8 +19,7 @@ export default function AboutPage() {
   return (
     <main className={styles.page}>
       <AboutHero />
-      <AboutValues />
-      <AboutCta />
+      <StoryRoad />
     </main>
   );
 }

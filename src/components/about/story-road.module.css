@@ -1,0 +1,144 @@
+/* Hallmark · redesign: full · scope: section (/about) · theme: custom · idea: "Our Story told on the hill road from Tanakpur (255 m) home to Pithoragarh (1,627 m)" · vibe: "a drive into the Kumaon hills, milestone by milestone" · posture: full palette (four grounds, one per town; milestone yellow is the signal) · faces: Cormorant Garamond (brand display), Manrope (brand body) · signature: the road drawn as you scroll, with a live altimeter · altitudes: Wikipedia infoboxes, checked 31 October 2026 · nav: kept (site chrome) · footer: kept (site chrome) · job: connect, then contact */
+/* Hallmark · waive 80 · contour lines and the road are a schematic of the real route and its real altitudes, not a picture of a landscape */
+
+.road {
+  --milestone-yellow: oklch(85% 0.16 90);
+  --milestone-white: oklch(97% 0.006 90);
+  --sign-ink: oklch(22% 0.02 60);
+  --road-edge: oklch(95% 0.01 90);
+  --road-asphalt: oklch(26% 0.012 60);
+  --road-line: oklch(85% 0.16 90);
+  --lane: 52px;
+  --road-width: 10;
+  --gutter: 14px;
+  --parapet-black: oklch(24% 0.01 60);
+  --header: 76px;
+  position: relative;
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+/* The road runs down its own lane at the left edge, over every ground. */
+.roadSvg { position: absolute; z-index: 3; top: 0; left: var(--gutter); width: var(--lane); height: 100%; overflow: visible; pointer-events: none; }
+/* Widths in the SVG's own units (1 unit = 1px), set per breakpoint. */
+.roadSvg path { fill: none; stroke-linecap: butt; stroke-linejoin: round; }
+.ghost { stroke: var(--road-asphalt); stroke-width: calc(var(--road-width) * 1px); opacity: .2; }
+/* Hill-road parapet: a low wall painted in black and yellow blocks. */
+.parapet { stroke: var(--parapet-black); stroke-width: calc((var(--road-width) + 6) * 1px); }
+.parapetPaint { stroke: var(--road-line); stroke-width: calc((var(--road-width) + 6) * 1px); stroke-dasharray: 5 5; }
+.edge { stroke: var(--road-edge); stroke-width: calc((var(--road-width) + 1) * 1px); }
+.asphalt { stroke: var(--road-asphalt); stroke-width: calc((var(--road-width) - 2) * 1px); }
+.centre { stroke: var(--road-line); stroke-width: 1.2px; stroke-dasharray: 6 8; }
+.maskStroke { stroke: white; stroke-width: calc((var(--road-width) + 12) * 1px); stroke-linecap: round; }
+.marker circle:first-child { fill: var(--road-line); stroke: var(--sign-ink); stroke-width: 2px; }
+.marker circle:last-child { fill: var(--sign-ink); }
+
+.stops { margin: 0; padding: 0; list-style: none; }
+.stop {
+  position: relative; isolation: isolate; overflow: clip;
+  min-height: 88svh;
+  padding: 40px var(--gutter) 64px calc(var(--gutter) * 2 + var(--lane));
+  color: var(--ink);
+  background: linear-gradient(to bottom, var(--prev, var(--ground)), var(--ground) 140px);
+}
+.stop[data-ground="plains"] { --ground: oklch(85% 0.06 80); --ink: oklch(23% 0.03 60); --muted: oklch(29% 0.035 60); --contour: oklch(74% 0.07 74); --rule: oklch(68% 0.06 70); padding-top: 56px; min-height: 56svh; }
+/* Room at the end, so the last invitation clears the corner altimeter. */
+.stop[data-ground="dusk"] { padding-bottom: 128px; }
+
+/* Each town's landmark: a full-width scene under its words, never behind them. */
+.stop:has(.landmark) { padding-bottom: 0; }
+.landmark { position: relative; z-index: -1; margin: 40px calc(-1 * var(--gutter)) 0 calc(-1 * (var(--gutter) * 2 + var(--lane))); }
+.landmark > svg { height: clamp(180px, 30vw, 360px); }
+.landmark figcaption { padding: 10px var(--gutter) 18px calc(var(--gutter) * 2 + var(--lane)); background: color-mix(in oklch, var(--ground), black 22%); font-size: .875rem; line-height: 1.5; color: var(--muted); }
+/* Each town has its own colour world. Champawat: temple stone at evening.
+   Lohaghat: deep lake water. Pithoragarh: violet dawn over the valley. */
+.stop[data-ground="deodar"] { --prev: oklch(85% 0.06 80); --ground: oklch(41% 0.11 38); --ink: oklch(97.5% 0.012 70); --muted: oklch(95% 0.02 70); --contour: oklch(50% 0.11 40); --rule: oklch(68% 0.09 55); --accent: oklch(87% 0.14 85); }
+.stop[data-ground="pine"] { --prev: oklch(41% 0.11 38); --ground: oklch(33% 0.07 218); --ink: oklch(97.5% 0.012 210); --muted: oklch(95% 0.02 210); --contour: oklch(42% 0.07 218); --rule: oklch(62% 0.06 210); --accent: oklch(88% 0.09 190); }
+.stop[data-ground="dusk"] { --prev: oklch(33% 0.07 218); --ground: oklch(25% 0.08 292); --ink: oklch(97.5% 0.012 290); --muted: oklch(95% 0.02 290); --contour: oklch(36% 0.09 292); --rule: oklch(60% 0.08 300); --accent: oklch(86% 0.16 85); }
+/* Pithoragarh glows warm toward the horizon, where the sun comes up behind the peaks. */
+.stop[data-ground="dusk"] { background: linear-gradient(to bottom, var(--prev), var(--ground) 140px, var(--ground) 55%, oklch(40% 0.12 15) 100%); }
+.stop[data-ground="deodar"] h2, .stop[data-ground="pine"] h2, .stop[data-ground="dusk"] h2 { color: var(--accent); }
+
+/* Contours stay low in each town, under the landmark, never behind the words. */
+.contours { position: absolute; z-index: -1; inset: 0; width: 100%; height: 100%; opacity: .6; -webkit-mask-image: linear-gradient(to bottom, transparent 0 55%, #000 92%); mask-image: linear-gradient(to bottom, transparent 0 55%, #000 92%); }
+.stop[data-ground="plains"] .contours { -webkit-mask-image: none; mask-image: none; opacity: .5; }
+.contours path { fill: none; stroke: var(--contour); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+
+.stopInner { position: relative; max-width: 1080px; }
+
+/* An Indian highway milestone: a domed yellow cap over a white stone. */
+.sign { display: inline-grid; justify-items: center; min-width: 132px; margin: 0; color: var(--sign-ink); box-shadow: 0 2px 0 oklch(20% 0.02 60 / .25); }
+.signTown { width: 100%; padding: 12px 16px 6px; border-radius: 999px 999px 0 0 / 34px 34px 0 0; background: var(--milestone-yellow); text-align: center; font-size: 1rem; font-weight: 700; }
+.signAltitude { width: 100%; padding: 6px 16px 10px; border-radius: 0 0 3px 3px; background: var(--milestone-white); text-align: center; font: 500 1.75rem/1 var(--font-heading), serif; font-variant-numeric: lining-nums tabular-nums; }
+
+.stop h1, .stop h2 { min-width: 0; margin-top: 20px; overflow-wrap: break-word; font-family: var(--font-heading), serif; font-weight: 500; letter-spacing: -.02em; text-wrap: balance; }
+.stop h1 { max-width: 12ch; font-size: clamp(2.4rem, 10.5vw, 3.4rem); line-height: 1.02; }
+
+.stop h2 { max-width: 14ch; font-size: clamp(2.1rem, 9vw, 3.1rem); line-height: 1.04; }
+.line { max-width: 40ch; margin-top: 14px; font-size: 1rem; line-height: 1.6; color: var(--muted); text-wrap: pretty; }
+
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; margin-top: 24px; }
+.primary { display: inline-flex; align-items: center; min-height: 48px; padding: 0 24px; border-radius: 4px; background: var(--ink); color: var(--ground); font-size: 1rem; font-weight: 600; white-space: nowrap; text-decoration: none; transition: transform 120ms cubic-bezier(.22, 1, .36, 1); }
+.primary:active { transform: translateY(1px); }
+.secondary { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); font-size: 1rem; font-weight: 600; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 6px; transition: text-decoration-color 120ms cubic-bezier(.22, 1, .36, 1); }
+
+/* Story chapters. */
+.title { max-width: 12ch; }
+.lead { max-width: 38ch; margin-top: 16px; font-size: 1.0625rem; font-weight: 500; line-height: 1.65; color: var(--muted); text-wrap: pretty; }
+.stop .name { max-width: none; font-size: clamp(3rem, 14vw, 5.5rem); line-height: 1; }
+.stop[data-ground] .name { color: var(--ink); }
+.name span[aria-hidden] { color: var(--milestone-yellow); }
+.name span[lang="hi"] { font-family: var(--font-devanagari), serif; color: var(--milestone-yellow); }
+.translation { margin-top: 10px; font: 500 1.5rem/1.2 var(--font-heading), serif; color: var(--ink); }
+.prose { max-width: 46ch; }
+.prose p { margin-top: 16px; font-size: 1.0625rem; font-weight: 500; line-height: 1.7; color: var(--muted); text-wrap: pretty; }
+.prose strong { color: var(--ink); font-weight: 600; }
+.making { display: grid; gap: 32px; }
+.artwork { width: min(100%, 300px); margin: 0; }
+.artwork img { display: block; width: 100%; height: auto; border: 8px solid var(--milestone-white); box-shadow: 0 10px 24px oklch(15% 0.02 160 / .35); transform: rotate(-2deg); }
+.artwork figcaption { margin-top: 14px; font-size: .875rem; line-height: 1.5; }
+.artwork figcaption a, .link { color: var(--ink); text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 5px; }
+.link { display: inline-flex; align-items: center; min-height: 44px; margin-top: 12px; font-weight: 600; }
+.blessing { margin-top: 36px; font: 400 clamp(1.9rem, 8vw, 2.8rem)/1.3 var(--font-devanagari), serif; color: var(--milestone-yellow); }
+.blessingTranslation { margin-top: 4px; font-size: .9375rem; color: var(--muted); }
+
+.primary:focus-visible, .secondary:focus-visible, .link:focus-visible, .artwork a:focus-visible { outline: 3px solid var(--milestone-yellow); outline-offset: 3px; }
+
+/* The live altimeter, a small milestone in the corner while you drive. */
+/* It rides beside the road lane, clear of the story. */
+.hud { position: fixed; z-index: 45; left: 6px; bottom: 14px; display: grid; min-width: 84px; color: var(--sign-ink); box-shadow: 0 4px 14px oklch(20% 0.02 60 / .3); opacity: 0; transform: translateY(8px); transition: opacity 220ms cubic-bezier(.22, 1, .36, 1), transform 220ms cubic-bezier(.22, 1, .36, 1); pointer-events: none; }
+.hud[data-on="true"] { opacity: 1; transform: none; }
+.hudTown { padding: 7px 8px 2px; border-radius: 999px 999px 0 0 / 22px 22px 0 0; background: var(--milestone-yellow); text-align: center; font-size: .75rem; font-weight: 700; }
+.hudAltitude { padding: 2px 8px 6px; border-radius: 0 0 3px 3px; background: var(--milestone-white); text-align: center; font: 500 1.25rem/1 var(--font-heading), serif; font-variant-numeric: tabular-nums; }
+
+@media (hover: hover) {
+  .secondary:hover, .link:hover, .artwork figcaption a:hover { text-decoration-color: var(--ink); }
+}
+@media (max-height: 700px) and (max-width: 899px) {
+  .stop[data-ground="plains"] { padding-top: 18px; }
+  .stop h1 { margin-top: 14px; font-size: 2.3rem; }
+  .signAltitude { font-size: 1.5rem; }
+}
+@media (min-width: 900px) {
+  .road { --lane: 130px; --road-width: 18; --gutter: 40px; --header: 92px; }
+  .parapetPaint { stroke-dasharray: 8 8; }
+  .centre { stroke-width: 2px; stroke-dasharray: 10 12; }
+  .stop { min-height: 92svh; padding: 72px var(--gutter) 96px calc(var(--gutter) * 2 + var(--lane)); }
+  .sign { min-width: 168px; }
+  .signTown { font-size: 1.125rem; }
+  .signAltitude { font-size: 2.25rem; }
+  .stop h1 { max-width: 13ch; font-size: clamp(3.6rem, 5.6vw, 5.5rem); }
+  .stop h2 { font-size: clamp(2.8rem, 4.4vw, 4.2rem); }
+  .line { font-size: 1.125rem; }
+  .primary { min-height: 52px; padding-inline: 32px; }
+  .stop:has(.landmark) { padding-bottom: 0; }
+  .making { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: center; gap: 64px; }
+  .prose p { font-size: 1.0625rem; }
+  .hud { left: 24px; bottom: 24px; min-width: 120px; }
+  .hudTown { font-size: .875rem; }
+  .hudAltitude { font-size: 1.75rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hud, .primary, .secondary { transition: none; }
+  .hud { transform: none; }
+  .marker { display: none; }
+}

@@ -1,0 +1,120 @@
+/* Hallmark · see story-road.module.css for the stamp. Landmark scenes: finished state by default; they animate once a town arrives. */
+.scene {
+  --gold: oklch(85% 0.16 85);
+  --stone: oklch(87% 0.03 75);
+  --stone-dark: oklch(70% 0.045 60);
+  --stone-line: oklch(52% 0.05 50);
+  --moon: oklch(96% 0.03 95);
+  display: block;
+  width: 100%;
+  overflow: visible;
+}
+.scene path, .scene rect, .scene ellipse, .scene circle { vector-effect: non-scaling-stroke; }
+
+/* Shared land */
+.ridgeFar { fill: color-mix(in oklch, var(--ground), black 16%); }
+.ridgeNear { fill: color-mix(in oklch, var(--ground), black 32%); }
+.trees path { fill: color-mix(in oklch, var(--ground), black 50%); }
+.ground { fill: color-mix(in oklch, var(--ground), black 45%); }
+
+/* Champawat: Baleshwar Temple at sunset */
+.setSun { fill: oklch(80% 0.15 68); opacity: .9; }
+.stone { fill: var(--stone); stroke: var(--stone-line); stroke-width: .8px; }
+.stoneDark { fill: var(--stone-dark); stroke: var(--stone-line); stroke-width: .8px; }
+.pillars, .ribs { fill: none; stroke: var(--stone-line); stroke-width: 1px; }
+.tiers { fill: none; stroke: var(--stone-line); stroke-width: 1px; stroke-dasharray: 60; stroke-dashoffset: 0; }
+.doorway { fill: color-mix(in oklch, var(--ground), black 55%); }
+.kalash { fill: var(--gold); stroke: var(--gold); stroke-width: 1.5px; }
+.flag { fill: oklch(62% 0.2 30); transform-box: fill-box; transform-origin: left center; }
+.bellLine { fill: none; stroke: oklch(45% 0.04 60); stroke-width: 1px; }
+.bell path:first-child { fill: none; stroke: oklch(45% 0.04 60); stroke-width: 1px; }
+.bell path:last-child { fill: var(--gold); }
+.diyaBowl { fill: var(--stone-dark); }
+.flame { fill: oklch(82% 0.17 70); transform-box: fill-box; transform-origin: center bottom; }
+.birds path { fill: none; stroke: color-mix(in oklch, var(--ground), black 45%); stroke-width: 1.4px; stroke-linecap: round; }
+
+/* Lohaghat: Koli Dhek lake by moonlight. Far hills sit pale in the moon's mist. */
+.night .ridgeFar { fill: color-mix(in oklch, var(--ground), oklch(80% 0.04 210) 34%); }
+.night .ridgeNear { fill: color-mix(in oklch, var(--ground), black 28%); }
+.night .trees path { fill: color-mix(in oklch, var(--ground), black 55%); }
+.moon { fill: var(--moon); filter: drop-shadow(0 0 10px oklch(96% 0.03 95 / .55)); }
+.water { fill: color-mix(in oklch, var(--ground), oklch(66% 0.07 205) 55%); transform-box: fill-box; transform-origin: center top; }
+.mirror { opacity: .55; }
+.glint { fill: none; stroke: var(--moon); stroke-width: 1.4px; stroke-linecap: round; opacity: .75; }
+.ripple { fill: none; stroke: var(--moon); stroke-width: 1px; opacity: 0; transform-box: fill-box; transform-origin: center; }
+.mist { fill: var(--moon); opacity: .12; }
+
+/* Pithoragarh: Panchachuli at sunrise over the Soar valley */
+.dawn { opacity: .95; }
+.dawnTop { stop-color: var(--ground); }
+.dawnLow { stop-color: oklch(64% 0.15 38); }
+.stars circle { fill: var(--moon); opacity: .2; }
+.rays { fill: none; stroke: var(--gold); stroke-width: 1.4px; stroke-linecap: round; opacity: .55; }
+.sun { fill: var(--gold); }
+.rock { fill: color-mix(in oklch, var(--ground), black 30%); }
+.snow { fill: oklch(93% 0.06 80); transition: fill 1600ms cubic-bezier(.22, 1, .36, 1) 1800ms; }
+.glow { fill: var(--gold); opacity: .55; transform: translateX(560px); }
+.valley { fill: color-mix(in oklch, var(--ground), black 45%); }
+.townLights circle { fill: oklch(88% 0.15 85); }
+
+/* Before arrival (only when scripting is running): each scene waits for its town. */
+:global([data-js="true"]) :global(.story-stop:not([data-arrived="true"])) .temple,
+:global([data-js="true"]) :global(.story-stop:not([data-arrived="true"])) .peaks { opacity: 0; transform: translateY(30px); }
+:global([data-js="true"]) :global(.story-stop:not([data-arrived="true"])) .setSun { transform: translateY(-26px); }
+:global([data-js="true"]) :global(.story-stop:not([data-arrived="true"])) .tiers { stroke-dashoffset: 60; }
+:global([data-js="true"]) :global(.story-stop:not([data-arrived="true"])) .flag { transform: scaleX(0); }
+:global([data-js="true"]) :global(.story-stop:not([data-arrived="true"])) .bells { opacity: 0; }
+:global([data-js="true"]) :global(.story-stop:not([data-arrived="true"])) .water { transform: scaleY(0); }
+:global([data-js="true"]) :global(.story-stop:not([data-arrived="true"])) .mirror { opacity: 0; }
+:global([data-js="true"]) :global(.story-stop:not([data-arrived="true"])) .moon { opacity: 0; transform: translateY(30px); }
+:global([data-js="true"]) :global(.story-stop:not([data-arrived="true"])) .sunGroup { opacity: 0; transform: translateY(70px); }
+:global([data-js="true"]) :global(.story-stop:not([data-arrived="true"])) .stars circle { opacity: .9; }
+:global([data-js="true"]) :global(.story-stop:not([data-arrived="true"])) .glow { transform: translateX(0); }
+:global([data-js="true"]) :global(.story-stop:not([data-arrived="true"])) .snow { fill: oklch(97% 0.01 250); }
+
+.temple, .peaks { transition: opacity 900ms cubic-bezier(.22, 1, .36, 1), transform 900ms cubic-bezier(.22, 1, .36, 1); }
+.setSun { transition: transform 2400ms cubic-bezier(.22, 1, .36, 1); }
+.tiers { transition: stroke-dashoffset 1400ms cubic-bezier(.22, 1, .36, 1) 400ms; }
+.flag { transition: transform 600ms cubic-bezier(.22, 1, .36, 1) 1300ms; }
+.bells { transition: opacity 700ms cubic-bezier(.22, 1, .36, 1) 1000ms; }
+.water { transition: transform 1200ms cubic-bezier(.22, 1, .36, 1); }
+.mirror { transition: opacity 1400ms cubic-bezier(.22, 1, .36, 1) 700ms; }
+.moon { transition: opacity 1600ms cubic-bezier(.22, 1, .36, 1) 300ms, transform 2000ms cubic-bezier(.22, 1, .36, 1) 300ms; }
+.sunGroup { transition: opacity 1400ms cubic-bezier(.22, 1, .36, 1) 300ms, transform 2400ms cubic-bezier(.22, 1, .36, 1) 300ms; }
+.stars circle { transition: opacity 2200ms cubic-bezier(.22, 1, .36, 1) 300ms; }
+.glow { transition: transform 2600ms cubic-bezier(.4, 0, .2, 1) 900ms; }
+
+/* Small loops, only while their town is on screen. */
+:global(.story-stop[data-visible="true"]) .flame { animation: flicker 1.6s ease-in-out infinite alternate; }
+:global(.story-stop[data-visible="true"]) .bell { animation: sway 2.8s ease-in-out infinite alternate; }
+:global(.story-stop[data-visible="true"]) .bell:nth-child(even) { animation-delay: -1.4s; }
+:global(.story-stop[data-visible="true"]) .rippleOne { animation: ripple 3.6s ease-out infinite; }
+:global(.story-stop[data-visible="true"]) .rippleTwo { animation: ripple 3.6s ease-out 1.8s infinite; }
+:global(.story-stop[data-visible="true"]) .mist { animation: drift 14s ease-in-out infinite alternate; }
+:global(.story-stop[data-visible="true"]) .townLights circle { animation: twinkle 2.2s ease-in-out infinite alternate; }
+@keyframes flicker { from { transform: scale(1, 1); opacity: .9; } to { transform: scale(.85, 1.12); opacity: 1; } }
+@keyframes sway { from { transform: rotate(-7deg); } to { transform: rotate(7deg); } }
+@keyframes ripple { from { opacity: .7; transform: scale(.3); } to { opacity: 0; transform: scale(2.6); } }
+@keyframes drift { from { transform: translateX(-30px); } to { transform: translateX(30px); } }
+@keyframes twinkle { from { opacity: .45; } to { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .temple, .peaks, .setSun, .tiers, .flag, .bells, .water, .mirror, .moon, .sunGroup, .stars circle, .glow, .snow { transition: none; }
+  :global(.story-stop[data-visible="true"]) .flame, :global(.story-stop[data-visible="true"]) .bell,
+  :global(.story-stop[data-visible="true"]) .ripple, :global(.story-stop[data-visible="true"]) .mist,
+  :global(.story-stop[data-visible="true"]) .townLights circle { animation: none; }
+  :global([data-js="true"]) :global(.story-stop:not([data-arrived="true"])) .temple,
+  :global([data-js="true"]) :global(.story-stop:not([data-arrived="true"])) .peaks,
+  :global([data-js="true"]) :global(.story-stop:not([data-arrived="true"])) .setSun,
+  :global([data-js="true"]) :global(.story-stop:not([data-arrived="true"])) .water,
+  :global([data-js="true"]) :global(.story-stop:not([data-arrived="true"])) .moon,
+  :global([data-js="true"]) :global(.story-stop:not([data-arrived="true"])) .sunGroup { opacity: 1; transform: none; }
+  :global([data-js="true"]) :global(.story-stop:not([data-arrived="true"])) .bells,
+  :global([data-js="true"]) :global(.story-stop:not([data-arrived="true"])) .mirror { opacity: 1; }
+  :global([data-js="true"]) :global(.story-stop:not([data-arrived="true"])) .mirror { opacity: .55; }
+  :global([data-js="true"]) :global(.story-stop:not([data-arrived="true"])) .tiers { stroke-dashoffset: 0; }
+  :global([data-js="true"]) :global(.story-stop:not([data-arrived="true"])) .flag { transform: none; }
+  :global([data-js="true"]) :global(.story-stop:not([data-arrived="true"])) .stars circle { opacity: .2; }
+  :global([data-js="true"]) :global(.story-stop:not([data-arrived="true"])) .glow { transform: translateX(560px); }
+  :global([data-js="true"]) :global(.story-stop:not([data-arrived="true"])) .snow { fill: oklch(93% 0.06 80); }
+}
