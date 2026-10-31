@@ -10,11 +10,19 @@ const nextConfig: NextConfig = {
   htmlLimitedBots: /.*/,
   async headers() {
     // Versioned, pre-compressed decoration is served directly by the CDN.
-    return [
+    const immutable = [
       "/video/pine-wind-mobile-v1.mp4", "/video/pine-wind-desktop-v1.mp4",
       "/video/pine-poster-mobile-v1.webp", "/video/pine-poster-desktop-v1.webp",
       "/images/responsive/:path*",
     ].map(source => ({ source, headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] }));
+    // Baseline hardening for every response; no CSP yet, as it needs a full audit of third-party scripts.
+    const security = { source: "/:path*", headers: [
+      { key: "X-Content-Type-Options", value: "nosniff" },
+      { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+      { key: "X-Frame-Options", value: "SAMEORIGIN" },
+      { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+    ] };
+    return [...immutable, security];
   },
   images: {
     // Serve source images directly to avoid Vercel Image Optimization usage.

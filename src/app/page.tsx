@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { homeTitle, homeDescription } from "@/lib/seo";
+import { defaultShareImage, homeTitle, homeDescription } from "@/lib/seo";
 import { getSiteUrl } from "@/lib/site";
 import { JsonLd } from "@/components/seo/json-ld";
 
@@ -31,12 +31,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: homeTitle, description: homeDescription, url: getSiteUrl(), type: "website",
     siteName: "KumaonRang", locale: "en_IN",
-    images: [{ url: `${getSiteUrl()}/brand/kumaonrang-favicon-source.png`,
-      alt: "KumaonRang — K monogram with Himalayan mountains", width: 512, height: 512, type: "image/png" }],
+    images: [{ ...defaultShareImage, url: `${getSiteUrl()}${defaultShareImage.url}`, type: "image/png" }],
   },
   twitter: { title: homeTitle, description: homeDescription,
-    card: "summary",
-    images: [`${getSiteUrl()}/brand/kumaonrang-favicon-source.png`],
+    card: "summary_large_image",
+    images: [`${getSiteUrl()}${defaultShareImage.url}`],
   },
 };
 

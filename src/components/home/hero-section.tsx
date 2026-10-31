@@ -13,9 +13,10 @@ export function HeroSection() {
 
   return (
     <section ref={heroRef} className={`${styles.hero} ${atmosphere.hero}`} aria-labelledby="welcome-title">
+      {/* Only the welcome figure (the largest painted element) is preloaded; the layers behind it load eagerly. */}
       <div className={styles.scene} aria-hidden="true">
-        <ResponsiveImage className={styles.forest} src="/video/pine-poster-mobile-v1.webp" alt="" width={720} height={1280} sizes="(max-width: 767px) 100vw, 50vw" priority />
-        <ResponsiveImage className={styles.village} src="/images/culture/kumaon-village-v1.webp" alt="" width={1672} height={941} sizes="(max-width: 767px) 100vw, 50vw" priority />
+        <ResponsiveImage className={styles.forest} src="/video/pine-poster-mobile-v1.webp" alt="" width={720} height={1280} sizes="(max-width: 767px) 100vw, 50vw" loading="eager" />
+        <ResponsiveImage className={styles.village} src="/images/culture/kumaon-village-v1.webp" alt="" width={1672} height={941} sizes="(max-width: 767px) 100vw, 50vw" loading="eager" />
         <ResponsiveImage className={styles.welcome} src="/images/culture/kumaoni-welcome-v1.webp" alt="" width={1024} height={1536} sizes="(max-width: 767px) 82vw, 38vw" priority />
       </div>
       <div className={`heritage-hero__copy ${styles.copy}`} data-home-reveal="hero-copy">

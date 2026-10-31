@@ -63,6 +63,8 @@ export default async function AipanArtPage() {
         mainEntityOfPage: `${siteUrl}/aipan-art`,
         author: { "@type": "Organization", name: "KumaonRang", url: `${siteUrl}/about` },
         publisher: { "@type": "Organization", "@id": `${siteUrl}#business`, name: "KumaonRang", url: siteUrl },
+        // First published with commit be178db (3 October 2026).
+        datePublished: "2026-10-03T00:00:00+05:30",
         dateModified: `${aipanGuideUpdated}T00:00:00+05:30`,
         inLanguage: "en-IN",
         about: { "@type": "Thing", name: "Aipan art of Kumaon, Uttarakhand" },

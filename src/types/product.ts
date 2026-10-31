@@ -36,4 +36,6 @@ export interface Product {
   featured: boolean;
   details: string[];
   whatsappMessage: string;
+  /** Last change (updated_at when present, otherwise created_at), for sitemap lastmod. */
+  updatedAt?: string;
 }

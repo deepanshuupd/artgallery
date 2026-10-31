@@ -62,11 +62,12 @@ export default async function ProductDetailsPage(props: ProductDetailsPageProps)
     <JsonLd data={{
       "@context": "https://schema.org", "@type": "Product", "@id": `${url}#product`,
       name: product.name.trim(), description: product.description, url,
-      ...(product.id ? { productID: product.id } : {}),
+      ...(product.id ? { productID: product.id, sku: product.id } : {}),
       category: product.category,
       ...(images.length ? { image: images } : {}),
       brand: { "@type": "Brand", name: "KumaonRang" },
       offers: { "@type": "Offer", url, priceCurrency: "INR", price: product.price,
+        itemCondition: "https://schema.org/NewCondition",
         ...(typeof product.inStock === "boolean" ? { availability: product.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock" } : {}),
         seller: { "@type": "Organization", "@id": `${getSiteUrl()}#business`, name: "KumaonRang" } },
     }} />

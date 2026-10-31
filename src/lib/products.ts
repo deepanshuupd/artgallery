@@ -69,6 +69,7 @@ function mapRow(row: Record<string, unknown>): Product {
     featured: (row.is_featured as boolean) ?? false,
     details: (row.details as string[]) ?? [],
     whatsappMessage: (row.whatsapp_message as string) ?? "",
+    updatedAt: typeof row.updated_at === "string" ? row.updated_at : typeof row.created_at === "string" ? row.created_at : undefined,
   };
 }
 
@@ -89,7 +90,7 @@ const getPublishedProducts = unstable_cache(async (): Promise<Product[]> => {
 
   if (error || !data) throw new Error("The product catalog could not be loaded.");
   return data.map(mapRow);
-}, ["public-product-catalog", "stable-urls-stock-v2"], { revalidate: 60, tags: ["public-products"] });
+}, ["public-product-catalog", "stable-urls-stock-v3"], { revalidate: 60, tags: ["public-products"] });
 
 export const getProducts = cache(async (): Promise<Product[]> => {
   if (!supabaseConfigured) return loadFallbackProducts();

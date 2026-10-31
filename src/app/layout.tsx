@@ -10,6 +10,7 @@ import { brand } from "@/lib/brand";
 import { getSiteUrl } from "@/lib/site";
 import { homeTitle, homeDescription } from "@/lib/seo";
 import { CartProvider } from "@/components/cart/cart-provider";
+import { getWhatsAppBusinessNumber } from "@/lib/whatsapp";
 
 // Self-hosted so builds never depend on fetching Google Fonts. Files are
 // Google Fonts sources subset to Latin + ₹ (and Devanagari for Tiro), limited
@@ -35,6 +36,8 @@ const tiroDevanagari = localFont({
 });
 
 const siteUrl = getSiteUrl();
+// The public WhatsApp number shown across the site, with its country code.
+const whatsappNumber = getWhatsAppBusinessNumber();
 
 const siteDescription = homeDescription;
 
@@ -105,19 +108,27 @@ export default function RootLayout({
                 addressRegion: "Uttarakhand",
                 addressCountry: "IN",
               },
-              sameAs: ["https://www.instagram.com/kumaonrang/"],
+              sameAs: ["https://www.instagram.com/kumaonrang/", "https://www.pinterest.com/snehaupadhyay168/"],
+              founder: { "@type": "Person", name: "Sneha", url: `${siteUrl}/about` },
+              ...(whatsappNumber ? { contactPoint: {
+                "@type": "ContactPoint", contactType: "customer service",
+                telephone: `+${whatsappNumber}`, availableLanguage: ["en", "hi"],
+                areaServed: "IN",
+              } } : {}),
               // Google's URL-based policy option preserves the full damage and
               // statutory-rights wording without inventing a return window.
               hasMerchantReturnPolicy: {
                 "@type": "MerchantReturnPolicy",
                 "@id": `${siteUrl}/returns-policy#policy`,
                 merchantReturnLink: `${siteUrl}/returns-policy`,
+                applicableCountry: "IN",
               },
             }, {
               "@context": "https://schema.org",
               "@type": "WebSite",
               "@id": `${siteUrl}#website`,
               name: brand.name,
+              alternateName: ["Kumaon Rang"],
               url: siteUrl,
               inLanguage: "en-IN",
               publisher: { "@id": `${siteUrl}#business` },

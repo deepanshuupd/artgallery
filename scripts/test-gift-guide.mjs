@@ -151,8 +151,9 @@ assert.equal((emptyHtml.match(/<img\b/g) || []).length, 0);
 assert.doesNotMatch(emptyHtml, /href="\/aipan-frames\/golu-devta-aipan-frame"/);
 assert.match(emptyHtml, /href="\/aipan-frames"/, 'Keep category navigation when no eligible sample exists');
 metadata = await generateMetadata();
-assert.equal(metadata.openGraph.images, undefined);
-assert.equal(metadata.twitter.card, 'summary');
+// Without a product photograph, the page falls back to the brand's 1200 x 630 share image.
+assert.equal(metadata.openGraph.images[0].url, '/brand/kumaonrang-share-1200x630.png');
+assert.equal(metadata.twitter.card, 'summary_large_image');
 assert.match(readFileSync(resolve(root, 'app/uttarakhand-gifts/page.tsx'), 'utf8'), /generateMetadata/);
 console.log('Gift guide: catalogue selection, exclusions, live prices, minimum quantity, server HTML, lazy card images, canonical links, metadata, category previews and matching schema passed.');
 

@@ -6,6 +6,7 @@ import { getSiteUrl } from "@/lib/site";
 import { collections } from "@/lib/collections";
 import { getProductImage, getProductImageUrls } from "@/lib/product-image";
 import { getGiftGuideCover, getGiftGuideIdeas } from "@/lib/gift-guide";
+import { aipanGuideUpdated } from "@/lib/aipan-guide";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = getSiteUrl();
@@ -29,6 +30,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: `${siteUrl}${route}`,
     changeFrequency: "weekly",
     priority: route === "" ? 1 : 0.8,
+    // Only dates that are known: a guessed lastmod teaches Google to ignore it.
+    ...(route === "/aipan-art" ? { lastModified: new Date(`${aipanGuideUpdated}T00:00:00+05:30`) } : {}),
   }));
 
   let productEntries: MetadataRoute.Sitemap = [];
@@ -53,6 +56,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${siteUrl}${getProductPath(product)}`,
       changeFrequency: "weekly",
       priority: 0.6,
+      ...(product.updatedAt ? { lastModified: new Date(product.updatedAt) } : {}),
       images: getProductImageUrls(product).map(src => new URL(src, siteUrl).href),
     }));
   } catch {

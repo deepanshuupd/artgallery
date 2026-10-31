@@ -4,7 +4,7 @@ import { getProductPath } from "@/lib/catalog";
 import { getSiteUrl } from "@/lib/site";
 import { getProductHighlights } from "@/lib/product-highlights";
 
-function getWhatsAppBusinessNumber() {
+export function getWhatsAppBusinessNumber() {
   const number = process.env.NEXT_PUBLIC_WHATSAPP_BUSINESS_NUMBER?.replace(/\D/g, "") ?? "";
   if (/^\d{10}$/.test(number)) return `91${number}`;
   if (/^0\d{10}$/.test(number)) return `91${number.slice(1)}`;

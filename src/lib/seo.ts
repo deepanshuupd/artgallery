@@ -6,6 +6,12 @@ export const homeTitle = "KumaonRang | Aipan Art, Pahadi Keychains & Gifts";
 export const homeDescription =
   "Shop Aipan art, Pahadi keychains, personalised gifts and curated hampers from Kumaon. Discover keepsakes rooted in Pithoragarh, Uttarakhand.";
 
+/** Link preview for pages without a photograph of their own. */
+export const defaultShareImage = {
+  url: "/brand/kumaonrang-share-1200x630.png", width: 1200, height: 630,
+  alt: "KumaonRang logo: Aipan art and Pahadi gifts from Pithoragarh, Uttarakhand",
+};
+
 export function conciseText(value: string, limit: number): string {
   const text = value.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
   if (text.length <= limit) return text;
@@ -29,13 +35,13 @@ export function pageMetadata({ title, description, path, image, imageAlt, imageW
     openGraph: {
       title: fullTitle, description: summary, url, type: "website",
       siteName: "KumaonRang", locale: "en_IN",
-      ...(image ? { images: [{ url: image, alt: imageAlt || title,
+      images: [image ? { url: image, alt: imageAlt || title,
         ...(imageWidth && imageHeight ? { width: imageWidth, height: imageHeight } : {}),
-      }] } : {}),
+      } : defaultShareImage],
     },
     twitter: {
-      card: image ? "summary_large_image" : "summary", title: fullTitle,
-      description: summary, ...(image ? { images: [image] } : {}),
+      card: "summary_large_image", title: fullTitle,
+      description: summary, images: [image ?? defaultShareImage.url],
     },
   };
 }
