@@ -1,0 +1,7 @@
+.timing { margin-top: 8px; padding: 12px 14px; border-left: 3px solid var(--color-geru); background: rgba(168, 69, 48, 0.06); color: #4b3d33; font-size: 13px; line-height: 1.7; }
+.timing strong { color: #2f241d; font-weight: 600; }
+.timing a { color: var(--color-geru); text-decoration: underline; text-underline-offset: 4px; }
+.group { margin-top: 32px; }
+.group > header { margin-bottom: 14px; }
+.group h2 { font: 500 26px/1.15 var(--font-heading), serif; color: #2f241d; }
+.group > header p { margin-top: 6px; font-size: 13px; line-height: 1.7; color: #67594e; }

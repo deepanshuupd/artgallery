@@ -21,12 +21,12 @@ export const collections = [
   },
   {
     category: "Home Decor", slug: "home-decor", label: "Home decor",
-    title: "Home Decor & Decorative Gifts",
-    heading: "Home decor",
-    description: "Explore home decor at KumaonRang. Compare decorative pieces for your space, check their size and materials, and ask about availability before ordering.",
-    intro: "Thoughtful details for your space. Find a decorative piece for a favourite corner, or choose something for a home you love.",
-    note: "Choose a piece that fits your space",
-    detail: "Check the dimensions, materials and display instructions on each listing. Think about where the piece will sit or hang, and confirm any details you need before ordering.",
+    title: "Bandarwars & Door Hangings for Home Decor",
+    heading: "Bandarwars & home decor",
+    description: "Shop handmade bandarwars (door hangings) at KumaonRang: Shree Lakshmi Ganesh, Subh Labh, Shrinathji and lotus designs on a jute base for the main door, puja room and festivals.",
+    intro: "A welcome at the door. Bandarwars in Lakshmi Ganesh, Subh Labh, Shrinathji and lotus designs for the main door, puja room and festive days.",
+    note: "Choosing a bandarwar",
+    detail: "Measure the width of your door frame first: each listing gives the bandarwar’s length and width. Then pick the motif that suits the occasion, and confirm any details you need before ordering.",
   },
   {
     category: "Fridge Magnets", slug: "uttarakhand-souvenirs", label: "Fridge magnets",

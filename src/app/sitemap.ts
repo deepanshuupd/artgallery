@@ -18,6 +18,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/build-your-hamper",
     "/bulk-orders",
     "/uttarakhand-gifts",
+    "/diwali-gifts",
     "/aipan-art",
     "/about",
     "/customer-stories",

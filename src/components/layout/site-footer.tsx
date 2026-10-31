@@ -26,6 +26,7 @@ export function SiteFooter() {
             <nav className={styles.links} aria-label="Footer navigation">
               {navigationItems.map(item => <Link prefetch={false} key={item.href} href={item.href}>{item.label}</Link>)}
               <Link prefetch={false} href="/uttarakhand-gifts">Uttarakhand gifts</Link>
+              <Link prefetch={false} href="/diwali-gifts">Diwali gifts</Link>
               <Link className={styles.artGuide} prefetch={false} href="/aipan-art"><AipanTileIcon />Aipan art guide</Link>
               <Link prefetch={false} href="/how-to-order">How to order</Link>
               <Link prefetch={false} href="/bulk-orders">Wedding & bulk gifts</Link>

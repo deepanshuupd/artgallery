@@ -12,16 +12,17 @@ import styles from "./product-showcase.module.css";
 
 type ProductShowcaseProps = {
   products: Product[]; eyebrow: string; title: string; showCategoryFilter?: boolean;
-  initialCategory?: string; searchPlaceholder?: string;
+  initialCategory?: string; initialQuery?: string; searchPlaceholder?: string;
   categoryCounts?: Partial<Record<ProductCategory, number>>;
   compactTools?: boolean;
 };
 
-export function ProductShowcase({ products, eyebrow, title, showCategoryFilter = false, initialCategory, searchPlaceholder = "Search the collection", categoryCounts, compactTools = false }: ProductShowcaseProps) {
+export function ProductShowcase({ products, eyebrow, title, showCategoryFilter = false, initialCategory, initialQuery, searchPlaceholder = "Search the collection", categoryCounts, compactTools = false }: ProductShowcaseProps) {
   const searchId = useId();
   const sortId = useId();
   const filtersRef = useRef<HTMLElement>(null);
-  const [query, setQuery] = useState("");
+  // A search from elsewhere (the 404 page) arrives as /collection?q=…
+  const [query, setQuery] = useState(initialQuery ?? "");
   const [sort, setSort] = useState("newest");
   const deferredQuery = useDeferredValue(query);
   const term = deferredQuery.trim().toLowerCase();

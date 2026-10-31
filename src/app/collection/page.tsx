@@ -23,13 +23,13 @@ export const metadata: Metadata = {
 };
 
 type CollectionPageProps = {
-  searchParams: Promise<{ category?: string }>;
+  searchParams: Promise<{ category?: string; q?: string }>;
 };
 
 export default async function CollectionPage({
   searchParams,
 }: CollectionPageProps) {
-  const [products, { category }] = await Promise.all([
+  const [products, { category, q }] = await Promise.all([
     getProducts(),
     searchParams,
   ]);
@@ -51,6 +51,7 @@ export default async function CollectionPage({
         <ProductShowcase
           eyebrow="Browse the collection"
           initialCategory={category}
+          initialQuery={typeof q === "string" ? q.slice(0, 80) : undefined}
           products={products}
           showCategoryFilter
           title="Shop by category"

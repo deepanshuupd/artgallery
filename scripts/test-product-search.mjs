@@ -88,3 +88,17 @@ test('every synonym is a single word, so one shared word cannot match the whole 
   assert.equal(names('hamper').length, 0);
   assert.deepEqual(searchProducts([...catalog, piece('Pichwai Jar Gift Combo', 'Curated Hampers', 299)], 'hamper').map(product => product.name), ['Pichwai Jar Gift Combo']);
 });
+
+test('Diwali groups follow the catalogue and show each piece once', () => {
+  const { getDiwaliGroups } = load('src/lib/diwali-gifts.ts');
+  const groups = getDiwaliGroups([
+    ...catalog,
+    piece('3 Layer Lotus Brass Diya', 'Personalized Gifts', 250, { details: ['Ideal for : Home , Pooja room & Festive Decor'] }),
+    piece('Rakhii Hamper', 'Curated Hampers', 499, { published: false }),
+  ]);
+  assert.deepEqual(groups.map(group => [group.id, group.products.map(product => product.name)]), [
+    ['doorway', ['Lotus Bandarwar']],
+    ['light', ['3 Layer Lotus Brass Diya']],
+    ['puja', ['Om Temple Bells – Set of 2']],
+  ]);
+});
