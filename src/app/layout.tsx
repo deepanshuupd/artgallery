@@ -8,7 +8,7 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { brand } from "@/lib/brand";
 import { getSiteUrl } from "@/lib/site";
-import { homeTitle, homeDescription } from "@/lib/seo";
+import { homeTitle, homeDescription, returnPolicySchema } from "@/lib/seo";
 import { CartProvider } from "@/components/cart/cart-provider";
 import { getWhatsAppBusinessNumber } from "@/lib/whatsapp";
 
@@ -117,12 +117,7 @@ export default function RootLayout({
               } } : {}),
               // Google's URL-based policy option preserves the full damage and
               // statutory-rights wording without inventing a return window.
-              hasMerchantReturnPolicy: {
-                "@type": "MerchantReturnPolicy",
-                "@id": `${siteUrl}/returns-policy#policy`,
-                merchantReturnLink: `${siteUrl}/returns-policy`,
-                applicableCountry: "IN",
-              },
+              hasMerchantReturnPolicy: returnPolicySchema(),
             }, {
               "@context": "https://schema.org",
               "@type": "WebSite",

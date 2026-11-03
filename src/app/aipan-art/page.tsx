@@ -156,6 +156,7 @@ export default async function AipanArtPage() {
             <h3>Weddings, births and janeu ceremonies</h3><p>These occasions call for their own preparations and designs. Upreti’s documentation also connects visual patterns with ceremony songs and the shared work of family members.<References numbers={[10]} /></p>
             <h3>Doorways and everyday spaces</h3><p>Aipan belongs at thresholds as well as on ceremonial seats. A doorway pattern introduces the visitor to the home; the setting helps explain the work.<References numbers={[3]} /></p>
             <p>Auspicious meanings belong to cultural belief and practice. A decorative frame can recall those traditions without being the ritual painting required for a particular ceremony.</p>
+            <p>Aipan also frames Kumaon’s own deities. Read about <Link href="/golu-devta" prefetch={false}>Golu Devta, the god of justice</Link>, the subject of one of our frames.</p>
           </div>
         </section>
 

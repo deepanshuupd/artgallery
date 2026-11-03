@@ -6,7 +6,7 @@ import { ProductDetailView } from "@/components/products/product-detail-view";
 import { ProductCard } from "@/components/products/product-card";
 import { getCategoryPath, getProductPath, getProductByPublicSlug, getRenamedProductPath } from "@/lib/catalog";
 import { getProducts } from "@/lib/products";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, returnPolicySchema } from "@/lib/seo";
 import { getSiteUrl } from "@/lib/site";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -56,7 +56,8 @@ export default async function ProductDetailsPage(props: ProductDetailsPageProps)
   const related = selectRelatedProducts(product, products);
   const giftContext = getProductGiftContext(product, products);
   const isAipan = /aipan/i.test(`${product.name} ${product.description}`);
-  const isRegional = isAipan || /pahadi|kumaon|uttarakhand/i.test(product.name);
+  const isGolu = /golu/i.test(product.name);
+  const isRegional = isAipan || isGolu || /pahadi|kumaon|uttarakhand/i.test(product.name);
   return <div className={`${forest.surface} ${forest.productSurface}`}>
     <div className="heritage-shell"><Breadcrumbs items={[{ label: "Home", href: "/" }, { label: product.category, href: `/${getCategoryPath(product.category)}` }, { label: product.name.trim(), href: getProductPath(product) }]} /></div>
     <JsonLd data={{
@@ -68,6 +69,8 @@ export default async function ProductDetailsPage(props: ProductDetailsPageProps)
       brand: { "@type": "Brand", name: "KumaonRang" },
       offers: { "@type": "Offer", url, priceCurrency: "INR", price: product.price,
         itemCondition: "https://schema.org/NewCondition",
+        // No shippingDetails: delivery is quoted per parcel, so there is no fixed rate to state.
+        hasMerchantReturnPolicy: returnPolicySchema(),
         ...(typeof product.inStock === "boolean" ? { availability: product.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock" } : {}),
         seller: { "@type": "Organization", "@id": `${getSiteUrl()}#business`, name: "KumaonRang" } },
     }} />
@@ -86,6 +89,7 @@ export default async function ProductDetailsPage(props: ProductDetailsPageProps)
       </section>}
       {isRegional && <nav className={guideStyles.productGuides} aria-label="Product buying guides">
         <p>More about these keepsakes</p>
+        {isGolu && <Link prefetch={false} href="/golu-devta">Golu Devta: Kumaon’s god of justice</Link>}
         {isAipan && <Link prefetch={false} href="/aipan-art">Learn about Aipan art</Link>}
         <Link prefetch={false} href="/uttarakhand-gifts">Uttarakhand gift ideas</Link>
       </nav>}

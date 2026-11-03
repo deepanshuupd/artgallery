@@ -12,6 +12,22 @@ export const defaultShareImage = {
   alt: "KumaonRang logo: Aipan art and Pahadi gifts from Pithoragarh, Uttarakhand",
 };
 
+/**
+ * The shop's return policy for structured data. Change-of-mind returns are not
+ * accepted (see src/data/shop-ordering.ts); damage support is handled separately,
+ * so the Schema.org category is "not permitted".
+ */
+export function returnPolicySchema() {
+  const siteUrl = getSiteUrl();
+  return {
+    "@type": "MerchantReturnPolicy",
+    "@id": `${siteUrl}/returns-policy#policy`,
+    applicableCountry: "IN",
+    returnPolicyCategory: "https://schema.org/MerchantReturnNotPermitted",
+    merchantReturnLink: `${siteUrl}/returns-policy`,
+  };
+}
+
 export function conciseText(value: string, limit: number): string {
   const text = value.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
   if (text.length <= limit) return text;

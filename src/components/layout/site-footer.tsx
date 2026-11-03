@@ -44,7 +44,7 @@ export function SiteFooter() {
 
           <div className={styles.contact}>
             <div className={styles.origin}>
-              <Image className={styles.house} src="/images/culture/kumaoni-house-icon-v1.webp" alt="" width={300} height={200} sizes="100px" loading="lazy" />
+              <Image className={styles.house} src="/images/culture/kumaoni-house-icon-v1.webp" alt="Drawing of a traditional Kumaoni house" width={300} height={200} sizes="100px" loading="lazy" />
               <div>
               <p className={styles.heading}>From the hills</p>
               <p className={styles.address}>Pithoragarh, Uttarakhand<br />India</p>
