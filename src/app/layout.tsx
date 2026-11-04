@@ -108,7 +108,7 @@ export default function RootLayout({
                 addressRegion: "Uttarakhand",
                 addressCountry: "IN",
               },
-              sameAs: ["https://www.instagram.com/kumaonrang/", "https://www.pinterest.com/snehaupadhyay168/"],
+              sameAs: ["https://www.instagram.com/kumaonrang/", "https://www.pinterest.com/snehaupadhyay168/", "https://www.reddit.com/user/KumaonRang/"],
               founder: { "@type": "Person", name: "Sneha", url: `${siteUrl}/about` },
               ...(whatsappNumber ? { contactPoint: {
                 "@type": "ContactPoint", contactType: "customer service",
