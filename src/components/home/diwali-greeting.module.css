@@ -1,0 +1,40 @@
+/* Above the header and floating buttons, below the skip link. */
+.overlay { position: fixed; inset: 0; z-index: 90; transition: opacity .35s ease; }
+.overlay[hidden] { display: none; }
+.overlay[data-leaving] { opacity: 0; }
+.stage { position: absolute; inset: 0; opacity: 0; animation: stage 6s ease forwards; }
+/* A dusk veil, so the fireworks read against the light page. */
+.veil { position: absolute; inset: 0; background: radial-gradient(75% 50% at 50% 42%, #1c0e26eb, #1c0e26d6 55%, #120a1cbd); }
+.canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+.greeting { position: absolute; top: 42%; left: 50%; width: min(92vw, 760px); translate: -50% -50%; text-align: center; opacity: 0; animation: greet 6s cubic-bezier(.2, .8, .2, 1) forwards; }
+/* Padding gives the matras room, since a text-clipped background paints only inside the box. */
+.hindi { margin: 0; padding: .12em .1em; font: 400 clamp(56px, 16vw, 124px)/1.2 var(--font-devanagari), serif; color: transparent; background: linear-gradient(100deg, #e88a12 0%, #ffd36b 18%, #fff4cf 30%, #f5b330 44%, #ffe39a 58%, #e48a14 74%, #ffd36b 100%) 100% 0 / 250% 100%; -webkit-background-clip: text; background-clip: text; filter: drop-shadow(0 0 22px #ffb03c80) drop-shadow(0 2px 1px #3c140080); animation: shimmer 2.6s ease-in-out .9s 2 alternate; }
+.english { margin: 4px 0 0; font: 600 clamp(11px, 3.2vw, 15px)/1.4 var(--font-body), sans-serif; letter-spacing: .26em; text-transform: uppercase; color: #fbe6bf; opacity: 0; animation: rise 6s ease forwards; }
+
+.diyas { display: flex; justify-content: center; align-items: flex-end; gap: clamp(20px, 6vw, 36px); margin-top: clamp(22px, 5vw, 32px); opacity: 0; animation: rise 6s ease forwards; }
+.diya { position: relative; width: 38px; height: 15px; border-radius: 4px 4px 50% 50% / 4px 4px 100% 100%; background: radial-gradient(120% 140% at 50% 0%, #e07a3c, #a8401f 55%, #6e2412); box-shadow: 0 6px 18px #ff9a3a40; }
+/* A row of rice-paste dots along the rim, as on an Aipan-painted diya. */
+.diya::before { content: ""; position: absolute; top: 4px; left: 7px; right: 7px; height: 3px; background: radial-gradient(circle, #fff3da 0 1px, transparent 1.6px) 0 0 / 6px 3px repeat-x; opacity: .85; }
+.flame { position: absolute; bottom: 12px; left: 50%; width: 12px; height: 22px; margin-left: -6px; border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%; background: radial-gradient(60% 55% at 50% 70%, #fffbe6 0 25%, #ffd24a 50%, #ff8a1f 80%, #ff8a1f00); box-shadow: 0 0 18px 6px #ffb34766, 0 0 40px 14px #ff8a1f33; transform-origin: 50% 100%; animation: flicker .16s ease-in-out infinite alternate; }
+.diya:nth-child(2) { width: 46px; height: 18px; }
+.diya:nth-child(2) .flame { bottom: 15px; width: 14px; height: 26px; margin-left: -7px; animation-duration: .21s; }
+.diya:nth-child(3) .flame { animation-duration: .18s; animation-delay: -.07s; }
+
+@keyframes stage { 0% { opacity: 0; } 7%, 84% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes greet {
+  0%, 12% { opacity: 0; transform: scale(.72); filter: blur(12px); }
+  24% { opacity: 1; transform: scale(1.05); filter: blur(0); }
+  30%, 80% { opacity: 1; transform: scale(1); }
+  94%, 100% { opacity: 0; transform: translateY(-14px) scale(1.02); }
+}
+@keyframes rise { 0%, 22% { opacity: 0; transform: translateY(10px); } 32%, 80% { opacity: 1; transform: none; } 94%, 100% { opacity: 0; } }
+@keyframes shimmer { to { background-position: 0 0; } }
+@keyframes flicker { from { transform: scale(.94, .9) rotate(-2deg); } to { transform: scale(1.04, 1.08) rotate(2deg); } }
+@keyframes fade { 0%, 8% { opacity: 0; } 18%, 82% { opacity: 1; } 96%, 100% { opacity: 0; } }
+
+/* Without fireworks or flicker: the greeting simply fades in and out. */
+@media (prefers-reduced-motion: reduce) {
+  .greeting, .english, .diyas { animation-name: fade; }
+  .hindi, .flame { animation: none; }
+}
