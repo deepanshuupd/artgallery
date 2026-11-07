@@ -6,6 +6,7 @@ import "./globals.css";
 
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
+import { DiwaliRocketBottle } from "@/components/festive/diwali-rocket-bottle";
 import { brand } from "@/lib/brand";
 import { getSiteUrl } from "@/lib/site";
 import { homeTitle, homeDescription, returnPolicySchema } from "@/lib/seo";
@@ -135,6 +136,7 @@ export default function RootLayout({
         <SiteHeader />
         <div id="main-content" tabIndex={-1}>{children}</div>
         <SiteFooter />
+        <DiwaliRocketBottle />
         {process.env.VERCEL === "1" && <Analytics />}
         </CartProvider>
       </body>

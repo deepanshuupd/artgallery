@@ -1,0 +1,34 @@
+/* The sparks fly over everything but never take a tap; the bottle sits just above them. */
+.canvas { position: fixed; inset: 0; z-index: 84; width: 100%; height: 100%; pointer-events: none; }
+
+.bottle { position: fixed; z-index: 85; right: max(12px, env(safe-area-inset-right)); bottom: calc(14px + env(safe-area-inset-bottom)); width: 58px; height: 124px; padding: 0; border: 0; background: none; cursor: pointer; touch-action: manipulation; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; filter: drop-shadow(0 6px 9px #1a0f0647); transform-origin: 50% 100%; transition: bottom .25s ease; }
+.bottle[hidden] { display: none; }
+.bottle:focus-visible { outline: 2px solid #b8322a; outline-offset: 4px; border-radius: 10px; }
+/* A faint warm halo now and then, so the bottle invites a tap without nagging. */
+.bottle::before { content: ""; position: absolute; z-index: -1; left: 40%; top: -4px; width: 50px; height: 50px; margin-left: -25px; border-radius: 50%; background: radial-gradient(circle, #ffb34766, #ffb34700 70%); opacity: 0; animation: invite 3.6s ease-in-out 2s infinite; pointer-events: none; }
+@media (min-width: 768px) { .bottle { right: 24px; bottom: 24px; width: 66px; height: 141px; } }
+
+.bottle[data-kick] { animation: kick .42s cubic-bezier(.3, 1.6, .5, 1); }
+.rocket { transition: transform .34s cubic-bezier(.2, .9, .3, 1.25), opacity .22s ease; }
+.bottle[data-fired] .rocket { opacity: 0; transform: translateY(-14px); transition: transform .12s ease-in, opacity .12s ease-in; }
+/* The ember waits unlit until the first tap, then rides the fuse down as it burns. */
+.ember { opacity: 0; }
+.bottle[data-lighting] .ember { opacity: 1; animation: ember .12s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: center; }
+.bottle[data-shake] .rocket { animation: shake .26s linear; }
+.bottle[data-glow] { animation: glow .7s ease-out; }
+
+.hello { position: absolute; right: calc(100% + 8px); bottom: 58%; padding: 8px 12px; border: 1px solid #e7d6b8; border-radius: 14px 14px 4px 14px; background: #fffaf1; color: #3a2614; box-shadow: 0 8px 20px #3a261426; font: 600 13px/1.35 var(--font-body), sans-serif; white-space: nowrap; opacity: 0; transform: translateX(8px) scale(.9); transform-origin: 100% 100%; transition: opacity .25s, transform .3s cubic-bezier(.3, 1.4, .5, 1); pointer-events: none; }
+.hello span { font: 400 15px/1 var(--font-devanagari), serif; color: #b8322a; }
+.hello[data-show] { opacity: 1; transform: none; }
+
+@keyframes kick { 0% { transform: scale(1); } 22% { transform: scale(.9, .86); } 60% { transform: scale(1.05, 1.07) rotate(-2deg); } 100% { transform: none; } }
+@keyframes ember { from { transform: scale(.75); } to { transform: scale(1.35); } }
+@keyframes shake { 0%, 100% { transform: none; } 25% { transform: translate(-.6px, -.4px) rotate(-1.4deg); } 50% { transform: translate(.6px, -.8px) rotate(1.2deg); } 75% { transform: translate(-.4px, -1px) rotate(-.8deg); } }
+@keyframes invite { 0%, 70%, 100% { opacity: 0; } 82% { opacity: 1; } }
+@keyframes glow { 40% { filter: drop-shadow(0 0 14px #ffb347) drop-shadow(0 6px 9px #1a0f0647); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .bottle::before, .bottle[data-kick] { animation: none; }
+  .rocket, .bottle[data-fired] .rocket { transition: none; }
+}
+@media print { .canvas, .bottle { display: none; } }

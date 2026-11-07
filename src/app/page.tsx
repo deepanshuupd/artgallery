@@ -6,7 +6,6 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { CuratedHampersSection } from "@/components/home/curated-hampers-section";
 import { FeaturedCollections } from "@/components/home/featured-collections";
 import { HeroSection } from "@/components/home/hero-section";
-import { DiwaliGreeting } from "@/components/home/diwali-greeting";
 import { HeritageStory } from "@/components/home/heritage-story";
 import { CustomerNotes } from "@/components/home/customer-notes";
 import { ColoursOfKumaon } from "@/components/home/colours-of-kumaon";
@@ -104,7 +103,6 @@ export default async function HomePage() {
         "@id": `${getSiteUrl()}#webpage`, url: getSiteUrl(), name: homeTitle,
         ...(primaryImage ? { primaryImageOfPage: primaryImage } : {}),
       }} />
-      <DiwaliGreeting />
       <HeroSection />
       <FeaturedCollections images={categoryImages} fromPrices={categoryFromPrices} />
       <ShopPicks products={products} />
