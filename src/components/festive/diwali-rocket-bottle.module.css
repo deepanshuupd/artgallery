@@ -16,6 +16,28 @@
 .bottle[data-lighting] .ember { opacity: 1; animation: ember .12s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: center; }
 .bottle[data-shake] .rocket { animation: shake .26s linear; }
 .bottle[data-glow] { animation: glow .7s ease-out; }
+.bottle[data-full] { filter: drop-shadow(0 0 14px #ffb347b3) drop-shadow(0 6px 9px #1a0f0647); transition: filter .4s ease; }
+
+/* The whisky rises a step with each tap, springs a little, ripples and sloshes; a full bottle drains slowly. */
+.liquid { transform: translateY(50px); transition: transform .55s cubic-bezier(.3, 1.45, .5, 1); }
+.bottle[data-drain] .liquid { transition: transform 1.6s cubic-bezier(.55, 0, .3, 1); }
+.wave { animation: wave 2.4s linear infinite; }
+.slosh { transform-origin: 35px 65.5px; }
+.bottle[data-slosh] .slosh { animation: slosh .9s ease-out; }
+.bubble { opacity: 0; }
+.bottle[data-slosh] .bubble { animation: bubble .9s ease-out both; }
+.bottle[data-slosh] .bubble:nth-of-type(2) { animation-delay: .12s; }
+.bottle[data-slosh] .bubble:nth-of-type(3) { animation-delay: .24s; }
+
+/* The finale: the page dims to a warm night, the shower plays on the canvas above it, and the greeting sits on top. */
+.night { position: fixed; inset: 0; z-index: 83; background: radial-gradient(130% 90% at 50% 42%, #170d06e6, #080402f5); -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .9s ease, visibility 0s .9s; }
+.night[data-show] { opacity: 1; visibility: visible; transition: opacity .6s ease; }
+.wish { position: fixed; inset: 0; z-index: 86; display: grid; place-content: center; justify-items: center; padding: 0 16px 8vh; text-align: center; pointer-events: none; }
+.wish[hidden] { display: none; }
+.wish[data-leave] { animation: wishOut .8s ease forwards; }
+.wishTitle { margin: 0; font: 400 clamp(44px, 14vw, 104px)/1.2 var(--font-devanagari), serif; color: #ffe7ad; text-shadow: 0 0 2px #ffe3a6, 0 0 22px #ffaa3c8c, 0 0 60px #ff8a1a40; animation: wishIn 1.1s cubic-bezier(.2, .75, .25, 1) .45s both; }
+.wishRule { display: block; width: 64px; height: 1px; margin: 14px 0 12px; background: linear-gradient(90deg, #f2c46300, #f2c463, #f2c46300); animation: rule .9s cubic-bezier(.2, .75, .25, 1) .95s both; }
+.wishFrom { margin: 0; font: 500 11px/1.5 var(--font-body), sans-serif; letter-spacing: .32em; text-transform: uppercase; color: #f6e3bd; animation: rise .8s ease 1.1s both; }
 
 .hello { position: absolute; right: calc(100% + 8px); bottom: 58%; padding: 8px 12px; border: 1px solid #e7d6b8; border-radius: 14px 14px 4px 14px; background: #fffaf1; color: #3a2614; box-shadow: 0 8px 20px #3a261426; font: 600 13px/1.35 var(--font-body), sans-serif; white-space: nowrap; opacity: 0; transform: translateX(8px) scale(.9); transform-origin: 100% 100%; transition: opacity .25s, transform .3s cubic-bezier(.3, 1.4, .5, 1); pointer-events: none; }
 .hello span { font: 400 15px/1 var(--font-devanagari), serif; color: #b8322a; }
@@ -25,10 +47,19 @@
 @keyframes ember { from { transform: scale(.75); } to { transform: scale(1.35); } }
 @keyframes shake { 0%, 100% { transform: none; } 25% { transform: translate(-.6px, -.4px) rotate(-1.4deg); } 50% { transform: translate(.6px, -.8px) rotate(1.2deg); } 75% { transform: translate(-.4px, -1px) rotate(-.8deg); } }
 @keyframes invite { 0%, 70%, 100% { opacity: 0; } 82% { opacity: 1; } }
+@keyframes wave { to { transform: translateX(-10px); } }
+@keyframes slosh { 18% { transform: rotate(-4deg); } 42% { transform: rotate(2.6deg); } 66% { transform: rotate(-1.2deg); } 84% { transform: rotate(.5deg); } }
+@keyframes bubble { 0% { opacity: 0; transform: none; } 20% { opacity: .9; } 100% { opacity: 0; transform: translateY(-6px); } }
+@keyframes wishIn { from { opacity: 0; filter: blur(12px); transform: translateY(14px) scale(.94); } to { opacity: 1; filter: none; transform: none; } }
+@keyframes rule { from { opacity: 0; transform: scaleX(0); } }
+@keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: .9; transform: none; } }
+@keyframes wishOut { to { opacity: 0; transform: translateY(-10px); } }
 @keyframes glow { 40% { filter: drop-shadow(0 0 14px #ffb347) drop-shadow(0 6px 9px #1a0f0647); } }
 
 @media (prefers-reduced-motion: reduce) {
   .bottle::before, .bottle[data-kick] { animation: none; }
   .rocket, .bottle[data-fired] .rocket { transition: none; }
+  .wave, .bottle[data-slosh] .slosh, .bottle[data-slosh] .bubble { animation: none; }
+  .wishTitle, .wishRule, .wishFrom { animation-name: rise; }
 }
-@media print { .canvas, .bottle { display: none; } }
+@media print { .canvas, .bottle, .night, .wish { display: none; } }

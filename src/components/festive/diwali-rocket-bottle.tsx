@@ -12,8 +12,16 @@ const seasonEnds = Date.parse("2026-11-12T00:00:00+05:30");
 const helloKey = "kumaonrang-rocket-hello";
 const comboWindow = 450;
 const fuseBurn = 950;
+// Twelve taps fill the bottle: a few seconds of play, then the greeting.
+const fillGoal = 12;
+// How far the full whisky is lowered, in drawing units: empty-ish at rest, to the shoulder when full.
+const restLevel = 50;
+const fullLevel = 1.5;
 
-/** A rocket in a bottle on the homepage: the first tap lights its fuse, then each tap launches. */
+const artClasses = { rocket: styles.rocket, ember: styles.ember, liquid: styles.liquid, slosh: styles.slosh, wave: styles.wave, bubble: styles.bubble };
+
+/** A rocket in a bottle on the homepage: the first tap lights its fuse, each tap launches and
+ * tops up the whisky, and a full bottle sets off a shower with a शुभ दीपावली greeting. */
 export function DiwaliRocketBottle() {
   const onHome = usePathname() === "/";
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -24,6 +32,9 @@ export function DiwaliRocketBottle() {
   const emberRef = useRef<SVGCircleElement>(null);
   const tipRef = useRef<SVGCircleElement>(null);
   const mouthRef = useRef<SVGRectElement>(null);
+  const liquidRef = useRef<SVGGElement>(null);
+  const nightRef = useRef<HTMLDivElement>(null);
+  const wishRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const button = buttonRef.current;
@@ -34,15 +45,18 @@ export function DiwaliRocketBottle() {
     const hello = helloRef.current;
     const tipMark = tipRef.current;
     const mouthMark = mouthRef.current;
-    if (!onHome || !button || !canvas || !fuse || !fuseCore || !ember || !hello || !tipMark || !mouthMark || Date.now() >= seasonEnds) return;
+    const liquid = liquidRef.current;
+    const night = nightRef.current;
+    const wish = wishRef.current;
+    if (!onHome || !button || !canvas || !fuse || !fuseCore || !ember || !hello || !tipMark || !mouthMark || !liquid || !night || !wish || Date.now() >= seasonEnds) return;
     button.hidden = false;
     const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let lastBuzz = 0;
     // Android vibrates on these; iPhone browsers don't let a page vibrate.
-    const buzz = (ms: number) => {
+    const buzz = (ms: number | number[]) => {
       const now = performance.now();
-      // Browsers refuse vibration before the visitor's first tap.
-      if (now - lastBuzz < 70 || navigator.userActivation?.hasBeenActive === false) return;
+      // Browsers refuse vibration before the visitor's first tap. A pattern always plays.
+      if ((now - lastBuzz < 70 && !Array.isArray(ms)) || navigator.userActivation?.hasBeenActive === false) return;
       lastBuzz = now;
       try { navigator.vibrate?.(ms); } catch { /* Not every browser allows it. */ }
     };
@@ -61,6 +75,8 @@ export function DiwaliRocketBottle() {
     let lit = still;
     let lighting = false;
     let burnFrame = 0;
+    let filled = 0;
+    let celebrating = false;
     const fuseLength = fuse.getTotalLength();
 
     // Where a point of the drawn fuse is on screen, for sparks from the canvas.
@@ -70,6 +86,50 @@ export function DiwaliRocketBottle() {
       if (!matrix) return { x: 0, y: 0, local: point };
       return { x: matrix.a * point.x + matrix.c * point.y + matrix.e, y: matrix.b * point.x + matrix.d * point.y + matrix.f, local: point };
     };
+    // Restarts a one-shot CSS animation keyed on a data attribute.
+    const pulse = (name: string) => {
+      button.removeAttribute(`data-${name}`);
+      void button.offsetWidth;
+      button.setAttribute(`data-${name}`, "true");
+    };
+    const setLevel = (taps: number) => {
+      liquid.style.transform = `translateY(${restLevel - (restLevel - fullLevel) * taps / fillGoal}px)`;
+    };
+
+    // The full bottle: the page dims to a night sky, a golden shower goes up
+    // behind the greeting, then the bottle empties for another go.
+    const celebrate = () => {
+      celebrating = true;
+      button.dataset.full = "true";
+      buzz([18, 50, 18, 50, 40]);
+      night.dataset.show = "true";
+      wish.removeAttribute("data-leave");
+      wish.hidden = false;
+      show?.finale();
+      later(() => {
+        wish.dataset.leave = "true";
+        delete night.dataset.show;
+      }, 4600);
+      later(() => {
+        wish.hidden = true;
+        delete button.dataset.full;
+        button.dataset.drain = "true";
+        filled = 0;
+        setLevel(0);
+      }, 5400);
+      later(() => {
+        delete button.dataset.drain;
+        celebrating = false;
+      }, 7000);
+    };
+    const fill = () => {
+      if (celebrating) return;
+      filled += 1;
+      setLevel(filled);
+      pulse("slosh");
+      if (filled >= fillGoal) celebrate();
+    };
+
     const restoreFuse = () => {
       fuse.style.strokeDasharray = "";
       fuseCore.style.opacity = "";
@@ -84,17 +144,14 @@ export function DiwaliRocketBottle() {
       combo = now - lastFire < comboWindow ? combo + 1 : 1;
       lastFire = now;
       // The press: a quick squash and spring, and the rocket leaves the bottle.
-      button.removeAttribute("data-kick");
-      void button.offsetWidth;
-      button.dataset.kick = "true";
+      pulse("kick");
       button.dataset.fired = "true";
       window.clearTimeout(reload);
       reload = later(() => { delete button.dataset.fired; }, 380);
       buzz(combo > 1 ? 12 : 10);
+      fill();
       if (!show) {
-        button.removeAttribute("data-glow");
-        void button.offsetWidth;
-        button.dataset.glow = "true";
+        pulse("glow");
         return;
       }
       // Rockets leave from the leaning rocket's tip; the fireball sits on the bottle's lip.
@@ -186,6 +243,10 @@ export function DiwaliRocketBottle() {
       releases.forEach(type => button.removeEventListener(type, stopHold));
       show?.destroy();
       restoreFuse();
+      liquid.style.transform = "";
+      delete night.dataset.show;
+      wish.hidden = true;
+      ["full", "drain", "slosh", "kick", "fired", "glow", "shake", "lighting"].forEach(name => button.removeAttribute(`data-${name}`));
       button.hidden = true;
     };
   }, [onHome]);
@@ -193,11 +254,17 @@ export function DiwaliRocketBottle() {
   if (!onHome) return null;
   return (
     <>
+      <div ref={nightRef} className={styles.night} aria-hidden="true" />
       <canvas ref={canvasRef} className={styles.canvas} aria-hidden="true" />
       <button ref={buttonRef} type="button" className={styles.bottle} aria-label="Light a Diwali rocket" hidden>
-        <RocketBottleArt rocketClassName={styles.rocket} fuseRef={fuseRef} fuseCoreRef={fuseCoreRef} emberRef={emberRef} emberClassName={styles.ember} tipRef={tipRef} mouthRef={mouthRef} />
+        <RocketBottleArt classes={artClasses} fuseRef={fuseRef} fuseCoreRef={fuseCoreRef} emberRef={emberRef} tipRef={tipRef} mouthRef={mouthRef} liquidRef={liquidRef} />
         <span ref={helloRef} className={styles.hello} aria-hidden="true"><span lang="hi">शुभ दीपावली!</span> Tap to light 🎆</span>
       </button>
+      <div ref={wishRef} className={styles.wish} role="status" hidden>
+        <p className={styles.wishTitle} lang="hi">शुभ दीपावली</p>
+        <span className={styles.wishRule} />
+        <p className={styles.wishFrom}>Happy Diwali from KumaonRang</p>
+      </div>
     </>
   );
 }

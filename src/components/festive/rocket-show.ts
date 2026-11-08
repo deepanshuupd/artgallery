@@ -1,14 +1,18 @@
 // Rockets in the style of WhatsApp's Diwali status like: a streaky head that
 // leaves a trail of separate glowing beads, a soft flash, then a spray (or ring)
 // of round glowing dots that drift, sink and fade within about two seconds.
+// The finale adds golden "willow" bursts whose sparks trail and fall like a shower.
 
-type Spark = { x: number; y: number; vx: number; vy: number; age: number; life: number; size: number; colour: string; drag: number; gravity: number; twinkle: boolean };
-type Rocket = { fromX: number; fromY: number; toX: number; toY: number; bend: number; age: number; duration: number; trail: string; ring: boolean; lastX: number; lastY: number; x: number; y: number };
+type Spark = { x: number; y: number; vx: number; vy: number; age: number; life: number; size: number; colour: string; drag: number; gravity: number; twinkle: boolean; tail: boolean };
+type Burst = "scatter" | "ring" | "willow";
+// A rocket waits while its age is below zero, so a volley can be queued at once.
+type Rocket = { fromX: number; fromY: number; toX: number; toY: number; bend: number; age: number; duration: number; trail: string; burst: Burst; lastX: number; lastY: number; x: number; y: number };
 
 const burstColours = ["#ff3b30", "#ff8a00", "#ffb800", "#21c4a5", "#4f7cff", "#b86bff", "#ff4fa3", "#ffffff"];
 const trailColours = ["#ff7a1a", "#ffb000", "#ff4a2e"];
+const willowColours = ["#ffd36b", "#ffc046", "#fff1c2", "#ffad42"];
 const maxRockets = 18;
-const maxSparks = 1400;
+const maxSparks = 1800;
 const random = (min: number, max: number) => min + Math.random() * (max - min);
 const pick = <T,>(list: readonly T[]) => list[Math.floor(Math.random() * list.length)];
 
@@ -66,15 +70,25 @@ export function createRocketShow(canvas: HTMLCanvasElement, onBurst?: () => void
     context.drawImage(sprite(colour), x - reach, y - reach, reach * 2, reach * 2);
   };
 
-  const spark = (x: number, y: number, angle: number, speed: number, colour: string, size: number, life: number, drag = 1.7, gravity = 46, twinkle = false) => {
+  const spark = (x: number, y: number, angle: number, speed: number, colour: string, size: number, life: number, drag = 1.7, gravity = 46, twinkle = false, tail = false) => {
     if (sparks.length >= maxSparks) return;
-    sparks.push({ x, y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed, age: 0, life, size, colour, drag, gravity, twinkle });
+    sparks.push({ x, y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed, age: 0, life, size, colour, drag, gravity, twinkle, tail });
+  };
+
+  const addRocket = (fromX: number, fromY: number, toX: number, toY: number, burst: Burst, duration: number, delay = 0) => {
+    rockets.push({ fromX, fromY, toX, toY, bend: random(-14, 14), age: -delay, duration, trail: burst === "willow" ? "#ffb000" : pick(trailColours), burst, lastX: fromX, lastY: fromY, x: fromX, y: fromY });
   };
 
   const burst = (rocket: Rocket) => {
     const { x, y } = rocket;
     flashes.push({ x, y, age: 0 });
-    if (rocket.ring) {
+    if (rocket.burst === "willow") {
+      // Gold sparks that spread, slow, then fall with short tails: a shower.
+      const count = Math.round(random(46, 60));
+      for (let i = 0; i < count; i++) {
+        spark(x, y, random(0, Math.PI * 2), random(40, 175), pick(willowColours), random(1.5, 2.6), random(1.9, 2.6), 1.4, 110, Math.random() < .5, true);
+      }
+    } else if (rocket.burst === "ring") {
       // A ring of evenly spaced dots, alternating colours, as in a rapid volley.
       const colours = [pick(burstColours), pick(burstColours), pick(burstColours)];
       const count = 26;
@@ -115,6 +129,7 @@ export function createRocketShow(canvas: HTMLCanvasElement, onBurst?: () => void
     for (let i = rockets.length - 1; i >= 0; i--) {
       const rocket = rockets[i];
       rocket.age += dt * 1000;
+      if (rocket.age < 0) continue;
       const p = Math.min(rocket.age / rocket.duration, 1);
       const travel = 1 - (1 - p) ** 2.2;
       const across = Math.sin(p * Math.PI) * rocket.bend;
@@ -171,7 +186,12 @@ export function createRocketShow(canvas: HTMLCanvasElement, onBurst?: () => void
       const left = item.age / item.life;
       let alpha = (1 - left) ** 1.2;
       if (item.twinkle && left > .5) alpha *= .55 + .45 * Math.sin(now / 45 + item.x);
-      dot(item.colour, item.x, item.y, item.size * (1 - left * .35), alpha);
+      const size = item.size * (1 - left * .35);
+      if (item.tail) {
+        dot(item.colour, item.x - item.vx * .05, item.y - item.vy * .05, size * .7, alpha * .45);
+        dot(item.colour, item.x - item.vx * .1, item.y - item.vy * .1, size * .45, alpha * .2);
+      }
+      dot(item.colour, item.x, item.y, size, alpha);
       sparks[kept++] = item;
     }
     sparks.length = kept;
@@ -198,7 +218,25 @@ export function createRocketShow(canvas: HTMLCanvasElement, onBurst?: () => void
       const rise = height * random(.38, .66);
       const toX = Math.min(Math.max(x + Math.tan(angle) * rise, 24), width - 24);
       const toY = Math.max(y - rise, 40);
-      rockets.push({ fromX: x, fromY: y, toX, toY, bend: random(-14, 14), age: 0, duration: random(560, 720), trail: pick(trailColours), ring: Boolean(options.ring), lastX: x, lastY: y, x, y });
+      addRocket(x, y, toX, toY, options.ring ? "ring" : "scatter", random(560, 720));
+      run();
+    },
+    /** The celebration: a volley from all along the bottom of the screen, mostly golden showers. */
+    finale() {
+      if (!context) return;
+      fit();
+      const count = width < 640 ? 7 : 11;
+      const slots = Array.from({ length: count }, (_, i) => i).sort(() => Math.random() - .5);
+      slots.forEach((slot, i) => {
+        const x = width * (slot + .5) / count + random(-14, 14);
+        const burst: Burst = i % 3 === 1 ? "scatter" : i % 5 === 4 ? "ring" : "willow";
+        addRocket(x, height + 8, x + random(-40, 40), height * random(.12, .4), burst, random(780, 1000), i * 150 + random(0, 80));
+      });
+      // A last few showers keep the sky lit while the greeting is read.
+      for (let i = 0; i < 3; i++) {
+        const x = width * random(.15, .85);
+        addRocket(x, height + 8, x + random(-30, 30), height * random(.1, .3), "willow", random(800, 1000), 1900 + i * 260);
+      }
       run();
     },
     /** Spits a few tiny sparks, as a lit fuse does while it burns down. */

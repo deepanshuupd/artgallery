@@ -1,9 +1,9 @@
 import type { Ref } from "react";
 
 type Props = {
-  rocketClassName: string; emberClassName: string;
+  classes: { rocket: string; ember: string; liquid: string; slosh: string; wave: string; bubble: string };
   fuseRef: Ref<SVGPathElement>; fuseCoreRef: Ref<SVGPathElement>; emberRef: Ref<SVGCircleElement>;
-  tipRef: Ref<SVGCircleElement>; mouthRef: Ref<SVGRectElement>;
+  tipRef: Ref<SVGCircleElement>; mouthRef: Ref<SVGRectElement>; liquidRef: Ref<SVGGElement>;
 };
 
 // A tall square whisky bottle in the classic Scotch style: bevelled corners,
@@ -11,8 +11,10 @@ type Props = {
 // little amber left in it, and a slanted label. Unbranded: no maker's name or mark.
 const glass = "M29 41v14.6c0 3.4-2.4 4.6-6.6 5.6-5.4 1.3-7.4 4.6-7.4 9.6V138q0 4 4 4h32q4 0 4-4V70.8c0-5-2-8.3-7.4-9.6-4.2-1-6.6-2.2-6.6-5.6V41Z";
 const lean = "rotate(-13 35 38)";
+// The whisky's surface: a gentle ripple, wider than the bottle so it can drift sideways forever.
+const ripple = `M-10 65${"q2.5-1.1 5 0t5 0".repeat(10)}`;
 
-export function RocketBottleArt({ rocketClassName, emberClassName, fuseRef, fuseCoreRef, emberRef, tipRef, mouthRef }: Props) {
+export function RocketBottleArt({ classes, fuseRef, fuseCoreRef, emberRef, tipRef, mouthRef, liquidRef }: Props) {
   return (
     <svg viewBox="0 0 70 150" width="100%" height="100%" aria-hidden="true" focusable="false">
       <defs>
@@ -25,7 +27,7 @@ export function RocketBottleArt({ rocketClassName, emberClassName, fuseRef, fuse
           <stop offset=".88" stopColor="#40594a" stopOpacity=".46" />
           <stop offset="1" stopColor="#121c14" stopOpacity=".8" />
         </linearGradient>
-        <linearGradient id="kr-whisky" x1="0" x2="1">
+        <linearGradient id="kr-whisky" gradientUnits="userSpaceOnUse" x1="15" x2="55" y1="0" y2="0">
           <stop offset="0" stopColor="#4a1e05" />
           <stop offset=".22" stopColor="#a8521a" />
           <stop offset=".45" stopColor="#e9952f" />
@@ -87,9 +89,19 @@ export function RocketBottleArt({ rocketClassName, emberClassName, fuseRef, fuse
       <g clipPath="url(#kr-glass-clip)">
         {/* Clear glass, darker where it turns at the edges. */}
         <path d={glass} fill="url(#kr-clear)" />
-        {/* What's left of the whisky, with a bright meniscus. */}
-        <rect x="10" y="114" width="50" height="30" fill="url(#kr-whisky)" opacity=".92" />
-        <rect x="10" y="113.2" width="50" height="1.6" fill="#f6b45a" opacity=".85" />
+        {/* The whisky, drawn full and lowered into place; each tap raises it a little. */}
+        <g ref={liquidRef} className={classes.liquid}>
+          <g className={classes.slosh} opacity=".92">
+            <rect x="-10" y="65.6" width="90" height="84" fill="url(#kr-whisky)" />
+            <g className={classes.wave}>
+              <path d={`${ripple}V65.8H-10Z`} fill="url(#kr-whisky)" />
+              <path d={ripple} fill="none" stroke="#f8bd62" strokeWidth=".9" />
+            </g>
+            <circle className={classes.bubble} cx="27" cy="71.5" r=".65" fill="#ffe6b0" />
+            <circle className={classes.bubble} cx="41" cy="73.5" r=".5" fill="#ffe6b0" />
+            <circle className={classes.bubble} cx="34" cy="76" r=".55" fill="#ffe6b0" />
+          </g>
+        </g>
         {/* The bevelled corners of a square bottle. */}
         <rect x="15" y="62" width="5" height="82" fill="url(#kr-bevel)" />
         <rect x="50" y="62" width="5" height="82" fill="url(#kr-bevel)" transform="rotate(180 52.5 103)" />
@@ -133,7 +145,7 @@ export function RocketBottleArt({ rocketClassName, emberClassName, fuseRef, fuse
       <rect ref={mouthRef} x="28" y="37.4" width="14" height="3.4" rx="1.4" fill="url(#kr-collar)" />
 
       <g transform={lean}>
-        <g className={rocketClassName}>
+        <g className={classes.rocket}>
           <circle ref={tipRef} cx="35" cy="1" r=".1" fill="none" />
           <path d="M35 1c1.8 3 4.4 6.4 5.4 9H29.6c1-2.6 3.6-6 5.4-9Z" fill="url(#kr-gold)" />
           <path d="M35 1c.7 1.2 1.5 2.4 2.2 3.4h-4.4c.7-1 1.5-2.2 2.2-3.4Z" fill="#b8322a" />
@@ -149,7 +161,7 @@ export function RocketBottleArt({ rocketClassName, emberClassName, fuseRef, fuse
           {/* The fuse: a twisted green thread hanging out over the lip. */}
           <path ref={fuseRef} d="M31.6 35.8c-1.8 2.2-5.4 2.4-7 5-1 1.8-.6 3.6-1.8 5.2" fill="none" stroke="#3f7a2c" strokeWidth="1.15" strokeLinecap="round" />
           <path ref={fuseCoreRef} d="M31.6 35.8c-1.8 2.2-5.4 2.4-7 5-1 1.8-.6 3.6-1.8 5.2" fill="none" stroke="#c6dc86" strokeWidth=".42" strokeLinecap="round" strokeDasharray=".9 .9" />
-          <circle ref={emberRef} className={emberClassName} cx="22.8" cy="46" r="1.5" fill="#fff4c0" />
+          <circle ref={emberRef} className={classes.ember} cx="22.8" cy="46" r="1.5" fill="#fff4c0" />
         </g>
       </g>
     </svg>
