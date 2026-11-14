@@ -94,3 +94,22 @@ test('payment screenshots stay private and limited to the order’s own folder',
   const orders = readFileSync(resolve(root, 'src/lib/orders.ts'), 'utf8');
   assert.match(orders, /path\.startsWith\(`\$\{id\}\/`\)/);
 });
+
+test('WhatsApp alerts tell Sneha what she needs without the customer’s phone or address', async () => {
+  const alerts = load('src/lib/order-alerts.ts');
+  const message = alerts.newOrderAlert({ number: 1001, total: 1500, customerName: 'Asha Joshi', city: 'Pithoragarh', items: [{ name: 'Golu Devta Aipan Frame ', quantity: 1 }] });
+  assert.match(message, /New order KR-1001\* · ₹1,500/);
+  assert.match(message, /Asha, Pithoragarh/);
+  assert.match(message, /• 1 × Golu Devta Aipan Frame\n/);
+  assert.match(message, /\/admin\/orders\?show=awaiting_payment$/);
+  assert.doesNotMatch(message, /Joshi|98765|Station Road/);
+  const paid = alerts.paymentAlert({ number: 1001, total: 1500, customerName: 'Asha Joshi' }, { screenshot: true, reference: '412345678901' });
+  assert.match(paid, /Payment sent for KR-1001\* · ₹1,500/);
+  assert.match(paid, /Asha sent a screenshot and UPI ref 412345678901/);
+  const saved = { phone: process.env.CALLMEBOT_PHONE, key: process.env.CALLMEBOT_APIKEY };
+  delete process.env.CALLMEBOT_PHONE; delete process.env.CALLMEBOT_APIKEY;
+  assert.equal(alerts.alertsConfigured(), false);
+  assert.equal(await alerts.sendShopAlert('hello'), false);
+  if (saved.phone) process.env.CALLMEBOT_PHONE = saved.phone;
+  if (saved.key) process.env.CALLMEBOT_APIKEY = saved.key;
+});

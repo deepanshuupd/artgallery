@@ -17,6 +17,7 @@ const product = {
   image: '/images/frame.webp', images: [],
   description: 'A hand-painted frame. A longer story.', details: ['MDF base'], inStock: true,
 };
+let checkoutOn = true;
 function load(react = React, observer) {
   const loadedModule = { exports: {} };
   const imports = {
@@ -32,7 +33,7 @@ function load(react = React, observer) {
     './quantity-control': { QuantityControl: ({ value, minimum }) => element('input', { 'aria-label': 'Quantity', value, min: minimum, readOnly: true }) },
     './use-product-dialog': { useProductDialog: () => ({ current: null }) },
     './product-story': { ProductStory: () => null },
-    '@/data/shop-ordering': { shopOrdering: { dispatch: 'If your requested quantity is in stock, dispatch takes 2–3 days.', shipping: 'Delivery is ₹100 on orders below ₹1,799.', payment: 'Pay by UPI at checkout.' }, shopDelivery: { charge: 100, freeFrom: 1799 } },
+    '@/data/shop-ordering': { shopOrdering: { dispatch: 'If your requested quantity is in stock, dispatch takes 2–3 days.', shipping: 'Delivery is ₹100 on orders below ₹1,799.', payment: 'Pay by UPI at checkout.' }, shopDelivery: { charge: 100, freeFrom: 1799 }, checkoutEnabled: checkoutOn },
     '@/lib/checkout': { deliveryFor: subtotal => subtotal >= 1799 ? 0 : 100 },
     '@/lib/product-highlights': { getMinimumPieceQuantity: p => p.minimum ?? 1, getProductHighlights: () => [{ label: 'Material', value: 'MDF' }] },
     './inspectable-product-photo': { InspectableProductPhoto: () => null },
@@ -113,4 +114,18 @@ test('one observer hides only the duplicate bar and disconnects on unmount', () 
   assert.deepEqual(updates, [false, true, false]);
   cleanup();
   assert.equal(instance.disconnected, true);
+});
+
+test('with checkout switched off, product pages keep WhatsApp ordering and quoted delivery', () => {
+  checkoutOn = false;
+  try {
+    const Off = load();
+    const html = renderToStaticMarkup(element(Off, { product }));
+    assert.match(html, /Delivery is extra, confirmed before you order\./);
+    assert.match(html, /Order via WhatsApp/);
+    assert.match(html, /Sneha confirms availability, the final total and timing on WhatsApp\./);
+    assert.match(html, /1 item · delivery extra/);
+    assert.match(html, /href="\/pay"/);
+    assert.doesNotMatch(html, /Buy now|free on orders from|at checkout with/);
+  } finally { checkoutOn = true; }
 });

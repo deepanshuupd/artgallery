@@ -18,7 +18,7 @@ import { getMinimumPieceQuantity, getProductHighlights } from "@/lib/product-hig
 import { InspectableProductPhoto } from "./inspectable-product-photo";
 import { AddToCartButton, BuyNowButton } from "@/components/cart/cart-controls";
 import { deliveryFor } from "@/lib/checkout";
-import { shopDelivery } from "@/data/shop-ordering";
+import { checkoutEnabled, shopDelivery } from "@/data/shop-ordering";
 import { commerceEvent } from "@/lib/commerce-events";
 import { orderUnit } from "@/lib/whatsapp";
 
@@ -44,7 +44,7 @@ export function ProductDetailView({ product, children }: { product: Product; chi
   const description = product.description.trim();
   const introduction = description.match(/^[\s\S]*?[.!?](?=\s|$)|^[^\n]+/)?.[0] ?? description;
   const selectedImage = images[activeImageIndex];
-  const actionLabel = needsPhoto ? "Request a photo" : product.inStock === false ? "Ask about availability" : "Ask on WhatsApp";
+  const actionLabel = needsPhoto ? "Request a photo" : product.inStock === false ? "Ask about availability" : checkoutEnabled ? "Ask on WhatsApp" : "Order via WhatsApp";
   function openOrder() {
     setOrderOpen(true);
     commerceEvent("order_details_open", needsPhoto ? "photo_request" : "product", product.id);
@@ -114,19 +114,21 @@ export function ProductDetailView({ product, children }: { product: Product; chi
               <h2 id="product-order-title" className={styles.purchaseHeading}>{needsPhoto ? "A closer look, first" : "Order details"}</h2>
               {typeof product.inStock === "boolean" && <p className={styles.availability} data-stock-state={product.inStock ? "in-stock" : "out-of-stock"}><span aria-hidden="true" />{product.inStock ? "In stock · Confirm availability for your quantity" : "Currently out of stock · Ask Sneha about availability"}</p>}
               {!needsPhoto && <QuantityControl value={quantity} onChange={setQuantity} minimum={minimumQuantity} label={`Quantity (${unit.many})`} />}
-              <p className={styles.deliverySummary}>{deliveryFor(product.price * quantity) ? `Delivery ${formatPrice(shopDelivery.charge)} · free on orders from ${formatPrice(shopDelivery.freeFrom)}` : "Free delivery on this order"}</p>
+              <p className={styles.deliverySummary}>{!checkoutEnabled ? "Delivery is extra, confirmed before you order." : deliveryFor(product.price * quantity) ? `Delivery ${formatPrice(shopDelivery.charge)} · free on orders from ${formatPrice(shopDelivery.freeFrom)}` : "Free delivery on this order"}</p>
               <div ref={actionsRef} className={styles.buyingActions}>
-                {!needsPhoto && (product.inStock === false ? <AddToCartButton productId={product.id} productName={product.name} quantity={quantity} unavailable /> : <div className={styles.buyPair}><BuyNowButton productId={product.id} quantity={quantity} /><AddToCartButton productId={product.id} productName={product.name} quantity={quantity} /></div>)}
+                {!needsPhoto && (product.inStock === false || !checkoutEnabled ? <AddToCartButton productId={product.id} productName={product.name} quantity={quantity} unavailable={product.inStock === false} /> : <div className={styles.buyPair}><BuyNowButton productId={product.id} quantity={quantity} /><AddToCartButton productId={product.id} productName={product.name} quantity={quantity} /></div>)}
                 <button type="button" className={`${order.primary} ${styles.directOrder}`} aria-haspopup="dialog" onClick={openOrder}><WhatsAppIcon className="h-5 w-5" />{actionLabel}</button>
               </div>
-              <p className={styles.orderHelp}>{needsPhoto ? "Ask to see this exact design and what’s included. There’s no need to decide on an order yet." : "Check out here and pay by UPI, or ask Sneha on WhatsApp first."} <Link prefetch={false} href="/how-to-order">How ordering works</Link></p>
-              {!needsPhoto && <p className={styles.payNote}><strong>Pay by UPI</strong> at checkout with GPay, PhonePe, Paytm or any UPI app. No card or account needed.</p>}
+              <p className={styles.orderHelp}>{needsPhoto ? "Ask to see this exact design and what’s included. There’s no need to decide on an order yet." : checkoutEnabled ? "Check out here and pay by UPI, or ask Sneha on WhatsApp first." : "Sneha confirms availability, the final total and timing on WhatsApp."} <Link prefetch={false} href="/how-to-order">How ordering works</Link></p>
+              {!needsPhoto && (checkoutEnabled
+                ? <p className={styles.payNote}><strong>Pay by UPI</strong> at checkout with GPay, PhonePe, Paytm or any UPI app. No card or account needed.</p>
+                : <p className={styles.payNote}><strong>Pay by UPI</strong> GPay, PhonePe, Paytm or any UPI app, once Sneha confirms your total. <Link prefetch={false} href="/pay">See the UPI QR</Link></p>)}
               <details className={styles.fulfilmentDetails}>
                 <summary>Delivery &amp; order support<span aria-hidden="true">+</span></summary>
                 <div className={styles.fulfilment}>
                   <p><strong>Dispatch</strong> {product.inStock === false ? "Preparation and availability are confirmed with Sneha." : shopOrdering.dispatch} Custom or larger quantities may need more time.</p>
-                  <p><strong>Delivery charge</strong> {shopOrdering.shipping} <Link prefetch={false} href="/shipping-policy">Delivery & dispatch details</Link></p>
-                  <p><strong>Payment</strong> {shopOrdering.payment}</p>
+                  <p><strong>Delivery charge</strong> {checkoutEnabled ? shopOrdering.shipping : "Quoted for your parcel’s weight, dimensions and delivery details."} <Link prefetch={false} href="/shipping-policy">Delivery & dispatch details</Link></p>
+                  <p><strong>Payment</strong> {shopOrdering.payment}{!checkoutEnabled && <> <Link prefetch={false} href="/pay">UPI payment page</Link></>}</p>
                   <p><strong>Order support</strong> Report arrival damage within 7 days. Change-of-mind returns aren’t accepted. <Link prefetch={false} href="/returns-policy">Returns & damage support</Link></p>
                 </div>
               </details>
@@ -145,8 +147,8 @@ export function ProductDetailView({ product, children }: { product: Product; chi
       {children}
     </div>
     <aside className={styles.mobileBar} aria-label="Quick purchase" hidden={inlineActionsVisible || orderOpen || zoomOpen}>
-      <div><strong>{formatPrice(product.price * quantity)}</strong><span>{needsPhoto ? "Listed price" : `${quantity} ${quantity === 1 ? unit.one : unit.many} · ${deliveryFor(product.price * quantity) ? `+ ${formatPrice(shopDelivery.charge)} delivery` : "free delivery"}`}</span></div>
-      {needsPhoto || product.inStock === false ? <button type="button" className={order.primary} aria-haspopup="dialog" onClick={openOrder}>{needsPhoto ? "Request a photo" : "Ask Sneha"}</button> : <BuyNowButton productId={product.id} quantity={quantity} />}
+      <div><strong>{formatPrice(product.price * quantity)}</strong><span>{needsPhoto ? (checkoutEnabled ? "Listed price" : "Listed price · delivery extra") : `${quantity} ${quantity === 1 ? unit.one : unit.many} · ${!checkoutEnabled ? "delivery extra" : deliveryFor(product.price * quantity) ? `+ ${formatPrice(shopDelivery.charge)} delivery` : "free delivery"}`}</span></div>
+      {needsPhoto || product.inStock === false ? <button type="button" className={order.primary} aria-haspopup="dialog" onClick={openOrder}>{needsPhoto ? "Request a photo" : "Ask Sneha"}</button> : checkoutEnabled ? <BuyNowButton productId={product.id} quantity={quantity} /> : <AddToCartButton productId={product.id} productName={product.name} quantity={quantity} />}
     </aside>
     <WhatsAppOrderSheet product={product} open={orderOpen} onClose={() => setOrderOpen(false)} quantity={quantity} onQuantityChange={setQuantity} />
     <dialog ref={zoomRef} className={styles.zoom} aria-labelledby={zoomTitleId} onCancel={event => { event.preventDefault(); setZoomOpen(false); }}>

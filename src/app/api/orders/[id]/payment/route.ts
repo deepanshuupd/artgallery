@@ -1,11 +1,14 @@
 import { CartValidationError } from "@/lib/cart-quote";
 import { normaliseUpiReference } from "@/lib/checkout";
-import { submitOrderPayment, validOrderId, validProofPath } from "@/lib/orders";
+import { getCustomerOrder, submitOrderPayment, validOrderId, validProofPath } from "@/lib/orders";
+import { after } from "next/server";
+import { checkoutEnabled } from "@/data/shop-ordering";
+import { paymentAlert, sendShopAlert } from "@/lib/order-alerts";
 
 export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }) {
   const headers = {"Cache-Control":"no-store","X-Robots-Tag":"noindex"};
   const { id } = await params;
-  if (!validOrderId(id)) return Response.json({error:"This order could not be found."},{status:404,headers});
+  if (!checkoutEnabled || !validOrderId(id)) return Response.json({error:"This order could not be found."},{status:404,headers});
   try {
     const body = await request.json().catch(() => ({})) as Record<string,unknown>;
     const typed = typeof body.reference === "string" && body.reference.trim() !== "";
@@ -14,7 +17,13 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     const proof = body.proof === undefined || body.proof === "" ? "" : validProofPath(id,body.proof) ? body.proof : null;
     if (proof === null) return Response.json({error:"Your screenshot did not finish uploading. Please choose it again."},{status:400,headers});
     if (!reference && !proof) return Response.json({error:"Upload a payment screenshot or enter the UPI reference number."},{status:400,headers});
-    return Response.json({status:await submitOrderPayment(id,{reference,proof})},{headers});
+    const before = await getCustomerOrder(id);
+    const status = await submitOrderPayment(id,{reference,proof});
+    // Only the first submission for an order alerts Sneha; repeats change nothing.
+    if (before?.status === "awaiting_payment" && status === "payment_submitted") {
+      after(() => sendShopAlert(paymentAlert(before,{screenshot:Boolean(proof),reference})));
+    }
+    return Response.json({status},{headers});
   } catch (error) {
     const known = error instanceof CartValidationError;
     if (!known) console.error("Payment reference failed", error);

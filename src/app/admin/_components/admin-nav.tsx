@@ -3,10 +3,12 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { checkoutEnabled } from "@/data/shop-ordering";
 
 const navLinks = [
   { href: "/admin", label: "Dashboard" },
-  { href: "/admin/orders", label: "Orders" },
+  // Website orders exist only once checkout is switched on.
+  ...(checkoutEnabled ? [{ href: "/admin/orders", label: "Orders" }] : []),
   { href: "/admin/products", label: "Products" },
 ];
 

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { requireAdminUser } from "@/lib/admin";
+import { checkoutEnabled } from "@/data/shop-ordering";
 
 export const dynamic = "force-dynamic";
 
@@ -45,13 +46,13 @@ export default async function AdminDashboard() {
         </p>
       </div>
 
-      <Link href="/admin/orders" className={`mb-6 flex items-center justify-between rounded-xl border p-5 transition ${stats.toCheck ? "border-amber-300 bg-amber-50 hover:bg-amber-100" : "border-stone-200 bg-white hover:border-stone-300"}`}>
+      {checkoutEnabled && <Link href="/admin/orders" className={`mb-6 flex items-center justify-between rounded-xl border p-5 transition ${stats.toCheck ? "border-amber-300 bg-amber-50 hover:bg-amber-100" : "border-stone-200 bg-white hover:border-stone-300"}`}>
         <span>
           <span className="block font-medium text-stone-900">Orders</span>
           <span className="text-sm text-stone-600">{stats.toCheck ? `${stats.toCheck} ${stats.toCheck === 1 ? "payment" : "payments"} to check` : "No payments waiting to be checked"}</span>
         </span>
         <span className="text-sm text-stone-600">Open →</span>
-      </Link>
+      </Link>}
 
       {/* Stats */}
       <div className="mb-8 grid grid-cols-3 gap-4">

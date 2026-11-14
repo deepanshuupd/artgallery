@@ -7,7 +7,7 @@ import { getCustomerOrder, type CustomerOrder } from "@/lib/orders";
 import { getUpiLink, getUpiPayee } from "@/lib/payment";
 import { getUpiQrSvg } from "@/lib/payment-qr";
 import { createWhatsAppLink, formatOrderAmount } from "@/lib/whatsapp";
-import { shopOrdering } from "@/data/shop-ordering";
+import { checkoutEnabled, shopOrdering } from "@/data/shop-ordering";
 import { CopyUpiId } from "@/components/payment/copy-upi-id";
 import { PaymentReferenceForm } from "@/components/checkout/payment-reference-form";
 import styles from "@/components/checkout/checkout.module.css";
@@ -27,6 +27,7 @@ const statusText: Record<CustomerOrder["status"], { label: string; tone?: "waiti
 };
 
 export default async function OrderPage({ params }: Props) {
+  if (!checkoutEnabled) notFound();
   const { id } = await params;
   const order = await getCustomerOrder(id);
   if (!order) notFound();

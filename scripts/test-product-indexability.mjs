@@ -133,9 +133,8 @@ for (const stock of [true, false, undefined]) {
   const product = schemas.find(item => item['@type'] === 'Product');
   assert.equal(product.offers.price, 800);
   assert.equal(product.offers.priceCurrency, 'INR');
-  // ₹800 is below the free-delivery threshold, so one piece carries the ₹100 charge.
-  assert.deepEqual(product.offers.shippingDetails.shippingRate, { '@type': 'MonetaryAmount', value: 100, currency: 'INR' });
-  assert.equal(product.offers.shippingDetails.shippingDestination.addressCountry, 'IN');
+  // Checkout is off unless NEXT_PUBLIC_CHECKOUT_ENABLED=true, so no fixed delivery rate is claimed.
+  assert.equal(product.offers.shippingDetails, undefined);
   assert.equal(product.offers.availability, stock === undefined ? undefined : `https://schema.org/${stock ? 'InStock' : 'OutOfStock'}`);
   assert.ok(html.includes('MDF'), 'Specifications must be present in server HTML');
   if (stock === false) {

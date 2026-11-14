@@ -22,7 +22,7 @@ export const validOrderId = (value: unknown): value is string =>
 export async function placeOrder(request: CheckoutRequest, products: Product[]) {
   // Friendly checks first (minimums, stock). The database then prices the order itself,
   // and the order page shows its total, so a just-changed price can't be under-charged.
-  priceCheckout(request.items, products);
+  const priced = priceCheckout(request.items, products);
   const { customer } = request;
   const { data, error } = await database().rpc("place_order", {
     p_items: request.items.map(({ productId, quantity, request }) => ({ productId, quantity, request })),
@@ -32,7 +32,7 @@ export async function placeOrder(request: CheckoutRequest, products: Product[]) 
   if (error) throw orderError(error);
   const order = (data as { id: string; number: number; total: number }[] | null)?.[0];
   if (!order) throw new Error("Order was not created");
-  return { id: order.id, number: order.number, total: Number(order.total) };
+  return { id: order.id, number: order.number, total: Number(order.total), items: priced.items };
 }
 
 export type CustomerOrder = {

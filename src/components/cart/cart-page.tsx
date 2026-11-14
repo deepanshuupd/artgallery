@@ -14,7 +14,7 @@ import { OrderMessagePreview } from "@/components/products/order-message-preview
 import { commerceEvent } from "@/lib/commerce-events";
 import { UpiPaySteps } from "@/components/payment/upi-pay-steps";
 import { deliveryFor } from "@/lib/checkout";
-import { shopDelivery } from "@/data/shop-ordering";
+import { checkoutEnabled, shopDelivery } from "@/data/shop-ordering";
 
 function CartPhoto({ product }: { product: CartProduct }) {
   const [failed, setFailed] = useState(false);
@@ -53,9 +53,9 @@ export function CartPage({ catalog, catalogFailed = false, upiQr }: { catalog: C
   }
 
   return <main className={`heritage-shell ${styles.page}`}>
-    <div className={styles.intro}><p className="craft-eyebrow">Your KumaonRang collection</p><h1>A few things to bring home.</h1><p>Your cart stays on this device. Check out and pay by UPI, or send Sneha one WhatsApp enquiry first.</p></div>
+    <div className={styles.intro}><p className="craft-eyebrow">Your KumaonRang collection</p><h1>A few things to bring home.</h1><p>{checkoutEnabled ? "Your cart stays on this device. Check out and pay by UPI, or send Sneha one WhatsApp enquiry first." : "Your cart stays on this device. Review the pieces, then share one enquiry with Sneha."}</p></div>
     {!cart.ready ? <p className={styles.empty} role="status">Loading your cart…</p> : !cart.items.length ? <div className={styles.empty}>
-      <CartIcon /><h2>Your cart is waiting for a little colour.</h2><p>Browse the shop and add the pieces you love, then check out in one go.</p><Link className={styles.primary} href="/collection">Browse the shop →</Link>
+      <CartIcon /><h2>Your cart is waiting for a little colour.</h2><p>{checkoutEnabled ? "Browse the shop and add the pieces you love, then check out in one go." : "Browse the shop and add the pieces you love. You can combine products in one WhatsApp enquiry."}</p><Link className={styles.primary} href="/collection">Browse the shop →</Link>
     </div> : <div className={styles.layout}>
       <section aria-label="Products in your cart" className={styles.items}>
         <div className={styles.sectionTitle}><h2>Your chosen pieces <span>{cart.items.length}</span></h2><Link prefetch={false} href="/collection">Keep browsing →</Link></div>
@@ -77,17 +77,18 @@ export function CartPage({ catalog, catalogFailed = false, upiQr }: { catalog: C
           </article>;
         })}
       </section>
-      <aside className={styles.summary} aria-labelledby="cart-summary-title"><p className="craft-eyebrow">All your pieces</p><h2 id="cart-summary-title">Order summary</h2><dl><div><dt>Products ({cart.items.reduce((sum,line) => sum+line.quantity,0)})</dt><dd>{catalogFailed || missing ? "To be checked" : formatOrderAmount(subtotal)}</dd></div><div><dt>Delivery</dt><dd>{catalogFailed || missing ? "—" : delivery ? formatOrderAmount(delivery) : "Free"}</dd></div><div className={styles.total}><dt>Total</dt><dd>{catalogFailed || missing ? "To be checked" : formatOrderAmount(subtotal+delivery)}</dd></div></dl>
+      {!checkoutEnabled ? <aside className={styles.summary} aria-labelledby="cart-summary-title"><p className="craft-eyebrow">One enquiry, all your pieces</p><h2 id="cart-summary-title">Order summary</h2><dl><div><dt>Products</dt><dd>{cart.items.length}</dd></div><div><dt>Total quantity</dt><dd>{cart.items.reduce((sum,line) => sum+line.quantity,0)}</dd></div><div className={styles.total}><dt>Product subtotal</dt><dd>{catalogFailed || missing ? "To be checked" : formatOrderAmount(subtotal)}</dd></div><div><dt>Shipping</dt><dd>Confirmed by Sneha</dd></div></dl><p>Availability, personalisation costs, shipping and delivery timing are confirmed in your WhatsApp chat. Then pay by UPI.</p><a href="#cart-details" className={styles.summaryLink}>Add details & review ↓</a></aside>
+      : <aside className={styles.summary} aria-labelledby="cart-summary-title"><p className="craft-eyebrow">All your pieces</p><h2 id="cart-summary-title">Order summary</h2><dl><div><dt>Products ({cart.items.reduce((sum,line) => sum+line.quantity,0)})</dt><dd>{catalogFailed || missing ? "To be checked" : formatOrderAmount(subtotal)}</dd></div><div><dt>Delivery</dt><dd>{catalogFailed || missing ? "—" : delivery ? formatOrderAmount(delivery) : "Free"}</dd></div><div className={styles.total}><dt>Total</dt><dd>{catalogFailed || missing ? "To be checked" : formatOrderAmount(subtotal+delivery)}</dd></div></dl>
         {canCheckout ? <Link prefetch={false} href="/checkout" className={`${styles.primary} ${styles.checkoutLink}`}>Checkout →</Link> : <p className={styles.stock}>{outOfStock ? "Remove out-of-stock pieces to check out, or ask Sneha about them on WhatsApp below." : belowMinimum ? "Update quantities to the minimum order to check out." : "Update your cart to check out."}</p>}
-        <p>{delivery && !catalogFailed && !missing ? `Delivery is free from ${formatOrderAmount(shopDelivery.freeFrom)}. ` : ""}Pay by UPI at checkout with any UPI app.</p><a href="#cart-details" className={styles.summaryLink}>Prefer to ask Sneha first? ↓</a></aside>
+        <p>{delivery && !catalogFailed && !missing ? `Delivery is free from ${formatOrderAmount(shopDelivery.freeFrom)}. ` : ""}Pay by UPI at checkout with any UPI app.</p><a href="#cart-details" className={styles.summaryLink}>Prefer to ask Sneha first? ↓</a></aside>}
       <form className={styles.checkout} onSubmit={prepare} id="cart-details">
-        <p className="craft-eyebrow">WhatsApp enquiry</p><h2>Prefer to ask Sneha first?</h2>
+        {checkoutEnabled ? <><p className="craft-eyebrow">WhatsApp enquiry</p><h2>Prefer to ask Sneha first?</h2></> : <><p className="craft-eyebrow">The finishing details</p><h2>Where shall these go?</h2></>}
         <div className={styles.fields}><label>Delivery PIN code <span>Optional</span><input type="text" inputMode="numeric" autoComplete="postal-code" pattern="[0-9]{6}" maxLength={6} placeholder="6-digit PIN code" value={details.deliveryPincode} onChange={event => changeDetail("deliveryPincode",event.currentTarget.value.replace(/\D/g,""))} /></label><label>Occasion date <span>Optional</span><input type="date" value={details.occasionDate} onInput={event => changeDetail("occasionDate",event.currentTarget.value)} onChange={event => changeDetail("occasionDate",event.currentTarget.value)} /></label></div>
         <label className={styles.orderNotes}>Anything else for this order? <span>Optional</span><textarea rows={3} maxLength={600} placeholder="A gift note, packaging preference or delivery question…" value={details.request} onChange={event => changeDetail("request",event.currentTarget.value)} /></label>
         {error && <div role="alert" className={styles.error}><p>{error}</p><button type="button" onClick={() => router.refresh()}>Refresh product details</button></div>}
         {missing && !catalogFailed && <p className={styles.error}>Remove the products that are no longer listed before continuing.</p>}
-        <p className={styles.help}>For custom work, bulk quantities or questions before you buy. We’ll check the current catalogue before preparing your message; this enquiry does not place an order.</p>
-        <button type="submit" className={styles.secondaryButton} disabled={busy || missing || catalogFailed}>{busy ? "Checking your pieces…" : "Review my WhatsApp enquiry →"}</button>
+        <p className={styles.help}>{checkoutEnabled ? "For custom work, bulk quantities or questions before you buy. We’ll check the current catalogue before preparing your message; this enquiry does not place an order." : "We’ll check the current catalogue before preparing your message. Shipping is quoted separately; this enquiry does not confirm an order."}</p>
+        <button type="submit" className={checkoutEnabled ? styles.secondaryButton : styles.primary} disabled={busy || missing || catalogFailed}>{busy ? "Checking your pieces…" : checkoutEnabled ? "Review my WhatsApp enquiry →" : "Review my order enquiry →"}</button>
       </form>
       {quote && <section className={styles.review} aria-labelledby="cart-review-title"><p className="craft-eyebrow">Ready for Sneha</p><h2 id="cart-review-title" ref={reviewRef} tabIndex={-1}>Your enquiry, all together.</h2><p>Current product subtotal: <strong>{formatOrderAmount(quote.subtotal)}</strong>. Check the message below, then send it in WhatsApp.</p><OrderMessagePreview message={quote.message} defaultOpen /><a className={styles.primary} href={quote.url} target="_blank" rel="noopener noreferrer" onClick={() => commerceEvent("whatsapp_handoff", "cart")}><WhatsAppIcon />Continue to WhatsApp</a><p className={styles.help}>Nothing is sent automatically. Your cart stays saved; Sneha confirms the final total and delivery in the chat.</p><UpiPaySteps qrSvg={upiQr} /></section>}
     </div>}
