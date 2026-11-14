@@ -46,6 +46,7 @@
 .purchaseHeading { margin: 0; font: 600 15px/1.4 var(--font-body),sans-serif; }
 .deliverySummary { margin-top: 12px; color: #526963; font-size: 12px; line-height: 1.6; }
 .buyingActions { display: grid; gap: 10px; margin-top: 16px; }
+.buyPair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: start; }
 .fulfilmentDetails { margin-top: 14px; border-top: 1px solid #cbd7d7; }
 .fulfilmentDetails summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 48px; padding-block: 10px; color: #28564f; font-size: 12px; font-weight: 600; cursor: pointer; list-style: none; }
 .fulfilmentDetails summary::-webkit-details-marker { display: none; }

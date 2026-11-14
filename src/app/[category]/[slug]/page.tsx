@@ -16,6 +16,7 @@ import { selectRelatedProducts } from "@/lib/related-products";
 import { getProductGiftContext } from "@/lib/gift-contexts";
 import forest from "@/components/products/forest-storefront.module.css";
 import guideStyles from "@/components/products/collection-guide.module.css";
+import { deliveryFor } from "@/lib/checkout";
 
 export const dynamic = "force-dynamic";
 
@@ -69,7 +70,10 @@ export default async function ProductDetailsPage(props: ProductDetailsPageProps)
       brand: { "@type": "Brand", name: "KumaonRang" },
       offers: { "@type": "Offer", url, priceCurrency: "INR", price: product.price,
         itemCondition: "https://schema.org/NewCondition",
-        // No shippingDetails: delivery is quoted per parcel, so there is no fixed rate to state.
+        // Delivery for one of this piece, by the shop's rule (shopDelivery); no transit time is promised.
+        shippingDetails: { "@type": "OfferShippingDetails",
+          shippingRate: { "@type": "MonetaryAmount", value: deliveryFor(product.price), currency: "INR" },
+          shippingDestination: { "@type": "DefinedRegion", addressCountry: "IN" } },
         hasMerchantReturnPolicy: returnPolicySchema(),
         ...(typeof product.inStock === "boolean" ? { availability: product.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock" } : {}),
         seller: { "@type": "Organization", "@id": `${getSiteUrl()}#business`, name: "KumaonRang" } },

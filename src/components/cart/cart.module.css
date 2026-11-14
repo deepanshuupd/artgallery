@@ -46,6 +46,9 @@
 .help { margin-top: 16px; font-size: 11px; line-height: 1.8; color: #626d5f; }
 .primary { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 50px; margin-top: 20px; padding: 13px 20px; border: 1px solid #244d40; border-radius: 4px; background: #244d40; color: #fff8e9; font-size: 13px; font-weight: 600; line-height: 1.6; cursor: pointer; }
 .primary:hover { background: #183c30; }
+.checkoutLink { width: 100%; font-size: 14px; }
+.secondaryButton { display: inline-flex; align-items: center; justify-content: center; width: 100%; min-height: 50px; margin-top: 20px; padding: 13px 20px; border: 1px solid #244d40; border-radius: 4px; background: transparent; color: #244d40; font-size: 13px; font-weight: 600; line-height: 1.6; cursor: pointer; }
+.secondaryButton:disabled { opacity: .55; cursor: default; }
 .primary:disabled { opacity: .55; cursor: default; }
 .primary svg { width: 21px; height: 21px; }
 .checkout .primary, .review .primary { width: 100%; }

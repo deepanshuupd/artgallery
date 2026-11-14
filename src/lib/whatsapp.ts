@@ -80,6 +80,11 @@ export function createWhatsAppLink(message: string): string {
   const number = getWhatsAppBusinessNumber();
   return `https://wa.me/${number ? number : ""}?text=${encodeURIComponent(message)}`;
 }
+
+/** A chat with a customer's number (country code included, digits only), for the admin. */
+export function createWhatsAppLinkTo(number: string, message: string): string {
+  return `https://wa.me/${number.replace(/\D/g, "")}?text=${encodeURIComponent(message)}`;
+}
 export function generateProductOrderMessage(product: Product, customizationInterest?: string, quantity = 1, deliveryPincode?: string, occasionDate?: string): string {
   return generateOrderMessage({productName:product.name,category:product.category,price:product.price,quantity,inStock:product.inStock,customizationInterest,deliveryPincode,occasionDate,facts:productOrderFacts(product),productUrl:`${getSiteUrl()}${getProductPath(product)}`});
 }

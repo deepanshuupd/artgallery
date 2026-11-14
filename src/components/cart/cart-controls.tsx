@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useCart, useCartActions } from "./cart-provider";
 import styles from "./cart-controls.module.css";
@@ -25,5 +26,25 @@ export function AddToCartButton({ productId, productName, quantity = 1, unavaila
       catch (cause) { setStatus(cause instanceof Error ? cause.message : "Could not add this item."); setError(true); }
     }}><CartIcon />{unavailable ? "Out of stock" : "Add to cart"}</button>
     {status && <p className={styles.addStatus} role={error ? "alert" : "status"}>{status} {!error && <Link prefetch={false} href="/cart">View cart →</Link>}</p>}
+  </div>;
+}
+
+/** Puts this piece in the cart (keeping anything already there) and goes straight to checkout. */
+export function BuyNowButton({ productId, quantity = 1 }: { productId: string; quantity?: number }) {
+  const cart = useCart();
+  const router = useRouter();
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  return <div className={styles.addControl}>
+    <button type="button" className={styles.buyButton} disabled={busy} onClick={() => {
+      try {
+        const existing = cart.items.find(line => line.productId === productId);
+        if (existing) { if (existing.quantity < quantity) cart.quantity(productId,quantity); }
+        else cart.add(productId,quantity);
+        setBusy(true);
+        router.push("/checkout");
+      } catch (cause) { setError(cause instanceof Error ? cause.message : "Could not start checkout."); }
+    }}>{busy ? "Opening checkout…" : "Buy now"}</button>
+    {error && <p className={styles.addStatus} role="alert">{error}</p>}
   </div>;
 }

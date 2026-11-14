@@ -7,6 +7,9 @@
 .addButton > svg { width: 20px; height: 20px; flex-shrink: 0; }
 .addButton:hover { background: #1c443b; }
 .addButton:disabled { background: #e8e5dc; border-color: #d9d4c7; color: #777366; cursor: default; }
+.buyButton { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 50px; padding: 11px 14px; border: 1px solid #a84530; border-radius: 6px; background: #a84530; color: #fffaf1; font-size: 14px; font-weight: 600; cursor: pointer; }
+.buyButton:hover { background: #8f3926; }
+.buyButton:disabled { opacity: .7; cursor: default; }
 .addStatus { margin-top: 8px; color: #28564f; font-size: 11px; line-height: 1.7; }
 .addStatus a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: underline; text-underline-offset: 4px; }
 .compact { margin-top: 5px; }
@@ -14,4 +17,5 @@
 .compact .addButton:hover { background: #e7eddf; }
 .compact .addButton:disabled { color: #777366; }
 .cartLink:focus-visible, .addControl :where(button,a):focus-visible { outline: 2px solid #a84530; outline-offset: 3px; }
+.addControl .buyButton:focus-visible { outline-color: #244d40; }
 @media (max-width: 360px) { .cartLink { padding-inline: 2px; gap: 4px; } }

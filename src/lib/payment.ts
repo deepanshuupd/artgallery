@@ -14,8 +14,9 @@ export function parseUpiAmount(value: string | string[] | undefined) {
   return amount >= 1 && amount <= 100000 ? amount : undefined;
 }
 
-export function getUpiLink(payee: { id: string; name: string }, amount?: number) {
-  const params = new URLSearchParams({ pa: payee.id, pn: payee.name, cu: "INR", tn: `${brand.name} order` });
+/** A UPI payment link; the note (e.g. an order number) shows in the payer's and payee's app. */
+export function getUpiLink(payee: { id: string; name: string }, amount?: number, note = `${brand.name} order`) {
+  const params = new URLSearchParams({ pa: payee.id, pn: payee.name, cu: "INR", tn: note });
   if (amount) params.set("am", amount.toFixed(2));
   // Some UPI apps only read the ID with a literal "@".
   return `upi://pay?${params.toString().replace(/\+/g, "%20").replace(/%40/g, "@")}`;

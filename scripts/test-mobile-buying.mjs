@@ -32,10 +32,11 @@ function load(react = React, observer) {
     './quantity-control': { QuantityControl: ({ value, minimum }) => element('input', { 'aria-label': 'Quantity', value, min: minimum, readOnly: true }) },
     './use-product-dialog': { useProductDialog: () => ({ current: null }) },
     './product-story': { ProductStory: () => null },
-    '@/data/shop-ordering': { shopOrdering: { dispatch: 'If your requested quantity is in stock, dispatch takes 2–3 days.' } },
+    '@/data/shop-ordering': { shopOrdering: { dispatch: 'If your requested quantity is in stock, dispatch takes 2–3 days.', shipping: 'Delivery is ₹100 on orders below ₹1,799.', payment: 'Pay by UPI at checkout.' }, shopDelivery: { charge: 100, freeFrom: 1799 } },
+    '@/lib/checkout': { deliveryFor: subtotal => subtotal >= 1799 ? 0 : 100 },
     '@/lib/product-highlights': { getMinimumPieceQuantity: p => p.minimum ?? 1, getProductHighlights: () => [{ label: 'Material', value: 'MDF' }] },
     './inspectable-product-photo': { InspectableProductPhoto: () => null },
-    '@/components/cart/cart-controls': { AddToCartButton: ({ unavailable, quantity }) => element('button', { disabled: unavailable, 'data-quantity': quantity }, 'Add to cart') },
+    '@/components/cart/cart-controls': { AddToCartButton: ({ unavailable, quantity }) => element('button', { disabled: unavailable, 'data-quantity': quantity }, 'Add to cart'), BuyNowButton: ({ quantity }) => element('button', { 'data-quantity': quantity }, 'Buy now') },
   };
   const localRequire = name => name.endsWith('.module.css')
     ? { __esModule: true, default: new Proxy({}, { get: (_, key) => String(key) }) }
@@ -46,11 +47,13 @@ function load(react = React, observer) {
 const View = load();
 const render = overrides => renderToStaticMarkup(element(View, { product: { ...product, ...overrides } }));
 
-test('quick purchase is available in initial HTML, with subtotal and delivery caveat', () => {
+test('quick purchase is available in initial HTML, with subtotal and the delivery charge', () => {
   const html = render();
   assert.match(html, /<aside class="mobileBar" aria-label="Quick purchase">/);
   assert.match(html, /INR 1400/);
-  assert.match(html, /1 item · delivery extra/);
+  assert.match(html, /1 item · \+ INR 100 delivery/);
+  assert.match(html, /<button data-quantity="1">Buy now<\/button><\/aside>/);
+  assert.match(html, /Delivery INR 100 · free on orders from INR 1799/);
   assert.doesNotMatch(html, /<aside[^>]*hidden/);
 });
 test('concise factual highlights precede buying, while fulfilment remains expandable', () => {
@@ -67,7 +70,8 @@ test('concise factual highlights precede buying, while fulfilment remains expand
 test('quick purchase respects minimum quantities and out-of-stock enquiries', () => {
   const html = render({ minimum: 10 });
   assert.match(html, /INR 14000/);
-  assert.match(html, /10 items · delivery extra/);
+  assert.match(html, /10 items · free delivery/);
+  assert.match(html, /Free delivery on this order/);
   assert.match(html, /data-quantity="10"/);
   const out = render({ inStock: false });
   assert.match(out, /<button disabled="" data-quantity="1">Add to cart/);
@@ -80,10 +84,11 @@ test('an unphotographed piece offers a photo enquiry before a purchase', () => {
   assert.match(html, /Request a photo/);
   assert.match(html, /current photo and dimensions/);
   assert.doesNotMatch(html, /Add to cart|Photo coming soon|aria-label="Quantity"/);
-  assert.match(html, /Listed price · delivery extra/);
+  assert.match(html, /<span>Listed price<\/span>/);
+  assert.doesNotMatch(html, /Buy now/);
 });
 test('the mobile subtotal identifies a ready-made hamper rather than an individual piece', () => {
-  assert.match(render({ category: 'Curated Hampers' }), /1 hamper · delivery extra/);
+  assert.match(render({ category: 'Curated Hampers' }), /1 hamper · \+ INR 100 delivery/);
 });
 test('one observer hides only the duplicate bar and disconnects on unmount', () => {
   const effects = [], updates = [];

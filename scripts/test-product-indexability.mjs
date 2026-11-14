@@ -23,7 +23,7 @@ function load(file) {
   modules.set(path, loadedModule);
   const localRequire = name => {
     if (name === '@/lib/products') return { getProducts: async () => catalog };
-    if (name === 'next/navigation') return { notFound: () => { throw new Error('NOT_FOUND'); } };
+    if (name === 'next/navigation') return { notFound: () => { throw new Error('NOT_FOUND'); }, useRouter: () => ({ push() {}, refresh() {} }) };
     if (name === 'next/link') return function MockLink({ children, prefetch, ...props }) { return React.createElement('a', props, children); };
     if (name === 'next/image') return function MockImage({ fill, priority, ...props }) { return React.createElement('img', props); };
     if (name.endsWith('.module.css')) return new Proxy({}, { get: (_, key) => String(key) });
@@ -133,6 +133,9 @@ for (const stock of [true, false, undefined]) {
   const product = schemas.find(item => item['@type'] === 'Product');
   assert.equal(product.offers.price, 800);
   assert.equal(product.offers.priceCurrency, 'INR');
+  // ₹800 is below the free-delivery threshold, so one piece carries the ₹100 charge.
+  assert.deepEqual(product.offers.shippingDetails.shippingRate, { '@type': 'MonetaryAmount', value: 100, currency: 'INR' });
+  assert.equal(product.offers.shippingDetails.shippingDestination.addressCountry, 'IN');
   assert.equal(product.offers.availability, stock === undefined ? undefined : `https://schema.org/${stock ? 'InStock' : 'OutOfStock'}`);
   assert.ok(html.includes('MDF'), 'Specifications must be present in server HTML');
   if (stock === false) {
