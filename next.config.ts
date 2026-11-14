@@ -8,6 +8,17 @@ const nextConfig: NextConfig = {
   outputFileTracingRoot: path.join(__dirname),
   // Keep descriptions and social metadata in <head>, including for audits.
   htmlLimitedBots: /.*/,
+  async redirects() {
+    // The project's public vercel.app address served a full copy of the shop that search
+    // engines were indexing; send it, path and all, to the real domain. Preview and team
+    // addresses are left alone so deployments can still be checked before release.
+    return [{
+      source: "/:path*",
+      has: [{ type: "host", value: "artgallery-cyan.vercel.app" }],
+      destination: "https://www.kumaonrang.com/:path*",
+      permanent: true,
+    }];
+  },
   async headers() {
     // Versioned, pre-compressed decoration is served directly by the CDN.
     const immutable = [
